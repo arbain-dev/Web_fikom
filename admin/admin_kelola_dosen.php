@@ -1,0 +1,313 @@
+<?php
+require_once '../database/db_connect.php'; 
+session_start();
+
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
+$upload_dir = '../uploads/dosen/';
+$pesan_sukses = "";
+$pesan_error = "";
+$action_mode = "";
+
+// 2. LOGIKA CREATE / EDIT (POST)
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $dosen_id = intval($_POST['dosen_id'] ?? 0);
+    $foto_lama = $_POST['foto_lama'] ?? null;
+    
+    // Ambil data form
+    $nidn = $conn->real_escape_string($_POST['nidn'] ?? '');
+    $nama = $conn->real_escape_string($_POST['nama']);
+    $prodi = $conn->real_escape_string($_POST['program_studi']);
+    $pendidikan = $conn->real_escape_string($_POST['pendidikan']);
+    $jabatan = $conn->real_escape_string($_POST['jabatan'] ?? '');
+    $status = $conn->real_escape_string($_POST['status']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $keahlian = $conn->real_escape_string($_POST['keahlian'] ?? '');
+    $foto_file = $foto_lama; 
+
+    // Validasi Sederhana
+    if (empty($nama) || empty($email) || empty($prodi) || empty($pendidikan) || empty($status)) {
+         $pesan_error = "Semua field bertanda * harus diisi.";
+         $action_mode = $action;
+    }
+
+    // Upload Foto
+    if (empty($pesan_error) && isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+        $fileExt = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
+        if (in_array($fileExt, ['jpg', 'jpeg', 'png', 'webp']) && $_FILES['foto']['size'] <= 2000000) {
+            $newFileName = time() . '-' . uniqid() . '.' . $fileExt;
+            if(move_uploaded_file($_FILES['foto']['tmp_name'], $upload_dir . $newFileName)) {
+                $foto_file = $newFileName;
+                if ($action === 'edit_dosen' && !empty($foto_lama) && file_exists($upload_dir . $foto_lama)) {
+                    @unlink($upload_dir . $foto_lama);
+                }
+            }
+        } else {
+            $pesan_error = "Foto tidak valid (Max 2MB, JPG/PNG/WEBP).";
+        }
+    }
+    
+    // Eksekusi Database
+    if (empty($pesan_error)) {
+        if ($action === 'tambah_dosen') {
+            $stmt = $conn->prepare("INSERT INTO dosen (nidn, nama, program_studi, keahlian, pendidikan, jabatan, status, email, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssss", $nidn, $nama, $prodi, $keahlian, $pendidikan, $jabatan, $status, $email, $foto_file);
+        } elseif ($action === 'edit_dosen' && $dosen_id > 0) {
+            $stmt = $conn->prepare("UPDATE dosen SET nidn=?, nama=?, program_studi=?, keahlian=?, pendidikan=?, jabatan=?, status=?, email=?, foto=? WHERE id=?");
+            $stmt->bind_param("sssssssssi", $nidn, $nama, $prodi, $keahlian, $pendidikan, $jabatan, $status, $email, $foto_file, $dosen_id);
+        }
+
+        if (isset($stmt) && $stmt->execute()) {
+            $status_msg = ($action == 'tambah_dosen') ? 'tambah_sukses' : 'edit_sukses';
+            header("Location: admin_kelola_dosen.php?status=" . $status_msg);
+            exit;
+        } else {
+            $pesan_error = "Gagal memproses database.";
+        }
+    }
+}
+
+// 3. LOGIKA DELETE (Menghapus Data Dosen)
+if (isset($_GET['hapus'])) {
+    $id_hapus = (int) $_GET['hapus'];
+
+    $stmt = $conn->prepare("SELECT foto FROM dosen WHERE id = ?");
+    $stmt->bind_param("i", $id_hapus);
+    $stmt->execute();
+    $stmt->bind_result($foto);
+    $stmt->fetch();
+    $stmt->close();
+    if (!empty($foto) && file_exists($upload_dir . $foto)) {
+        @unlink($upload_dir . $foto);
+    }
+    $stmt = $conn->prepare("DELETE FROM dosen WHERE id = ?");
+    $stmt->bind_param("i", $id_hapus);
+    $stmt->execute();
+    $stmt->close();
+
+    $pesan_sukses = "Dosen berhasil dihapus.";
+    header("Location: admin_kelola_dosen.php?status=hapus_sukses");
+    exit;
+}
+
+// 4. LOGIKA READ (Mengambil Data untuk Tabel & Statistik)
+$dosen_list = [];
+$filter_prodi = $_GET['filter_prodi'] ?? ''; 
+$sql_dosen = "SELECT * FROM dosen";
+
+if (!empty($filter_prodi)) {
+    $safe_prodi = $conn->real_escape_string($filter_prodi);
+    $sql_dosen .= " WHERE program_studi = '$safe_prodi'"; 
+}
+$sql_dosen .= " ORDER BY nama ASC";
+
+$result_dosen = $conn->query($sql_dosen);
+if ($result_dosen) {
+    while($row = $result_dosen->fetch_assoc()) { $dosen_list[] = $row; }
+}
+
+$total_dosen = $conn->query("SELECT COUNT(id) as total FROM dosen")->fetch_assoc()['total'] ?? 0;
+$dosen_tetap = $conn->query("SELECT COUNT(id) as total FROM dosen WHERE status = 'Tetap'")->fetch_assoc()['total'] ?? 0;
+$dosen_s3 = $conn->query("SELECT COUNT(id) as total FROM dosen WHERE pendidikan = 'S3'")->fetch_assoc()['total'] ?? 0;
+$dosen_s2 = $conn->query("SELECT COUNT(id) as total FROM dosen WHERE pendidikan = 'S2'")->fetch_assoc()['total'] ?? 0;
+
+$dosen_data_json = json_encode($dosen_list);
+
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'tambah_sukses') $pesan_sukses = "Data dosen berhasil ditambahkan!";
+    elseif ($_GET['status'] == 'edit_sukses') $pesan_sukses = "Data dosen berhasil diupdate!";
+    elseif ($_GET['status'] == 'hapus_sukses') $pesan_sukses = "Data dosen berhasil dihapus!";
+}
+
+include 'includes/admin_header.php'; 
+?>
+<main class="content-area">
+    <div class="breadcrumbs">
+        <a href="dashboard.php">Admin</a> &gt; <span>Dosen</span>
+    </div>
+    
+    <div class="page-header">
+        <h1>Kelola Data Dosen</h1>
+        <button type="button" class="btn-tambah" onclick="openAddDosenModal()">
+            <i class="fas fa-plus"></i> Tambah Dosen
+        </button>
+    </div>
+
+    <?php if ($pesan_sukses): ?><div class="message success"><?= $pesan_sukses ?></div><?php endif; ?>
+    <?php if ($pesan_error): ?><div class="message error"><?= $pesan_error ?></div><?php endif; ?>
+
+    <div class="stat-cards-dosen">
+        <div class="stat-card">
+            <div class="info"><h3><?= $total_dosen ?></h3><p>Total Dosen</p></div>
+            <div class="icon blue"><i class="fas fa-users"></i></div> 
+        </div>
+        <div class="stat-card">
+            <div class="info"><h3><?= $dosen_tetap ?></h3><p>Dosen Tetap</p></div>
+            <div class="icon green"><i class="fas fa-user-check"></i></div>
+        </div>
+        <div class="stat-card">
+            <div class="info"><h3><?= $dosen_s3 ?></h3><p>Doktor (S3)</p></div>
+            <div class="icon yellow"><i class="fas fa-graduation-cap"></i></div> 
+        </div>
+        <div class="stat-card">
+             <div class="info"><h3><?= $dosen_s2 ?></h3><p>Magister (S2)</p></div>
+             <div class="icon red"><i class="fas fa-user-tie"></i></div>
+        </div>
+    </div>
+
+    <div class="content-box">
+        <div class="box-header">
+            <h4>Daftar Dosen</h4>
+            <form action="" method="GET" class="filter-bar">
+                <select name="filter_prodi">
+                    <option value="">— Semua Prodi —</option>
+                    <option value="Informatika" <?= $filter_prodi == 'Informatika' ? 'selected' : '' ?>>Informatika</option>
+                    <option value="Pendidikan Teknologi Informasi" <?= $filter_prodi == 'Pendidikan Teknologi Informasi' ? 'selected' : '' ?>>Pendidikan Teknologi Informasi</option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>No</th><th>Foto</th><th>Nama</th><th>NIDN</th><th>Prodi</th><th>Status</th><th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (count($dosen_list) > 0): ?>
+                    <?php foreach ($dosen_list as $i => $dosen): ?>
+                    <tr>
+                        <td data-label="No"><?= $i+1 ?></td>
+                        <td data-label="Foto">
+                            <?php $img = !empty($dosen['foto']) ? $dosen['foto'] : 'default-avatar.png'; ?>
+                            <img src="../uploads/dosen/<?= $img ?>" class="table-img" alt="Foto">
+                        </td>
+                        <td data-label="Nama">
+                            <strong><?= htmlspecialchars($dosen['nama']) ?></strong><br>
+                            <small><?= htmlspecialchars($dosen['pendidikan']) ?></small>
+                        </td>
+                        <td data-label="NIDN"><?= htmlspecialchars($dosen['nidn']) ?></td>
+                        <td data-label="Prodi"><?= htmlspecialchars($dosen['program_studi']) ?></td>
+                        <td data-label="Status">
+                            <span class="badge <?= strtolower($dosen['status']) == 'tetap' ? 'tetap' : 'kontrak' ?>">
+                                <?= htmlspecialchars($dosen['status']) ?>
+                            </span>
+                        </td>
+                        <td data-label="Aksi" class="action-links">
+                            <a href="#" class="edit" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="delete" onclick="return confirm('Yakin hapus?');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="7" style="text-align:center;">Tidak ada data.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<div id="dosenModal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Tambah Dosen</h2>
+            <span class="close-btn" onclick="closeModal('dosenModal')">&times;</span>
+        </div>
+        <form id="dosenForm" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+                <input type="hidden" name="action" id="formAction" value="tambah_dosen">
+                <input type="hidden" name="dosen_id" id="dosenId" value="0">
+                <input type="hidden" name="foto_lama" id="fotoLama" value="">
+                
+                <div class="input-box">
+                    <label>Nama Lengkap *</label>
+                    <input type="text" name="nama" id="nama" required>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-box">
+                        <label>NIDN/NIP</label>
+                        <input type="text" name="nidn" id="nidn">
+                    </div>
+                    <div class="input-box">
+                        <label>Email *</label>
+                        <input type="email" name="email" id="email" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-box">
+                        <label>Program Studi *</label>
+                        <select name="program_studi" id="program_studi" required>
+                            <option value="">-- Pilih --</option>
+                            <option value="Informatika">Informatika</option>
+                            <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label>Status *</label>
+                        <select name="status" id="status" required>
+                            <option value="Tetap">Tetap</option>
+                            <option value="Kontrak">Kontrak</option>
+                            <option value="Tidak Tetap">Tidak Tetap</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-box">
+                        <label>Pendidikan *</label>
+                        <select name="pendidikan" id="pendidikan" required>
+                            <option value="S3">S3 (Doktor)</option>
+                            <option value="S2">S2 (Magister)</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label>Jabatan</label>
+                        <select name="jabatan" id="jabatan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Asisten Ahli">Asisten Ahli</option>
+                            <option value="Lektor">Lektor</option>
+                            <option value="Dekan">Dekan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label>Keahlian</label>
+                    <input type="text" name="keahlian" id="keahlian">
+                </div>
+
+                <div class="input-box">
+                    <label>Foto (Max 2MB)</label>
+                    <input type="file" name="foto" accept="image/*">
+                    <div id="previewFotoBox" class="file-preview-box" style="display:none;">
+                        <img id="imgPreview" src="">
+                        <small>Foto saat ini</small>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <button type="button" class="btn-tutup" onclick="modalHide('dosenModal')">Tutup</button>
+                    <button type="submit" class="btn-simpan">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+window.dosenData = <?= json_encode($dosen_list, JSON_UNESCAPED_UNICODE) ?>;
+window.dosenErrorOpen = <?= !empty($pesan_error) ? 'true' : 'false' ?>;
+</script>
+
+<script src="../assets/js/admin_global.js"></script>

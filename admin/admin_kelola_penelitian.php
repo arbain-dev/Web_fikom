@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit;
@@ -226,7 +226,6 @@ if (isset($_GET['status'])) {
 include 'includes/admin_header.php';
 ?>
 
-<main class="content-area">
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> &gt; <span>Kelola Penelitian</span>
     </div>
@@ -336,7 +335,7 @@ include 'includes/admin_header.php';
 
 
     </div>
-</main>
+
 <!-- ======================== MODAL TAMBAH / EDIT ======================== -->
 <div class="modal-penelitian-overlay" id="modalPenelitianOverlay">
     <div class="modal-penelitian">
@@ -477,4 +476,4 @@ include 'includes/admin_header.php';
         </form>
     </div>
 </div>
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

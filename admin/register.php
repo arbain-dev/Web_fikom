@@ -1,118 +1,110 @@
-<?php
-// File: register.php (BARU - DENGAN PILIHAN ROLE)
-// LOKASI: C:\xampp\htdocs\web_fikom\register.php
+// Enable error reporting
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-// Panggil file koneksi (asumsi ada di folder 'database')
-require '../database/db_connect.php'; 
+require_once '../config/database.php';
+require_once '../config/constants.php';
+
 $message = '';
-$message_type = '';       
+$message_type = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // $nama_lengkap = $_POST['nama_lengkap'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $role = $_POST['role']; // <-- Input ROLE BARU dari dropdown
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Validasi role (biar aman)
-    $allowed_roles = ['admin', 'prodi_ti', 'prodi_pti', ];
-    if (!in_array($role, $allowed_roles)) {
+    $username = trim($_POST['username'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if ($username === '' || $email === '' || $password === '') {
         $message_type = "error";
-        $message = "Error: Role tidak valid!";
+        $message = "Semua field wajib diisi!";
     } else {
-        // Enkripsi password
+
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Query SQL di-update untuk memasukkan ROLE
-        $stmt = $conn->prepare("INSERT INTO users ( username, email, password, role) VALUES ( ?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $username, $email, $hashed_password, $role);
+        $stmt = $conn->prepare(
+            "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
+        );
+
+        if (!$stmt) {
+            die("Query error: " . $conn->error);
+        }
+
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
 
         if ($stmt->execute()) {
             $message_type = "success";
-            $message = "Pendaftaran user '{$username}' (sebagai {$role}) berhasil! Silakan <a href='login.php'>login</a>.";
+            $message = "Akun admin berhasil dibuat. Silakan login.";
         } else {
             $message_type = "error";
-            if ($conn->errno == 1062) {
-                $message = "Error: Username atau Email sudah dipakai!";
-            } else {
-                $message = "Error: " . $stmt->error;
-            }
+            $message = ($conn->errno == 1062)
+                ? "Username atau Email sudah digunakan!"
+                : $stmt->error;
         }
+
         $stmt->close();
-        $conn->close();        
+        $conn->close();
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun Baru</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* (CSS-nya masih sama persis) */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        /* Pastikan path background image benar (../img/a1.png jika file ini di /admin) */
-        /* Jika file ini di /web_fikom/, pathnya 'img/a1.png' */
-        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: url('../img/a1.png') no-repeat; background-size: cover; background-position: center; }
-        .wrapper { width: 400px; background: #fff; border-radius: 12px; padding: 30px 40px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
-        .wrapper h1 { font-size: 32px; text-align: center; margin-bottom: 25px; color: #333; }
-        .input-box { width: 100%; margin-bottom: 20px; }
-        .input-box label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; }
-        /* Style untuk <select> disamakan dengan <input> */
-        .input-box input, .input-box select { 
-            width: 100%; height: 50px; background: #f7f7f7; 
-            border: 1px solid #ddd; outline: none; border-radius: 8px; 
-            font-size: 16px; color: #333; padding: 0 20px; 
-        }
-        .input-box input:focus, .input-box select:focus { border-color: #9D2235; }
-        .btn { width: 100%; height: 50px; background: #9D2235; border: none; outline: none; border-radius: 8px; cursor: pointer; font-size: 16px; color: #fff; font-weight: 600; }
-        .login-link { font-size: 14px; text-align: center; margin-top: 25px; color: #555; }
-        .login-link a { color: #9D2235; text-decoration: none; font-weight: 600; }
-        .message { margin-bottom: 15px; padding: 10px; border-radius: 8px; text-align: center; font-size: 0.9rem; }
-        .message.success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; }
-        .message.error { color: #c62828; background-color: #ffebee; border: 1px solid #ef9a9a; }
-    </style>
+<meta charset="UTF-8">
+<title>Register Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css?v=<?= time() ?>">
 </head>
-<body>
-    <div class="wrapper">
-        <form action="register.php" method="POST">
-            <h1>Daftar Akun</h1>
-            
-            <?php if (!empty($message)): ?>
-                <div class="message <?= $message_type ?>"><?= $message ?></div>
-            <?php endif; ?>
+<body class="auth-body">
 
-            <div class="input-box">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username"  required>
-            </div>
-            
-            <div class="input-box">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="input-box">
-                <label for="role">Daftar sebagai:</label>
-                <select name="role" id="role" required>
-                    <option value="admin">Admin Utama</option>
-                    <option value="prodi_ti">Admin Prodi TI</option>
-                    <option value="prodi_pti">Admin Prodi PTI</option>
-                </select>
-            </div>
-            <div class="input-box">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <button type="submit" class="btn">Daftar</button>
-
-            <div class="login-link">
-                <p>Sudah punya akun? <a href="login.php">Masuk di sini</a></p>
-            </div>
-        </form>
+<div class="glass-box animate-fadeInUp">
+    <div class="auth-header">
+        <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo FIKOM" style="width: 80px; display: block; margin: 0 auto 20px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
+        <h2>Register Admin</h2>
+        <p>Buat akun baru untuk akses admin</p>
     </div>
+
+    <?php if ($message): ?>
+        <div class="message-box <?= $message_type ?>">
+            <?php if ($message_type === 'success'): ?>
+                <i class="fas fa-check-circle"></i>
+            <?php else: ?>
+                <i class="fas fa-exclamation-circle"></i>
+            <?php endif; ?>
+            <span><?= $message ?></span>
+            
+            <?php if ($message_type === 'success'): ?>
+                <br><br>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" class="auth-form">
+        <div class="input-group">
+            <input type="text" name="username" class="auth-input" placeholder="Username" required>
+            <i class="fas fa-user input-icon"></i>
+        </div>
+        
+        <div class="input-group">
+            <input type="email" name="email" class="auth-input" placeholder="Email" required>
+            <i class="fas fa-envelope input-icon"></i>
+        </div>
+        
+        <div class="input-group">
+            <input type="password" name="password" class="auth-input" placeholder="Password" required>
+            <i class="fas fa-lock input-icon"></i>
+        </div>
+        
+        <button type="submit" class="auth-btn">
+            Daftar Admin <i class="fas fa-user-plus" style="margin-left: 8px;"></i>
+        </button>
+    </form>
+
+    <div class="auth-footer">
+        <a href="login.php"><i class="fas fa-sign-in-alt"></i> Kembali ke Login</a>
+    </div>
+</div>
+
 </body>
 </html>

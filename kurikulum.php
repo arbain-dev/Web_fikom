@@ -1,74 +1,58 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_web_fikom";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
+require_once 'config/database.php';
 include 'includes/header.php';
+
 $sql = "SELECT * FROM kurikulum ORDER BY nama_kurikulum DESC";
-$result = mysqli_query($conn, $sql) or die("Query gagal: " . mysqli_error($conn));
+$result = mysqli_query($conn, $sql);
 ?>
 
-<body>
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
-<section class="content-section">
-    <h1 class="page-title">Kurikulum Fakultas</h1>
-    <div class="content-grid">
-        <?php
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $nama = htmlspecialchars($row['nama_kurikulum']);
-                $desc = htmlspecialchars($row['deskripsi']);
-                $file = htmlspecialchars($row['file_pdf']);
-                $file_path = "uploads/kurikulum/" . $file;
-                ?>
-                <div class="content-card kurikulum-card">
-                    <div class="kurikulum-icon">
-                        <i class="fas fa-file-pdf"></i>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Kurikulum Fakultas</h1>
+        <p class="page-subtitle">Daftar kurikulum yang berlaku di lingkungan Fakultas Ilmu Komputer</p>
+    </div>
+</header>
+
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="document-grid stagger-container">
+            <?php if (mysqli_num_rows($result) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <?php
+                        $nama = htmlspecialchars($row['nama_kurikulum']);
+                        $desc = htmlspecialchars($row['deskripsi']);
+                        $file = htmlspecialchars($row['file_pdf']);
+                        $file_path = "uploads/kurikulum/" . $file;
+                        $ada_file = (!empty($file) && file_exists($file_path));
+                    ?>
+                    <div class="document-card stagger-item">
+                        <div class="document-icon" style="background: var(--success-50); color: var(--success-600);">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title">Kurikulum <?= $nama ?></h3>
+                            <p class="text-sm text-muted mb-3"><?= $desc ?></p>
+                            <?php if ($ada_file): ?>
+                                <button onclick="showPdf('Kurikulum <?= $nama ?>', '<?= $file_path ?>')" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i> Lihat PDF
+                                </button>
+                            <?php else: ?>
+                                <span class="text-xs text-error">File tidak tersedia</span>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <h3 class="content-title-sm">Kurikulum <?= $nama ?></h3>
-                    <p class="content-text"><?= $desc ?></p>
-                    <?php if (!empty($file) && file_exists($file_path)) { ?>
-                        <button 
-                            class="content-btn" 
-                            data-file="<?= $file_path ?>" 
-                            data-nama="<?= $nama ?>"
-                        >
-                            Lihat File <i class="fas fa-eye"></i>
-                        </button>
-                    <?php } else { ?>
-                        <button class="content-btn-disabled">File Tidak Tersedia</button>
-                    <?php } ?>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="col-span-2 text-center py-12">
+                    <div class="text-6xl text-gray-300 mb-4"><i class="fas fa-folder-open"></i></div>
+                    <h3 class="text-xl font-bold text-gray-600">Belum ada kurikulum</h3>
                 </div>
-                <?php
-            }
-        } else {
-            echo "<p style='grid-column:1/-1; text-align:center; color:#fff;'>Belum ada data kurikulum.</p>";
-        }
-        ?>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 
-<div class="popup" id="pdfPopup">
-    <div class="popup-box">
-        <div class="popup-header">
-            <h2 id="popupTitle">Kurikulum</h2>
-            <button class="popup-close" id="closePopup">Tutup</button>
-        </div>
-        <div class="popup-body">
-            <iframe id="pdfFrame" src=""></iframe>
-        </div>
-    </div>
-</div>
-
+<?php include 'includes/part_pdf_modal.php'; ?>
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

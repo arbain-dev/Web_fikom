@@ -4,7 +4,7 @@
 // 1. PANGGIL SEMUA YANG WAJIB DI ATAS
 session_start();
 // Pastikan path koneksi ini benar (naik satu level ke root proyek)
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // 2. CEK LOGIN
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -223,7 +223,6 @@ if (isset($conn) && $conn->ping()) { $conn->close(); }
 include 'includes/admin_header.php';
 ?>
 
-<main class="content-area">
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> &gt; <span>Kelola Fasilitas</span> &gt; <span>Ruangan</span>
     </div>
@@ -274,7 +273,6 @@ include 'includes/admin_header.php';
             </tbody>
         </table>
     </div>
-</main>
 
 <!-- Modal untuk tambah / edit ruangan -->
 <div id="ruanganModal" class="modal">
@@ -324,4 +322,4 @@ include 'includes/admin_header.php';
     window.pageData.uploadDirRuangan = '../uploads/ruangan/';
 </script>
 
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

@@ -1,101 +1,95 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_web_fikom";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
+require_once 'config/database.php';
 include 'includes/header.php';
+
 $penelitian_list = [];
 $sql = "SELECT * FROM penelitian ORDER BY tahun DESC, judul ASC";
 $result = $conn->query($sql);
-if ($result === false) {
-    die("Query GAGAL: Cek tabel 'penelitian'. Error: " . $conn->error);
-}
+
 if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $penelitian_list[] = $row; 
     }
 }
-$conn->close(); 
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penelitian - Fikom UNISAN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-</head>
-<body>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Penelitian Dosen</h1>
+        <p class="page-subtitle">Hasil riset dan publikasi ilmiah dosen</p>
+    </div>
+</header>
 
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
-
-<div class="content-container">
-    <h1>Penelitian Dosen</h1>
-    <div class="container" id="cardContainer">
-        <?php
-        foreach ($penelitian_list as $p) {
-            $id = $p['id'];
-            $judul = htmlspecialchars($p['judul'] ?? 'Tanpa Judul', ENT_QUOTES, 'UTF-8');
-            $peneliti = htmlspecialchars($p['peneliti'] ?? '-', ENT_QUOTES, 'UTF-8');
-            $tahun = htmlspecialchars($p['tahun'] ?? '-', ENT_QUOTES, 'UTF-8');
-            $status = htmlspecialchars($p['status'] ?? '-', ENT_QUOTES, 'UTF-8');
-            $sumber_dana = htmlspecialchars($p['sumber_dana'] ?? '-', ENT_QUOTES, 'UTF-8');
-            $link_publikasi = htmlspecialchars($p['link_publikasi'] ?? '', ENT_QUOTES, 'UTF-8');
-            echo "
-            <div class='card js-popup-trigger' 
-                 data-judul='{$judul}'
-                 data-peneliti='{$peneliti}'
-                 data-tahun='{$tahun}'
-                 data-status='{$status}'
-                 data-sumber_dana='{$sumber_dana}'
-                 data-link_publikasi='{$link_publikasi}'
-            >
-                <div class='info'>
-                    <h4>{$judul}</h4>
-                    <p class='peneliti'>{$peneliti}</p>
-                    <p class='tahun'>Tahun: {$tahun}</p>
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="document-grid stagger-container">
+            <?php if (count($penelitian_list) > 0): ?>
+                <?php foreach ($penelitian_list as $p): ?>
+                    <?php
+                        $judul = htmlspecialchars($p['judul']);
+                        $peneliti = htmlspecialchars($p['peneliti']);
+                        $tahun = htmlspecialchars($p['tahun']);
+                        $link = $p['link_publikasi'];
+                        $json = htmlspecialchars(json_encode($p), ENT_QUOTES, 'UTF-8');
+                    ?>
+                    <div class="document-card stagger-item cursor-pointer hover:bg-gray-50 from-card-action" onclick="showDetail(<?= $json ?>)">
+                        <div class="document-icon" style="background: var(--info-50); color: var(--info-600);">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title"><?= $judul ?></h3>
+                            <p class="text-xs font-bold text-primary-700 mb-1">Peneliti: <?= $peneliti ?></p>
+                            <p class="text-sm text-gray-500">Tahun: <?= $tahun ?></p>
+                        </div>
+                        <div class="text-gray-400">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-span-2 text-center py-12">
+                     <h3 class="text-xl text-gray-500">Belum ada data penelitian.</h3>
                 </div>
-            </div>";
-        }
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Detail Popup -->
+<div class="popup" id="detailPopup">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closePopup()">×</button>
+        <h3 id="popJudul" class="text-xl font-bold mb-4 text-primary-800"></h3>
         
-        if (count($penelitian_list) == 0) {
-            echo '<p style="grid-column: 1 / -1; text-align:center; color: #fff;">Belum ada data penelitian yang dipublikasi.</p>';
-        }
-        ?>
+        <div class="space-y-3 text-sm">
+            <div>
+                <strong class="block text-gray-500">Peneliti</strong>
+                <span id="popPeneliti" class="text-gray-800"></span>
+            </div>
+            <div>
+                <strong class="block text-gray-500">Tahun</strong>
+                <span id="popTahun" class="text-gray-800"></span>
+            </div>
+            <div>
+                <strong class="block text-gray-500">Status</strong>
+                <span id="popStatus" class="tag-badge"></span>
+            </div>
+            <div>
+                <strong class="block text-gray-500">Sumber Dana</strong>
+                <span id="popDana" class="text-gray-800"></span>
+            </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t" id="linkWrapper">
+            <a href="#" id="popLink" target="_blank" class="btn btn-primary w-full justify-center">
+                <i class="fas fa-external-link-alt"></i> Lihat Publikasi
+            </a>
+        </div>
     </div>
 </div>
 
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <h3 id="popupJudul"></h3>
-        <div class="popup-details">
-            <p><strong>Peneliti</strong> <span id="popupPeneliti"></span></p>
-            <p><strong>Tahun</strong> <span id="popupTahun"></span></p>
-            <p><strong>Status</strong> <span id="popupStatus"></span></p>
-            <p><strong>Sumber Dana</strong> <span id="popupSumberDana"></span></p>
-            <p class="link-wrapper" id="popupLinkWrapper" style="display: none;">
-                <a href="#" id="popupLinkPublikasi" target="_blank" class="btn-link-publikasi">
-                    Lihat Publikasi <i class="fas fa-external-link-alt"></i>
-                </a>
-            </p>
-        </div>
-        <button class="close-btn" onclick="closePopup()">Tutup</button>
-    </div>
-</div>
-<?php
-include 'includes/footer.php';
-?>
-</body>
-</html>
+
+
+<?php include 'includes/footer.php'; ?>

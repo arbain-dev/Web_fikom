@@ -1,8 +1,7 @@
 <?php
-
-$host = "localhost"; $user = "root"; $pass = ""; $db = "db_web_fikom";
-$conn = mysqli_connect($host, $user, $pass, $db);
-if (!$conn) { die("Koneksi gagal: " . mysqli_connect_error()); }
+require_once 'config/database.php';
+require_once 'config/constants.php';
+// $conn is created in database.php
 
 include 'includes/header.php';
 
@@ -22,54 +21,59 @@ if ($q_misi && $q_misi->num_rows > 0) {
 $conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visi&Misi-Fikom-UNISAN</title>
-</head>
-<body>
-
-<div class="color-bg"><div class="color"></div><div class="color"></div><div class="color"></div></div>
-
-<main class="container">
-    <div class="page-title">
-        <h1>Visi & Misi</h1>
-        <p>Fakultas Ilmu Komputer Universitas Ichsan Sidenreng Rappang</p>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Visi & Misi</h1>
+        <p class="page-subtitle">Fakultas Ilmu Komputer Universitas Ichsan Sidenreng Rappang</p>
     </div>
+</header>
 
-    <div class="glass-card">
-        <div class="vm-section">
-            <div class="vm-header">
-                <span class="vm-icon"><i class="fas fa-eye"></i></span>
-                <h3>Visi</h3>
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="grid gap-8 stagger-container" style="grid-template-columns: 1fr;">
+            <!-- Visi Section -->
+            <div class="card p-8 h-full stagger-item border-l-4 border-primary-500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center text-primary-600 text-xl">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 m-0">Visi</h2>
+                </div>
+                <div class="text-lg text-gray-700 italic leading-relaxed">
+                    "<?= htmlspecialchars($visi_teks); ?>"
+                </div>
             </div>
-            <div class="vm-content">
-                <p>"<?= htmlspecialchars($visi_teks); ?>"</p>
+            
+            <!-- Spacer for mobile stacking -->
+            <div class="h-12 w-full md:hidden"></div>
+
+            <!-- Misi Section -->
+            <div class="card p-8 h-full stagger-item border-l-4 border-success-500 mt-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-success-50 flex items-center justify-center text-success-600 text-xl">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 m-0">Misi</h2>
+                </div>
+                <div class="text-gray-700">
+                    <div class="space-y-4">
+                        <?php if (count($misi_list) > 0): ?>
+                            <?php foreach ($misi_list as $index => $misi): ?>
+                                <div class="flex gap-3 leading-relaxed">
+                                    <span class="font-bold text-success-600"><?= ($index + 1) ?>.</span>
+                                    <span><?= htmlspecialchars($misi); ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="text-gray-500 italic">Data misi belum diisi.</div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="vm-section">
-            <div class="vm-header">
-                <span class="vm-icon"><i class="fas fa-bullseye"></i></span>
-                <h3>Misi</h3>
-            </div>
-            <div class="vm-content">
-                <ol>
-                    <?php if (count($misi_list) > 0): ?>
-                        <?php foreach ($misi_list as $misi): ?>
-                            <li><?= htmlspecialchars($misi); ?></li>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <li>Data misi belum diisi.</li>
-                    <?php endif; ?>
-                </ol>
-            </div>
-        </div>
     </div>
-</main>
+</section>
 
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

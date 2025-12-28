@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit;
@@ -135,7 +135,6 @@ while($r=$rows->fetch_assoc()) $list[]=$r;
 include 'includes/admin_header.php';
 ?>
 
-<main class="content-area">
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> &gt; Kelola Pengabdian
     </div>
@@ -196,7 +195,6 @@ include 'includes/admin_header.php';
             </table>
         </div>
     </div>
-</main>
 
 <div id="modalTambah" class="modal">
     <div class="modal-content">
@@ -265,4 +263,4 @@ include 'includes/admin_header.php';
     </div>
 </div>
 
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

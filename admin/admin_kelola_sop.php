@@ -1,7 +1,7 @@
 <?php
 // 1. PENGATURAN AWAL & KONEKSI
 session_start();
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // 2. CEK LOGIN
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -140,7 +140,6 @@ $json_data = json_encode($list_dokumen);
 include 'includes/admin_header.php';
 ?>
 
-<main class="content-area">
     
     <div class="page-header">
         <h1>Standar Operasional Prosedur (SOP)</h1>
@@ -207,7 +206,6 @@ include 'includes/admin_header.php';
             </table>
         </div>
     </div>
-</main>
 
 <div id="tambahModal" class="modal">
     <div class="modal-overlay" onclick="closeModal('tambahModal')"></div>
@@ -294,4 +292,4 @@ include 'includes/admin_header.php';
 <script>
     window.sopData = <?= $json_data ?>;
 </script>
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

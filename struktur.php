@@ -1,19 +1,18 @@
 <?php
 include 'includes/header.php';
-require 'database/db_connect.php';
+require 'config/database.php';
 
 $main_title = "Struktur Organisasi";
 $sub_title = "STRUKTUR ORGANISASI FAKULTAS ILMU KOMPUTER";
-$deskripsi = "Berikut ini adalah bagan struktur organisasi...";
-$gambar_default = "uploads/profil/";
-$struktur_gambar_path = $gambar_default;
+$deskripsi = "Berikut ini adalah bagan struktur organisasi Fakultas Ilmu Komputer Universitas Ichsan Sidenreng Rappang.";
+$struktur_gambar_path = "uploads/profil/default.jpg"; // Fallback
 
+// Ambil data dari database jika ada
 $sql = "SELECT * FROM halaman_statis WHERE nama_halaman = 'struktur_organisasi'";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
     $data = $result->fetch_assoc();
-    
     $nama_file_db = $data['gambar_path'] ?? '';
     $path_lengkap = 'uploads/profil/' . $nama_file_db;
     
@@ -24,26 +23,30 @@ if ($result && $result->num_rows > 0) {
 $conn->close(); 
 ?>
 
-<script>
-    document.body.classList.add('page-dosen');
-</script>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title"><?= htmlspecialchars($main_title) ?></h1>
+        <p class="page-subtitle">Tata kelola dan struktur kepemimpinan fakultas</p>
+    </div>
+</header>
 
-<div class="color-blob"></div>
-<div class="color-blob"></div>
-<div class="color-blob"></div>
-
-<section class="ruangan-section"> <h1><?= htmlspecialchars($main_title) ?></h1>
-    <div class="struktur-container">
-        <div class="struktur-card">
-             <h2><?= htmlspecialchars($sub_title) ?></h2>
-             <p><?= htmlspecialchars($deskripsi) ?></p>
-             
-             <img src="<?= htmlspecialchars($struktur_gambar_path) ?>" alt="Bagan Struktur Organisasi" class="struktur-chart">
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="card p-6 reveal-on-scroll">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold mb-2"><?= htmlspecialchars($sub_title) ?></h2>
+                <p class="text-gray-600"><?= htmlspecialchars($deskripsi) ?></p>
+            </div>
+            
+            <div class="w-full bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <img src="<?= htmlspecialchars($struktur_gambar_path) ?>" 
+                     alt="Bagan Struktur Organisasi" 
+                     class="w-full h-auto object-contain rounded shadow-sm">
+            </div>
         </div>
     </div>
-
 </section>
 
-<?php
-include 'includes/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>

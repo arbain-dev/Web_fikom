@@ -4,7 +4,7 @@
 // ==========================================================
 session_start();
 // Pastikan path ini benar sesuai struktur folder Anda
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // 2. CEK LOGIN
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -151,7 +151,6 @@ include 'includes/admin_header.php';
     }
 </style>
 
-<main class="content-area">
   <div class="breadcrumbs">
     <a href="dashboard.php">Admin</a> &gt; <span>Kelola Rencana Operasional</span>
   </div>
@@ -211,7 +210,6 @@ include 'includes/admin_header.php';
       </table>
     </div>
   </div>
-</main>
 
 <div id="tambahModal" class="modal">
   <div class="modal-content">
@@ -285,4 +283,4 @@ include 'includes/admin_header.php';
     window.renopData = <?= $json_data ?>; 
 </script>
 
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

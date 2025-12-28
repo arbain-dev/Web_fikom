@@ -1,7 +1,7 @@
 <?php
 session_start();
 $page_title = "Kelola Struktur BEM";
-require '../database/db_connect.php';
+require '../config/database.php';
 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
@@ -393,4 +393,4 @@ include 'includes/admin_header.php';
     window.bemData = <?= json_encode($bem_list) ?>;
     window.bemUploadDir = "<?= $upload_dir ?>";
 </script>
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

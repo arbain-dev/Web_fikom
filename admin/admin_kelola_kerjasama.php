@@ -2,7 +2,7 @@
 
 session_start(); 
 
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit; 
@@ -303,8 +303,9 @@ include 'includes/admin_header.php';
     </div>
 </div>
 
-<script src="../assets/js/admin_global.js"></script>
 <script>
     window.dataKerjasama = <?= $kerjasama_json ?>;
     window.uploadKerjasama = '<?= $upload_dir_path ?>';
 </script>
+
+<?php include 'includes/admin_footer.php'; ?>

@@ -2,7 +2,7 @@
 // File: admin/admin_kelola_visimisi.php
 
 session_start(); 
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // Cek Login
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -57,38 +57,97 @@ $q_misi = $conn->query("SELECT * FROM visi_misi WHERE kategori = 'Misi' ORDER BY
 include 'includes/admin_header.php'; 
 ?>
 
-<main class="content-area">
-    <div class="breadcrumbs"><a href="dashboard.php">Admin</a> &gt; <span>Visi Misi</span></div>
-    <h1>Kelola Visi Misi</h1>
+    <div class="breadcrumbs">
+        <a href="dashboard.php">Admin</a> &gt; <span>Visi Misi</span>
+    </div>
     
-    <?php if ($message): ?><div class="message"><?= $message ?></div><?php endif; ?>
+    <div class="page-header">
+        <h1 class="page-title">Kelola Visi Misi</h1>
+    </div>
+    
+    <?php if ($message): ?>
+        <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?>" style="margin-bottom: 20px;">
+            <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
+            <?= $message ?>
+        </div>
+    <?php endif; ?>
 
-    <div class="box-vm">
-        <div class="box-header-vm">Visi Utama</div>
-        <form method="POST">
-            <textarea name="visi_konten" rows="3" required><?= htmlspecialchars($visi_sekarang) ?></textarea>
-            <button type="submit" name="update_visi" class="btn-simpan">Simpan Visi</button>
-        </form>
+    <div class="row" style="display: grid; gap: 20px;">
+        <!-- Card Visi -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Visi Utama</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <textarea name="visi_konten" class="form-input" rows="4" placeholder="Masukkan Visi Fakultas..." required><?= htmlspecialchars($visi_sekarang) ?></textarea>
+                    </div>
+                    <button type="submit" name="update_visi" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Simpan Visi
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card Misi -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Daftar Misi</h2>
+            </div>
+            <div class="card-body">
+                
+                <!-- Table Misi -->
+                <div class="table-responsive" style="margin-bottom: 30px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="50">Urutan</th>
+                                <th>Isi Misi</th>
+                                <th width="100" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($q_misi->num_rows > 0): ?>
+                                <?php while($row = $q_misi->fetch_assoc()): ?>
+                                <tr>
+                                    <td><span class="badge secondary"><?= $row['urutan'] ?></span></td>
+                                    <td><?= htmlspecialchars($row['konten']) ?></td>
+                                    <td class="text-center">
+                                        <a href="?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus misi ini?')" title="Hapus">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="3" class="text-center" style="padding: 20px;">Belum ada data misi.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+                
+                <h3 style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 600; color: var(--text-dark);">Tambah Misi Baru</h3>
+                <form method="POST" style="display: grid; grid-template-columns: 100px 1fr auto; gap: 15px; align-items: end;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label required">Urutan</label>
+                        <input type="number" name="urutan" class="form-input" placeholder="No" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label required">Isi Misi</label>
+                        <input type="text" name="misi_konten" class="form-input" placeholder="Masukkan teks misi..." required>
+                    </div>
+                    <button type="submit" name="tambah_misi" class="btn btn-success" style="height: 48px;">
+                        <i class="fas fa-plus"></i> Tambah
+                    </button>
+                </form>
+
+            </div>
+        </div>
     </div>
 
-    <div class="box-vm">
-        <div class="box-header-vm">Daftar Misi</div>
-        <table class="table-vm">
-            <tr><th width="50">No</th><th>Isi Misi</th><th width="100">Aksi</th></tr>
-            <?php while($row = $q_misi->fetch_assoc()): ?>
-            <tr>
-                <td><?= $row['urutan'] ?></td>
-                <td><?= htmlspecialchars($row['konten']) ?></td>
-                <td><a href="?hapus=<?= $row['id'] ?>" class="btn-hapus" onclick="return confirm('Hapus?')">Hapus</a></td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-        
-        <h4 style="margin-top: 20px;">Tambah Misi</h4>
-        <form method="POST" style="display: flex; gap: 10px;">
-            <input type="number" name="urutan" placeholder="No Urut" style="width: 80px;" required>
-            <input type="text" name="misi_konten" placeholder="Isi Misi..." required>
-            <button type="submit" name="tambah_misi" class="btn-simpan" style="background: #2ecc71;">Tambah</button>
-        </form>
-    </div>
-</main>
+<?php include 'includes/admin_footer.php'; ?>

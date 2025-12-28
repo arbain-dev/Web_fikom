@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require '../database/db_connect.php';
+require '../config/database.php';
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit;
@@ -99,8 +99,6 @@ include 'includes/admin_header.php';
 
 <link rel="stylesheet" href="../assets/css/admin_global.css">
 
-<main class="content-area">
-
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> > <span>Kurikulum</span>
     </div>
@@ -159,7 +157,6 @@ include 'includes/admin_header.php';
 
         </table>
     </div>
-</main>
 <div id="modalKurikulum" class="modal">
     <div class="modal-overlay" onclick="closeModal('modalKurikulum')"></div>
     <div class="modal-content">
@@ -201,7 +198,7 @@ include 'includes/admin_header.php';
         </form>
     </div>
 </div>
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>
 
 <script>
     const kurikulumData = <?= $kurikulum_json ?>;

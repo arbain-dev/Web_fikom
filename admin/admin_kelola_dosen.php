@@ -1,5 +1,5 @@
 <?php
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 session_start();
 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -125,189 +125,213 @@ if (isset($_GET['status'])) {
 
 include 'includes/admin_header.php'; 
 ?>
-<main class="content-area">
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Dosen</span>
-    </div>
-    
+    <main class="content-area">
+        <div class="breadcrumbs">
+            <a href="dashboard.php">Dashboard</a> &gt; <span>Kelola Dosen</span>
+        </div>
+        
     <div class="page-header">
-        <h1>Kelola Data Dosen</h1>
-        <button type="button" class="btn-tambah" onclick="openAddDosenModal()">
-            <i class="fas fa-plus"></i> Tambah Dosen
-        </button>
+        <h1 class="page-title">Kelola Data Dosen</h1>
     </div>
 
-    <?php if ($pesan_sukses): ?><div class="message success"><?= $pesan_sukses ?></div><?php endif; ?>
-    <?php if ($pesan_error): ?><div class="message error"><?= $pesan_error ?></div><?php endif; ?>
+    <?php if ($pesan_sukses): ?>
+        <div class="alert alert-success mb-6" style="padding:1rem; border-radius:0.5rem; background:var(--success-50); color:var(--success-600); border:1px solid var(--success-200);">
+            <?= $pesan_sukses ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($pesan_error): ?>
+        <div class="alert alert-error mb-6" style="padding:1rem; border-radius:0.5rem; background:var(--error-50); color:var(--error-600); border:1px solid var(--error-200);">
+            <?= $pesan_error ?>
+        </div>
+    <?php endif; ?>
 
-    <div class="stat-cards-dosen">
+    <div class="stats-grid">
         <div class="stat-card">
             <div class="info"><h3><?= $total_dosen ?></h3><p>Total Dosen</p></div>
-            <div class="icon blue"><i class="fas fa-users"></i></div> 
+            <div class="stat-icon blue"><i class="fas fa-users"></i></div> 
         </div>
         <div class="stat-card">
             <div class="info"><h3><?= $dosen_tetap ?></h3><p>Dosen Tetap</p></div>
-            <div class="icon green"><i class="fas fa-user-check"></i></div>
+            <div class="stat-icon teal"><i class="fas fa-user-check"></i></div>
         </div>
         <div class="stat-card">
             <div class="info"><h3><?= $dosen_s3 ?></h3><p>Doktor (S3)</p></div>
-            <div class="icon yellow"><i class="fas fa-graduation-cap"></i></div> 
+            <div class="stat-icon orange"><i class="fas fa-graduation-cap"></i></div> 
         </div>
         <div class="stat-card">
-             <div class="info"><h3><?= $dosen_s2 ?></h3><p>Magister (S2)</p></div>
-             <div class="icon red"><i class="fas fa-user-tie"></i></div>
+            <div class="info"><h3><?= $dosen_s2 ?></h3><p>Magister (S2)</p></div>
+            <div class="stat-icon purple"><i class="fas fa-user-tie"></i></div>
         </div>
     </div>
 
-    <div class="content-box">
-        <div class="box-header">
-            <h4>Daftar Dosen</h4>
-            <form action="" method="GET" class="filter-bar">
-                <select name="filter_prodi">
+    <div class="card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <h2 class="card-title" style="margin:0;">Daftar Dosen</h2>
+                <button type="button" class="btn btn-primary" onclick="openAddDosenModal()">
+                    <i class="fas fa-plus"></i> Tambah Dosen
+                </button>
+            </div>
+            
+            <form action="" method="GET" style="display:flex; gap:10px;">
+                <select name="filter_prodi" class="form-select" style="padding:8px; border-radius:8px; border:1px solid var(--gray-300);">
                     <option value="">— Semua Prodi —</option>
                     <option value="Informatika" <?= $filter_prodi == 'Informatika' ? 'selected' : '' ?>>Informatika</option>
                     <option value="Pendidikan Teknologi Informasi" <?= $filter_prodi == 'Pendidikan Teknologi Informasi' ? 'selected' : '' ?>>Pendidikan Teknologi Informasi</option>
                 </select>
-                <button type="submit">Filter</button>
+                <button type="submit" class="btn btn-sm btn-secondary">Filter</button>
             </form>
         </div>
-
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th><th>Foto</th><th>Nama</th><th>NIDN</th><th>Prodi</th><th>Status</th><th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($dosen_list) > 0): ?>
-                    <?php foreach ($dosen_list as $i => $dosen): ?>
-                    <tr>
-                        <td data-label="No"><?= $i+1 ?></td>
-                        <td data-label="Foto">
-                            <?php $img = !empty($dosen['foto']) ? $dosen['foto'] : 'default-avatar.png'; ?>
-                            <img src="../uploads/dosen/<?= $img ?>" class="table-img" alt="Foto">
-                        </td>
-                        <td data-label="Nama">
-                            <strong><?= htmlspecialchars($dosen['nama']) ?></strong><br>
-                            <small><?= htmlspecialchars($dosen['pendidikan']) ?></small>
-                        </td>
-                        <td data-label="NIDN"><?= htmlspecialchars($dosen['nidn']) ?></td>
-                        <td data-label="Prodi"><?= htmlspecialchars($dosen['program_studi']) ?></td>
-                        <td data-label="Status">
-                            <span class="badge <?= strtolower($dosen['status']) == 'tetap' ? 'tetap' : 'kontrak' ?>">
-                                <?= htmlspecialchars($dosen['status']) ?>
-                            </span>
-                        </td>
-                        <td data-label="Aksi" class="action-links">
-                            <a href="#" class="edit" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="delete" onclick="return confirm('Yakin hapus?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="7" style="text-align:center;">Tidak ada data.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-</main>
-
-<div id="dosenModal" class="modal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 id="modalTitle">Tambah Dosen</h2>
-            <span class="close-btn" onclick="closeModal('dosenModal')">&times;</span>
-        </div>
-        <form id="dosenForm" method="POST" enctype="multipart/form-data">
-            <div class="modal-body">
-                <input type="hidden" name="action" id="formAction" value="tambah_dosen">
-                <input type="hidden" name="dosen_id" id="dosenId" value="0">
-                <input type="hidden" name="foto_lama" id="fotoLama" value="">
-                
-                <div class="input-box">
-                    <label>Nama Lengkap *</label>
-                    <input type="text" name="nama" id="nama" required>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-box">
-                        <label>NIDN/NIP</label>
-                        <input type="text" name="nidn" id="nidn">
-                    </div>
-                    <div class="input-box">
-                        <label>Email *</label>
-                        <input type="email" name="email" id="email" required>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-box">
-                        <label>Program Studi *</label>
-                        <select name="program_studi" id="program_studi" required>
-                            <option value="">-- Pilih --</option>
-                            <option value="Informatika">Informatika</option>
-                            <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
-                        </select>
-                    </div>
-                    <div class="input-box">
-                        <label>Status *</label>
-                        <select name="status" id="status" required>
-                            <option value="Tetap">Tetap</option>
-                            <option value="Kontrak">Kontrak</option>
-                            <option value="Tidak Tetap">Tidak Tetap</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-box">
-                        <label>Pendidikan *</label>
-                        <select name="pendidikan" id="pendidikan" required>
-                            <option value="S3">S3 (Doktor)</option>
-                            <option value="S2">S2 (Magister)</option>
-                        </select>
-                    </div>
-                    <div class="input-box">
-                        <label>Jabatan</label>
-                        <select name="jabatan" id="jabatan">
-                            <option value="">-- Pilih --</option>
-                            <option value="Asisten Ahli">Asisten Ahli</option>
-                            <option value="Lektor">Lektor</option>
-                            <option value="Dekan">Dekan</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-box">
-                    <label>Keahlian</label>
-                    <input type="text" name="keahlian" id="keahlian">
-                </div>
-
-                <div class="input-box">
-                    <label>Foto (Max 2MB)</label>
-                    <input type="file" name="foto" accept="image/*">
-                    <div id="previewFotoBox" class="file-preview-box" style="display:none;">
-                        <img id="imgPreview" src="">
-                        <small>Foto saat ini</small>
-                    </div>
-                </div>
-                <div class="input-box">
-                    <button type="button" class="btn-tutup" onclick="modalHide('dosenModal')">Tutup</button>
-                    <button type="submit" class="btn-simpan">Simpan</button>
-                </div>
+    
+            <div class="card-body" style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Foto</th>
+                            <th>Nama</th>
+                            <th>NIDN</th>
+                            <th>Prodi</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (count($dosen_list) > 0): ?>
+                            <?php foreach ($dosen_list as $i => $dosen): ?>
+                            <tr>
+                                <td><?= $i+1 ?></td>
+                                <td>
+                                    <?php $img = !empty($dosen['foto']) ? $dosen['foto'] : 'default-avatar.png'; ?>
+                                    <img src="../uploads/dosen/<?= $img ?>" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                </td>
+                                <td>
+                                    <strong><?= htmlspecialchars($dosen['nama']) ?></strong><br>
+                                    <small class="text-muted"><?= htmlspecialchars($dosen['pendidikan']) ?></small>
+                                </td>
+                                <td><?= htmlspecialchars($dosen['nidn']) ?></td>
+                                <td><?= htmlspecialchars($dosen['program_studi']) ?></td>
+                                <td>
+                                    <span class="badge <?= strtolower($dosen['status']) == 'tetap' ? 'success' : 'warning' ?>">
+                                        <?= htmlspecialchars($dosen['status']) ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-links">
+                                        <a href="#" class="btn-icon" style="background:var(--info-50); color:var(--info-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="btn-icon" style="background:var(--error-50); color:var(--error-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="return confirm('Yakin hapus?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr><td colspan="7" class="text-center text-muted p-6">Tidak ada data.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-        </form>
+        </div>
+    </main>
+    
+    <!-- MODAL DOSEN -->
+    <div id="dosenModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Tambah Dosen</h2>
+                <button class="close-btn" onclick="modalHide('dosenModal')">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="dosenForm" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="action" id="formAction" value="tambah_dosen">
+                    <input type="hidden" name="dosen_id" id="dosenId" value="0">
+                    <input type="hidden" name="foto_lama" id="fotoLama" value="">
+                    
+                    <div class="input-box">
+                        <label>Nama Lengkap <span class="text-error">*</span></label>
+                        <input type="text" name="nama" id="nama" required>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="input-box">
+                            <label>NIDN/NIP</label>
+                            <input type="text" name="nidn" id="nidn">
+                        </div>
+                        <div class="input-box">
+                            <label>Email <span class="text-error">*</span></label>
+                            <input type="email" name="email" id="email" required>
+                        </div>
+                    </div>
+    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="input-box">
+                            <label>Program Studi <span class="text-error">*</span></label>
+                            <select name="program_studi" id="program_studi" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="Informatika">Informatika</option>
+                                <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label>Status <span class="text-error">*</span></label>
+                            <select name="status" id="status" required>
+                                <option value="Tetap">Tetap</option>
+                                <option value="Kontrak">Kontrak</option>
+                                <option value="Tidak Tetap">Tidak Tetap</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="input-box">
+                            <label>Pendidikan <span class="text-error">*</span></label>
+                            <select name="pendidikan" id="pendidikan" required>
+                                <option value="S3">S3 (Doktor)</option>
+                                <option value="S2">S2 (Magister)</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label>Jabatan</label>
+                            <select name="jabatan" id="jabatan">
+                                <option value="">-- Pilih --</option>
+                                <option value="Asisten Ahli">Asisten Ahli</option>
+                                <option value="Lektor">Lektor</option>
+                                <option value="Dekan">Dekan</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="input-box">
+                        <label>Keahlian</label>
+                        <input type="text" name="keahlian" id="keahlian">
+                    </div>
+    
+                    <div class="input-box">
+                        <label>Foto (Max 2MB)</label>
+                        <input type="file" name="foto" accept="image/*">
+                        <div id="previewFotoBox" class="file-preview-box" style="display:none;">
+                            <img id="imgPreview" src="" style="max-height:150px;">
+                            <small class="text-muted block mt-2">Foto saat ini</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="modalHide('dosenModal')">Tutup</button>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('dosenForm').submit()">Simpan</button>
+            </div>
+        </div>
     </div>
-</div>
-
-<script>
-window.dosenData = <?= json_encode($dosen_list, JSON_UNESCAPED_UNICODE) ?>;
-window.dosenErrorOpen = <?= !empty($pesan_error) ? 'true' : 'false' ?>;
-</script>
-
-<script src="../assets/js/admin_global.js"></script>
+    
+    <script>
+    window.dosenData = <?= json_encode($dosen_list, JSON_UNESCAPED_UNICODE) ?>;
+    window.dosenErrorOpen = <?= !empty($pesan_error) ? 'true' : 'false' ?>;
+    </script>
+    
+    <?php include 'includes/admin_footer.php'; ?>

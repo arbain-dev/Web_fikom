@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 $upload_dir = '../uploads/kalender/';
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
@@ -123,7 +123,6 @@ $kalender_data_json = json_encode($kalender);
 
 include 'includes/admin_header.php';
 ?>
-<main class="content-area">
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> &gt; <span>Kalender Akademik</span>
     </div>
@@ -174,7 +173,6 @@ include 'includes/admin_header.php';
             <p>Tidak ada data kalender akademik.</p>
         <?php endif; ?>
     </div>
-</main>
 
 <div id="kalenderModal" class="modal">
     <div class="modal-bg" style="position:absolute; width:100%; height:100%;" onclick="closeKalenderModal()"></div>
@@ -233,4 +231,4 @@ include 'includes/admin_header.php';
 window.kalenderData = <?= $kalender_data_json ?>;
 window.uploadDir = "<?= $upload_dir ?>";
 </script>
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

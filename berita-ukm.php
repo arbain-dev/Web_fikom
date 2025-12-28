@@ -1,5 +1,5 @@
 <?php 
-require 'database/db_connect.php'; 
+require 'config/database.php'; 
 include 'includes/header.php';
 
 $sql = "SELECT id, judul, kategori, meta, konten, foto, tanggal_publish 
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $sql);
                                 <img src="<?php echo htmlspecialchars($thumbPath); ?>"
                                      alt="<?php echo htmlspecialchars($row['judul']); ?>">
                             <?php else: ?>
-                                <img src="img/placeholder.jpg" alt="Foto Berita">
+                                <img src="assets/img/placeholder.jpg" alt="Foto Berita">
                             <?php endif; ?>
                         </div>
 

@@ -1,50 +1,69 @@
 <?php
+require_once 'config/database.php';
 include 'includes/header.php';
-require 'database/db_connect.php';
 
 $query = "SELECT * FROM ruangan ORDER BY id DESC";
 $result = $conn->query($query);
 ?>
-<body>
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
-     <div class="page-title">
-        <h1>Ruangan Kelas</h1>
+
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Ruangan Kelas & Fasilitas</h1>
+        <p class="page-subtitle">Fasilitas pendukung kegiatan belajar mengajar</p>
     </div>
-    <div class="ruangan-container">
-        <?php
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $nama = htmlspecialchars($row['nama_ruangan'], ENT_QUOTES);
-                $deskripsi_raw = htmlspecialchars($row['deskripsi'], ENT_QUOTES); 
-                $foto_db = $row['foto'];
-                $path_foto = 'uploads/ruangan/' . $foto_db;
-                
-                if (!empty($foto_db) && file_exists($path_foto)) {
-                    $foto_tampil = $path_foto;
-                } else {
-                    $foto_tampil = 'https://via.placeholder.com/400x220?text=Foto+Ruangan'; 
-                }
-                echo "
-                <div class='ruangan-card' onclick=\"showRuanganPopup('$nama', '$deskripsi_raw', '$foto_tampil')\">
-                    <img src='$foto_tampil' alt='$nama'>
-                    <div class='ruangan-info'>
-                        <h3>$nama</h3>
-                        <p>" . nl2br($row['deskripsi']) . "</p>
+</header>
+
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="gallery-grid stagger-container">
+            <?php
+            if ($result && $result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $nama = htmlspecialchars($row['nama_ruangan']);
+                    $deskripsi = nl2br(htmlspecialchars($row['deskripsi']));
+                    $foto_db = $row['foto'];
+                    $path_foto = 'uploads/ruangan/' . $foto_db;
+                    
+                    $foto_tampil = (!empty($foto_db) && file_exists($path_foto)) 
+                        ? $path_foto 
+                        : 'https://via.placeholder.com/600x400?text=Foto+Ruangan';
+                    ?>
+                    <div class="card gallery-card stagger-item">
+                        <div class="gallery-image-wrapper">
+                            <img src="<?= $foto_tampil ?>" alt="<?= $nama ?>" class="gallery-image" onclick="showPopup('<?= $nama ?>', '<?= $foto_tampil ?>')">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title"><?= $nama ?></h3>
+                            <p class="text-sm text-gray-600"><?= $deskripsi ?></p>
+                        </div>
                     </div>
-                </div>";
+                <?php
+                }
+            } else {
+                echo '<div class="empty-state text-center"><p>Belum ada data ruangan.</p></div>';
             }
-        } else {
-            echo '<p style="grid-column: 1 / -1; text-align:center; color: #fff; font-size: 1.2rem;">Belum ada data ruangan yang tersedia.</p>';
-        }
-        $conn->close(); 
-        ?>
+            ?>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox / Popup -->
+<div class="popup" id="imagePopup">
+    <div class="popup-content gallery-popup-content">
+        <div class="relative">
+            <button class="close-btn" onclick="closePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="popupImg" src="" alt="" class="gallery-popup-image">
+        </div>
+        <div class="gallery-popup-caption">
+            <h3 id="popupCaption"></h3>
+        </div>
     </div>
 </div>
-</section>
-<?php
-include 'includes/footer.php';
-?>
+
+
+
+<?php include 'includes/footer.php'; ?>

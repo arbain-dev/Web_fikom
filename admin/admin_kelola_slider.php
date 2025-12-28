@@ -1,5 +1,5 @@
 <?php
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 session_start();
 $pesan = "";
 
@@ -72,261 +72,171 @@ $data_slider = $conn->query("SELECT * FROM hero_slider ORDER BY id DESC");
 // HEADER
 include 'includes/admin_header.php';
 ?>
-<!DOCTYPE html>
-<html lang="id">
+<style>
+    /* Local overrides for slider page specific elements */
+    .table-wrapper {
+        overflow-x: auto;
+        background: #fff;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 15px;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <title>Kelola Slider Homepage</title>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 650px;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 15px;
-            background: #f5f5f5;
-        }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
 
-        h2 {
-            margin-top: 0;
-        }
+    th {
+        background: #f0f0f0;
+        text-align: left;
+    }
 
-        form {
-            background: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+    img.thumb {
+        max-width: 140px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
 
-        input[type="file"] {
-            margin-top: 8px;
-        }
+    .msg {
+        background: #dff0d8;
+        color: #3c763d;
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
 
-        button {
-            padding: 8px 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            background: #3498db;
-            color: white;
-        }
+    .badge {
+        padding: 4px 10px;
+        border-radius: 10px;
+        color: white;
+        font-size: 12px;
+    }
 
-        /* TABLE WRAPPER */
-        .table-wrapper {
-            overflow-x: auto;
-            background: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 15px;
-        }
+    .badge-aktif { background: #27ae60; }
+    .badge-nonaktif { background: #7f8c8d; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 650px;
-        }
+    /* MODAL RESPONSIF */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
 
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
+    .modal-content {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 90vh;
+        text-align: center;
+        position: relative;
+    }
 
-        th {
-            background: #f0f0f0;
-            text-align: left;
-        }
+    .modal-content img {
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 6px;
+    }
 
-        img.thumb {
-            max-width: 140px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+    .modal-close {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: bold;
+    }
+</style>
 
-        .msg {
-            background: #dff0d8;
-            color: #3c763d;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-
-        .btn-small {
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin: 2px;
-            display: inline-block;
-        }
-
-        .btn-preview {
-            background: #3498db;
-            color: #fff;
-        }
-
-        .btn-toggle {
-            background: #f39c12;
-            color: #fff;
-        }
-
-        .btn-delete {
-            background: #e74c3c;
-            color: #fff;
-        }
-
-        /* BADGE */
-        .badge {
-            padding: 4px 10px;
-            border-radius: 10px;
-            color: white;
-            font-size: 12px;
-        }
-
-        .badge-aktif {
-            background: #27ae60;
-        }
-
-        .badge-nonaktif {
-            background: #7f8c8d;
-        }
-
-        /* MODAL RESPONSIF */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 99;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            max-width: 95%;
-            max-height: 90vh;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, .3);
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-        }
-
-        .modal-close {
-            position: absolute;
-            right: 12px;
-            top: 8px;
-            cursor: pointer;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        /* RESPONSIVE MODE */
-        @media (max-width: 768px) {
-
-            table {
-                font-size: 13px;
-            }
-
-            img.thumb {
-                max-width: 100px;
-            }
-
-            .btn-small {
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-
-            td:nth-child(4),
-            td:nth-child(5) {
-                min-width: 120px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<h2>Kelola Slider Homepage</h2>
-
-<?php if (!empty($pesan)): ?>
-    <p class="msg"><?= htmlspecialchars($pesan) ?></p>
-<?php endif; ?>
-
-<form method="POST" enctype="multipart/form-data">
-    <label>Pilih Foto Slider:</label><br>
-    <input type="file" name="gambar" required>
-    <button type="submit">Upload</button>
-</form>
-
-<h3>Daftar Slider</h3>
-
-<div class="table-wrapper">
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Preview</th>
-            <th>Nama File</th>
-            <th>Status</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if ($data_slider && $data_slider->num_rows > 0): ?>
-            <?php while ($row = $data_slider->fetch_assoc()):
-                $path = '../uploads/slider/' . $row['gambar'];
-                $ada = file_exists($path);
-            ?>
-            <tr>
-                <td><?= $row['id'] ?></td>
-                <td>
-                    <?php if ($ada): ?>
-                        <img src="<?= $path ?>" class="thumb js-preview" data-src="<?= $path ?>">
-                    <?php else: ?>
-                        <i>File hilang</i>
-                    <?php endif; ?>
-                </td>
-                <td><?= htmlspecialchars($row['gambar']) ?></td>
-                <td>
-                    <?php if ($row['is_active']): ?>
-                        <span class="badge badge-aktif">Aktif</span>
-                    <?php else: ?>
-                        <span class="badge badge-nonaktif">Nonaktif</span>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <?php if ($ada): ?>
-                        <button class="btn-small btn-preview js-preview" data-src="<?= $path ?>">Lihat</button>
-                    <?php endif; ?>
-                    <a class="btn-small btn-toggle" 
-                       href="?toggle=<?= $row['id'] ?>"
-                       onclick="return confirm('Ubah status slider?');">
-                       Toggle
-                    </a>
-                    <a class="btn-small btn-delete"
-                       href="?hapus=<?= $row['id'] ?>"
-                       onclick="return confirm('Yakin ingin menghapus slider ini?');">
-                       Hapus
-                    </a>
-                </td>
-            </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <tr><td colspan="5">Belum ada data slider.</td></tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+<div class="page-header">
+    <h2>Kelola Slider Homepage</h2>
 </div>
 
-<!-- MODAL -->
+<?php if (!empty($pesan)): ?>
+    <div class="msg"><?= htmlspecialchars($pesan) ?></div>
+<?php endif; ?>
+
+<div class="content-box">
+    <form method="POST" enctype="multipart/form-data" class="mb-4">
+        <label>Pilih Foto Slider:</label><br>
+        <input type="file" name="gambar" required style="margin-top:8px;">
+        <button type="submit" class="btn btn-primary" style="margin-top:8px;">Upload</button>
+    </form>
+
+    <h3>Daftar Slider</h3>
+    
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Preview</th>
+                    <th>Nama File</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($data_slider && $data_slider->num_rows > 0): ?>
+                    <?php while ($row = $data_slider->fetch_assoc()):
+                        $path = '../uploads/slider/' . $row['gambar'];
+                        $ada = file_exists($path);
+                    ?>
+                    <tr>
+                        <td><?= $row['id'] ?></td>
+                        <td>
+                            <?php if ($ada): ?>
+                                <img src="<?= $path ?>" class="thumb js-preview" data-src="<?= $path ?>">
+                            <?php else: ?>
+                                <i>File hilang</i>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars($row['gambar']) ?></td>
+                        <td>
+                            <?php if ($row['is_active']): ?>
+                                <span class="badge badge-aktif">Aktif</span>
+                            <?php else: ?>
+                                <span class="badge badge-nonaktif">Nonaktif</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if ($ada): ?>
+                                <button type="button" class="btn-small btn-preview js-preview" data-src="<?= $path ?>">Lihat</button>
+                            <?php endif; ?>
+                            <a class="btn-small btn-toggle" 
+                               href="?toggle=<?= $row['id'] ?>"
+                               onclick="return confirm('Ubah status slider?');">
+                               Toggle
+                            </a>
+                            <a class="btn-small btn-delete"
+                               href="?hapus=<?= $row['id'] ?>"
+                               onclick="return confirm('Yakin ingin menghapus slider ini?');">
+                               Hapus
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr><td colspan="5">Belum ada data slider.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL PREVIEW -->
 <div id="imageModal" class="modal-overlay">
     <div class="modal-content">
         <span class="modal-close" id="modalClose">&times;</span>
@@ -334,24 +244,33 @@ include 'includes/admin_header.php';
     </div>
 </div>
 
+<!-- Inline script for this page specific modal -->
 <script>
-const modalOverlay = document.getElementById('imageModal');
-const modalImage   = document.getElementById('modalImage');
-const modalClose   = document.getElementById('modalClose');
+document.addEventListener('DOMContentLoaded', function() {
+    const modalOverlay = document.getElementById('imageModal');
+    const modalImage   = document.getElementById('modalImage');
+    const modalClose   = document.getElementById('modalClose');
 
-document.querySelectorAll('.js-preview').forEach(el => {
-    el.addEventListener('click', () => {
-        modalImage.src = el.getAttribute('data-src');
-        modalOverlay.style.display = 'flex';
+    document.querySelectorAll('.js-preview').forEach(el => {
+        el.addEventListener('click', () => {
+            const src = el.getAttribute('data-src');
+            if(src) {
+                modalImage.src = src;
+                modalOverlay.style.display = 'flex';
+            }
+        });
     });
-});
 
-// close modal
-modalClose.onclick = () => modalOverlay.style.display = 'none';
-modalOverlay.onclick = e => {
-    if (e.target === modalOverlay) modalOverlay.style.display = 'none';
-};
+    if(modalClose) {
+        modalClose.onclick = () => modalOverlay.style.display = 'none';
+    }
+    
+    if(modalOverlay) {
+        modalOverlay.onclick = e => {
+            if (e.target === modalOverlay) modalOverlay.style.display = 'none';
+        };
+    }
+});
 </script>
 
-</body>
-</html>
+<?php include 'includes/admin_footer.php'; ?>

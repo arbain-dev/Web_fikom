@@ -1,14 +1,5 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_web_fikom";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
+require_once 'config/database.php';
 include 'includes/header.php';
 
 $sop_list = [];
@@ -21,75 +12,55 @@ if ($result && $result->num_rows > 0) {
         $sop_list[] = $row;
     }
 }
-$conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Standar Operasional Prosedur (SOP)</title>
-</head>
-<body>
-
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
-
-<main>
-<div class="content-container">
-    <h1 class="page-title">Standar Operasional Prosedur (SOP)</h1>
-    <div class="glass-table-box">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama SOP</th>
-                    <th>Deskripsi</th>
-                    <th>File SOP</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($sop_list) > 0): $no = 1; ?>
-                    <?php foreach ($sop_list as $item): ?>
-                        <?php
-                            $nama      = htmlspecialchars($item['nama_sop']);
-                            $deskripsi = htmlspecialchars($item['deskripsi'] ?? '');
-                            $file      = htmlspecialchars($item['file_pdf'] ?? '');
-                            $url_path = "uploads/sop/" . $file;                
-                            $fs_path  = __DIR__ . "/uploads/sop/" . $file;      
-                            $ada_file = (!empty($file) && file_exists($fs_path));
-                        ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $nama ?></td>
-                            <td><?= $deskripsi ?></td>
-                            <td>
-                                <?php if ($ada_file): ?>
-                                    <a href="<?= $url_path ?>" class="btn-table" download>
-                                        Download <i class="fas fa-download"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <span class="btn-disabled">Tidak Ada File</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4" style="text-align:center; padding:20px;">
-                            Belum ada data SOP yang tersedia.
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Standar Operasional Prosedur (SOP)</h1>
+        <p class="page-subtitle">Pedoman kerja standar di lingkungan Fakultas Ilmu Komputer</p>
     </div>
-</div>
-</main>
+</header>
+
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="document-grid stagger-container">
+            <?php if (count($sop_list) > 0): ?>
+                <?php foreach ($sop_list as $item): ?>
+                    <?php
+                        $nama = htmlspecialchars($item['nama_sop']);
+                        $deskripsi = htmlspecialchars($item['deskripsi'] ?? '');
+                        $file = htmlspecialchars($item['file_pdf'] ?? '');
+                        $path = "uploads/sop/" . $file;
+                        $ada_file = (!empty($file) && file_exists($path));
+                    ?>
+                    <div class="document-card stagger-item">
+                        <div class="document-icon" style="background: var(--primary-50); color: var(--primary-600);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title"><?= $nama ?></h3>
+                            <p class="text-sm text-gray-600 mb-2"><?= $deskripsi ?></p>
+                            <?php if ($ada_file): ?>
+                                <a href="<?= $path ?>" class="btn btn-sm btn-outline" download>
+                                    <i class="fas fa-download"></i> Download SOP
+                                </a>
+                            <?php else: ?>
+                                <span class="text-xs text-muted">File tidak tersedia</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-span-full text-center py-12">
+                    <div class="text-6xl text-gray-300 mb-4"><i class="fas fa-folder-open"></i></div>
+                    <h3 class="text-xl font-bold text-gray-600">Belum ada SOP</h3>
+                    <p class="text-gray-500">Data standar operasional prosedur belum tersedia.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

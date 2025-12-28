@@ -1,15 +1,7 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_web_fikom";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
+require_once 'config/database.php';
 include 'includes/header.php';
+
 $renop_list = [];
 $sql  = "SELECT id, nama_dokumen, deskripsi, file_pdf, tanggal_upload 
          FROM rencana_operasional 
@@ -21,73 +13,55 @@ if ($result && $result->num_rows > 0) {
         $renop_list[] = $row;
     }
 }
-
-$conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rencana Operasional (Renop)</title>
-</head>
-<body>
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
-<main>
-<div class="content-container">
-    <h1 class="page-title">Rencana Operasional (Renop)</h1>
-    <div class="glass-table-box">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Dokumen</th>
-                    <th>Deskripsi</th>
-                    <th>File PDF</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($renop_list) > 0): $no = 1; ?>
-                    <?php foreach ($renop_list as $item): ?>
-                        <?php
-                            $nama = htmlspecialchars($item['nama_dokumen']);
-                            $deskripsi = htmlspecialchars($item['deskripsi']);
-                            $file = htmlspecialchars($item['file_pdf']);
-                            $path = "uploads/renop/" . $file;
-                            $ada_file = (!empty($file) && file_exists($path));
-                        ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $nama ?></td>
-                            <td><?= $deskripsi ?></td>
-                            <td>
-                                <?php if ($ada_file): ?>
-                                    <a href="<?= $path ?>" class="btn-table" download>
-                                        Download <i class="fas fa-download"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <span class="btn-disabled">Tidak Ada File</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4" style="text-align:center; padding:20px;">
-                            Belum ada data Renop yang tersedia.
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Rencana Operasional (Renop)</h1>
+        <p class="page-subtitle">Dokumen perencanaan operasional Fakultas Ilmu Komputer</p>
     </div>
-</div>
-</main>
+</header>
+
+<!-- Main Content -->
+<section class="section-content">
+    <div class="container">
+        <div class="document-grid stagger-container">
+            <?php if (count($renop_list) > 0): ?>
+                <?php foreach ($renop_list as $item): ?>
+                    <?php
+                        $nama = htmlspecialchars($item['nama_dokumen']);
+                        $deskripsi = htmlspecialchars($item['deskripsi']);
+                        $file = htmlspecialchars($item['file_pdf']);
+                        $path = "uploads/renop/" . $file;
+                        $ada_file = (!empty($file) && file_exists($path));
+                    ?>
+                    <div class="document-card stagger-item">
+                        <div class="document-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="document-info">
+                            <h3 class="document-title"><?= $nama ?></h3>
+                            <p class="text-sm text-muted mb-2"><?= $deskripsi ?></p>
+                            <?php if ($ada_file): ?>
+                                <a href="<?= $path ?>" class="btn btn-sm btn-outline" download>
+                                    <i class="fas fa-download"></i> Download PDF
+                                </a>
+                            <?php else: ?>
+                                <span class="text-xs text-error">File tidak tersedia</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-span-2 text-center py-12">
+                    <div class="text-6xl text-gray-300 mb-4"><i class="fas fa-folder-open"></i></div>
+                    <h3 class="text-xl font-bold text-gray-600">Belum ada dokumen</h3>
+                    <p class="text-gray-500">Data rencana operasional belum tersedia saat ini.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

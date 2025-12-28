@@ -1,7 +1,7 @@
 <?php
 // 1. PANGGIL SEMUA YANG WAJIB DI ATAS
 session_start();
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // 2. CEK LOGIN
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -129,7 +129,6 @@ if ($result) while ($r = $result->fetch_assoc()) $list_dokumen[] = $r;
 include 'includes/admin_header.php';
 ?>
 
-<main class="content-area">
   <div class="breadcrumbs">
     <a href="dashboard.php">Admin</a> &gt; <span>Kelola Rencana Strategis</span>
   </div>
@@ -190,7 +189,6 @@ include 'includes/admin_header.php';
       </table>
     </div>
   </div>
-</main>
 
 <!-- MODAL TAMBAH -->
 <div id="tambahModal" class="modal">
@@ -266,4 +264,4 @@ include 'includes/admin_header.php';
     window.renstraData = <?= json_encode($list_dokumen) ?>;
 </script>
 
-<script src="../assets/js/admin_global.js"></script>
+<?php include 'includes/admin_footer.php'; ?>

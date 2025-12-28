@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 include 'includes/admin_header.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
@@ -242,4 +242,7 @@ function previewImage(event) {
 }
 </script>
 
-<?php ob_end_flush(); ?>
+<?php 
+include 'includes/admin_footer.php'; 
+ob_end_flush(); 
+?>

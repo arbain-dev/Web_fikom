@@ -2,7 +2,7 @@
 $bodyClass = "bem-struktur-page";
 
 include 'includes/header.php';
-require 'database/db_connect.php';
+require 'config/database.php';
 
 $inti = [];
 $sekben = [];
@@ -31,14 +31,14 @@ function getInitials($string = '') {
     );
 }
 ?>
-<body class="<?php echo $bodyClass ?? ''; ?>">
-
-<!-- Background Blur -->
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
+<!-- Background Blur is handled by CSS on page-wrapper or body if global -->
+<main class="bem-page-wrapper">
+    <!-- Background Elements -->
+    <div class="color-bg">
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+    </div>
 
 <!-- HERO -->
 <section class="hero">
@@ -137,5 +137,7 @@ function getInitials($string = '') {
         </div>
     </div>
 </section>
+
+</main>
 
 <?php include 'includes/footer.php'; ?>

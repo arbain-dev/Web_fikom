@@ -2,9 +2,9 @@
 session_start();
 
 include 'includes/admin_header.php';
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+if (!isset($_SESSION['admin_logged_in'])) {
     header("Location: login.php");
     exit;
 }
@@ -163,138 +163,152 @@ if ($result && $result->num_rows > 0) {
 
 <main class="content-area">
     <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kelola Berita</span>
+        <a href="dashboard.php">Dashboard</a> &gt; <span>Kelola Berita</span>
     </div>
 
     <div class="page-header">
-        <h1>Daftar Berita</h1>
-        <button class="btn-tambah" onclick="beritaModule.bukaPopup('tambah')">
-            <i class="fas fa-plus"></i> Tambah Berita
-        </button>
+        <h1 class="page-title">Daftar Berita</h1>
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="kb-alert kb-alert-<?= $msg_type; ?>">
+        <div class="alert alert-<?= $msg_type == 'success' ? 'success' : 'error' ?> mb-6" style="padding:1rem; border-radius:0.5rem; background: var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-50); color: var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-700); border: 1px solid var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-200);">
             <?= $message ?>
         </div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <table class="data-table kb-data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Foto</th>
-                    <th>Judul</th>
-                    <th>Kategori</th>
-                    <th>Tanggal</th>
-                    <th>Link</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            <?php if (!empty($berita_list)): $i=1;
-            foreach ($berita_list as $b): ?>
-
-                <tr>
-                    <td><?= $i++; ?></td>
-                    <td>
-                        <?php if (!empty($b['foto'])): ?>
-                            <img src="../uploads/berita/<?= $b['foto']; ?>" width="60"
-                                 onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
-                        <?php else: ?> - <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($b['judul']); ?></td>
-                    <td><?= htmlspecialchars($b['kategori']); ?></td>
-                    <td><?= date('d M Y', strtotime($b['tanggal_publish'])); ?></td>
-                    <td>
-                        <?php if (!empty($b['link'])): ?>
-                            <a href="<?= $b['link']; ?>" target="_blank">Buka</a>
-                        <?php else: ?> - <?php endif; ?>
-                    </td>
-                    <td class="action-links">
-                            <a href="#" class="edit"onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)'>
-                                <i class="fas fa-edit"></i></a>
-                                 <a class="delete"
-                                href="?action=hapus&id=<?= $b['id']; ?>"
-                            onclick="return confirm('Yakin mau hapus berita ini?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-
-            <?php endforeach; else: ?>
-                <tr><td colspan="7" style="text-align:center;">Belum ada data</td></tr>
-            <?php endif; ?>
-
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 class="card-title">Data Berita Terkini</h2>
+            <button class="btn btn-primary" onclick="beritaModule.bukaPopup('tambah')">
+                <i class="fas fa-plus"></i> Tambah Berita
+            </button>
+        </div>
+        <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="5%">No</th>
+                        <th width="10%">Foto</th>
+                        <th>Judul</th>
+                        <th>Kategori</th>
+                        <th>Tanggal</th>
+                        <th>Link</th>
+                        <th width="10%">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($berita_list)): $i=1; foreach ($berita_list as $b): ?>
+                        <tr>
+                            <td><?= $i++; ?></td>
+                            <td>
+                                <?php if (!empty($b['foto'])): ?>
+                                    <img src="../uploads/berita/<?= $b['foto']; ?>" class="table-img" style="width:50px; height:50px; object-fit:cover; border-radius:8px;" onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
+                                <?php else: ?>
+                                    <span class="text-muted text-xs">-</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <span class="font-semibold text-gray-900"><?= htmlspecialchars($b['judul']); ?></span>
+                            </td>
+                            <td>
+                                <span class="badge info"><?= htmlspecialchars($b['kategori']); ?></span>
+                            </td>
+                            <td><?= date('d M Y', strtotime($b['tanggal_publish'])); ?></td>
+                            <td>
+                                <?php if (!empty($b['link'])): ?>
+                                    <a href="<?= $b['link']; ?>" target="_blank" class="text-primary hover:underline text-sm"><i class="fas fa-external-link-alt"></i> Buka</a>
+                                <?php else: ?> - <?php endif; ?>
+                            </td>
+                            <td>
+                                <div class="action-links">
+                                    <button class="btn-icon edit" style="background:var(--info-50); color:var(--info-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)'>
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" style="background:var(--error-50); color:var(--error-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="return confirm('Yakin mau hapus berita ini?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; else: ?>
+                        <tr><td colspan="7" class="text-center text-muted p-6">Belum ada data berita.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
-<div class="kb-popup-bg" id="kbPopupForm">
-    <div class="kb-popup-box">
-        <div class="kb-popup-header">
+
+<!-- MODAL FORM -->
+<div id="kbPopupForm" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
             <h2 id="kbPopupTitle">Tambah Berita</h2>
-            <button class="kb-popup-close-x" onclick="beritaModule.tutupPopup()">×</button>
+            <button class="close-btn" onclick="beritaModule.tutupPopup()">&times;</button>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" id="kbFormBerita">
+        <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data" id="kbFormBerita">
+                <input type="hidden" name="action" id="kbFormAction">
+                <input type="hidden" name="id" id="kbBeritaId">
+                <input type="hidden" name="foto_lama" id="kbFotoLama">
 
-            <input type="hidden" name="action" id="kbFormAction">
-            <input type="hidden" name="id" id="kbBeritaId">
-            <input type="hidden" name="foto_lama" id="kbFotoLama">
+                <div class="input-box">
+                    <label>Judul Berita <span class="text-error">*</span></label>
+                    <input type="text" name="judul" id="kbJudul" required placeholder="Masukkan judul berita...">
+                </div>
 
-            <div class="kb-form-group">
-                <label>Judul Berita *</label>
-                <input type="text" name="judul" id="kbJudul" required>
-            </div>
+                <div class="grid grid-cols-2 gap-4" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="input-box">
+                        <label>Kategori <span class="text-error">*</span></label>
+                        <select name="kategori" id="kbKategori" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <option>Informasi</option>
+                            <option>Pengumuman</option>
+                            <option>Kampus</option>
+                            <option>Kegiatan UKM</option>
+                            <option>Akademik</option>
+                        </select>
+                    </div>
 
-            <div class="kb-form-group">
-                <label>Kategori *</label>
-                <select name="kategori" id="kbKategori" required>
-                    <option value="">-- Pilih --</option>
-                    <option>Informasi</option>
-                    <option>Pengumuman</option>
-                    <option>Kampus</option>
-                    <option>Kegiatan UKM</option>
-                    <option>Akademik</option>
-                </select>
-            </div>
+                    <div class="input-box">
+                        <label>Tanggal Publish <span class="text-error">*</span></label>
+                        <input type="date" name="tanggal_publish" id="kbTanggal" required>
+                    </div>
+                </div>
 
-            <div class="kb-form-group">
-                <label>Tanggal Publish *</label>
-                <input type="date" name="tanggal_publish" id="kbTanggal" required>
-            </div>
+                <div class="input-box">
+                    <label>Link Eksternal (Opsional)</label>
+                    <input type="url" name="link" id="kbLink" placeholder="https://...">
+                </div>
 
-            <div class="kb-form-group">
-                <label>Link</label>
-                <input type="text" name="link" id="kbLink">
-            </div>
+                <div class="input-box">
+                    <label>Konten Berita</label>
+                    <textarea name="konten" id="kbKonten" rows="4" placeholder="Tulis isi berita..."></textarea>
+                </div>
 
-            <div class="kb-form-group">
-                <label>Konten</label>
-                <textarea name="konten" id="kbKonten"></textarea>
-            </div>
+                <div class="input-box">
+                    <label>Upload Foto</label>
+                    <input type="file" name="foto" id="kbFotoInput" accept="image/*">
+                    <div class="file-preview-box mt-3" style="display:none;" id="previewContainer">
+                         <img id="kbPreviewFotoKecil" style="max-height:150px; margin:0 auto; display:none;">
+                    </div>
+                </div>
+            </form>
+        </div>
 
-            <div class="kb-form-group">
-                <label>Upload Foto</label>
-                <input type="file" name="foto" id="kbFotoInput" accept="image/*">
-                <img id="kbPreviewFotoKecil" style="width:80px;margin-top:10px;display:none;">
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-tutup" onclick="beritaModule.tutupPopup()">Tutup</button>
-                <button type="submit" class="btn btn-simpan">Simpan Data</button>
-            </div>
-
-        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="beritaModule.tutupPopup()">Batal</button>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('kbFormBerita').submit()">Simpan Data</button>
+        </div>
     </div>
 </div>
-<div class="kb-popup-bg" id="kbPopupImagePreview">
-    <div class="kb-preview-img-box">
-        <img id="kbImgFull" src="">
-    </div>
+
+<!-- MODAL IMAGE PREVIEW -->
+<div id="kbPopupImagePreview" class="modal" style="display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:9999;">
+    <img id="kbImgFull" src="" style="max-width:90%; max-height:90vh; border-radius:8px; box-shadow:0 0 20px rgba(0,0,0,0.5);">
+    <button class="close-btn" style="position:absolute; top:20px; right:20px; background:white; color:black;" onclick="document.getElementById('kbPopupImagePreview').style.display='none'">&times;</button>
 </div>
-<script src="../assets/js/admin_global.js"></script>
-</body>
-</html>
+
+<?php include 'includes/admin_footer.php'; ?>

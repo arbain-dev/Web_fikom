@@ -1,6 +1,6 @@
 <?php
 // File: proses_login.php
-// LOKASI: C:\xampp\htdocs\web_fikom\proses_login.php
+// (Legacy/Backup Login Processor)
 
 // 1. TAMPILKAN ERROR
 ini_set('display_errors', 1);
@@ -12,7 +12,7 @@ session_start();
 
 // 3. KONEKSI KE DATABASE (PERBAIKANNYA DI SINI)
 // Panggil file koneksi.php yang ada di folder yang sama
-// require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // 4. CEK JIKA FORM SUDAH DI-SUBMIT
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dashboard   = "";
 
     if ($role == 'admin') {
-        $tabel       = "tb_admin";
+        $tabel       = "users";
         $kolom_user  = "username"; // Kolom untuk username admin
-        $dashboard   = "dashboard_admin.php"; // Halaman dashboard admin
+        $dashboard   = "dashboard.php"; // Halaman dashboard admin
     } elseif ($role == 'dosen') {
         $tabel       = "tb_dosen";
         $kolom_user  = "nidn";     // Kolom untuk NIDN dosen
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Query untuk mencari user
         $sql = "SELECT * FROM $tabel WHERE $kolom_user = ?";
-        $stmt = $koneksi->prepare($sql);
+        $stmt = $conn->prepare($sql);
 
         if ($stmt === false) {
              die("Error: Gagal mempersiapkan query. Cek nama tabel '$tabel' atau kolom '$kolom_user'.");
@@ -75,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $data[$kolom_pass])) {
                 
                 // --- LOGIN BERHASIL ---
+                $_SESSION['admin_logged_in'] = true; // Consolidated session variable
                 $_SESSION['login']    = true;
                 $_SESSION['user_id']  = $data['id']; // Simpan ID user
                 $_SESSION['username'] = $data[$kolom_user];
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $stmt->close();
-        $koneksi->close();
+        $conn->close();
 
     } catch (Exception $e) {
         die("Error: " . $e->getMessage());

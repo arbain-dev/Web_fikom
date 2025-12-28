@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../database/db_connect.php';
+require_once '../config/database.php';
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit;
@@ -85,7 +85,6 @@ include 'includes/admin_header.php';
 ?>
 
 
-<main class="content-area">
     <div class="breadcrumbs"><a href="dashboard.php">Admin</a> &gt; <span>Fasilitas</span> &gt; <span>Lab Komputer</span></div>
 
     <div class="page-header">
@@ -130,7 +129,6 @@ include 'includes/admin_header.php';
             </tbody>
         </table>
     </div>
-</main>
 
 <!-- MODAL -->
 <div id="labModal" class="modal">
@@ -169,4 +167,4 @@ include 'includes/admin_header.php';
 <script>
     window.labData = <?= json_encode($lab_list) ?>;
 </script>
-    <script src="../assets/js/admin_global.js"></script>
+    <?php include 'includes/admin_footer.php'; ?>

@@ -1,15 +1,27 @@
 <?php
-// File: admin/includes/admin_header.php
+/**
+ * Admin Header - Dashboard Layout
+ * Clean & Modern Design System
+ */
 
-// Periksa apakah admin sudah login.
+// Start session if not started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Include configuration
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../config/constants.php';
+require_once __DIR__ . '/../../includes/functions.php';
+
+// Security check - Verify admin is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit;
 }
 
-// Ambil nama user untuk sapaan
+// Get admin username and current page
 $nama_admin = $_SESSION['username'] ?? "Admin";
-// Dapatkan nama file saat ini untuk menandai link yang aktif
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
@@ -17,178 +29,219 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - FIKOM</title>
+    <title>Admin - <?php echo SITE_TITLE; ?></title>
     
-    <!-- GLOBAL ADMIN CSS -->
-    <link rel="stylesheet" href="../assets/css/admin-global.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <!-- ICON & FONT -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Admin Stylesheet (Consolidated) -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css">
 </head>
 <body>
-    <!-- SIDEBAR -->
-    <div class="sidebar" id="sidebar">
+
+<div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Admin FIKOM</h2>
+            <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo">
+            <h2>Admin Utama</h2>
         </div>
         
-        <ul class="nav-menu">
-            <!-- MAIN -->
-            <li class="nav-title">Main</li>
-            <li class="<?php if($currentPage == 'dashboard.php') echo 'active'; ?>">
-                <a href="dashboard.php">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
+        <ul class="sidebar-menu">
+            <!-- Main -->
+            <li class="sidebar-title">Main</li>
+            <li class="sidebar-item <?php if($currentPage == 'dashboard.php') echo 'active'; ?>">
+                <a href="dashboard.php" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                    </div>
                 </a>
             </li>
 
-            <!-- MANAJEMEN KONTEN -->
-            <li class="nav-title">Manajemen Konten</li>
+            <!-- Manajemen Konten -->
+            <li class="sidebar-title">Manajemen Konten</li>
             
-            <li class="<?php if($currentPage == 'admin_kelola_slider.php') echo 'active'; ?>">
-                <a href="admin_kelola_slider.php">
-                    <i class="fas fa-image"></i> Kelola Slider
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_visimisi.php', 'admin_kelola_struktur.php','admin_kelola_fakta.php','admin_kelola_tentangfak.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-id-card"></i> <span>Kelola Profil</span>
+                    </div>
                 </a>
-            </li>
-
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_visimisi.php', 'admin_kelola_struktur.php','admin_kelola_fakta.php','admin_kelola_tentangfak.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-id-card"></i> Kelola Profil 
-                    <i class="fas fa-chevron-right arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_visimisi.php" class="<?php if($currentPage == 'admin_kelola_visimisi.php') echo 'active'; ?>">Visi Misi</a></li>
-                    <li><a href="admin_kelola_struktur.php" class="<?php if($currentPage == 'admin_kelola_struktur.php') echo 'active'; ?>">Struktur Organisasi</a></li>
-                    <li><a href="admin_kelola_fakta.php" class="<?php if($currentPage == 'admin_kelola_fakta.php') echo 'active'; ?>">Data Civitas</a></li>
-                    <li><a href="admin_kelola_tentangfak.php" class="<?php if($currentPage == 'admin_kelola_tentangfak.php') echo 'active'; ?>">Tentang Fakultas</a></li>
-                    <li><a href="admin_kelola_pendaftaran.php" class="<?php if($currentPage == 'admin_kelola_pendaftaran.php') echo 'active'; ?>">Pendaftaran</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_visimisi.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_visimisi.php') echo 'active'; ?>">Visi Misi</a></li>
+                    <li><a href="admin_kelola_struktur.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_struktur.php') echo 'active'; ?>">Struktur Organisasi</a></li>
+                    <li><a href="admin_kelola_fakta.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_fakta.php') echo 'active'; ?>">Data Civitas</a></li>
+                    <li><a href="admin_kelola_tentangfak.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_tentangfak.php') echo 'active'; ?>">Tentang Fakultas</a></li>
                 </ul>
             </li>
 
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_berita.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-newspaper"></i> Kelola Berita 
-                    <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item <?php if($currentPage == 'admin_kelola_slider.php') echo 'active'; ?>">
+                <a href="admin_kelola_slider.php" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-image"></i> <span>Kelola Slider</span>
+                    </div>
                 </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_berita.php" class="<?php if($currentPage == 'admin_kelola_berita.php') echo 'active'; ?>">Lihat Semua Berita</a></li>
+            </li>
+
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_berita.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
+                    </div>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_berita.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_berita.php') echo 'active'; ?>">Semua Berita</a></li>
                 </ul>
             </li>
 
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_dosen.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-users"></i> Kelola Dosen 
-                    <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_dosen.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-users"></i> <span>Kelola Dosen</span>
+                    </div>
                 </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_dosen.php" class="<?php if($currentPage == 'admin_kelola_dosen.php') echo 'active'; ?>">Lihat Daftar Dosen</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_dosen.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_dosen.php') echo 'active'; ?>">Daftar Dosen</a></li>
                 </ul>
             </li>
 
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_ruangan.php', 'admin_kelola_lab.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-building"></i> Kelola Fasilitas <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_ruangan.php', 'admin_kelola_lab.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-building"></i> <span>Kelola Fasilitas</span>
+                    </div> 
                 </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_ruangan.php" class="<?php if($currentPage == 'admin_kelola_ruangan.php') echo 'active'; ?>">Ruangan</a></li>
-                    <li><a href="admin_kelola_lab.php" class="<?php if($currentPage == 'admin_kelola_lab.php') echo 'active'; ?>">Lab Komputer</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_ruangan.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_ruangan.php') echo 'active'; ?>">Ruangan</a></li>
+                    <li><a href="admin_kelola_lab.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_lab.php') echo 'active'; ?>">Laboratorium</a></li>
                 </ul>
             </li>
 
-            <!-- AKADEMIK -->
-            <li class="nav-title">Akademik</li>
+            <!-- Akademik Section Header in Screenshot -->
+            <li class="sidebar-title">Akademik</li>
 
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_kurikulum.php', 'admin_kelola_kalender.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-graduation-cap"></i> Kelola Akademik 
-                    <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_kurikulum.php', 'admin_kelola_kalender.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                     <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-graduation-cap"></i> <span>Kelola Akademik</span>
+                     </div>
                 </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_kurikulum.php" class="<?php if($currentPage == 'admin_kelola_kurikulum.php') echo 'active'; ?>">Kurikulum</a></li>
-                    <li><a href="admin_kelola_kalender.php" class="<?php if($currentPage == 'admin_kelola_kalender.php') echo 'active'; ?>">Kalender</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_kurikulum.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_kurikulum.php') echo 'active'; ?>">Kurikulum</a></li>
+                    <li><a href="admin_kelola_kalender.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_kalender.php') echo 'active'; ?>">Kalender</a></li>
                 </ul>
             </li>
 
-            <li class="<?php if($currentPage == 'admin_kelola_kerjasama.php') echo 'active'; ?>">
-                <a href="admin_kelola_kerjasama.php">
-                    <i class="fas fa-handshake"></i> Kelola Kerjasama
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_bem.php', 'admin_kelola_kerjasama.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-handshake"></i> <span>Kelola Kerjasama</span>
+                    </div>
                 </a>
-            </li>
-
-            <li class="<?php if($currentPage == 'admin_kelola_penelitian.php') echo 'active'; ?>">
-                <a href="admin_kelola_penelitian.php">
-                    <i class="fas fa-flask"></i> Kelola Penelitian
-                </a>
-            </li>
-
-            <li class="<?php if($currentPage == 'admin_kelola_pengabdian.php') echo 'active'; ?>">
-                <a href="admin_kelola_pengabdian.php">
-                    <i class="fas fa-hands-helping"></i> Kelola Pengabdian
-                </a>
-            </li>
-
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_renop.php', 'admin_kelola_renstra.php', 'admin_kelola_sop.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-file-alt"></i> Kelola Dokumen 
-                    <i class="fas fa-chevron-right arrow"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_renop.php" class="<?php if($currentPage == 'admin_kelola_renop.php') echo 'active'; ?>">Rencana Operasi</a></li>
-                    <li><a href="admin_kelola_renstra.php" class="<?php if($currentPage == 'admin_kelola_renstra.php') echo 'active'; ?>">Rencana Strategis</a></li>
-                    <li><a href="admin_kelola_sop.php" class="<?php if($currentPage == 'admin_kelola_sop.php') echo 'active'; ?>">Standar Operasi Prosedur</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_bem.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_bem.php') echo 'active'; ?>">BEM</a></li>
+                    <li><a href="admin_kelola_kerjasama.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_kerjasama.php') echo 'active'; ?>">Kerjasama</a></li>
                 </ul>
             </li>
 
-            <!-- MAHASISWA & ALUMNI -->
-            <li class="nav-title">Mahasiswa & Alumni</li>
-
-            <li class="has-submenu <?php if(in_array($currentPage, ['admin_kelola_bem.php', 'admin_kelola_ukm.php', 'admin_kelola_hima.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-sitemap"></i> Organisasi Mahasiswa 
-                    <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_penelitian.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-flask"></i> <span>Kelola Penelitian</span>
+                    </div>
                 </a>
-                <ul class="submenu">
-                    <li><a href="admin_kelola_bem.php" class="<?php if($currentPage == 'admin_kelola_bem.php') echo 'active'; ?>">BEM Fakultas</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_penelitian.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_penelitian.php') echo 'active'; ?>">Penelitian</a></li>
                 </ul>
             </li>
 
-            <!-- LAINNYA -->
-            <li class="nav-title">Lainnya</li>
-            <li class="has-submenu <?php if(in_array($currentPage, ['login.php', 'register.php'])) echo 'open active'; ?>">
-                <a href="javascript:void(0);">
-                    <i class="fas fa-lock"></i> Authentication 
-                    <i class="fas fa-chevron-right arrow"></i>
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_pengabdian.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-hands-helping"></i> <span>Kelola Pengabdian</span>
+                    </div>
                 </a>
-                <ul class="submenu">
-                    <li><a href="login.php">Login</a></li> 
-                    <li><a href="register.php">Register</a></li>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_pengabdian.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_pengabdian.php') echo 'active'; ?>">Pengabdian</a></li>
                 </ul>
             </li>
 
-            <li>
-                <a href="logout.php" style="color: #ffb8b8;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_renop.php', 'admin_kelola_renstra.php', 'admin_kelola_sop.php'])) echo 'open active'; ?>">
+                <a href="javascript:void(0);" class="sidebar-link">
+                     <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-university"></i> <span>Kelola Dokumen</span>
+                     </div>
+                </a>
+                <ul class="sidebar-submenu">
+                    <li><a href="admin_kelola_renop.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_renop.php') echo 'active'; ?>">Rencana Operasional</a></li>
+                    <li><a href="admin_kelola_renstra.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_renstra.php') echo 'active'; ?>">Rencana Strategis</a></li>
+                    <li><a href="admin_kelola_sop.php" class="sidebar-link <?php if($currentPage == 'admin_kelola_sop.php') echo 'active'; ?>">SOP</a></li>
+                </ul>
+            </li>
+
+            <!-- Data Pendaftaran hidden/moved as per screenshot usually implies ends here or scrolls -->
+            <li class="sidebar-title">Lainnya</li>
+             <li class="sidebar-item <?php if($currentPage == 'admin_kelola_pendaftaran.php') echo 'active'; ?>">
+                <a href="admin_kelola_pendaftaran.php" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-file-signature"></i> <span>Data Pendaftaran</span>
+                    </div>
                 </a>
             </li>
         </ul>
-    </div>
-    
-    <!-- MAIN CONTENT WRAPPER -->
-    <div class="main-content" id="main-content">
-        <header class="topbar">
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main" id="main-content">
+        <!-- Topbar -->
+        <!-- Topbar -->
+        <header class="admin-topbar">
             <div class="topbar-left">
-                <i class="fas fa-bars hamburger" id="hamburger"></i>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <!-- Removed Redundant "Dashboard" Text, kept simple Brand or Empty -->
+                <!-- <span class="text-lg font-semibold">Admin Panel</span> -->
             </div>
             <div class="topbar-right">
-                <div class="user-profile">
-                    <img src="https://i.pravatar.cc/150?img=3" alt="Foto Profil">
-                    <span><?= htmlspecialchars($nama_admin) ?></span>
+                <div class="topbar-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                
+                <!-- User Dropdown -->
+                <div class="user-dropdown-container">
+                    <div class="user-profile" id="userDropdownTrigger">
+                        <img src="https://ui-avatars.com/api/?name=<?= urlencode($nama_admin) ?>&background=4f46e5&color=fff" alt="Avatar">
+                        <span class="desktop-only"><?= htmlspecialchars($nama_admin) ?></span>
+                        <i class="fas fa-chevron-down text-xs ml-2"></i>
+                    </div>
+                    
+                    <div class="dropdown-menu" id="userDropdownMenu">
+                        <div class="dropdown-header">
+                            <p class="font-semibold"><?= htmlspecialchars($nama_admin) ?></p>
+                            <p class="text-xs text-muted">Administrator</p>
+                        </div>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profil Saya
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Pengaturan
+                        </a>
+                        <hr class="dropdown-divider">
+                        <a href="dashboard.php?action=logout" class="dropdown-item text-error">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
 
+        <!-- Content Area -->
         <main class="content-area">
-            <!-- Konten halaman akan dimuat di sini -->
-
-
-<script src="../assets/js/sidebar.js"></script>
+            <!-- Page content goes here -->

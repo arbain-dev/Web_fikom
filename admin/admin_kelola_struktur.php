@@ -8,7 +8,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Koneksi DB
-require_once '../database/db_connect.php'; 
+require_once '../config/database.php'; 
 
 // Cek login
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -84,34 +84,48 @@ $gambar_sekarang = $data['gambar_path'] ?? 'default_struktur.jpg';
 $conn->close();
 ?>
 
-<main class="content-area">
     <div class="breadcrumbs">
         <a href="dashboard.php">Admin</a> &gt; 
         <span>Kelola Profil</span> &gt; 
         <span>Struktur Organisasi</span>
     </div>
 
-    <div class="form-wrapper">
-        <form action="admin_kelola_struktur.php" method="POST" enctype="multipart/form-data">
-            <h1>Edit Struktur Organisasi</h1>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Edit Struktur Organisasi</h2>
+        </div>
+        <div class="card-body">
+            <form action="admin_kelola_struktur.php" method="POST" enctype="multipart/form-data">
+                
+                <?php if (!empty($message)): ?>
+                    <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?>" style="margin-bottom: 20px;">
+                        <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
+                        <?= $message ?>
+                    </div>
+                <?php endif; ?>
 
-            <?php if (!empty($message)): ?>
-                <div class="message <?= $message_type ?>"><?= $message ?></div>
-            <?php endif; ?>
+                <div class="form-group">
+                    <label class="form-label required" for="foto">Upload Gambar Baru (JPG, PNG, SVG)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="foto" name="foto" accept="image/png, image/jpeg, image/svg+xml" class="form-input" required>
+                    </div>
+                </div>
 
-            <div class="input-box">
-                <label for="foto">Upload Gambar Baru (JPG, PNG, SVG)</label>
-                <input type="file" id="foto" name="foto" accept="image/png, image/jpeg, image/svg+xml" required>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Gambar
+                    </button>
+                </div>
 
-            <button type="submit" class="btn-update-struktur">Update Gambar</button>
+                <div class="form-group">
+                    <label class="form-label">Gambar Saat Ini:</label>
+                    <div class="file-preview-box">
+                        <img src="../uploads/profil/<?= htmlspecialchars($gambar_sekarang) ?>" alt="Struktur Organisasi Saat Ini" style="max-width: 100%; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
 
-            <div class="image-preview">
-                <p>Gambar Saat Ini:</p>
-                <img src="../uploads/profil/<?= htmlspecialchars($gambar_sekarang) ?>" alt="Struktur Organisasi Saat Ini">
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</main>
-</body>
-</html>
+
+<?php include 'includes/admin_footer.php'; ?>

@@ -1,46 +1,49 @@
 <?php
-require 'database/db_connect.php';
+require 'config/database.php';
 include 'includes/header.php';
 
 $query = "SELECT * FROM kalender_akademik ORDER BY tahun_akademik DESC";
 $result = mysqli_query($conn, $query);
 ?>
 
-<body class="kalender-akademik-page">
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
 
-<main>
-<div class="content-container">
-    <h1 class="page-title">Kalender Akademik</h1>
-    <div class="calendar-grid">
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <?php
-                    $nama  = htmlspecialchars($row['nama_kalender']);
-                    $tahun = htmlspecialchars($row['tahun_akademik']);
-                    $desc  = htmlspecialchars($row['deskripsi']);
-                    $img   = !empty($row['gambar'])
-                             ? "uploads/kalender/".$row['gambar']
-                             : "uploads/kalender/default.jpg";
-                ?>
-                <div class="calendar-card js-calendar-trigger" data-img="<?= $img ?>">
-                    <img src="<?= $img ?>" alt="Kalender <?= $tahun ?>">
-                    <div class="calendar-body">
-                        <h3><?= $nama ?> (<?= $tahun ?>)</h3>
-                        <p><?= $desc ?></p>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p class="calendar-no-data">Belum ada kalender akademik.</p>
-        <?php endif; ?>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Kalender Akademik</h1>
+        <p class="page-subtitle">Jadwal kegiatan akademik dan perkuliahan</p>
     </div>
-</div>
-</main>
+</header>
+
+<section class="section-content">
+    <div class="container">
+        <div class="calendar-grid">
+            <?php if (mysqli_num_rows($result) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <?php
+                        $nama  = htmlspecialchars($row['nama_kalender']);
+                        $tahun = htmlspecialchars($row['tahun_akademik']);
+                        $desc  = htmlspecialchars($row['deskripsi']);
+                        $img   = !empty($row['gambar'])
+                                 ? "uploads/kalender/".$row['gambar']
+                                 : "uploads/kalender/default.jpg";
+                    ?>
+                    <div class="calendar-card js-calendar-trigger" data-img="<?= $img ?>">
+                        <img src="<?= $img ?>" alt="Kalender <?= $tahun ?>">
+                        <div class="calendar-body">
+                            <h3><?= $nama ?> (<?= $tahun ?>)</h3>
+                            <p><?= $desc ?></p>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="empty-state text-center">
+                    <p class="calendar-no-data">Belum ada kalender akademik.</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
 
 <div class="popup" id="calendarPopup">
     <div class="popup-img-box">
@@ -50,5 +53,3 @@ $result = mysqli_query($conn, $query);
 </div>
 
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

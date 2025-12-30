@@ -84,10 +84,9 @@ $gambar_sekarang = $data['gambar_path'] ?? 'default_struktur.jpg';
 $conn->close();
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; 
-        <span>Kelola Profil</span> &gt; 
-        <span>Struktur Organisasi</span>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Struktur Organisasi</h1>
     </div>
 
     <div class="card">
@@ -98,7 +97,7 @@ $conn->close();
             <form action="admin_kelola_struktur.php" method="POST" enctype="multipart/form-data">
                 
                 <?php if (!empty($message)): ?>
-                    <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?>" style="margin-bottom: 20px;">
+                    <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
                         <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
                         <?= $message ?>
                     </div>

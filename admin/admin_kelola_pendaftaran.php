@@ -62,12 +62,9 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Data Pendaftaran</span>
-    </div>
-
-    <div class="page-header">
-        <h1>Data Pendaftaran Mahasiswa</h1>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Data Pendaftaran Mahasiswa</h1>
     </div>
 
     <?php if (!empty($message)): ?>
@@ -129,16 +126,21 @@ if ($result && $result->num_rows > 0) {
     </div>
 
 <!-- Modal Detail -->
-<div class="kb-popup-bg" id="modalDetail">
-    <div class="kb-popup-box" style="max-width:600px;">
-        <div class="kb-popup-header">
-            <h2 id="detailNama">Detail Pendaftar</h2>
-            <button class="kb-popup-close-x" onclick="tutupDetail()">×</button>
+<div id="modalDetail" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="detailNama">DETAIL PENDAFTAR</h2>
+            <span class="close-btn" onclick="tutupDetail()">&times;</span>
         </div>
-        <div class="kb-popup-body" style="padding:20px; overflow-y:auto; max-height:70vh;">
-            <table style="width:100%; border-collapse:collapse;" id="tableDetail">
+        
+        <div class="modal-body">
+            <table class="table-detail" id="tableDetail" style="width:100%; border-collapse: separate; border-spacing: 0;">
                 <!-- Content via JS -->
             </table>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-btn" onclick="tutupDetail()">Tutup</button>
         </div>
     </div>
 </div>
@@ -152,7 +154,7 @@ function lihatDetail(data) {
         'NIK': data.nik,
         'Email': data.email,
         'No HP': data.hp,
-        'TTL': data.tempat_lahir + ', ' + data.tanggal_lahir,
+        'TTL': (data.tempat_lahir || '') + ', ' + (data.tanggal_lahir || ''),
         'Jenis Kelamin': data.jk,
         'Asal Sekolah': data.asal_sekolah,
         'Prodi Pilihan': data.prodi,
@@ -165,37 +167,40 @@ function lihatDetail(data) {
 
     for (let key in fields) {
         html += `<tr>
-            <td style="padding:8px; border-bottom:1px solid #eee; width:150px; font-weight:bold;">${key}</td>
-            <td style="padding:8px; border-bottom:1px solid #eee;">${fields[key] || '-'}</td>
+            <td style="padding:12px; border-bottom:1px solid #f0f0f0; width:160px; font-weight:600; color:#555;">${key}</td>
+            <td style="padding:12px; border-bottom:1px solid #f0f0f0; color:#333;">${fields[key] || '-'}</td>
         </tr>`;
     }
 
     // Files
     html += `<tr>
-        <td style="padding:8px; font-weight:bold;">Dokumen</td>
-        <td style="padding:8px;">`;
+        <td style="padding:12px; font-weight:600; color:#555;">Dokumen</td>
+        <td style="padding:12px;">`;
     
     if(data.file_ktp) {
-        html += `<a href="../uploads/pendaftaran/${data.file_ktp}" target="_blank" class="btn-sm btn-info" style="margin-right:5px;">Lihat KTP</a>`;
+        html += `<a href="../uploads/pendaftaran/${data.file_ktp}" target="_blank" class="btn btn-sm btn-info" style="margin-right:8px; text-decoration:none;">Lihat KTP</a>`;
     } else {
-        html += `<span style="color:red; margin-right:5px;">KTP Kosong</span>`;
+        html += `<span style="color:var(--error-500); margin-right:8px;">KTP Kosong</span>`;
     }
 
     if(data.file_ijazah) {
-        html += `<a href="../uploads/pendaftaran/${data.file_ijazah}" target="_blank" class="btn-sm btn-info">Lihat Ijazah</a>`;
+        html += `<a href="../uploads/pendaftaran/${data.file_ijazah}" target="_blank" class="btn btn-sm btn-info" style="text-decoration:none;">Lihat Ijazah</a>`;
     } else {
-        html += `<span style="color:red;">Ijazah Kosong</span>`;
+        html += `<span style="color:var(--error-500);">Ijazah Kosong</span>`;
     }
     
     html += `</td></tr>`;
 
     table.innerHTML = html;
-    document.getElementById('modalDetail').style.display = 'flex';
+    
+    // Use standard modal show function
+    window.modalShow('modalDetail');
 }
 
 function tutupDetail() {
-    document.getElementById('modalDetail').style.display = 'none';
+    window.modalHide('modalDetail');
 }
+
 </script>
 
 <?php include 'includes/admin_footer.php'; ?>

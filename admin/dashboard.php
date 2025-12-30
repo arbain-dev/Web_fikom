@@ -41,11 +41,15 @@ if ($result_berita && $result_berita->num_rows > 0) {
 }
 ?>
 
-<div class="breadcrumbs">
-    <a href="dashboard.php">Dashboard</a>
-</div>
 
-<h1 class="page-title">Dashboard</h1>
+
+<!-- Page Banner -->
+<div class="page-banner">
+    <h1 class="banner-title">Selamat Datang, <?= htmlspecialchars($nama_admin) ?>! 👋</h1>
+    <p class="banner-subtitle">
+        Kelola konten dan data fakultas dengan mudah dari dashboard ini
+    </p>
+</div>
 
 <!-- Stats Cards -->
 <div class="stats-grid">
@@ -95,10 +99,11 @@ if ($result_berita && $result_berita->num_rows > 0) {
     
     <!-- Recent Berita -->
     <div class="card">
-        <div class="card-header">
+        <div class="card-header flex-between">
             <h2 class="card-title">Berita Terbaru</h2>
             <a href="admin_kelola_berita.php" class="btn btn-sm btn-outline">Lihat Semua</a>
         </div>
+        <div class="table-responsive">
         <table class="data-table">
             <thead>
                 <tr>
@@ -121,14 +126,16 @@ if ($result_berita && $result_berita->num_rows > 0) {
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
     </div>
     
     <!-- Recent Penelitian -->
     <div class="card">
-        <div class="card-header">
+        <div class="card-header flex-between">
             <h2 class="card-title">Penelitian Terbaru</h2>
             <a href="admin_kelola_penelitian.php" class="btn btn-sm btn-outline">Lihat Semua</a>
         </div>
+        <div class="table-responsive">
         <table class="data-table">
             <thead>
                 <tr>
@@ -151,6 +158,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 

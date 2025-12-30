@@ -123,13 +123,14 @@ $kalender_data_json = json_encode($kalender);
 
 include 'includes/admin_header.php';
 ?>
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kalender Akademik</span>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Kalender Akademik</h1>
     </div>
 
-    <div class="page-header">
-        <h1>Kelola Kalender Akademik</h1>
-        <button id="openAddModalBtn" class="btn-tambah">
+    <!-- Data Actions -->
+    <div style="display:flex; justify-content: flex-end; margin-bottom: 20px;">
+        <button id="openAddModalBtn" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Kalender
         </button>
     </div>
@@ -140,29 +141,31 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
-    <div class="kalender-grid">
+    <div class="kalender-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 24px;">
         <?php if (count($kalender) > 0): ?>
             <?php foreach ($kalender as $item): ?>
-                <div class="card">
+                <div class="card" style="overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
                     <?php 
                         $image_path = !empty($item['gambar']) ? $upload_dir . $item['gambar'] : '../assets/noimage.png';
                         $src = file_exists($image_path) ? $image_path : '../assets/noimage.png';
                     ?>
-                    <img src="<?= $src ?>" alt="<?= htmlspecialchars($item['nama_kalender']) ?>" style="width:100%; height:150px; object-fit:cover;">
+                    <img src="<?= $src ?>" alt="<?= htmlspecialchars($item['nama_kalender']) ?>" style="width:100%; height:180px; object-fit:cover; display: block;">
 
-                    <div class="card-content">
-                        <h3><?= htmlspecialchars($item['nama_kalender']) ?></h3>
-                        <p class="tahun"><strong>Tahun:</strong> <?= htmlspecialchars($item['tahun_akademik']) ?></p>
-                        <p class="deskripsi">
-                            <?= htmlspecialchars(substr($item['deskripsi'], 0, 80)) . (strlen($item['deskripsi']) > 80 ? '...' : '') ?>
+                    <div class="card-body" style="padding: 20px;">
+                        <h3 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 600; color: #1f2937;"><?= htmlspecialchars($item['nama_kalender']) ?></h3>
+                        <p style="margin: 0 0 8px 0; font-size: 14px; color: #6b7280;">
+                            <strong style="color: #374151;">Tahun:</strong> <?= htmlspecialchars($item['tahun_akademik']) ?>
+                        </p>
+                        <p style="margin: 0 0 16px 0; font-size: 14px; color: #6b7280; line-height: 1.6;">
+                            <?= htmlspecialchars(substr($item['deskripsi'], 0, 100)) . (strlen($item['deskripsi']) > 100 ? '...' : '') ?>
                         </p>
 
-                        <div class="action-links">
-                            <a href="#" class="btn-aksi btn-aksi-edit" onclick="openEditKalender(<?= $item['id'] ?>); return false;">
+                        <div class="action-links" style="margin-top: auto; padding-top: 12px; border-top: 1px solid #e5e7eb;">
+                            <a href="#" class="edit" onclick="openEditKalender(<?= $item['id'] ?>); return false;">
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <a href="#" class="btn-aksi btn-aksi-delete" onclick="hapusKalender(<?= $item['id'] ?>, '<?= htmlspecialchars($item['nama_kalender'], ENT_QUOTES) ?>'); return false;">
+                            <a href="#" class="delete" onclick="hapusKalender(<?= $item['id'] ?>, '<?= htmlspecialchars($item['nama_kalender'], ENT_QUOTES) ?>'); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>
@@ -170,17 +173,15 @@ include 'includes/admin_header.php';
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>Tidak ada data kalender akademik.</p>
+            <p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #9ca3af;">Tidak ada data kalender akademik.</p>
         <?php endif; ?>
     </div>
 
 <div id="kalenderModal" class="modal">
-    <div class="modal-bg" style="position:absolute; width:100%; height:100%;" onclick="closeKalenderModal()"></div>
-
-    <div class="modal-box">
+    <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalTitle">Tambah Kalender Akademik</h2>
-            <button type="button" class="close-btn" onclick="closeKalenderModal()">×</button>
+            <span class="close-btn" onclick="modalHide('kalenderModal')">&times;</span>
         </div>
 
         <form id="kalenderForm" method="POST" enctype="multipart/form-data">
@@ -188,35 +189,37 @@ include 'includes/admin_header.php';
             <input type="hidden" name="kalender_id" id="kalenderId" value="">
             <input type="hidden" name="current_gambar" id="currentGambar" value="">
 
-            <div class="input-box">
-                <label>Nama Kalender *</label>
-                <input type="text" name="nama_kalender" id="nama_kalender" required>
+            <div class="modal-body">
+                <div class="input-box">
+                    <label>Nama Kalender <span class="text-error">*</span></label>
+                    <input type="text" name="nama_kalender" id="nama_kalender" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Tahun Akademik <span class="text-error">*</span></label>
+                    <input type="text" name="tahun_akademik" id="tahun_akademik" required placeholder="Contoh: 2023/2024">
+                </div>
+
+                <div class="input-box">
+                    <label>Deskripsi</label>
+                    <textarea name="deskripsi" id="deskripsi" rows="3"></textarea>
+                </div>
+
+                <div id="imagePreviewBox" class="current-image-preview" style="display:none; margin-bottom:10px;">
+                    <p style="font-size:0.9em; margin:0;">Gambar saat ini:</p>
+                    <img id="currentImageSrc" src="" alt="Preview">
+                </div>
+
+                <div class="input-box">
+                    <label id="labelGambar">Upload Gambar</label>
+                    <input type="file" id="gambar" name="gambar" accept=".jpg,.jpeg,.png,.webp">
+                    <small class="text-muted">Max 5MB. Kosongkan jika tidak ingin mengubah gambar (saat edit).</small>
+                </div>
             </div>
 
-            <div class="input-box">
-                <label>Tahun Akademik *</label>
-                <input type="text" name="tahun_akademik" id="tahun_akademik" required placeholder="Contoh: 2023/2024">
-            </div>
-
-            <div class="input-box">
-                <label>Deskripsi</label>
-                <textarea name="deskripsi" id="deskripsi" rows="3"></textarea>
-            </div>
-
-            <div id="imagePreviewBox" class="current-image-preview" style="display:none; margin-bottom:10px;">
-                <p style="font-size:0.9em; margin:0;">Gambar saat ini:</p>
-                <img id="currentImageSrc" src="" alt="Preview">
-            </div>
-
-            <div class="input-box">
-                <label id="labelGambar">Upload Gambar</label>
-                <input type="file" id="gambar" name="gambar" accept=".jpg,.jpeg,.png,.webp">
-                <small style="color:#666; font-size:0.8em;">Max 5MB. Kosongkan jika tidak ingin mengubah gambar (saat edit).</small>
-            </div>
-
-            <div class="input-box">
-                <button type="button" class="btn-tutup" onclick="modalHide('kalenderModal')">Tutup</button>
-                <button type="submit" class="btn-simpan">Simpan</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('kalenderModal')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>

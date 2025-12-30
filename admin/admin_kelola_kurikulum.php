@@ -97,73 +97,74 @@ $kurikulum_json = json_encode($list_kurikulum);
 include 'includes/admin_header.php';
 ?>
 
-<link rel="stylesheet" href="../assets/css/admin_global.css">
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> > <span>Kurikulum</span>
-    </div>
 
-    <div class="page-header">
-        <h1>Kelola Kurikulum</h1>
-        <button class="btn-tambah" onclick="openAddKurikulum()">
-            <i class="fas fa-plus"></i> Tambah
-        </button>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Kurikulum</h1>
     </div>
 
     <?php if (!empty($message)): ?>
         <div class="message <?= $message_type ?>"><?= $message ?></div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Kurikulum</th>
-                    <th>Deskripsi</th>
-                    <th>PDF</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Kurikulum</h2>
+            <button class="btn btn-primary" onclick="openAddKurikulum()">
+                <i class="fas fa-plus"></i> Tambah Kurikulum
+            </button>
+        </div>
+        <div class="card-body">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Kurikulum</th>
+                        <th>Deskripsi</th>
+                        <th>PDF</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <?php $no = 1; foreach ($list_kurikulum as $k): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($k['nama_kurikulum']) ?></td>
-                    <td><?= htmlspecialchars(substr($k['deskripsi'],0,80)) ?>...</td>
-                    <td>
-                        <?php if ($k['file_pdf']): ?>
-                            <a href="<?= $upload_dir . $k['file_pdf'] ?>" target="_blank">
-                                <i class="fas fa-file-pdf"></i> Lihat PDF
+                <tbody>
+                    <?php $no = 1; foreach ($list_kurikulum as $k): ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= htmlspecialchars($k['nama_kurikulum']) ?></td>
+                        <td><?= htmlspecialchars(substr($k['deskripsi'],0,80)) ?>...</td>
+                        <td>
+                            <?php if ($k['file_pdf']): ?>
+                                <a href="<?= $upload_dir . $k['file_pdf'] ?>" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> Lihat PDF
+                                </a>
+                            <?php else: ?>
+                                <i>- Tidak ada file -</i>
+                            <?php endif; ?>
+                        </td>
+                        <td class="action-links">
+                            <a class="edit" onclick="openEditKurikulum(<?= $k['id'] ?>)">
+                                <i class="fas fa-edit"></i>
                             </a>
-                        <?php else: ?>
-                            <i>- Tidak ada file -</i>
-                        <?php endif; ?>
-                    </td>
-                    <td class="action-links">
-                        <a class="edit" onclick="openEditKurikulum(<?= $k['id'] ?>)">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a class="delete"
-                           href="admin_kelola_kurikulum.php?hapus_id=<?= $k['id'] ?>"
-                           onclick="return confirm('Yakin ingin menghapus?')">
-                           <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
+                            <a class="delete"
+                               href="admin_kelola_kurikulum.php?hapus_id=<?= $k['id'] ?>"
+                               onclick="return confirm('Yakin ingin menghapus?')">
+                               <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
 
-        </table>
+            </table>
+        </div>
     </div>
 <div id="modalKurikulum" class="modal">
-    <div class="modal-overlay" onclick="closeModal('modalKurikulum')"></div>
     <div class="modal-content">
 
         <div class="modal-header">
-            <h2 id="modalTitle">Tambah Kurikulum</h2>
-            <span class="close-btn" onclick="closeModal('modalKurikulum')">&times;</span>
+            <h2 id="modalTitle">TAMBAH KURIKULUM</h2>
+            <span class="close-btn" onclick="modalHide('modalKurikulum')">&times;</span>
         </div>
 
         <form id="formKurikulum" method="POST" enctype="multipart/form-data">
@@ -174,25 +175,26 @@ include 'includes/admin_header.php';
 
             <div class="modal-body">
                 <div class="input-box">
-                    <label>Nama Kurikulum *</label>
+                    <label>Nama Kurikulum <span class="text-error">*</span></label>
                     <input type="text" name="nama_kurikulum" id="nama_kurikulum" required>
                 </div>
 
                 <div class="input-box">
                     <label>Deskripsi</label>
-                    <textarea name="deskripsi" id="deskripsi"></textarea>
+                    <textarea name="deskripsi" id="deskripsi" rows="3"></textarea>
                 </div>
 
                 <div class="input-box">
                     <label>Upload PDF</label>
                     <input type="file" name="file_pdf" id="file_pdf" accept="application/pdf">
                     <div id="pdfPreview" class="file-preview-box" style="display:none;"></div>
+                    <small class="text-muted">Format: PDF, Max 10MB</small>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-tutup" onclick="modalHide('modalKurikulum')">Tutup</button>
-                <button type="submit" class="btn-simpan">Simpan</button>
+                <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('modalKurikulum')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
 
         </form>
@@ -202,5 +204,33 @@ include 'includes/admin_header.php';
 
 <script>
     const kurikulumData = <?= $kurikulum_json ?>;
-    const uploadDir = '<?= $upload_dir ?>';
+    
+    // Add Button listener
+    document.addEventListener('DOMContentLoaded', () => {
+        /* If using onclick in HTML, this might not be needed, but cleaner to have functions exposed */
+    });
+
+    function openAddKurikulum() {
+        const form = document.getElementById('formKurikulum');
+        form.reset();
+        document.getElementById('formAction').value = 'tambah_kurikulum';
+        document.getElementById('kurikulumId').value = '';
+        document.getElementById('currentFile').value = '';
+        document.getElementById('modalTitle').innerText = 'Tambah Kurikulum';
+        window.modalShow('modalKurikulum');
+    }
+
+    function openEditKurikulum(id) {
+        const data = kurikulumData.find(item => item.id == id);
+        if (!data) return;
+
+        document.getElementById('formAction').value = 'edit_kurikulum';
+        document.getElementById('kurikulumId').value = data.id;
+        document.getElementById('nama_kurikulum').value = data.nama_kurikulum;
+        document.getElementById('deskripsi').value = data.deskripsi;
+        document.getElementById('currentFile').value = data.file_pdf;
+        document.getElementById('modalTitle').innerText = 'Edit Kurikulum';
+        
+        window.modalShow('modalKurikulum');
+    }
 </script>

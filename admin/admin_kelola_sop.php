@@ -140,12 +140,9 @@ $json_data = json_encode($list_dokumen);
 include 'includes/admin_header.php';
 ?>
 
-    
-    <div class="page-header">
-        <h1>Standar Operasional Prosedur (SOP)</h1>
-        <button id="openModalBtnTambah" class="btn-tambah">
-            <i class="fas fa-plus"></i> Tambah SOP
-        </button>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Standar Operasional Prosedur (SOP)</h1>
     </div>
 
     <?php if (!empty($message)): ?>
@@ -154,18 +151,25 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <div class="data-table-wrapper">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th style="width: 50px;">No</th>
-                        <th>Nama SOP</th>
-                        <th>Deskripsi</th>
-                        <th>File</th>
-                        <th style="width: 120px; text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Dokumen SOP</h2>
+            <button id="openModalBtnTambah" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah SOP
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">No</th>
+                            <th>Nama SOP</th>
+                            <th>Deskripsi</th>
+                            <th>File</th>
+                            <th style="width: 120px; text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
                 <tbody>
                     <?php if ($list_dokumen): $i=1; foreach ($list_dokumen as $r): ?>
                     <tr>
@@ -173,17 +177,15 @@ include 'includes/admin_header.php';
                         <td data-label="Nama SOP"><strong><?= htmlspecialchars($r['nama_sop']) ?></strong></td>
                         <td data-label="Deskripsi"><?= htmlspecialchars(substr($r['deskripsi'], 0, 80)) ?><?= strlen($r['deskripsi']) > 80 ? '...' : '' ?></td>
                         <td data-label="File">
-                            <?php if ($r['file_pdf']): ?>
-                                <a href="<?= $upload_dir . htmlspecialchars($r['file_pdf']) ?>" target="_blank" style="color: var(--primary); text-decoration: none;">
-                                    <i class="fas fa-file-pdf"></i> Download
-                                </a>
-                            <?php else: ?> 
-                                <span style="color: #999;">-</span> 
-                            <?php endif; ?>
-                        </td>
+              <?php if ($r['file_pdf']): ?>
+                <a href="../uploads/sop/<?= htmlspecialchars($r['file_pdf']) ?>" target="_blank">
+                  <i class="fas fa-file-alt"></i> Lihat
+                </a>
+              <?php else: ?> - <?php endif; ?>
+            </td>
                         <td data-label="Aksi">
                             <div class="action-links">
-                                <button type="button" class="btn-aksi-edit" onclick="openEditModal(<?= $r['id'] ?>)" title="Edit">
+                                <button type="button" class="btn-icon edit" onclick="openEditModal(<?= $r['id'] ?>)" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 
@@ -199,7 +201,7 @@ include 'includes/admin_header.php';
                     </tr>
                     <?php endforeach; else: ?>
                     <tr>
-                        <td colspan="5" style="text-align:center; padding: 20px;">Belum ada data SOP.</td>
+                        <td colspan="5" class="text-center">Belum ada data SOP.</td>
                     </tr>
                     <?php endif; ?>
                 </tbody>
@@ -208,11 +210,11 @@ include 'includes/admin_header.php';
     </div>
 
 <div id="tambahModal" class="modal">
-    <div class="modal-overlay" onclick="closeModal('tambahModal')"></div>
+    <div class="modal-overlay" onclick="modalHide('tambahModal')"></div>
     <div class="modal-content">
         <div class="modal-header">
             <h2>Tambah SOP Baru</h2>
-            <button class="close-btn" onclick="closeModal('tambahModal')">&times;</button>
+            <span class="close-btn" onclick="modalHide('tambahModal')">&times;</span>
         </div>
         
         <form method="POST" enctype="multipart/form-data" id="tambahForm">
@@ -232,24 +234,24 @@ include 'includes/admin_header.php';
                 <div class="input-box">
                     <label>Upload File (PDF/DOC/XLS)</label>
                     <input type="file" name="file_pdf" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" required>
-                    <small style="color: #888;">Maksimal 10MB.</small>
+                    <small class="text-muted">Maksimal 10MB.</small>
                 </div>
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn-tutup" onclick="closeModal('tambahModal')">Batal</button>
-                <button type="submit" class="btn-simpan">Simpan Data</button>
+                <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
 
 <div id="editModal" class="modal">
-    <div class="modal-overlay" onclick="closeModal('editModal')"></div>
+    <div class="modal-overlay" onclick="modalHide('editModal')"></div>
     <div class="modal-content">
         <div class="modal-header">
             <h2>Edit SOP</h2>
-            <button class="close-btn" onclick="closeModal('editModal')">&times;</button>
+            <span class="close-btn" onclick="modalHide('editModal')">&times;</span>
         </div>
         
         <form method="POST" enctype="multipart/form-data" id="editForm">
@@ -277,12 +279,12 @@ include 'includes/admin_header.php';
                 <div class="input-box">
                     <label>Ganti File (Opsional)</label>
                     <input type="file" name="file_pdf_edit" id="file_pdf_edit" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
-                    <small style="color: #888;">Biarkan kosong jika tidak ingin mengubah file.</small>
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah file.</small>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-tutup" onclick="closeModal('editModal')">Batal</button>
+                <button type="button" class="btn-tutup" onclick="modalHide('editModal')">Batal</button>
                 <button type="submit" class="btn-simpan">Simpan Perubahan</button>
             </div>
         </form>
@@ -291,5 +293,34 @@ include 'includes/admin_header.php';
 
 <script>
     window.sopData = <?= $json_data ?>;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add Button
+        const btnAdd = document.getElementById('openModalBtnTambah');
+        if(btnAdd) {
+            btnAdd.addEventListener('click', () => {
+                 window.modalShow('tambahModal');
+            });
+        }
+    });
+
+    function openEditModal(id) {
+        const data = window.sopData.find(item => item.id == id);
+        if(!data) return;
+
+        document.getElementById('id_edit').value = data.id;
+        document.getElementById('nama_dokumen_edit').value = data.nama_sop;
+        document.getElementById('deskripsi_edit').value = data.deskripsi;
+        document.getElementById('file_lama_edit').value = data.file_pdf;
+        
+        const fileStat = document.getElementById('file_status_edit');
+        if(data.file_pdf) {
+            fileStat.innerHTML = `File saat ini: <a href="../uploads/sop/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
+        } else {
+            fileStat.innerText = "Tidak ada file.";
+        }
+
+        window.modalShow('editModal');
+    }
 </script>
 <?php include 'includes/admin_footer.php'; ?>

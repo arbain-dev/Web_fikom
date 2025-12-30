@@ -135,30 +135,34 @@ while($r=$rows->fetch_assoc()) $list[]=$r;
 include 'includes/admin_header.php';
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; Kelola Pengabdian
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Pengabdian</h1>
     </div>
-    <div class="page-header">
-        <h1>Kelola Pengabdian</h1>
-        <button id="openTambah" class="btn-tambah"><i class="fas fa-plus"></i> Tambah</button>
-    </div>
+    
     <?php if ($message): ?>
     <div class="message <?= $message_type ?>"><?= $message ?></div>
     <?php endif; ?>
-    <div class="content-box">
-        <div style="overflow-x:auto;">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Judul</th>
-                        <th>Pelaksana</th>
-                        <th>Deskripsi</th>
-                        <th>File</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+    
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Pengabdian</h2>
+            <button id="openTambah" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
+        </div>
+        <div class="card-body">
+            <div style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Pelaksana</th>
+                            <th>Deskripsi</th>
+                            <th>File</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
                 <tbody>
                 <?php $no=1; foreach($list as $row): ?>
                     <tr 
@@ -198,9 +202,12 @@ include 'includes/admin_header.php';
 
 <div id="modalTambah" class="modal">
     <div class="modal-content">
-        <span class="close-btn" data-modal="modalTambah">&times;</span>
-        <h2>Tambah Pengabdian</h2>
+        <div class="modal-header">
+            <h2>TAMBAH PENGABDIAN</h2>
+            <span class="close-btn" onclick="modalHide('modalTambah')">&times;</span>
+        </div>
         <form method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
             <input type="hidden" name="action" value="tambah_pengabdian">
             <div class="input-box">
                 <label>Judul *</label>
@@ -222,17 +229,23 @@ include 'includes/admin_header.php';
                 <label>File Dokumen</label>
                 <input type="file" name="file_pdf" accept=".pdf,.doc,.docx">
             </div>
-            <button class="btn-tutup" data-modal="modalTambah">Batal</button>
-            <button class="btn-simpan">Simpan</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('modalTambah')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
+            </div>
         </form>
     </div>
 </div>
 
 <div id="modalEdit" class="modal">
     <div class="modal-content">
-        <span class="close-btn" data-modal="modalEdit">&times;</span>
-        <h2>Edit Pengabdian</h2>
+        <div class="modal-header">
+            <h2>EDIT PENGABDIAN</h2>
+            <span class="close-btn" onclick="modalHide('modalEdit')">&times;</span>
+        </div>
         <form method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
             <input type="hidden" name="action" value="edit_pengabdian">
             <input type="hidden" id="edit_id" name="edit_id">
             <input type="hidden" id="old_file_pdf" name="old_file_pdf">
@@ -257,10 +270,53 @@ include 'includes/admin_header.php';
                 <input type="file" name="file_pdf" accept=".pdf,.doc,.docx">
                 <div id="info_file" style="margin-top:5px; font-size:0.85rem;"></div>
             </div>
-            <button class="btn-tutup" data-modal="modalEdit">Batal</button>
-            <button class="btn-simpan">Update</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('modalEdit')">Batal</button>
+                <button type="submit" class="btn btn-primary">Update Data</button>
+            </div>
         </form>
     </div>
-</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // TAMBAH
+    const btnTambah = document.getElementById('openTambah');
+    if(btnTambah) {
+        btnTambah.addEventListener('click', () => {
+             // Reset form if possible, or just open
+             window.modalShow('modalTambah');
+        });
+    }
+
+    // EDIT
+    document.querySelectorAll('.edit').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tr = btn.closest('tr');
+            if(!tr) return;
+
+            const id = tr.dataset.id;
+            const judul = tr.dataset.judul;
+            const pelaksana = tr.dataset.pelaksana;
+            const deskripsi = tr.dataset.deskripsi;
+            const file = tr.dataset.file;
+            const tanggal = tr.dataset.tanggal;
+
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_judul').value = judul;
+            document.getElementById('edit_pelaksana').value = pelaksana;
+            document.getElementById('edit_deskripsi').value = deskripsi;
+            document.getElementById('edit_tanggal').value = tanggal;
+            document.getElementById('old_file_pdf').value = file;
+            
+            const info = document.getElementById('info_file');
+            if(file) info.innerHTML = `File saat ini: <a href="../uploads/pengabdian_file/${file}" target="_blank">${file}</a>`;
+            else info.innerHTML = 'Belum ada file.';
+
+            window.modalShow('modalEdit');
+        });
+    });
+});
+</script>
 
 <?php include 'includes/admin_footer.php'; ?>

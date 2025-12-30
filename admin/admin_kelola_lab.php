@@ -85,54 +85,57 @@ include 'includes/admin_header.php';
 ?>
 
 
-    <div class="breadcrumbs"><a href="dashboard.php">Admin</a> &gt; <span>Fasilitas</span> &gt; <span>Lab Komputer</span></div>
-
-    <div class="page-header">
-        <h1>Kelola Lab Komputer</h1>
-        <button class="btn-tambah" id="openModalBtn"><i class="fas fa-plus"></i> Tambah Lab</button>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Lab Komputer</h1>
     </div>
 
     <?php if ($message): ?>
         <div class="message <?= $message_type ?>"><?= $message ?></div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Foto</th>
-                    <th>Nama Lab</th>
-                    <th>Deskripsi</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($lab_list): $no=1; foreach ($lab_list as $lab): ?>
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Lab Komputer</h2>
+            <button class="btn btn-primary" id="openModalBtn"><i class="fas fa-plus"></i> Tambah Lab</button>
+        </div>
+        <div class="card-body">
+            <table class="data-table">
+                <thead>
                     <tr>
-                        <td><?= $no++ ?></td>
-                        <td><img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" class="table-foto"></td>
-                        <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
-                        <td><?= htmlspecialchars(substr($lab['deskripsi'], 0, 100)) ?><?= strlen($lab['deskripsi'])>100?'...':'' ?></td>
-                        <td class="action-buttons">
-                            <a href="#" class="edit" onclick="openEditModal(<?= $lab['id'] ?>)"><i class="fas fa-edit"></i></a>
-                            <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
-                                <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
-                                <input type="hidden" name="action" value="hapus_lab">
-                                <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama Lab</th>
+                        <th>Deskripsi</th>
+                        <th>Aksi</th>
                     </tr>
-                <?php endforeach; else: ?>
-                    <tr><td colspan="5" style="text-align:center;">Belum ada data laboratorium.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if ($lab_list): $no=1; foreach ($lab_list as $lab): ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" class="table-foto"></td>
+                            <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
+                            <td><?= htmlspecialchars(substr($lab['deskripsi'], 0, 100)) ?><?= strlen($lab['deskripsi'])>100?'...':'' ?></td>
+                            <td class="action-buttons">
+                                <a href="#" class="edit" onclick="openEditModal(<?= $lab['id'] ?>)"><i class="fas fa-edit"></i></a>
+                                <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
+                                    <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
+                                    <input type="hidden" name="action" value="hapus_lab">
+                                    <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; else: ?>
+                        <tr><td colspan="5" style="text-align:center;">Belum ada data laboratorium.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 <!-- MODAL -->
 <div id="labModal" class="modal">
-    <div class="modal-overlay"></div>
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalTitle">Tambah Lab</h2>
@@ -142,29 +145,73 @@ include 'includes/admin_header.php';
             <input type="hidden" name="action" id="formAction" value="tambah_lab">
             <input type="hidden" name="lab_id" id="labId">
             <input type="hidden" name="current_foto" id="currentFoto">
+            
             <div class="modal-body">
                 <div class="input-box">
                     <label>Nama Lab *</label>
-                    <input type="text" id="nama" name="nama" required>
+                    <input type="text" id="nama_lab" name="nama_lab" required>
                 </div>
                 <div class="input-box">
                     <label>Deskripsi</label>
-                    <textarea id="deskripsi" name="deskripsi"></textarea>
+                    <textarea id="deskripsi" name="deskripsi" rows="4"></textarea>
                 </div>
-                <div class="foto-preview-box" id="fotoPreviewBox"></div>
                 <div class="input-box">
                     <label>Upload Foto (JPG/PNG)</label>
                     <input type="file" id="foto" name="foto" accept="image/png, image/jpeg">
+                    <small class="text-muted">Kosongkan jika tidak ingin mengganti foto</small>
                 </div>
             </div>
-                <div class="input-box">
-                <button type="button" class="btn btn-tutup" id="tutupModalBtnBawah">Tutup</button>
-                <button type="submit" class="btn btn-simpan">Simpan</button>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
 <script>
     window.labData = <?= json_encode($lab_list) ?>;
+    
+    // Event listener for Add button
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnTambah = document.getElementById('openModalBtn');
+        if (btnTambah) {
+            btnTambah.addEventListener('click', function() {
+                console.log('Button clicked, opening modal...'); // Debug
+                // Reset form
+                const form = document.getElementById('labForm');
+                if (form) form.reset();
+                
+                document.getElementById('formAction').value = 'tambah_lab';
+                document.getElementById('labId').value = '';
+                document.getElementById('modalTitle').textContent = 'Tambah Lab Komputer';
+                
+                window.modalShow('labModal');
+            });
+        } else {
+            console.error('Button openModalBtn not found!'); // Debug
+        }
+    });
+    
+    // Function to open edit modal
+    function openEditModal(id) {
+        console.log('Opening edit modal for ID:', id); // Debug
+        const labItem = window.labData.find(item => item.id == id);
+        if (!labItem) {
+            console.error('Lab item not found:', id);
+            return;
+        }
+        
+        // Populate form
+        document.getElementById('formAction').value = 'edit_lab';
+        document.getElementById('labId').value = labItem.id;
+        document.getElementById('nama_lab').value = labItem.nama_lab;
+        document.getElementById('deskripsi').value = labItem.deskripsi;
+        document.getElementById('currentFoto').value = labItem.foto || '';
+        document.getElementById('modalTitle').textContent = 'Edit Lab Komputer';
+        
+        // Show modal
+        window.modalShow('labModal');
+    }
 </script>
     <?php include 'includes/admin_footer.php'; ?>

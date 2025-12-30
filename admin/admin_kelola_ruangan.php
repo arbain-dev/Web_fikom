@@ -223,15 +223,10 @@ if (isset($conn) && $conn->ping()) { $conn->close(); }
 include 'includes/admin_header.php';
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kelola Fasilitas</span> &gt; <span>Ruangan</span>
-    </div>
 
-    <div class="page-header">
-        <h1>Kelola Ruangan</h1>
-        <button type="button" id="openModalBtn" class="btn-tambah">
-            <i class="fas fa-plus"></i> Tambah Ruangan
-        </button>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Ruangan</h1>
     </div>
 
     <?php if (!empty($message)): ?>
@@ -240,43 +235,51 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>No</th> <th>Foto</th> <th>Nama Ruangan</th> <th>Deskripsi</th> <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($ruangan_list) > 0): $i = 1; ?>
-                    <?php foreach ($ruangan_list as $item): ?>
+
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Ruangan</h2>
+            <button type="button" id="openModalBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Ruangan
+            </button>
+        </div>
+        <div class="card-body">
+            <table class="data-table">
+                <thead>
                     <tr>
-                        <td><?= $i++ ?></td>
-                        <td>
-                            <?php
-                            $foto_file = !empty($item['foto']) ? htmlspecialchars($item['foto']) : 'default-placeholder.png';
-                            $foto_src = '../uploads/ruangan/' . $foto_file; // Path relatif untuk browser
-                            ?>
-                            <img src="<?= $foto_src ?>" alt="<?= htmlspecialchars($item['nama_ruangan']) ?>" class="table-foto">
-                        </td>
-                        <td><?= htmlspecialchars($item['nama_ruangan']) ?></td>
-                        <td><?= htmlspecialchars(substr($item['deskripsi'], 0, 100)) ?><?= (strlen($item['deskripsi']) > 100) ? '...' : '' ?></td>
-                        <td class="action-links">
-                            <a href="#" class="edit" onclick="openEditModal(<?= $item['id'] ?>); return false;" title="Edit"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="delete" onclick="hapusRuangan(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['nama_ruangan'])) ?>'); return false;" title="Hapus"><i class="fas fa-trash"></i></a>
-                        </td>
+                        <th>No</th> <th>Foto</th> <th>Nama Ruangan</th> <th>Deskripsi</th> <th>Aksi</th>
                     </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="5" style="text-align: center;">Belum ada data ruangan.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if (count($ruangan_list) > 0): $i = 1; ?>
+                        <?php foreach ($ruangan_list as $item): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td>
+                                <?php
+                                $foto_file = !empty($item['foto']) ? htmlspecialchars($item['foto']) : 'default-placeholder.png';
+                                $foto_src = '../uploads/ruangan/' . $foto_file; // Path relatif untuk browser
+                                ?>
+                                <img src="<?= $foto_src ?>" alt="<?= htmlspecialchars($item['nama_ruangan']) ?>" class="table-foto">
+                            </td>
+                            <td><?= htmlspecialchars($item['nama_ruangan']) ?></td>
+                            <td><?= htmlspecialchars(substr($item['deskripsi'], 0, 100)) ?><?= (strlen($item['deskripsi']) > 100) ? '...' : '' ?></td>
+                            <td class="action-links">
+                                <a href="#" class="edit" onclick="openEditModal(<?= $item['id'] ?>); return false;" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="delete" onclick="hapusRuangan(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['nama_ruangan'])) ?>'); return false;" title="Hapus"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5" class="text-center">Belum ada data ruangan.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 <!-- Modal untuk tambah / edit ruangan -->
 <div id="ruanganModal" class="modal">
-    <div class="modal-overlay"></div>
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalTitle">Tambah Ruangan Baru</h2>
@@ -320,6 +323,69 @@ include 'includes/admin_header.php';
     window.pageData = window.pageData || {};
     window.pageData.ruanganList = <?= $ruangan_data_json ?>;
     window.pageData.uploadDirRuangan = '../uploads/ruangan/';
+    
+    // Event listeners for modal
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Ruangan page loaded'); // Debug
+        
+        // Open modal for add
+        const btnTambah = document.getElementById('openModalBtn');
+        if (btnTambah) {
+            console.log('Tambah button found'); // Debug
+            btnTambah.addEventListener('click', function() {
+                console.log('Tambah button clicked'); // Debug
+                const form = document.getElementById('ruanganForm');
+                if (form) form.reset();
+                
+                document.getElementById('formAction').value = 'tambah_ruangan';
+                document.getElementById('ruanganId').value = '';
+                document.getElementById('modalTitle').textContent = 'Tambah Ruangan';
+                
+                console.log('Calling modalShow...'); // Debug
+                window.modalShow('ruanganModal');
+            });
+        } else {
+            console.error('Button openModalBtn not found!'); // Debug
+        }
+        
+        // Close modal buttons
+        document.querySelectorAll('.closeModalBtn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal-id');
+                if (modalId) {
+                    window.modalHide(modalId);
+                }
+            });
+        });
+    });
+    
+    // Function to open edit modal
+    function openEditModal(id) {
+        console.log('Opening edit modal for ID:', id); // Debug
+        const ruanganItem = window.pageData.ruanganList.find(item => item.id == id);
+        if (!ruanganItem) {
+            console.error('Ruangan item not found:', id);
+            return;
+        }
+        
+        // Populate form
+        document.getElementById('formAction').value = 'edit_ruangan';
+        document.getElementById('ruanganId').value = ruanganItem.id;
+        document.getElementById('nama_ruangan').value = ruanganItem.nama_ruangan;
+        document.getElementById('deskripsi').value = ruanganItem.deskripsi;
+        document.getElementById('currentFoto').value = ruanganItem.foto || '';
+        document.getElementById('modalTitle').textContent = 'Edit Ruangan';
+        
+        // Show modal
+        window.modalShow('ruanganModal');
+    }
+    
+    // Function to delete ruangan
+    function hapusRuangan(id, nama) {
+        if (confirm('Yakin ingin menghapus ruangan "' + nama + '"?')) {
+            window.location.href = '?hapus=' + id;
+        }
+    }
 </script>
 
 <?php include 'includes/admin_footer.php'; ?>

@@ -61,184 +61,62 @@ if (!$data) {
 }
 ?>
 
-<style>
-/* ==============================
-   RESET & BASE
-================================*/
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: "Poppins", sans-serif;
-    background: #eef1f7;
-    color: #333;
-    line-height: 1.6;
-}
-
-
-/* ==============================
-   CARD WRAPPER (Satu Kartu)
-================================*/
-.card-tentang {
-    max-width: 900px;
-    margin: 40px auto;
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 30px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.10);
-    border-left: 6px solid #1a73e8;  /* efek elegan */
-}
-
-
-/* ==============================
-   HEADER
-================================*/
-.card-tentang h2 {
-    font-size: 1.7rem;
-    color: #1a237e;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-
-/* ==============================
-   FORM FIELD
-================================*/
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #c9c9c9;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
-    outline: none;
-}
-
-
-/* ==============================
-   TEXTAREA JUSTIFY
-================================*/
-.form-group textarea {
-    min-height: 180px;
-    text-align: justify;
-}
-
-
-/* ==============================
-   BUTTON
-================================*/
-.btn-save {
-    background: #1a73e8;
-    color: #fff;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-top: 5px;
-}
-
-.btn-save:hover {
-    background: #0d47a1;
-}
-
-
-/* ==============================
-   RESPONSIVE
-================================*/
-@media (max-width: 768px) {
-    .card-tentang {
-        padding: 22px;
-        margin: 25px;
-    }
-
-    .card-tentang h2 {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-tentang {
-        padding: 18px;
-    }
-
-    .btn-save {
-        width: 100%;
-    }
-}
-
-</style>
-
-<div class="content-wrapper">
-
-    <div class="page-title">Kelola Tentang Fakultas</div>
+    <div class="page-header">
+        <h1 class="page-title">Kelola Tentang Fakultas</h1>
+    </div>
 
     <?php if (isset($_GET['success'])): ?>
-        <div style="background:#d4edda;padding:10px;border-left:5px solid #28a745;margin-bottom:15px;border-radius:5px;">
+        <div class="msg success">
             ✔ Data berhasil diperbarui
         </div>
     <?php endif; ?>
 
-    <div class="card-tentang">
-    <h2>Tentang Fakultas</h2>
-
-    <!-- FORM YANG BENAR -->
-    <form method="POST" enctype="multipart/form-data">
-
-        <div class="form-group">
-            <label>Judul</label>
-            <input type="text" name="judul" value="<?= htmlspecialchars($data['judul']) ?>">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Edit Informasi Fakultas</h2>
         </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
 
-        <div class="form-group">
-            <label>Deskripsi</label>
-            <textarea name="deskripsi"><?= htmlspecialchars($data['deskripsi']) ?></textarea>
+                <div class="input-box">
+                    <label>Judul</label>
+                    <input type="text" name="judul" value="<?= htmlspecialchars($data['judul']) ?>" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Deskripsi</label>
+                    <textarea name="deskripsi" class="textarea-lg"><?= htmlspecialchars($data['deskripsi']) ?></textarea>
+                </div>
+
+                <div class="input-box">
+                    <label>Upload Gambar Baru</label>
+                    <input type="file" name="gambar" onchange="previewImage(event)" accept="image/*">
+                    
+                    <div class="image-preview-box mt-3">
+                        <label class="d-block text-muted" style="font-size: 0.9em; margin-bottom: 5px;">Preview Gambar:</label>
+                        <img id="imgPreview"
+                            src="../uploads/tentang/<?= htmlspecialchars($data['gambar']) ?>"
+                            alt="Current Image"
+                            style="width:100%; max-width: 300px; border-radius:8px; border: 1px solid #ddd; padding: 5px;">
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn-simpan">Simpan Perubahan</button>
+                </div>
+
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>Upload Gambar Baru</label>
-            <input type="file" name="gambar" onchange="previewImage(event)">
-
-            <div class="image-preview">
-                <img id="imgPreview"
-                    src="../uploads/tentang/<?= htmlspecialchars($data['gambar']) ?>"
-                    alt="Current Image"
-                    style="width:180px;border-radius:10px;margin-top:10px;">
-            </div>
-        </div>
-
-        <button type="submit" class="btn-save">Simpan Perubahan</button>
-
-    </form>
     </div>
-
-</div>
 
 <script>
 function previewImage(event) {
     const imgPreview = document.getElementById('imgPreview');
-    imgPreview.src = URL.createObjectURL(event.target.files[0]);
+    if(event.target.files && event.target.files[0]) {
+        imgPreview.src = URL.createObjectURL(event.target.files[0]);
+        imgPreview.style.display = 'block';
+    }
 }
 </script>
 

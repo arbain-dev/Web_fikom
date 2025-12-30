@@ -57,22 +57,19 @@ $q_misi = $conn->query("SELECT * FROM visi_misi WHERE kategori = 'Misi' ORDER BY
 include 'includes/admin_header.php'; 
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Visi Misi</span>
-    </div>
-    
-    <div class="page-header">
-        <h1 class="page-title">Kelola Visi Misi</h1>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Visi Misi</h1>
     </div>
     
     <?php if ($message): ?>
-        <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?>" style="margin-bottom: 20px;">
+        <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
             <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
             <?= $message ?>
         </div>
     <?php endif; ?>
 
-    <div class="row" style="display: grid; gap: 20px;">
+    <div class="row">
         <!-- Card Visi -->
         <div class="card">
             <div class="card-header">
@@ -98,7 +95,7 @@ include 'includes/admin_header.php';
             <div class="card-body">
                 
                 <!-- Table Misi -->
-                <div class="table-responsive" style="margin-bottom: 30px;">
+                <div class="table-responsive mb-6">
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -122,26 +119,26 @@ include 'includes/admin_header.php';
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="3" class="text-center" style="padding: 20px;">Belum ada data misi.</td>
+                                    <td colspan="3" class="text-center">Belum ada data misi.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
 
-                <hr style="margin-bottom: 20px; border: 0; border-top: 1px solid #eee;">
+                <hr class="mb-4">
                 
-                <h3 style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 600; color: var(--text-dark);">Tambah Misi Baru</h3>
-                <form method="POST" style="display: grid; grid-template-columns: 100px 1fr auto; gap: 15px; align-items: end;">
-                    <div class="form-group" style="margin-bottom: 0;">
+                <h3 class="mb-3">Tambah Misi Baru</h3>
+                <form method="POST" class="flex-between" style="gap: 15px;">
+                    <div class="form-group">
                         <label class="form-label required">Urutan</label>
                         <input type="number" name="urutan" class="form-input" placeholder="No" required>
                     </div>
-                    <div class="form-group" style="margin-bottom: 0;">
+                    <div class="form-group">
                         <label class="form-label required">Isi Misi</label>
                         <input type="text" name="misi_konten" class="form-input" placeholder="Masukkan teks misi..." required>
                     </div>
-                    <button type="submit" name="tambah_misi" class="btn btn-success" style="height: 48px;">
+                    <button type="submit" name="tambah_misi" class="btn btn-success">
                         <i class="fas fa-plus"></i> Tambah
                     </button>
                 </form>

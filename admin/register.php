@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="glass-box animate-fadeInUp">
     <div class="auth-header">
-        <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo FIKOM" style="width: 80px; display: block; margin: 0 auto 20px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
+        <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo FIKOM" class="auth-logo">
         <h2>Register Admin</h2>
         <p>Buat akun baru untuk akses admin</p>
     </div>
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         
         <button type="submit" class="auth-btn">
-            Daftar Admin <i class="fas fa-user-plus" style="margin-left: 8px;"></i>
+            Daftar Admin <i class="fas fa-user-plus"></i>
         </button>
     </form>
 

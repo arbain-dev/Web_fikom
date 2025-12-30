@@ -129,23 +129,24 @@ if ($result) while ($r = $result->fetch_assoc()) $list_dokumen[] = $r;
 include 'includes/admin_header.php';
 ?>
 
-  <div class="breadcrumbs">
-    <a href="dashboard.php">Admin</a> &gt; <span>Kelola Rencana Strategis</span>
-  </div>
-
-  <div class="page-header">
-    <h1>Kelola Rencana Strategis (Renstra)</h1>
-    <button id="openModalBtnTambah" class="btn-tambah">
-      <i class="fas fa-plus"></i> Tambah Dokumen
-    </button>
+  <!-- Purple Banner -->
+  <div class="page-banner">
+    <h1 class="banner-title">Kelola Rencana Strategis (Renstra)</h1>
   </div>
 
   <?php if ($message): ?>
     <div class="message <?= $message_type ?>"><?= $message ?></div>
   <?php endif; ?>
 
-  <div class="content-box">
-    <div style="overflow-x:auto;">
+  <div class="card">
+    <div class="card-header flex-between">
+        <h2 class="card-title">Daftar Dokumen Renstra</h2>
+        <button id="openModalBtnTambah" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Tambah Dokumen
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
       <table class="data-table">
         <thead>
           <tr>
@@ -173,7 +174,7 @@ include 'includes/admin_header.php';
               <button type="button" class="edit" onclick="openEditModal(<?= $r['id'] ?>)">
                 <i class="fas fa-edit"></i>
               </button>
-              <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus Renstra ini?');">
+              <form method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus Renstra ini?');">
                 <input type="hidden" name="action" value="hapus_renstra">
                 <input type="hidden" name="renstra_id" value="<?= $r['id'] ?>">
                   <button type="submit" class="delete">
@@ -183,7 +184,7 @@ include 'includes/admin_header.php';
             </td>
           </tr>
           <?php endforeach; else: ?>
-          <tr><td colspan="5" style="text-align:center;">Belum ada data.</td></tr>
+          <tr><td colspan="5" class="text-center">Belum ada data.</td></tr>
           <?php endif; ?>
         </tbody>
       </table>
@@ -192,11 +193,10 @@ include 'includes/admin_header.php';
 
 <!-- MODAL TAMBAH -->
 <div id="tambahModal" class="modal">
-  <div class="modal-overlay"></div>
   <div class="modal-content">
     <div class="modal-header">
       <h2>Tambah Rencana Strategis</h2>
-      <span class="close-btn" data-modal-id="tambahModal">&times;</span>
+      <span class="close-btn" onclick="modalHide('tambahModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data" id="tambahForm">
       <input type="hidden" name="action" value="tambah_renstra">
@@ -215,8 +215,8 @@ include 'includes/admin_header.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-tutup" data-modal-id="tambahModal">Batal</button>
-        <button type="submit" class="btn-simpan">Simpan</button>
+        <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('tambahModal')">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Data</button>
       </div>
     </form>
   </div>
@@ -224,11 +224,10 @@ include 'includes/admin_header.php';
 
 <!-- MODAL EDIT -->
 <div id="editModal" class="modal">
-  <div class="modal-overlay"></div>
   <div class="modal-content">
     <div class="modal-header">
       <h2>Edit Rencana Strategis</h2>
-      <span class="close-btn" data-modal-id="editModal">&times;</span>
+      <span class="close-btn" onclick="modalHide('editModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data" id="editForm">
       <input type="hidden" name="action" value="edit_renstra">
@@ -253,8 +252,8 @@ include 'includes/admin_header.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-tutup" data-modal-id="editModal">Batal</button>
-        <button type="submit" class="btn-simpan">Update</button>
+        <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('editModal')">Batal</button>
+        <button type="submit" class="btn btn-primary">Update Data</button>
       </div>
     </form>
   </div>
@@ -262,6 +261,35 @@ include 'includes/admin_header.php';
 
 <script>
     window.renstraData = <?= json_encode($list_dokumen) ?>;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add Button
+        const btnAdd = document.getElementById('openModalBtnTambah'); 
+        if (btnAdd) {
+            btnAdd.addEventListener('click', () => {
+                window.modalShow('tambahModal');
+            });
+        }
+    });
+
+    function openEditModal(id) {
+        const data = window.renstraData.find(item => item.id == id);
+        if(!data) return;
+
+        document.getElementById('id_edit').value = data.id;
+        document.getElementById('nama_dokumen_edit').value = data.nama_dokumen;
+        document.getElementById('deskripsi_edit').value = data.deskripsi;
+        document.getElementById('file_lama_edit').value = data.file_pdf;
+        
+        const fileStat = document.getElementById('file_status_edit');
+        if(data.file_pdf) {
+            fileStat.innerHTML = `File saat ini: <a href="../uploads/renstra/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
+        } else {
+            fileStat.innerText = "Tidak ada file.";
+        }
+
+        window.modalShow('editModal');
+    }
 </script>
 
 <?php include 'includes/admin_footer.php'; ?>

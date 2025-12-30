@@ -226,41 +226,47 @@ if (isset($_GET['status'])) {
 include 'includes/admin_header.php';
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kelola Penelitian</span>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Penelitian</h1>
     </div>
-    <div class="content-box">
-        <div class="box-header">
-            <h4>Daftar Penelitian</h4>
-            <form method="GET" class="filter-bar">
-                <select name="filter_tahun">
-                    <option value="">— Semua Tahun —</option>
-                    <?php
-                        $y = date('Y');
-                        for ($i=$y; $i>=$y-5; $i--) {
-                            $sel = ($filter_tahun==$i) ? "selected" : "";
-                            echo "<option value='$i' $sel>$i</option>";
-                        }
-                    ?>
-                </select>
-                <select name="filter_status">
-                    <option value="">— Semua Status —</option>
-                    <option value="Draft" <?= $filter_status=="Draft"?"selected":"" ?>>Draft</option>
-                    <option value="Sedang Berjalan" <?= $filter_status=="Sedang Berjalan"?"selected":"" ?>>Sedang Berjalan</option>
-                    <option value="Selesai" <?= $filter_status=="Selesai"?"selected":"" ?>>Selesai</option>
-                </select>
-                <button type="submit">
-                    <i class="fas fa-filter"></i> Filter
-                </button>
-                <button type="button" id="btnOpenTambah" class="btn-tambah">
-                    <i class="fas fa-plus"></i> Tambah Baru
-                </button>
-            </form>
+
+    <div class="card">
+        <div class="card-header flex-between" style="flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <h2 class="card-title" style="margin:0;">Daftar Penelitian</h2>
+                <form method="GET" class="filter-bar" style="display:flex; gap:10px; margin:0;">
+                    <select name="filter_tahun" class="form-select-sm" style="padding:5px; border-radius:4px; border:1px solid #ddd;">
+                        <option value="">— Semua Tahun —</option>
+                        <?php
+                            $y = date('Y');
+                            for ($i=$y; $i>=$y-5; $i--) {
+                                $sel = ($filter_tahun==$i) ? "selected" : "";
+                                echo "<option value='$i' $sel>$i</option>";
+                            }
+                        ?>
+                    </select>
+                    <select name="filter_status" class="form-select-sm" style="padding:5px; border-radius:4px; border:1px solid #ddd;">
+                        <option value="">— Semua Status —</option>
+                        <option value="Draft" <?= $filter_status=="Draft"?"selected":"" ?>>Draft</option>
+                        <option value="Sedang Berjalan" <?= $filter_status=="Sedang Berjalan"?"selected":"" ?>>Sedang Berjalan</option>
+                        <option value="Selesai" <?= $filter_status=="Selesai"?"selected":"" ?>>Selesai</option>
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-secondary">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </form>
+            </div>
+            
+            <button type="button" id="btnOpenTambah" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Baru
+            </button>
         </div>
 
-        <?php if ($msg != ""): ?>
-            <div class="message <?= $type ?>"><?= $msg ?></div>
-        <?php endif; ?>
+        <div class="card-body">
+            <?php if ($msg != ""): ?>
+                <div class="message <?= $type ?>"><?= $msg ?></div>
+            <?php endif; ?>
        <table class="data-table">
     <thead>
         <tr>
@@ -337,143 +343,202 @@ include 'includes/admin_header.php';
     </div>
 
 <!-- ======================== MODAL TAMBAH / EDIT ======================== -->
-<div class="modal-penelitian-overlay" id="modalPenelitianOverlay">
-    <div class="modal-penelitian">
-
-        <div class="modal-header-bar">
-            <h2 id="modalPenelitianTitle">Tambah Penelitian</h2>
-            <button class="modal-close-btn" onclick="closeModalPenelitian()">&times;</button>
+<div id="modalPenelitian" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2 id="modalPenelitianTitle">TAMBAH PENELITIAN</h2>
+            <span class="close-btn" onclick="window.modalHide('modalPenelitian')">&times;</span>
         </div>
 
-        <!-- ========================== FORM MULAI ========================== -->
         <form id="formPenelitian" action="admin_kelola_penelitian.php" method="POST" enctype="multipart/form-data">
-
             <input type="hidden" name="mode_penelitian" id="mode_penelitian" value="tambah">
             <input type="hidden" name="id" id="id_penelitian">
             <input type="hidden" name="old_file_proposal" id="old_file_proposal">
             <input type="hidden" name="old_file_laporan" id="old_file_laporan">
 
-            <div class="form-grid-penelitian">
-                <div class="form-section">
-                    <div class="form-section-header">
-                        <i class="fas fa-info-circle"></i> Identitas Penelitian
+            <div class="modal-body">
+                <!-- Identitas -->
+                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 15px; color: var(--primary-600);">
+                    <i class="fas fa-info-circle"></i> Identitas Penelitian
+                </h3>
+                
+                <div class="input-box">
+                    <label class="required">Judul Penelitian</label>
+                    <textarea id="judul" name="judul" rows="2" required></textarea>
+                </div>
+                
+                <div class="input-row">
+                    <div class="input-box">
+                        <label class="required">Nama Peneliti</label>
+                        <input type="text" id="peneliti" name="peneliti" required>
                     </div>
-                    <div class="form-section-body">
-                        <div class="input-box">
-                            <label for="judul">Judul Penelitian *</label>
-                            <textarea id="judul" name="judul" rows="3" required></textarea>
-                        </div>
-                        <div class="input-box">
-                            <label for="peneliti">Nama Peneliti *</label>
-                            <input type="text" id="peneliti" name="peneliti" required>
-                        </div>
-                        <div class="input-grid-2">
-                            <div class="input-box">
-                                <label for="tahun">Tahun *</label>
-                                <input type="number" id="tahun" name="tahun" min="2000" max="2099">
-                            </div>
-                            <div class="input-box">
-                                <label for="status">Status *</label>
-                                <select id="status" name="status">
-                                    <option value="Draft">Draft</option>
-                                    <option value="Sedang Berjalan">Sedang Berjalan</option>
-                                    <option value="Selesai">Selesai</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input-box">
-                            <label for="skim_penelitian">Skim Penelitian</label>
-                            <input type="text" id="skim_penelitian" name="skim_penelitian">
-                        </div>
-                        <div class="input-box">
-                            <label for="kelompok_bidang">Kelompok Bidang</label>
-                            <input type="text" id="kelompok_bidang" name="kelompok_bidang">
-                        </div>
-                        <div class="input-grid-2">
-                            <div class="input-box">
-                                <label for="nomor_sk">Nomor SK</label>
-                                <input type="text" id="nomor_sk" name="nomor_sk">
-                            </div>
-                            <div class="input-box">
-                                <label for="lama_kegiatan">Lama Kegiatan</label>
-                                <input type="text" id="lama_kegiatan" name="lama_kegiatan">
-                            </div>
-                        </div>
+                    <div class="input-box">
+                        <label class="required">Tahun</label>
+                        <input type="number" id="tahun" name="tahun" min="2000" max="2099" required>
                     </div>
                 </div>
-                <div>
-                    <div class="form-section">
-                        <div class="form-section-header header-pendanaan">
-                            <i class="fas fa-dollar-sign"></i> Pendanaan & Periode
-                        </div>
-                        <div class="form-section-body">
-                            <div class="input-grid-2">
-                                <div class="input-box">
-                                    <label for="sumber_dana">Sumber Dana</label>
-                                    <select id="sumber_dana" name="sumber_dana">
-                                        <option value="Internal">Internal</option>
-                                        <option value="Eksternal (Kemdikbud)">Eksternal (Kemdikbud)</option>
-                                        <option value="Mandiri">Mandiri</option>
-                                        <option value="Lainnya">Lainnya</option>
-                                    </select>
-                                </div>
 
-                                <div class="input-box">
-                                    <label for="jumlah_dana">Jumlah Dana (Rp)</label>
-                                    <input type="number" id="jumlah_dana" name="jumlah_dana" min="0">
-                                </div>
-                            </div>
-                            <div class="input-grid-2">
-                                <div class="input-box">
-                                    <label for="tanggal_mulai">Tanggal Mulai</label>
-                                    <input type="date" id="tanggal_mulai" name="tanggal_mulai">
-                                </div>
-                                <div class="input-box">
-                                    <label for="tanggal_selesai">Tanggal Selesai</label>
-                                    <input type="date" id="tanggal_selesai" name="tanggal_selesai">
-                                </div>
-                            </div>
-                        </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <label class="required">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="Draft">Draft</option>
+                            <option value="Sedang Berjalan">Sedang Berjalan</option>
+                            <option value="Selesai">Selesai</option>
+                        </select>
                     </div>
+                    <div class="input-box">
+                        <label>Skim Penelitian</label>
+                        <input type="text" id="skim_penelitian" name="skim_penelitian">
+                    </div>
+                </div>
 
-                    <div class="form-section" style="margin-top:20px;">
-                        <div class="form-section-header">
-                            <i class="fas fa-folder"></i> Lokasi & Dokumen
-                        </div>
-                        <div class="form-section-body">
-                            <div class="input-box">
-                                <label for="lokasi_penelitian">Lokasi Penelitian</label>
-                                <input type="text" id="lokasi_penelitian" name="lokasi_penelitian">
-                            </div>
-                            <div class="input-box">
-                                <label for="afiliasi">Afiliasi</label>
-                                <input type="text" id="afiliasi" name="afiliasi">
-                            </div>
-                            <div class="input-box">
-                                <label for="file_proposal">Upload Proposal</label>
-                                <input type="file" id="file_proposal" name="file_proposal" accept=".pdf,.doc,.docx">
-                                <div id="info_file_proposal" class="file-format"></div>
-                            </div>
-                            <div class="input-box">
-                                <label for="file_laporan">Upload Laporan</label>
-                                <input type="file" id="file_laporan" name="file_laporan" accept=".pdf,.doc,.docx">
-                                <div id="info_file_laporan" class="file-format"></div>
-                            </div>
-                            <div class="input-box">
-                                <label for="link_publikasi">Link Publikasi</label>
-                                <input type="url" id="link_publikasi" name="link_publikasi">
-                            </div>
-                        </div>
+                <div class="input-row">
+                    <div class="input-box">
+                        <label>Kelompok Bidang</label>
+                        <input type="text" id="kelompok_bidang" name="kelompok_bidang">
                     </div>
+                    <div class="input-box">
+                        <label>Nomor SK</label>
+                        <input type="text" id="nomor_sk" name="nomor_sk">
+                    </div>
+                </div>
+                
+                <div class="input-box">
+                    <label>Lama Kegiatan</label>
+                    <input type="text" id="lama_kegiatan" name="lama_kegiatan">
+                </div>
+
+                <!-- Pendanaan -->
+                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin: 25px 0 15px 0; color: var(--primary-600);">
+                    <i class="fas fa-dollar-sign"></i> Pendanaan & Periode
+                </h3>
+
+                <div class="input-row">
+                    <div class="input-box">
+                        <label>Sumber Dana</label>
+                        <select id="sumber_dana" name="sumber_dana">
+                            <option value="Internal">Internal</option>
+                            <option value="Eksternal (Kemdikbud)">Eksternal (Kemdikbud)</option>
+                            <option value="Mandiri">Mandiri</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label>Jumlah Dana (Rp)</label>
+                        <input type="number" id="jumlah_dana" name="jumlah_dana" min="0">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-box">
+                        <label>Tanggal Mulai</label>
+                        <input type="date" id="tanggal_mulai" name="tanggal_mulai">
+                    </div>
+                    <div class="input-box">
+                        <label>Tanggal Selesai</label>
+                        <input type="date" id="tanggal_selesai" name="tanggal_selesai">
+                    </div>
+                </div>
+
+                <!-- Lokasi & Dokumen -->
+                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin: 25px 0 15px 0; color: var(--primary-600);">
+                     <i class="fas fa-folder"></i> Lokasi & Dokumen
+                </h3>
+
+                <div class="input-row">
+                    <div class="input-box">
+                        <label>Lokasi Penelitian</label>
+                        <input type="text" id="lokasi_penelitian" name="lokasi_penelitian">
+                    </div>
+                    <div class="input-box">
+                        <label>Afiliasi</label>
+                        <input type="text" id="afiliasi" name="afiliasi">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-box">
+                        <label>Upload Proposal (PDF/DOC)</label>
+                        <input type="file" id="file_proposal" name="file_proposal" accept=".pdf,.doc,.docx">
+                        <small class="text-muted" id="info_proposal_text"></small>
+                    </div>
+                    <div class="input-box">
+                        <label>Upload Laporan (PDF/DOC)</label>
+                        <input type="file" id="file_laporan" name="file_laporan" accept=".pdf,.doc,.docx">
+                        <small class="text-muted" id="info_laporan_text"></small>
+                    </div>
+                </div>
+
+                 <div class="input-box">
+                    <label>Link Publikasi</label>
+                    <input type="url" id="link_publikasi" name="link_publikasi" placeholder="https://...">
                 </div>
             </div>
 
-            <div class="form-buttons">
-                <button type="submit" class="btn-simpan"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn-tutup" onclick="closeModal('modalPenelitian')">Tutup</button>
-                <button type="reset" class="btn-reset"><i class="fas fa-undo"></i> Reset</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn" onclick="window.modalHide('modalPenelitian')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add Button
+    const btnAdd = document.getElementById('btnOpenTambah');
+    if(btnAdd) {
+        btnAdd.addEventListener('click', () => {
+             document.getElementById('formPenelitian').reset();
+             document.getElementById('mode_penelitian').value = 'tambah';
+             document.getElementById('id_penelitian').value = '';
+             document.getElementById('modalPenelitianTitle').innerText = 'TAMBAH PENELITIAN';
+             document.getElementById('info_proposal_text').innerText = '';
+             document.getElementById('info_laporan_text').innerText = '';
+             window.modalShow('modalPenelitian');
+        });
+    }
+});
+
+// Edit Function (called inline from table)
+function openEditPenelitian(btn) {
+    const d = btn.dataset;
+    
+    document.getElementById('mode_penelitian').value = 'edit';
+    document.getElementById('id_penelitian').value = d.id;
+    
+    document.getElementById('judul').value = d.judul;
+    document.getElementById('peneliti').value = d.peneliti;
+    document.getElementById('tahun').value = d.tahun;
+    document.getElementById('status').value = d.status;
+    document.getElementById('skim_penelitian').value = d.skim_penelitian;
+    document.getElementById('kelompok_bidang').value = d.kelompok_bidang;
+    document.getElementById('nomor_sk').value = d.nomor_sk;
+    document.getElementById('lama_kegiatan').value = d.lama_kegiatan;
+    document.getElementById('sumber_dana').value = d.sumber_dana;
+    document.getElementById('jumlah_dana').value = d.jumlah_dana;
+    document.getElementById('tanggal_mulai').value = d.tanggal_mulai;
+    document.getElementById('tanggal_selesai').value = d.tanggal_selesai;
+    document.getElementById('lokasi_penelitian').value = d.lokasi_penelitian;
+    document.getElementById('afiliasi').value = d.afiliasi;
+    
+    // Files
+    document.getElementById('old_file_proposal').value = d.file_proposal;
+    document.getElementById('old_file_laporan').value = d.file_laporan;
+    document.getElementById('link_publikasi').value = d.link_publikasi;
+
+    const infoProp = document.getElementById('info_proposal_text');
+    if(d.file_proposal) infoProp.innerHTML = `File saat ini: <a href="../uploads/penelitian_proposal/${d.file_proposal}" target="_blank">Lihat</a>`;
+    else infoProp.innerText = 'Belum ada file.';
+
+    const infoLap = document.getElementById('info_laporan_text');
+    if(d.file_laporan) infoLap.innerHTML = `File saat ini: <a href="../uploads/penelitian_laporan/${d.file_laporan}" target="_blank">Lihat</a>`;
+    else infoLap.innerText = 'Belum ada file.';
+    
+    document.getElementById('modalPenelitianTitle').innerText = 'EDIT PENELITIAN';
+    window.modalShow('modalPenelitian');
+}
+</script>
 <?php include 'includes/admin_footer.php'; ?>
+```

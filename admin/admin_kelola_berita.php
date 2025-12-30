@@ -161,13 +161,9 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-<main class="content-area">
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Dashboard</a> &gt; <span>Kelola Berita</span>
-    </div>
-
-    <div class="page-header">
-        <h1 class="page-title">Daftar Berita</h1>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Daftar Berita</h1>
     </div>
 
     <?php if (!empty($message)): ?>
@@ -177,7 +173,7 @@ if ($result && $result->num_rows > 0) {
     <?php endif; ?>
 
     <div class="card">
-        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div class="card-header flex-between">
             <h2 class="card-title">Data Berita Terkini</h2>
             <button class="btn btn-primary" onclick="beritaModule.bukaPopup('tambah')">
                 <i class="fas fa-plus"></i> Tambah Berita
@@ -221,10 +217,10 @@ if ($result && $result->num_rows > 0) {
                             </td>
                             <td>
                                 <div class="action-links">
-                                    <button class="btn-icon edit" style="background:var(--info-50); color:var(--info-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)'>
+                                    <button class="btn-icon edit" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)'>
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" style="background:var(--error-50); color:var(--error-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="return confirm('Yakin mau hapus berita ini?')">
+                                    <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" onclick="return confirm('Yakin mau hapus berita ini?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </div>
@@ -237,7 +233,6 @@ if ($result && $result->num_rows > 0) {
             </table>
         </div>
     </div>
-</main>
 
 <!-- MODAL FORM -->
 <div id="kbPopupForm" class="modal">
@@ -259,7 +254,7 @@ if ($result && $result->num_rows > 0) {
                     <input type="text" name="judul" id="kbJudul" required placeholder="Masukkan judul berita...">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="input-row">
                     <div class="input-box">
                         <label>Kategori <span class="text-error">*</span></label>
                         <select name="kategori" id="kbKategori" required>

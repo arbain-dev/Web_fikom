@@ -122,62 +122,42 @@ include 'includes/admin_header.php';
 
     .badge-aktif { background: #27ae60; }
     .badge-nonaktif { background: #7f8c8d; }
-
-    /* MODAL RESPONSIF */
-    .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .6);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    .modal-content {
-        background: white;
-        padding: 15px;
-        border-radius: 10px;
-        max-width: 90%;
-        max-height: 90vh;
-        text-align: center;
-        position: relative;
-    }
-
-    .modal-content img {
-        max-width: 100%;
-        max-height: 80vh;
-        border-radius: 6px;
-    }
-
-    .modal-close {
-        position: absolute;
-        right: 12px;
-        top: 8px;
-        cursor: pointer;
-        font-size: 22px;
-        font-weight: bold;
-    }
 </style>
 
-<div class="page-header">
-    <h2>Kelola Slider Homepage</h2>
+<!-- Purple Banner -->
+<div class="page-banner">
+    <h1 class="banner-title">Kelola Slider Homepage</h1>
 </div>
 
 <?php if (!empty($pesan)): ?>
     <div class="msg"><?= htmlspecialchars($pesan) ?></div>
 <?php endif; ?>
 
-<div class="content-box">
-    <form method="POST" enctype="multipart/form-data" class="mb-4">
-        <label>Pilih Foto Slider:</label><br>
-        <input type="file" name="gambar" required style="margin-top:8px;">
-        <button type="submit" class="btn btn-primary" style="margin-top:8px;">Upload</button>
-    </form>
+<!-- Card Upload -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h2 class="card-title">Upload Slider Baru</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" class="flex-end" style="gap:10px;">
+            <div>
+                <label class="d-block" style="font-weight:bold; margin-bottom:5px;">Pilih Foto:</label>
+                <input type="file" name="gambar" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-upload"></i> Upload
+            </button>
+        </form>
+    </div>
+</div>
 
-    <h3>Daftar Slider</h3>
-    
-    <div class="table-wrapper">
+<!-- Card Daftar -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">Daftar Slider</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-wrapper">
         <table class="data-table">
             <thead>
                 <tr>
@@ -211,19 +191,12 @@ include 'includes/admin_header.php';
                                 <span class="badge badge-nonaktif">Nonaktif</span>
                             <?php endif; ?>
                         </td>
-                        <td>
-                            <?php if ($ada): ?>
-                                <button type="button" class="btn-small btn-preview js-preview" data-src="<?= $path ?>">Lihat</button>
-                            <?php endif; ?>
-                            <a class="btn-small btn-toggle" 
-                               href="?toggle=<?= $row['id'] ?>"
-                               onclick="return confirm('Ubah status slider?');">
-                               Toggle
-                            </a>
-                            <a class="btn-small btn-delete"
+                        <td class="action-links" style="text-align: center;">
+                            <a class="delete"
                                href="?hapus=<?= $row['id'] ?>"
-                               onclick="return confirm('Yakin ingin menghapus slider ini?');">
-                               Hapus
+                               onclick="return confirm('Yakin ingin menghapus slider ini?');"
+                               title="Hapus">
+                                <i class="fas fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -237,39 +210,35 @@ include 'includes/admin_header.php';
 </div>
 
 <!-- MODAL PREVIEW -->
-<div id="imageModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <img id="modalImage" src="">
+<div id="imageModal" class="modal">
+    <div class="modal-content" style="max-width: 800px; width: auto;">
+        <div class="modal-header">
+            <h2>PREVIEW SLIDER</h2>
+            <span class="close-btn" onclick="window.modalHide('imageModal')">&times;</span>
+        </div>
+        <div class="modal-body" style="text-align: center; padding: 20px;">
+            <img id="modalImage" src="" style="max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-btn" onclick="window.modalHide('imageModal')">Tutup</button>
+        </div>
     </div>
 </div>
 
 <!-- Inline script for this page specific modal -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const modalOverlay = document.getElementById('imageModal');
-    const modalImage   = document.getElementById('modalImage');
-    const modalClose   = document.getElementById('modalClose');
+    const modalImage = document.getElementById('modalImage');
 
     document.querySelectorAll('.js-preview').forEach(el => {
         el.addEventListener('click', () => {
             const src = el.getAttribute('data-src');
             if(src) {
                 modalImage.src = src;
-                modalOverlay.style.display = 'flex';
+                window.modalShow('imageModal');
             }
         });
     });
-
-    if(modalClose) {
-        modalClose.onclick = () => modalOverlay.style.display = 'none';
-    }
-    
-    if(modalOverlay) {
-        modalOverlay.onclick = e => {
-            if (e.target === modalOverlay) modalOverlay.style.display = 'none';
-        };
-    }
 });
 </script>
 

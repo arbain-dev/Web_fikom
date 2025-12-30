@@ -125,14 +125,10 @@ if (isset($_GET['status'])) {
 
 include 'includes/admin_header.php'; 
 ?>
-    <main class="content-area">
-        <div class="breadcrumbs">
-            <a href="dashboard.php">Dashboard</a> &gt; <span>Kelola Dosen</span>
+        <!-- Purple Banner -->
+        <div class="page-banner">
+            <h1 class="banner-title">Kelola Data Dosen</h1>
         </div>
-        
-    <div class="page-header">
-        <h1 class="page-title">Kelola Data Dosen</h1>
-    </div>
 
     <?php if ($pesan_sukses): ?>
         <div class="alert alert-success mb-6" style="padding:1rem; border-radius:0.5rem; background:var(--success-50); color:var(--success-600); border:1px solid var(--success-200);">
@@ -165,15 +161,15 @@ include 'includes/admin_header.php';
     </div>
 
     <div class="card">
-        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-            <div style="display:flex; align-items:center; gap:15px;">
-                <h2 class="card-title" style="margin:0;">Daftar Dosen</h2>
-                <button type="button" class="btn btn-primary" onclick="openAddDosenModal()">
-                    <i class="fas fa-plus"></i> Tambah Dosen
-                </button>
-            </div>
-            
-            <form action="" method="GET" style="display:flex; gap:10px;">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Dosen</h2>
+            <button type="button" class="btn btn-primary" onclick="openAddDosenModal()">
+                <i class="fas fa-plus"></i> Tambah Dosen
+            </button>
+        </div>
+        
+        <div class="card-body">
+            <form action="" method="GET" style="display:flex; gap:10px; margin-bottom:20px;">
                 <select name="filter_prodi" class="form-select" style="padding:8px; border-radius:8px; border:1px solid var(--gray-300);">
                     <option value="">— Semua Prodi —</option>
                     <option value="Informatika" <?= $filter_prodi == 'Informatika' ? 'selected' : '' ?>>Informatika</option>
@@ -218,10 +214,10 @@ include 'includes/admin_header.php';
                                 </td>
                                 <td>
                                     <div class="action-links">
-                                        <a href="#" class="btn-icon" style="background:var(--info-50); color:var(--info-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
+                                        <a href="#" class="btn-icon edit" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="btn-icon" style="background:var(--error-50); color:var(--error-600); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center;" onclick="return confirm('Yakin hapus?');">
+                                        <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="btn-icon delete" onclick="return confirm('Yakin hapus?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
@@ -235,7 +231,6 @@ include 'includes/admin_header.php';
                 </table>
             </div>
         </div>
-    </main>
     
     <!-- MODAL DOSEN -->
     <div id="dosenModal" class="modal">
@@ -257,7 +252,7 @@ include 'includes/admin_header.php';
                         <input type="text" name="nama" id="nama" required>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="input-row">
                         <div class="input-box">
                             <label>NIDN/NIP</label>
                             <input type="text" name="nidn" id="nidn">
@@ -268,7 +263,7 @@ include 'includes/admin_header.php';
                         </div>
                     </div>
     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="input-row">
                         <div class="input-box">
                             <label>Program Studi <span class="text-error">*</span></label>
                             <select name="program_studi" id="program_studi" required>
@@ -287,7 +282,7 @@ include 'includes/admin_header.php';
                         </div>
                     </div>
     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="input-row">
                         <div class="input-box">
                             <label>Pendidikan <span class="text-error">*</span></label>
                             <select name="pendidikan" id="pendidikan" required>

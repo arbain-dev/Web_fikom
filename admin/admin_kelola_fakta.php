@@ -36,12 +36,9 @@ include 'includes/admin_header.php';
 $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
 ?>
 
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kelola Fakta Fakultas</span>
-    </div>
-
-    <div class="page-header">
-        <h1 class="page-title">Fakta Fakultas</h1>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Fakta Fakultas</h1>
     </div>
 
     <?php 
@@ -56,7 +53,7 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
     ?>
 
     <div class="card">
-        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="card-header flex-between">
             <h2 class="card-title">Daftar Fakta</h2>
             <button class="btn btn-primary btn-sm" onclick="faktaModule.bukaPopup('tambah')">
                 <i class="fas fa-plus"></i> Tambah Fakta
@@ -101,38 +98,37 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
 
 <!-- STANDARD MODAL -->
 <div class="modal" id="faktaModal">
-    <div class="modal-overlay" onclick="faktaModule.tutupPopup()"></div>
     <div class="modal-content">
         <div class="modal-header">
-            <h2 id="faktaTitle">Tambah Fakta</h2>
-            <button class="close-btn" onclick="faktaModule.tutupPopup()">&times;</button>
+            <h2 id="faktaTitle">TAMBAH FAKTA</h2>
+            <span class="close-btn" onclick="faktaModule.tutupPopup()">&times;</span>
         </div>
 
         <form method="POST" id="faktaForm">
-            <div class="modal-body">
-                <input type="hidden" name="action" id="faktaAction">
-                <input type="hidden" name="id" id="faktaId">
+            <input type="hidden" name="action" id="faktaAction">
+            <input type="hidden" name="id" id="faktaId">
 
-                <div class="form-group">
-                    <label class="form-label required">Judul Fakta</label>
-                    <input type="text" name="judul" id="faktajudul" class="form-input" placeholder="Contoh: Dosen, Mahasiswa, dll" required>
+            <div class="modal-body">
+                <div class="input-box">
+                    <label class="required">Judul Fakta</label>
+                    <input type="text" name="judul" id="faktajudul" placeholder="Contoh: Dosen, Mahasiswa, dll" required>
                 </div>
 
-                <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-group">
-                        <label class="form-label required">Angka</label>
-                        <input type="number" name="angka" id="faktaangka" class="form-input" required>
+                <div class="input-row">
+                    <div class="input-box">
+                        <label class="required">Angka</label>
+                        <input type="number" name="angka" id="faktaangka" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label required">Urutan</label>
-                        <input type="number" name="urutan" id="faktaurutan" class="form-input" required>
+                    <div class="input-box">
+                        <label class="required">Urutan</label>
+                        <input type="number" name="urutan" id="faktaurutan" required>
                     </div>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="faktaModule.tutupPopup()">Batal</button>
+                <button type="button" class="btn btn-secondary close-btn" onclick="faktaModule.tutupPopup()">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>

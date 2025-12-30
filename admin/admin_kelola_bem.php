@@ -177,15 +177,9 @@ if ($result && $result->num_rows > 0) {
 include 'includes/admin_header.php';
 ?>
 
-<div class="breadcrumbs">
-    <a href="dashboard.php">Admin</a> &gt; <span>Kelola Struktur BEM</span>
-</div>
-
-<div class="page-header">
-    <h1>Struktur Organisasi BEM</h1>
-    <button type="button" id="btnOpenTambah" class="btn-tambah">
-        <i class="fas fa-plus"></i> Tambah Anggota
-    </button>
+<!-- Purple Banner -->
+<div class="page-banner">
+    <h1 class="banner-title">Struktur Organisasi BEM</h1>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -194,8 +188,15 @@ include 'includes/admin_header.php';
     </div>
 <?php endif; ?>
 
-<div class="content-box">
-    <table class="data-table">
+<div class="card">
+    <div class="card-header flex-between">
+        <h2 class="card-title">Daftar Anggota BEM</h2>
+        <button type="button" id="btnOpenTambah" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Tambah Anggota
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="data-table">
         <thead>
             <tr>
                 <th>Foto</th>
@@ -242,7 +243,7 @@ include 'includes/admin_header.php';
                     </td>
                     <td data-label="Aksi" class="action-links">
                         <button type="button"
-                                class="btn-aksi btn-aksi-edit"
+                                class="btn-icon edit"
                                 data-id="<?= $item['id'] ?>"
                                 data-nama="<?= htmlspecialchars($item['nama'], ENT_QUOTES) ?>"
                                 data-jabatan="<?= htmlspecialchars($item['jabatan'], ENT_QUOTES) ?>"
@@ -254,7 +255,7 @@ include 'includes/admin_header.php';
                         </button>
 
                         <a href="admin_kelola_bem.php?action=delete&id=<?= $item['id'] ?>"
-                           class="btn-aksi btn-aksi-delete"
+                           class="btn-icon delete"
                            onclick="return confirm('Hapus data ini?');">
                             <i class="fas fa-trash"></i>
                         </a>
@@ -273,8 +274,8 @@ include 'includes/admin_header.php';
 <div id="modalTambah" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Tambah Anggota BEM</h2>
-            <button type="button" class="close-btn">&times;</button>
+            <h2>TAMBAH ANGGOTA BEM</h2>
+            <span class="close-btn">&times;</span>
         </div>
 
         <div class="modal-body">
@@ -286,7 +287,7 @@ include 'includes/admin_header.php';
                     <input type="text" name="nama" required>
                 </div>
 
-                <div class="form-row">
+                <div class="input-row">
                     <div class="input-box">
                         <label>Jabatan</label>
                         <input type="text" name="jabatan" required>
@@ -297,7 +298,7 @@ include 'includes/admin_header.php';
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="input-row">
                     <div class="input-box">
                         <label>Kategori</label>
                         <select name="kategori" required>
@@ -318,8 +319,8 @@ include 'includes/admin_header.php';
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-tutup">Batal</button>
-                    <button type="submit" class="btn btn-primary btn-simpan">Simpan Data</button>
+                    <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -330,8 +331,8 @@ include 'includes/admin_header.php';
 <div id="modalEdit" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Edit Anggota BEM</h2>
-            <button type="button" class="close-btn">&times;</button>
+            <h2>EDIT ANGGOTA BEM</h2>
+            <span class="close-btn">&times;</span>
         </div>
 
         <div class="modal-body">
@@ -345,7 +346,7 @@ include 'includes/admin_header.php';
                     <input type="text" name="nama" id="edit_nama" required>
                 </div>
 
-                <div class="form-row">
+                <div class="input-row">
                     <div class="input-box">
                         <label>Jabatan</label>
                         <input type="text" name="jabatan" id="edit_jabatan" required>
@@ -392,5 +393,55 @@ include 'includes/admin_header.php';
 <script>
     window.bemData = <?= json_encode($bem_list) ?>;
     window.bemUploadDir = "<?= $upload_dir ?>";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Tambah
+        const btnOpen = document.getElementById('btnOpenTambah');
+        if(btnOpen) {
+            btnOpen.addEventListener('click', () => {
+                 window.modalShow('modalTambah');
+            });
+        }
+
+        // Edit
+        document.querySelectorAll('.btn-aksi-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const nama = btn.dataset.nama;
+                const jabatan = btn.dataset.jabatan;
+                const prodi = btn.dataset.prodi;
+                const kategori = btn.dataset.kategori;
+                const urutan = btn.dataset.urutan;
+                const foto = btn.dataset.foto;
+
+                document.getElementById('edit_id').value = id;
+                document.getElementById('edit_nama').value = nama;
+                document.getElementById('edit_jabatan').value = jabatan;
+                document.getElementById('edit_prodi').value = prodi;
+                document.getElementById('edit_kategori').value = kategori;
+                document.getElementById('edit_urutan').value = urutan;
+                document.getElementById('edit_foto_lama').value = foto;
+
+                const imgPreview = document.getElementById('preview_foto');
+                if(foto) {
+                    imgPreview.src = window.bemUploadDir + foto;
+                    imgPreview.style.display = 'block';
+                } else {
+                    imgPreview.style.display = 'none';
+                }
+
+                 window.modalShow('modalEdit');
+            });
+        });
+
+        // Close (Class logic handled by admin.js globally for .close-btn if we use correct IDs or direct onclick, 
+        // but let's add specific ones for safety/consistency with other files)
+        document.querySelectorAll('.close-btn, .btn-tutup').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if(modal) window.modalHide(modal.id);
+            });
+        });
+    });
 </script>
 <?php include 'includes/admin_footer.php'; ?>

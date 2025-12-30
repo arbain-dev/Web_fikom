@@ -144,59 +144,53 @@ $json_data = json_encode($list_dokumen);
 include 'includes/admin_header.php';
 ?>
 
-<style>
-    /* Class untuk menampilkan modal via JS */
-    .modal.show {
-        display: flex;
-    }
-</style>
-
-  <div class="breadcrumbs">
-    <a href="dashboard.php">Admin</a> &gt; <span>Kelola Rencana Operasional</span>
-  </div>
-
-  <div class="page-header">
-    <h1>Kelola Rencana Operasional (RenOp)</h1>
-    <button id="openModalBtnTambah" class="btn-tambah">
-      <i class="fas fa-plus"></i> Tambah Dokumen
-    </button>
+  <!-- Purple Banner -->
+  <div class="page-banner">
+    <h1 class="banner-title">Kelola Rencana Operasional (RenOp)</h1>
   </div>
 
   <?php if (!empty($message)): ?>
     <div class="message <?= $message_type ?>"><?= $message ?></div>
   <?php endif; ?>
 
-  <div class="content-box">
-    <div style="overflow-x:auto;">
-      <table class="data-table" style="width:100%; border-collapse: collapse;">
+  <div class="card">
+    <div class="card-header flex-between">
+        <h2 class="card-title">Daftar Dokumen RenOp</h2>
+        <button id="openModalBtnTambah" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Tambah Dokumen
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+      <table class="data-table">
         <thead>
-          <tr style="background:#f4f4f4; text-align:left;">
-            <th style="padding:10px;">No</th>
-            <th style="padding:10px;">Nama Dokumen</th>
-            <th style="padding:10px;">Deskripsi</th>
-            <th style="padding:10px;">File</th>
-            <th style="padding:10px;">Aksi</th>
+          <tr>
+            <th>No</th>
+            <th>Nama Dokumen</th>
+            <th>Deskripsi</th>
+            <th>File</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
           <?php if ($list_dokumen): $i=1; foreach ($list_dokumen as $r): ?>
-          <tr style="border-bottom:1px solid #ddd;">
-            <td style="padding:10px;"><?= $i++ ?></td>
-            <td style="padding:10px;"><?= htmlspecialchars($r['nama_dokumen']) ?></td>
-            <td style="padding:10px;"><?= htmlspecialchars(substr($r['deskripsi'], 0, 80)) ?><?= strlen($r['deskripsi']) > 80 ? '...' : '' ?></td>
-            <td style="padding:10px;">
+          <tr>
+            <td><?= $i++ ?></td>
+            <td><?= htmlspecialchars($r['nama_dokumen']) ?></td>
+            <td><?= htmlspecialchars(substr($r['deskripsi'], 0, 80)) ?><?= strlen($r['deskripsi']) > 80 ? '...' : '' ?></td>
+            <td>
               <?php if ($r['file_pdf']): ?>
                 <a href="../uploads/renop/<?= htmlspecialchars($r['file_pdf']) ?>" target="_blank">
                   <i class="fas fa-file-alt"></i> Lihat
                 </a>
               <?php else: ?> - <?php endif; ?>
             </td>
-            <td class="action-links" style="padding:10px;">
+            <td class="action-links">
               <button type="button" class="edit" onclick="openEditModal(<?= $r['id'] ?>)">
                 <i class="fas fa-edit"></i> 
               </button>
               
-              <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+              <form method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
                 <input type="hidden" name="action" value="hapus_renop">
                 <input type="hidden" name="renop_id" value="<?= $r['id'] ?>">
                 <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
@@ -204,7 +198,7 @@ include 'includes/admin_header.php';
             </td>
           </tr>
           <?php endforeach; else: ?>
-          <tr><td colspan="5" style="text-align:center; padding:20px;">Belum ada data.</td></tr>
+          <tr><td colspan="5" class="text-center">Belum ada data.</td></tr>
           <?php endif; ?>
         </tbody>
       </table>
@@ -215,7 +209,7 @@ include 'includes/admin_header.php';
   <div class="modal-content">
     <div class="modal-header">
       <h2>Tambah RenOp</h2>
-      <span class="close-btn" onclick="closeModal('tambahModal')">&times;</span>
+      <span class="close-btn" onclick="modalHide('tambahModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data">
       <input type="hidden" name="action" value="tambah_renop">
@@ -234,8 +228,8 @@ include 'includes/admin_header.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-tutup" onclick="closeModal('tambahModal')">Batal</button>
-        <button type="submit" class="btn-simpan">Simpan</button>
+        <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('tambahModal')">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Data</button>
       </div>
     </form>
   </div>
@@ -245,7 +239,7 @@ include 'includes/admin_header.php';
   <div class="modal-content">
     <div class="modal-header">
       <h2>Edit RenOp</h2>
-      <span class="close-btn" onclick="closeModal('editModal')">&times;</span>
+      <span class="close-btn" onclick="modalHide('editModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data">
       <input type="hidden" name="action" value="edit_renop">
@@ -272,8 +266,8 @@ include 'includes/admin_header.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-tutup" onclick="closeModal('editModal')">Batal</button>
-        <button type="submit" class="btn-simpan">Update</button>
+        <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('editModal')">Batal</button>
+        <button type="submit" class="btn btn-primary">Update Data</button>
       </div>
     </form>
   </div>
@@ -281,6 +275,37 @@ include 'includes/admin_header.php';
 
 <script> 
     window.renopData = <?= $json_data ?>; 
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add Button
+        const btnAdd = document.getElementById('openModalBtnTambah');
+        if(btnAdd) {
+            btnAdd.addEventListener('click', () => {
+                document.getElementById('tambahModal').reset(); // if it was a form but it is a div containing form
+                // simpler:
+                 window.modalShow('tambahModal');
+            });
+        }
+    });
+
+    function openEditModal(id) {
+        const data = window.renopData.find(item => item.id == id);
+        if(!data) return;
+
+        document.getElementById('id_edit').value = data.id;
+        document.getElementById('nama_dokumen_edit').value = data.nama_dokumen;
+        document.getElementById('deskripsi_edit').value = data.deskripsi;
+        document.getElementById('file_lama_edit').value = data.file_pdf;
+        
+        const fileStat = document.getElementById('file_status_edit');
+        if(data.file_pdf) {
+            fileStat.innerHTML = `File saat ini: <a href="../uploads/renop/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
+        } else {
+            fileStat.innerText = "Tidak ada file.";
+        }
+
+        window.modalShow('editModal');
+    }
 </script>
 
 <?php include 'includes/admin_footer.php'; ?>

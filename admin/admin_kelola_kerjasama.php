@@ -147,16 +147,9 @@ $kerjasama_json = json_encode($kerjasama_map);
 include 'includes/admin_header.php'; 
 ?>
 
-<main class="content-area">
-    <div class="breadcrumbs">
-        <a href="dashboard.php">Admin</a> &gt; <span>Kelola Kerjasama</span>
-    </div>
-
-    <div class="page-header">
-        <h1>Kelola Kerjasama</h1>
-        <button id="openKerjasamaTambahBtn" class="btn btn-tambah">
-            <i class="fas fa-plus"></i> Tambah Partner
-        </button>
+    <!-- Purple Banner -->
+    <div class="page-banner">
+        <h1 class="banner-title">Kelola Kerjasama</h1>
     </div>
     
     <?php if (!empty($message)): ?>
@@ -165,22 +158,26 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <div class="box-header">
-            <h4>Daftar Partner Kerjasama</h4>
+    <div class="card">
+        <div class="card-header flex-between">
+            <h2 class="card-title">Daftar Partner Kerjasama</h2>
+            <button id="openKerjasamaTambahBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Partner
+            </button>
         </div>
 
-        <div class="data-table-wrapper">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Logo</th>
-                        <th>Instansi</th>
-                        <th>Link</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+        <div class="card-body">
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Logo</th>
+                            <th>Instansi</th>
+                            <th>Link</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
                 <tbody>
                     <?php if (count($list_kerjasama) > 0): ?>
                         <?php $i = 1; foreach ($list_kerjasama as $item): ?>
@@ -205,13 +202,13 @@ include 'includes/admin_header.php';
                                 </td>
                                 <td data-label="Aksi" class="action-links">
                                     <a href="#"
-                                       class="btn-aksi btn-aksi-edit kerjasama-edit-btn"
+                                       class="btn-icon edit kerjasama-edit-btn"
                                        data-id="<?= $item['id'] ?>"
                                        title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="admin_kelola_kerjasama.php?hapus_id=<?= $item['id'] ?>"
-                                       class="btn-aksi btn-aksi-delete"
+                                       class="btn-icon delete"
                                        title="Hapus"
                                        onclick="return confirm('Yakin ingin menghapus partner <?= htmlspecialchars($item['nama_instansi']) ?>?');">
                                         <i class="fas fa-trash"></i>
@@ -226,14 +223,12 @@ include 'includes/admin_header.php';
             </table>
         </div>
     </div>
-</main>
 
 <div id="kerjasamaTambahModal" class="modal">
-    <div class="modal-overlay"></div>
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Tambah Partner Kerjasama</h2>
-            <button type="button" class="close-btn">&times;</button>
+            <h2>TAMBAH PARTNER KERJASAMA</h2>
+            <span class="close-btn">&times;</span>
         </div>
 
         <form method="POST" enctype="multipart/form-data">
@@ -255,18 +250,17 @@ include 'includes/admin_header.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-tutup">Tutup</button>
-                <button type="submit" class="btn btn-simpan">Simpan</button>
+                <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
 <div id="kerjasamaEditModal" class="modal">
-    <div class="modal-overlay"></div>
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Edit Partner Kerjasama</h2>
-            <button type="button" class="close-btn">&times;</button>
+            <h2>EDIT PARTNER KERJASAMA</h2>
+            <span class="close-btn">&times;</span>
         </div>
 
         <form id="kerjasamaEditForm" method="POST" enctype="multipart/form-data">
@@ -295,17 +289,65 @@ include 'includes/admin_header.php';
                 </div>
             </div>
 
-            <div class="input-box">
-                <button type="button" class="btn btn-tutup">Tutup</button>
-                <button type="submit" class="btn btn-simpan">Update</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                <button type="submit" class="btn btn-primary">Update Data</button>
             </div>
         </form>
     </div>
 </div>
-
+<?php include 'includes/admin_footer.php'; ?>
 <script>
     window.dataKerjasama = <?= $kerjasama_json ?>;
     window.uploadKerjasama = '<?= $upload_dir_path ?>';
 </script>
 
-<?php include 'includes/admin_footer.php'; ?>
+<script>
+    window.kerjasamaData = <?= json_encode($list_kerjasama) ?>;
+    window.uploadDir = "<?= $upload_dir_path ?>";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add
+        const btnAdd = document.getElementById('openKerjasamaTambahBtn');
+        if(btnAdd) {
+            btnAdd.addEventListener('click', () => {
+                 window.modalShow('kerjasamaTambahModal');
+            });
+        }
+
+        // Edit
+        document.querySelectorAll('.kerjasama-edit-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const id = this.dataset.id;
+                const data = window.kerjasamaData.find(item => item.id == id);
+                if(!data) return;
+
+                document.getElementById('edit_kerjasama_id').value = data.id;
+                document.getElementById('edit_nama_instansi').value = data.nama_instansi;
+                document.getElementById('edit_link_website').value = data.link_website;
+                document.getElementById('edit_logo_lama').value = data.logo;
+
+                const img = document.getElementById('currentLogoSrc');
+                const name = document.getElementById('currentLogoName');
+                if(data.logo) {
+                    img.src = window.uploadDir + data.logo;
+                    img.style.display = 'block';
+                    name.innerText = data.logo;
+                } else {
+                    img.style.display = 'none';
+                    name.innerText = 'Tidak ada logo';
+                }
+
+                 window.modalShow('kerjasamaEditModal');
+            });
+        });
+
+        // Close buttons (Generic loop for this page)
+        document.querySelectorAll('.close-btn, .btn-tutup').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if(modal) window.modalHide(modal.id);
+            });
+        });
+    });
+</script>

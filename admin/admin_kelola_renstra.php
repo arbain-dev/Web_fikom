@@ -131,11 +131,13 @@ include 'includes/admin_header.php';
 
   <!-- Purple Banner -->
   <div class="page-banner">
-    <h1 class="banner-title">Kelola Rencana Strategis (Renstra)</h1>
+    <h1 class="banner-title">Rencana Strategis (Renstra)</h1>
   </div>
 
   <?php if ($message): ?>
-    <div class="message <?= $message_type ?>"><?= $message ?></div>
+    <div class="alert alert-<?= $message_type ?>">
+        <?= $message ?>
+    </div>
   <?php endif; ?>
 
   <div class="card">
@@ -171,7 +173,7 @@ include 'includes/admin_header.php';
               <?php else: ?> - <?php endif; ?>
             </td>
             <td class="action-links">
-              <button type="button" class="edit" onclick="openEditModal(<?= $r['id'] ?>)">
+              <button type="button" class="edit btn-edit-renstra" data-id="<?= $r['id'] ?>">
                 <i class="fas fa-edit"></i>
               </button>
               <form method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus Renstra ini?');">
@@ -259,37 +261,10 @@ include 'includes/admin_header.php';
   </div>
 </div>
 
-<script>
-    window.renstraData = <?= json_encode($list_dokumen) ?>;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Add Button
-        const btnAdd = document.getElementById('openModalBtnTambah'); 
-        if (btnAdd) {
-            btnAdd.addEventListener('click', () => {
-                window.modalShow('tambahModal');
-            });
-        }
-    });
-
-    function openEditModal(id) {
-        const data = window.renstraData.find(item => item.id == id);
-        if(!data) return;
-
-        document.getElementById('id_edit').value = data.id;
-        document.getElementById('nama_dokumen_edit').value = data.nama_dokumen;
-        document.getElementById('deskripsi_edit').value = data.deskripsi;
-        document.getElementById('file_lama_edit').value = data.file_pdf;
-        
-        const fileStat = document.getElementById('file_status_edit');
-        if(data.file_pdf) {
-            fileStat.innerHTML = `File saat ini: <a href="../uploads/renstra/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
-        } else {
-            fileStat.innerText = "Tidak ada file.";
-        }
-
-        window.modalShow('editModal');
-    }
-</script>
+<!-- Data Container for Renstra -->
+<div id="renstra-page-data" 
+     data-items='<?= htmlspecialchars(json_encode($list_dokumen), ENT_QUOTES, 'UTF-8') ?>'
+     class="hidden">
+</div>
 
 <?php include 'includes/admin_footer.php'; ?>

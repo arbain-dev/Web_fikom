@@ -146,11 +146,13 @@ include 'includes/admin_header.php';
 
   <!-- Purple Banner -->
   <div class="page-banner">
-    <h1 class="banner-title">Kelola Rencana Operasional (RenOp)</h1>
+    <h1 class="banner-title">Rencana Operasional (RenOp)</h1>
   </div>
 
   <?php if (!empty($message)): ?>
-    <div class="message <?= $message_type ?>"><?= $message ?></div>
+    <div class="alert alert-<?= $message_type == 'success' ? 'success' : 'error' ?> mb-6">
+        <?= $message ?>
+    </div>
   <?php endif; ?>
 
   <div class="card">
@@ -186,7 +188,7 @@ include 'includes/admin_header.php';
               <?php else: ?> - <?php endif; ?>
             </td>
             <td class="action-links">
-              <button type="button" class="edit" onclick="openEditModal(<?= $r['id'] ?>)">
+              <button type="button" class="edit btn-edit-renop" data-id="<?= $r['id'] ?>">
                 <i class="fas fa-edit"></i> 
               </button>
               
@@ -273,39 +275,10 @@ include 'includes/admin_header.php';
   </div>
 </div>
 
-<script> 
-    window.renopData = <?= $json_data ?>; 
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Add Button
-        const btnAdd = document.getElementById('openModalBtnTambah');
-        if(btnAdd) {
-            btnAdd.addEventListener('click', () => {
-                document.getElementById('tambahModal').reset(); // if it was a form but it is a div containing form
-                // simpler:
-                 window.modalShow('tambahModal');
-            });
-        }
-    });
-
-    function openEditModal(id) {
-        const data = window.renopData.find(item => item.id == id);
-        if(!data) return;
-
-        document.getElementById('id_edit').value = data.id;
-        document.getElementById('nama_dokumen_edit').value = data.nama_dokumen;
-        document.getElementById('deskripsi_edit').value = data.deskripsi;
-        document.getElementById('file_lama_edit').value = data.file_pdf;
-        
-        const fileStat = document.getElementById('file_status_edit');
-        if(data.file_pdf) {
-            fileStat.innerHTML = `File saat ini: <a href="../uploads/renop/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
-        } else {
-            fileStat.innerText = "Tidak ada file.";
-        }
-
-        window.modalShow('editModal');
-    }
-</script>
+<!-- Data Container for Renop -->
+<div id="renop-page-data" 
+     data-items='<?= htmlspecialchars($json_data, ENT_QUOTES, 'UTF-8') ?>'
+     class="hidden">
+</div>
 
 <?php include 'includes/admin_footer.php'; ?>

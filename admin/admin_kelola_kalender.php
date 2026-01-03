@@ -135,9 +135,9 @@ include 'includes/admin_header.php';
         </button>
     </div>
 
-    <?php if (!empty($message)): ?>
-        <div class="message <?= $message_type ?>">
-            <?= htmlspecialchars($message) ?>
+    <?php if ($message): ?>
+        <div class="alert alert-<?= $message_type ?>">
+            <?= $message ?>
         </div>
     <?php endif; ?>
 
@@ -161,11 +161,11 @@ include 'includes/admin_header.php';
                         </p>
 
                         <div class="action-links" style="margin-top: auto; padding-top: 12px; border-top: 1px solid #e5e7eb;">
-                            <a href="#" class="edit" onclick="openEditKalender(<?= $item['id'] ?>); return false;">
+                            <a href="#" class="edit btn-edit-kalender" data-id="<?= $item['id'] ?>">
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <a href="#" class="delete" onclick="hapusKalender(<?= $item['id'] ?>, '<?= htmlspecialchars($item['nama_kalender'], ENT_QUOTES) ?>'); return false;">
+                            <a href="#" class="delete btn-hapus-kalender" data-id="<?= $item['id'] ?>" data-nama="<?= htmlspecialchars($item['nama_kalender'], ENT_QUOTES) ?>">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>
@@ -230,8 +230,10 @@ include 'includes/admin_header.php';
     <input type="hidden" name="kalender_id" id="hapusKalenderId">
 </form>
 
-<script>
-window.kalenderData = <?= $kalender_data_json ?>;
-window.uploadDir = "<?= $upload_dir ?>";
-</script>
+<!-- Data Container for Kalender -->
+<div id="kalender-page-data" 
+     data-items='<?= htmlspecialchars($kalender_data_json, ENT_QUOTES, 'UTF-8') ?>'
+     data-upload-dir="<?= $upload_dir ?>"
+     class="hidden">
+</div>
 <?php include 'includes/admin_footer.php'; ?>

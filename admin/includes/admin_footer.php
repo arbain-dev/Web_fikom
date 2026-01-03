@@ -8,6 +8,7 @@
 </div>
 
 <!-- Admin Scripts -->
-<script src="<?= BASE_URL ?>/assets/js/admin.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/admin.js?v=<?= time() ?>"></script>
+<script src="<?= BASE_URL ?>/assets/js/main.js?v=<?= time() ?>"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <!-- Admin Stylesheet (Consolidated) -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css?v=<?= time() ?>">
 </head>
 <body>
 
@@ -49,7 +49,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-header">
             <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo">
-            <h2>Admin Utama</h2>
+            <h2>Admin Fakultas</h2>
         </div>
         
         <ul class="sidebar-menu">
@@ -186,10 +186,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
             <!-- Data Pendaftaran hidden/moved as per screenshot usually implies ends here or scrolls -->
             <li class="sidebar-title">Lainnya</li>
-             <li class="sidebar-item <?php if($currentPage == 'admin_kelola_pendaftaran.php') echo 'active'; ?>">
+            <li class="sidebar-item <?php if($currentPage == 'admin_kelola_pendaftaran.php') echo 'active'; ?>">
                 <a href="admin_kelola_pendaftaran.php" class="sidebar-link">
                     <div style="display:flex; align-items:center; gap:12px;">
                         <i class="fas fa-file-signature"></i> <span>Data Pendaftaran</span>
+                    </div>
+                </a>
+            </li>
+
+            <!-- Logout Sidebar Item -->
+             <li class="sidebar-item" style="margin-top: auto;">
+                <a href="logout.php" class="sidebar-link text-error">
+                    <div style="display:flex; align-items:center; gap:12px; color: var(--error-600);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
                     </div>
                 </a>
             </li>
@@ -200,47 +209,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="admin-main" id="main-content">
         <!-- Topbar -->
         <!-- Topbar -->
-        <header class="admin-topbar">
-            <div class="topbar-left">
-                <div class="hamburger" id="hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <!-- Removed Redundant "Dashboard" Text, kept simple Brand or Empty -->
-                <!-- <span class="text-lg font-semibold">Admin Panel</span> -->
-            </div>
-            <div class="topbar-right">
-                <div class="topbar-icon">
-                    <i class="fas fa-bell"></i>
-                </div>
-                
-                <!-- User Dropdown -->
-                <div class="user-dropdown-container">
-                    <div class="user-profile" id="userDropdownTrigger">
-                        <img src="https://ui-avatars.com/api/?name=<?= urlencode($nama_admin) ?>&background=4f46e5&color=fff" alt="Avatar">
-                        <span class="desktop-only"><?= htmlspecialchars($nama_admin) ?></span>
-                        <i class="fas fa-chevron-down text-xs ml-2"></i>
-                    </div>
-                    
-                    <div class="dropdown-menu" id="userDropdownMenu">
-                        <div class="dropdown-header">
-                            <p class="font-semibold"><?= htmlspecialchars($nama_admin) ?></p>
-                            <p class="text-xs text-muted">Administrator</p>
-                        </div>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-user"></i> Profil Saya
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-cog"></i> Pengaturan
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="dashboard.php?action=logout" class="dropdown-item text-error">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- Mobile Hamburger Toggle (Visible only on mobile) -->
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
 
         <!-- Content Area -->
         <main class="content-area">

@@ -131,12 +131,12 @@ include 'includes/admin_header.php';
         </div>
 
     <?php if ($pesan_sukses): ?>
-        <div class="alert alert-success mb-6" style="padding:1rem; border-radius:0.5rem; background:var(--success-50); color:var(--success-600); border:1px solid var(--success-200);">
+        <div class="alert alert-success mb-6">
             <?= $pesan_sukses ?>
         </div>
     <?php endif; ?>
     <?php if ($pesan_error): ?>
-        <div class="alert alert-error mb-6" style="padding:1rem; border-radius:0.5rem; background:var(--error-50); color:var(--error-600); border:1px solid var(--error-200);">
+        <div class="alert alert-error mb-6">
             <?= $pesan_error ?>
         </div>
     <?php endif; ?>
@@ -169,8 +169,8 @@ include 'includes/admin_header.php';
         </div>
         
         <div class="card-body">
-            <form action="" method="GET" style="display:flex; gap:10px; margin-bottom:20px;">
-                <select name="filter_prodi" class="form-select" style="padding:8px; border-radius:8px; border:1px solid var(--gray-300);">
+            <form action="" method="GET" class="filter-form">
+                <select name="filter_prodi" class="form-select filter-select">
                     <option value="">— Semua Prodi —</option>
                     <option value="Informatika" <?= $filter_prodi == 'Informatika' ? 'selected' : '' ?>>Informatika</option>
                     <option value="Pendidikan Teknologi Informasi" <?= $filter_prodi == 'Pendidikan Teknologi Informasi' ? 'selected' : '' ?>>Pendidikan Teknologi Informasi</option>
@@ -179,7 +179,7 @@ include 'includes/admin_header.php';
             </form>
         </div>
     
-            <div class="card-body" style="overflow-x:auto;">
+            <div class="card-body table-responsive">
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -198,8 +198,17 @@ include 'includes/admin_header.php';
                             <tr>
                                 <td><?= $i+1 ?></td>
                                 <td>
-                                    <?php $img = !empty($dosen['foto']) ? $dosen['foto'] : 'default-avatar.png'; ?>
-                                    <img src="../uploads/dosen/<?= $img ?>" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                    <?php 
+                                    $img_name = !empty($dosen['foto']) ? $dosen['foto'] : '';
+                                    $img_path = '../uploads/dosen/' . $img_name;
+                                    
+                                    if (!empty($img_name) && file_exists(dirname(__DIR__) . '/uploads/dosen/' . $img_name)) {
+                                        $display_img = $img_path;
+                                    } else {
+                                        $display_img = 'https://ui-avatars.com/api/?name=' . urlencode($dosen['nama']) . '&background=random';
+                                    }
+                                    ?>
+                                    <img src="<?= $display_img ?>" class="table-avatar" alt="Foto">
                                 </td>
                                 <td>
                                     <strong><?= htmlspecialchars($dosen['nama']) ?></strong><br>
@@ -309,8 +318,8 @@ include 'includes/admin_header.php';
                     <div class="input-box">
                         <label>Foto (Max 2MB)</label>
                         <input type="file" name="foto" accept="image/*">
-                        <div id="previewFotoBox" class="file-preview-box" style="display:none;">
-                            <img id="imgPreview" src="" style="max-height:150px;">
+                        <div id="previewFotoBox" class="file-preview-box hidden">
+                            <img id="imgPreview" class="img-preview-sm">
                             <small class="text-muted block mt-2">Foto saat ini</small>
                         </div>
                     </div>
@@ -324,9 +333,11 @@ include 'includes/admin_header.php';
         </div>
     </div>
     
-    <script>
-    window.dosenData = <?= json_encode($dosen_list, JSON_UNESCAPED_UNICODE) ?>;
-    window.dosenErrorOpen = <?= !empty($pesan_error) ? 'true' : 'false' ?>;
-    </script>
+    <!-- Data Container for JS -->
+    <div id="dosen-page-data" 
+         data-dosen='<?= htmlspecialchars(json_encode($dosen_list, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8') ?>' 
+         data-error='<?= !empty($pesan_error) ? 'true' : 'false' ?>'
+         class="hidden">
+    </div>
     
     <?php include 'includes/admin_footer.php'; ?>

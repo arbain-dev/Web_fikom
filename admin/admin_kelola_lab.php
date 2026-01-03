@@ -15,7 +15,7 @@ $upload_dir = '../uploads/labolatorium/';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
     $action = $_POST['action'];
     $lab_id = intval($_POST['lab_id'] ?? 0);
-    $nama = $_POST['nama'] ?? '';
+    $nama = $_POST['nama_lab'] ?? ''; // Fix: Match form input name="nama_lab"
     $deskripsi = $_POST['deskripsi'] ?? '';
     $current_foto = $_POST['current_foto'] ?? NULL;
     $nama_foto_db = $current_foto;
@@ -87,11 +87,13 @@ include 'includes/admin_header.php';
 
     <!-- Purple Banner -->
     <div class="page-banner">
-        <h1 class="banner-title">Kelola Lab Komputer</h1>
+        <h1 class="banner-title">Laboratorium</h1>
     </div>
 
     <?php if ($message): ?>
-        <div class="message <?= $message_type ?>"><?= $message ?></div>
+        <div class="alert alert-<?= $message_type == 'success' ? 'success' : 'error' ?> mb-6">
+            <?= $message ?>
+        </div>
     <?php endif; ?>
 
     <div class="card">
@@ -100,37 +102,45 @@ include 'includes/admin_header.php';
             <button class="btn btn-primary" id="openModalBtn"><i class="fas fa-plus"></i> Tambah Lab</button>
         </div>
         <div class="card-body">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Foto</th>
-                        <th>Nama Lab</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($lab_list): $no=1; foreach ($lab_list as $lab): ?>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
+                    <thead>
                         <tr>
-                            <td><?= $no++ ?></td>
-                            <td><img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" class="table-foto"></td>
-                            <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
-                            <td><?= htmlspecialchars(substr($lab['deskripsi'], 0, 100)) ?><?= strlen($lab['deskripsi'])>100?'...':'' ?></td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit" onclick="openEditModal(<?= $lab['id'] ?>)"><i class="fas fa-edit"></i></a>
-                                <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
-                                    <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
-                                    <input type="hidden" name="action" value="hapus_lab">
-                                    <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
+                            <th>No</th>
+                            <th>Foto</th>
+                            <th>Nama Lab</th>
+                            <th>Deskripsi</th>
+                            <th>Aksi</th>
                         </tr>
-                    <?php endforeach; else: ?>
-                        <tr><td colspan="5" style="text-align:center;">Belum ada data laboratorium.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php if ($lab_list): $no=1; foreach ($lab_list as $lab): ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" class="table-foto"></td>
+                                <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
+                                <td><?= htmlspecialchars(substr($lab['deskripsi'], 0, 100)) ?><?= strlen($lab['deskripsi'])>100?'...':'' ?></td>
+                                <td class="action-buttons">
+                                        <a href="#" class="edit btn-edit-lab" 
+                                       data-id="<?= $lab['id'] ?>"
+                                       data-nama="<?= htmlspecialchars($lab['nama_lab']) ?>"
+                                       data-deskripsi="<?= htmlspecialchars($lab['deskripsi']) ?>"
+                                       data-foto="<?= htmlspecialchars($lab['foto']) ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
+                                        <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
+                                        <input type="hidden" name="action" value="hapus_lab">
+                                        <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; else: ?>
+                            <tr><td colspan="5" style="text-align:center;">Belum ada data laboratorium.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -169,49 +179,9 @@ include 'includes/admin_header.php';
         </form>
     </div>
 </div>
-<script>
-    window.labData = <?= json_encode($lab_list) ?>;
-    
-    // Event listener for Add button
-    document.addEventListener('DOMContentLoaded', function() {
-        const btnTambah = document.getElementById('openModalBtn');
-        if (btnTambah) {
-            btnTambah.addEventListener('click', function() {
-                console.log('Button clicked, opening modal...'); // Debug
-                // Reset form
-                const form = document.getElementById('labForm');
-                if (form) form.reset();
-                
-                document.getElementById('formAction').value = 'tambah_lab';
-                document.getElementById('labId').value = '';
-                document.getElementById('modalTitle').textContent = 'Tambah Lab Komputer';
-                
-                window.modalShow('labModal');
-            });
-        } else {
-            console.error('Button openModalBtn not found!'); // Debug
-        }
-    });
-    
-    // Function to open edit modal
-    function openEditModal(id) {
-        console.log('Opening edit modal for ID:', id); // Debug
-        const labItem = window.labData.find(item => item.id == id);
-        if (!labItem) {
-            console.error('Lab item not found:', id);
-            return;
-        }
-        
-        // Populate form
-        document.getElementById('formAction').value = 'edit_lab';
-        document.getElementById('labId').value = labItem.id;
-        document.getElementById('nama_lab').value = labItem.nama_lab;
-        document.getElementById('deskripsi').value = labItem.deskripsi;
-        document.getElementById('currentFoto').value = labItem.foto || '';
-        document.getElementById('modalTitle').textContent = 'Edit Lab Komputer';
-        
-        // Show modal
-        window.modalShow('labModal');
-    }
-</script>
+<!-- Data Container for Lab -->
+<div id="lab-page-data" 
+     data-items='<?= htmlspecialchars(json_encode($lab_list), ENT_QUOTES, 'UTF-8') ?>'
+     class="hidden">
+</div>
     <?php include 'includes/admin_footer.php'; ?>

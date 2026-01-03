@@ -8,7 +8,7 @@
                 <h3 id="popupTitle">Dokumen</h3>
                 <p>Preview Dokumen</p>
             </div>
-            <button onclick="closePdf()" class="popup-close-btn" aria-label="Close">
+            <button onclick="closePopup()" class="popup-close-btn" aria-label="Close">
                 <i class="fas fa-times"></i>
             </button>
         </div>

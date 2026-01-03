@@ -63,11 +63,11 @@ if (!$data) {
 
 
     <div class="page-header">
-        <h1 class="page-title">Kelola Tentang Fakultas</h1>
+        <h1 class="page-title">Tentang Fakultas</h1>
     </div>
 
     <?php if (isset($_GET['success'])): ?>
-        <div class="msg success">
+        <div class="alert alert-success mb-6">
             ✔ Data berhasil diperbarui
         </div>
     <?php endif; ?>
@@ -91,7 +91,7 @@ if (!$data) {
 
                 <div class="input-box">
                     <label>Upload Gambar Baru</label>
-                    <input type="file" name="gambar" onchange="previewImage(event)" accept="image/*">
+                    <input type="file" name="gambar" class="preview-input" data-preview-target="#imgPreview" accept="image/*">
                     
                     <div class="image-preview-box mt-3">
                         <label class="d-block text-muted" style="font-size: 0.9em; margin-bottom: 5px;">Preview Gambar:</label>
@@ -110,15 +110,7 @@ if (!$data) {
         </div>
     </div>
 
-<script>
-function previewImage(event) {
-    const imgPreview = document.getElementById('imgPreview');
-    if(event.target.files && event.target.files[0]) {
-        imgPreview.src = URL.createObjectURL(event.target.files[0]);
-        imgPreview.style.display = 'block';
-    }
-}
-</script>
+
 
 <?php 
 include 'includes/admin_footer.php'; 

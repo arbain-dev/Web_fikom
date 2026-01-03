@@ -15,9 +15,10 @@
                 <h3>Fakultas Ilmu Komputer</h3>
                 <p>Universitas Ichsan - UNISAN Sidenreng Rappang<br>Mencetak Generasi Unggul di Bidang Teknologi.</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/1A7pWq9jEJ/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/fikomunisansidrap?igsh=MWdjZWlxNm12bmxyMg==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/6282215322757" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
@@ -47,9 +48,9 @@
             <div>
                 <h4 class="footer-title-modern">Kontak</h4>
                 <ul class="footer-links-modern">
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Sidenreng Rappang, Sulsel</a></li>
-                    <li><a href="#"><i class="fas fa-phone"></i> (0421) XXXXXXX</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> fikom@unisan.ac.id</a></li>
+                    <li><i class="fas fa-map-marker-alt"></i> Sekarara, Sidenreng Rappang, Sulsel</li>
+                    <li><i class="fas fa-phone"></i> (0421) XXXXXXX</li>
+                    <li><i class="fas fa-envelope"></i> fikom@unisan.ac.id</li>
                 </ul>
             </div>
         </div>
@@ -62,7 +63,7 @@
 </footer>
 
 <!-- Core JavaScript -->
-<!-- Core JavaScript -->
-<script src="<?= BASE_URL ?>/assets/js/main.js"></script>
+<!-- Main Scripts -->
+    <script src="<?= BASE_URL ?>/assets/js/main.js?v=<?= time() ?>"></script>
 </body>
 </html>

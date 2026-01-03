@@ -1,4 +1,5 @@
 <?php
+require_once 'config/constants.php';
 include 'includes/header.php';
 ?>
 

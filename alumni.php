@@ -1,10 +1,7 @@
 <?php
-// File: alumni.php
-// Panggil header (harus memuat <head>, font & FontAwesome ideally)
-include 'includes/header.php';
-
-// -- Database connection (via central config)
 require_once 'config/database.php';
+require_once 'config/constants.php';
+include 'includes/header.php';
 // $conn is created in database.php
 $sql = "SELECT * FROM tracer_study ORDER BY tahun_lulus DESC, tanggal_isi DESC";
 $result = $conn->query($sql);

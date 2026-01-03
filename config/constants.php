@@ -47,9 +47,9 @@ define('UPLOADS_URL', BASE_URL . '/uploads');
 define('ADMIN_URL', BASE_URL . '/admin');
 
 // Application settings
-define('SITE_NAME', 'Fakultas Ilmu Komputer - UNISAN Sidrap');
-define('SITE_TITLE', 'FIKOM UNISAN');
-define('SITE_EMAIL', 'fikom@unisan.ac.id');
+define('SITE_NAME', 'Muhammad Arbain');
+define('SITE_TITLE', 'Muhammad Arbain');
+define('SITE_EMAIL', 'arbain@arbain.id');
 define('SITE_PHONE', '+62 xxx xxxx xxxx');
 
 // Upload settings

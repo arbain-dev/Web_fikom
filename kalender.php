@@ -1,5 +1,6 @@
 <?php
 require 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $query = "SELECT * FROM kalender_akademik ORDER BY tahun_akademik DESC";

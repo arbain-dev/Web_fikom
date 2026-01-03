@@ -167,7 +167,7 @@ if ($result && $result->num_rows > 0) {
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="alert alert-<?= $msg_type == 'success' ? 'success' : 'error' ?> mb-6" style="padding:1rem; border-radius:0.5rem; background: var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-50); color: var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-700); border: 1px solid var(--<?= $msg_type == 'success' ? 'success' : 'error' ?>-200);">
+        <div class="alert alert-<?= $msg_type == 'success' ? 'success' : 'error' ?> mb-6">
             <?= $message ?>
         </div>
     <?php endif; ?>
@@ -179,7 +179,7 @@ if ($result && $result->num_rows > 0) {
                 <i class="fas fa-plus"></i> Tambah Berita
             </button>
         </div>
-        <div class="card-body" style="overflow-x:auto;">
+        <div class="card-body table-responsive">
             <table class="data-table">
                 <thead>
                     <tr>
@@ -198,7 +198,7 @@ if ($result && $result->num_rows > 0) {
                             <td><?= $i++; ?></td>
                             <td>
                                 <?php if (!empty($b['foto'])): ?>
-                                    <img src="../uploads/berita/<?= $b['foto']; ?>" class="table-img" style="width:50px; height:50px; object-fit:cover; border-radius:8px;" onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
+                                    <img src="../uploads/berita/<?= $b['foto']; ?>" class="table-img" onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
                                 <?php else: ?>
                                     <span class="text-muted text-xs">-</span>
                                 <?php endif; ?>
@@ -233,14 +233,12 @@ if ($result && $result->num_rows > 0) {
             </table>
         </div>
     </div>
-
-<!-- MODAL FORM -->
+<!-- MODAL FORM (FIXED CENTER) -->
 <div id="kbPopupForm" class="modal">
-    <div class="modal-overlay"></div>
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="kbPopupTitle">Tambah Berita</h2>
-            <button class="close-btn" onclick="beritaModule.tutupPopup()">&times;</button>
+            <button type="button" class="close-btn" onclick="beritaModule.tutupPopup()">&times;</button>
         </div>
 
         <div class="modal-body">
@@ -286,8 +284,8 @@ if ($result && $result->num_rows > 0) {
                 <div class="input-box">
                     <label>Upload Foto</label>
                     <input type="file" name="foto" id="kbFotoInput" accept="image/*">
-                    <div class="file-preview-box mt-3" style="display:none;" id="previewContainer">
-                         <img id="kbPreviewFotoKecil" style="max-height:150px; margin:0 auto; display:none;">
+                    <div class="file-preview-box mt-3 hidden" id="previewContainer">
+                        <img id="kbPreviewFotoKecil" class="img-preview-sm hidden">
                     </div>
                 </div>
             </form>
@@ -301,9 +299,10 @@ if ($result && $result->num_rows > 0) {
 </div>
 
 <!-- MODAL IMAGE PREVIEW -->
-<div id="kbPopupImagePreview" class="modal" style="display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.85); z-index:9999;">
-    <img id="kbImgFull" src="" style="max-width:90%; max-height:90vh; border-radius:8px; box-shadow:0 0 20px rgba(0,0,0,0.5);">
-    <button class="close-btn" style="position:absolute; top:20px; right:20px; background:white; color:black;" onclick="document.getElementById('kbPopupImagePreview').style.display='none'">&times;</button>
+<div id="kbPopupImagePreview" class="modal modal-image-preview">
+    <img id="kbImgFull" src="" class="modal-image-full">
+    <button class="modal-close-absolute" onclick="beritaModule.tutupPopupImage()">&times;</button>
 </div>
+
 
 <?php include 'includes/admin_footer.php'; ?>

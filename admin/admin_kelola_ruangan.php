@@ -226,11 +226,11 @@ include 'includes/admin_header.php';
 
     <!-- Purple Banner -->
     <div class="page-banner">
-        <h1 class="banner-title">Kelola Ruangan</h1>
+        <h1 class="banner-title">Ruangan</h1>
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="message <?= $message_type ?>">
+        <div class="alert alert-<?= $message_type == 'success' ? 'success' : 'error' ?> mb-6">
             <?= $message ?>
         </div>
     <?php endif; ?>
@@ -244,14 +244,15 @@ include 'includes/admin_header.php';
             </button>
         </div>
         <div class="card-body">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>No</th> <th>Foto</th> <th>Nama Ruangan</th> <th>Deskripsi</th> <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (count($ruangan_list) > 0): $i = 1; ?>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
+                    <thead>
+                        <tr>
+                            <th>No</th> <th>Foto</th> <th>Nama Ruangan</th> <th>Deskripsi</th> <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (count($ruangan_list) > 0): $i = 1; ?>
                         <?php foreach ($ruangan_list as $item): ?>
                         <tr>
                             <td><?= $i++ ?></td>
@@ -265,8 +266,8 @@ include 'includes/admin_header.php';
                             <td><?= htmlspecialchars($item['nama_ruangan']) ?></td>
                             <td><?= htmlspecialchars(substr($item['deskripsi'], 0, 100)) ?><?= (strlen($item['deskripsi']) > 100) ? '...' : '' ?></td>
                             <td class="action-links">
-                                <a href="#" class="edit" onclick="openEditModal(<?= $item['id'] ?>); return false;" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="delete" onclick="hapusRuangan(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['nama_ruangan'])) ?>'); return false;" title="Hapus"><i class="fas fa-trash"></i></a>
+                                <a href="#" class="edit btn-edit-ruangan" data-id="<?= $item['id'] ?>" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="delete btn-hapus-ruangan" data-id="<?= $item['id'] ?>" data-nama="<?= htmlspecialchars(addslashes($item['nama_ruangan'])) ?>" title="Hapus"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -275,6 +276,7 @@ include 'includes/admin_header.php';
                     <?php endif; ?>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
@@ -312,80 +314,18 @@ include 'includes/admin_header.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-tutup closeModalBtn" data-modal-id="ruanganModal">Tutup</button>
-                <button type="submit" class="btn btn-simpan">Simpan Data</button>
+                <button type="button" class="btn btn-secondary close-btn" data-modal-id="ruanganModal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
 
-<script>
-    window.pageData = window.pageData || {};
-    window.pageData.ruanganList = <?= $ruangan_data_json ?>;
-    window.pageData.uploadDirRuangan = '../uploads/ruangan/';
-    
-    // Event listeners for modal
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Ruangan page loaded'); // Debug
-        
-        // Open modal for add
-        const btnTambah = document.getElementById('openModalBtn');
-        if (btnTambah) {
-            console.log('Tambah button found'); // Debug
-            btnTambah.addEventListener('click', function() {
-                console.log('Tambah button clicked'); // Debug
-                const form = document.getElementById('ruanganForm');
-                if (form) form.reset();
-                
-                document.getElementById('formAction').value = 'tambah_ruangan';
-                document.getElementById('ruanganId').value = '';
-                document.getElementById('modalTitle').textContent = 'Tambah Ruangan';
-                
-                console.log('Calling modalShow...'); // Debug
-                window.modalShow('ruanganModal');
-            });
-        } else {
-            console.error('Button openModalBtn not found!'); // Debug
-        }
-        
-        // Close modal buttons
-        document.querySelectorAll('.closeModalBtn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const modalId = this.getAttribute('data-modal-id');
-                if (modalId) {
-                    window.modalHide(modalId);
-                }
-            });
-        });
-    });
-    
-    // Function to open edit modal
-    function openEditModal(id) {
-        console.log('Opening edit modal for ID:', id); // Debug
-        const ruanganItem = window.pageData.ruanganList.find(item => item.id == id);
-        if (!ruanganItem) {
-            console.error('Ruangan item not found:', id);
-            return;
-        }
-        
-        // Populate form
-        document.getElementById('formAction').value = 'edit_ruangan';
-        document.getElementById('ruanganId').value = ruanganItem.id;
-        document.getElementById('nama_ruangan').value = ruanganItem.nama_ruangan;
-        document.getElementById('deskripsi').value = ruanganItem.deskripsi;
-        document.getElementById('currentFoto').value = ruanganItem.foto || '';
-        document.getElementById('modalTitle').textContent = 'Edit Ruangan';
-        
-        // Show modal
-        window.modalShow('ruanganModal');
-    }
-    
-    // Function to delete ruangan
-    function hapusRuangan(id, nama) {
-        if (confirm('Yakin ingin menghapus ruangan "' + nama + '"?')) {
-            window.location.href = '?hapus=' + id;
-        }
-    }
-</script>
+<!-- Data Container for Ruangan -->
+<div id="ruangan-page-data" 
+     data-items='<?= htmlspecialchars($ruangan_data_json, ENT_QUOTES, 'UTF-8') ?>'
+     data-upload-dir="../uploads/ruangan/"
+     class="hidden">
+</div>
 
 <?php include 'includes/admin_footer.php'; ?>

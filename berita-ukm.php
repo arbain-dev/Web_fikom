@@ -1,5 +1,6 @@
 <?php 
 require 'config/database.php'; 
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $sql = "SELECT id, judul, kategori, meta, konten, foto, tanggal_publish 

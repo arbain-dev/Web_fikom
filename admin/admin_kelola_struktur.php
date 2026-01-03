@@ -97,7 +97,7 @@ $conn->close();
             <form action="admin_kelola_struktur.php" method="POST" enctype="multipart/form-data">
                 
                 <?php if (!empty($message)): ?>
-                    <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
+                    <div class="alert alert-<?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
                         <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
                         <?= $message ?>
                     </div>

@@ -809,7 +809,7 @@ table {
 .form-input:hover,
 .form-select:hover,
 .form-textarea:hover {
-    border-color: var(--gray-400);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .form-input:focus,
@@ -818,6 +818,33 @@ table {
     outline: none;
     border-color: var(--primary-500);
     box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+/* ===== GLOBAL MODAL FIX (NUCLEAR OPTION) ===== */
+.modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 99999 !important;
+    display: none;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal.show {
+    display: flex !important;
+}
+
+.modal-content {
+    margin: auto !important;
+    position: relative !important;
+    z-index: 100000 !important;
 }
 
 /* Form States */
@@ -1071,4 +1098,129 @@ table {
 .page-header .reveal-on-scroll,
 .page-header-section .reveal-on-scroll {
     animation: fadeInUp 0.8s ease-out;
+}
+
+/* =========================================
+   SCROLL ANIMATIONS & MICRO-INTERACTIONS
+   ========================================= */
+
+/* Base Reveal Config */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Directional Reveals */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered Animations Container */
+.stagger-container .stagger-item,
+.stagger-container>* {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.stagger-container.is-visible .stagger-item,
+.stagger-container.is-visible>* {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger Delays (up to 12 items) */
+.stagger-container.is-visible>*:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.stagger-container.is-visible>*:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.stagger-container.is-visible>*:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.stagger-container.is-visible>*:nth-child(4) {
+    transition-delay: 0.2s;
+}
+
+.stagger-container.is-visible>*:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+.stagger-container.is-visible>*:nth-child(6) {
+    transition-delay: 0.3s;
+}
+
+.stagger-container.is-visible>*:nth-child(7) {
+    transition-delay: 0.35s;
+}
+
+.stagger-container.is-visible>*:nth-child(8) {
+    transition-delay: 0.4s;
+}
+
+.stagger-container.is-visible>*:nth-child(9) {
+    transition-delay: 0.45s;
+}
+
+.stagger-container.is-visible>*:nth-child(10) {
+    transition-delay: 0.5s;
+}
+
+.stagger-container.is-visible>*:nth-child(11) {
+    transition-delay: 0.55s;
+}
+
+.stagger-container.is-visible>*:nth-child(12) {
+    transition-delay: 0.6s;
+}
+
+/* Micro-interactions (Hover Effects) */
+.hover-scale {
+    transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+    transform: scale(1.03);
+}
+
+.hover-lift {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }

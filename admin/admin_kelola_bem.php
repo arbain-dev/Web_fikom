@@ -183,7 +183,7 @@ include 'includes/admin_header.php';
 </div>
 
 <?php if (!empty($message)): ?>
-    <div class="message <?= $message_type ?>">
+    <div class="alert alert-<?= $message_type ?>">
         <?= htmlspecialchars($message) ?>
     </div>
 <?php endif; ?>
@@ -196,7 +196,8 @@ include 'includes/admin_header.php';
         </button>
     </div>
     <div class="card-body">
-        <table class="data-table">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+        <table class="data-table" style="min-width: 600px;">
         <thead>
             <tr>
                 <th>Foto</th>
@@ -211,7 +212,12 @@ include 'includes/admin_header.php';
         <?php if (count($bem_list) > 0): ?>
             <?php foreach ($bem_list as $item): 
                 $fotoFile = !empty($item['foto']) ? $item['foto'] : '';
-                $fotoUrl  = $fotoFile ? $upload_dir . $fotoFile : 'https://via.placeholder.com/50';
+                // Fix: Check if file exists to prevent 404
+                if ($fotoFile && file_exists($upload_dir . $fotoFile)) {
+                    $fotoUrl = $upload_dir . $fotoFile;
+                } else {
+                    $fotoUrl = 'https://ui-avatars.com/api/?name=' . urlencode($item['nama']) . '&background=random&size=50';
+                }
             ?>
                 <tr>
                     <td data-label="Foto">
@@ -243,7 +249,7 @@ include 'includes/admin_header.php';
                     </td>
                     <td data-label="Aksi" class="action-links">
                         <button type="button"
-                                class="btn-icon edit"
+                                class="edit"
                                 data-id="<?= $item['id'] ?>"
                                 data-nama="<?= htmlspecialchars($item['nama'], ENT_QUOTES) ?>"
                                 data-jabatan="<?= htmlspecialchars($item['jabatan'], ENT_QUOTES) ?>"
@@ -255,7 +261,7 @@ include 'includes/admin_header.php';
                         </button>
 
                         <a href="admin_kelola_bem.php?action=delete&id=<?= $item['id'] ?>"
-                           class="btn-icon delete"
+                           class="delete"
                            onclick="return confirm('Hapus data ini?');">
                             <i class="fas fa-trash"></i>
                         </a>
@@ -269,6 +275,7 @@ include 'includes/admin_header.php';
         <?php endif; ?>
         </tbody>
     </table>
+    </div>
 </div>
 
 <div id="modalTambah" class="modal">
@@ -382,66 +389,17 @@ include 'includes/admin_header.php';
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-tutup">Batal</button>
-                    <button type="submit" class="btn btn-warning">Update Data</button>
+                    <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                    <button type="submit" class="btn btn-primary">Update Data</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    window.bemData = <?= json_encode($bem_list) ?>;
-    window.bemUploadDir = "<?= $upload_dir ?>";
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Tambah
-        const btnOpen = document.getElementById('btnOpenTambah');
-        if(btnOpen) {
-            btnOpen.addEventListener('click', () => {
-                 window.modalShow('modalTambah');
-            });
-        }
-
-        // Edit
-        document.querySelectorAll('.btn-aksi-edit').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                const nama = btn.dataset.nama;
-                const jabatan = btn.dataset.jabatan;
-                const prodi = btn.dataset.prodi;
-                const kategori = btn.dataset.kategori;
-                const urutan = btn.dataset.urutan;
-                const foto = btn.dataset.foto;
-
-                document.getElementById('edit_id').value = id;
-                document.getElementById('edit_nama').value = nama;
-                document.getElementById('edit_jabatan').value = jabatan;
-                document.getElementById('edit_prodi').value = prodi;
-                document.getElementById('edit_kategori').value = kategori;
-                document.getElementById('edit_urutan').value = urutan;
-                document.getElementById('edit_foto_lama').value = foto;
-
-                const imgPreview = document.getElementById('preview_foto');
-                if(foto) {
-                    imgPreview.src = window.bemUploadDir + foto;
-                    imgPreview.style.display = 'block';
-                } else {
-                    imgPreview.style.display = 'none';
-                }
-
-                 window.modalShow('modalEdit');
-            });
-        });
-
-        // Close (Class logic handled by admin.js globally for .close-btn if we use correct IDs or direct onclick, 
-        // but let's add specific ones for safety/consistency with other files)
-        document.querySelectorAll('.close-btn, .btn-tutup').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                if(modal) window.modalHide(modal.id);
-            });
-        });
-    });
-</script>
+<!-- Data Container for BEM -->
+<div id="bem-page-data" 
+     data-upload-dir="<?= $upload_dir ?>"
+     class="hidden">
+</div>
 <?php include 'includes/admin_footer.php'; ?>

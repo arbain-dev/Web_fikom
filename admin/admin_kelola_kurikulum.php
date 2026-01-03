@@ -105,18 +105,21 @@ include 'includes/admin_header.php';
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="message <?= $message_type ?>"><?= $message ?></div>
+        <div class="alert alert-<?= $message_type == 'success' ? 'success' : 'error' ?> mb-6">
+            <?= $message ?>
+        </div>
     <?php endif; ?>
 
     <div class="card">
         <div class="card-header flex-between">
             <h2 class="card-title">Daftar Kurikulum</h2>
-            <button class="btn btn-primary" onclick="openAddKurikulum()">
+            <button class="btn btn-primary" id="btnAddKurikulum">
                 <i class="fas fa-plus"></i> Tambah Kurikulum
             </button>
         </div>
         <div class="card-body">
-            <table class="data-table">
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -143,7 +146,7 @@ include 'includes/admin_header.php';
                             <?php endif; ?>
                         </td>
                         <td class="action-links">
-                            <a class="edit" onclick="openEditKurikulum(<?= $k['id'] ?>)">
+                            <a class="edit btn-edit-kurikulum" data-id="<?= $k['id'] ?>">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a class="delete"
@@ -157,6 +160,7 @@ include 'includes/admin_header.php';
                 </tbody>
 
             </table>
+            </div>
         </div>
     </div>
 <div id="modalKurikulum" class="modal">
@@ -202,35 +206,8 @@ include 'includes/admin_header.php';
 </div>
 <?php include 'includes/admin_footer.php'; ?>
 
-<script>
-    const kurikulumData = <?= $kurikulum_json ?>;
-    
-    // Add Button listener
-    document.addEventListener('DOMContentLoaded', () => {
-        /* If using onclick in HTML, this might not be needed, but cleaner to have functions exposed */
-    });
-
-    function openAddKurikulum() {
-        const form = document.getElementById('formKurikulum');
-        form.reset();
-        document.getElementById('formAction').value = 'tambah_kurikulum';
-        document.getElementById('kurikulumId').value = '';
-        document.getElementById('currentFile').value = '';
-        document.getElementById('modalTitle').innerText = 'Tambah Kurikulum';
-        window.modalShow('modalKurikulum');
-    }
-
-    function openEditKurikulum(id) {
-        const data = kurikulumData.find(item => item.id == id);
-        if (!data) return;
-
-        document.getElementById('formAction').value = 'edit_kurikulum';
-        document.getElementById('kurikulumId').value = data.id;
-        document.getElementById('nama_kurikulum').value = data.nama_kurikulum;
-        document.getElementById('deskripsi').value = data.deskripsi;
-        document.getElementById('currentFile').value = data.file_pdf;
-        document.getElementById('modalTitle').innerText = 'Edit Kurikulum';
-        
-        window.modalShow('modalKurikulum');
-    }
-</script>
+<!-- Data Container for Kurikulum -->
+<div id="kurikulum-page-data" 
+     data-items='<?= htmlspecialchars($kurikulum_json, ENT_QUOTES, 'UTF-8') ?>'
+     class="hidden">
+</div>

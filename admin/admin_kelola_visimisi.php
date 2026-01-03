@@ -59,11 +59,11 @@ include 'includes/admin_header.php';
 
     <!-- Purple Banner -->
     <div class="page-banner">
-        <h1 class="banner-title">Kelola Visi Misi</h1>
+        <h1 class="banner-title">Visi Misi</h1>
     </div>
     
     <?php if ($message): ?>
-        <div class="message-box <?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
+        <div class="alert alert-<?= $message_type === 'success' ? 'success' : 'error' ?> mb-4">
             <i class="fas <?= $message_type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle' ?>"></i>
             <?= $message ?>
         </div>

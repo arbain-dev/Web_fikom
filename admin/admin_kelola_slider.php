@@ -72,65 +72,15 @@ $data_slider = $conn->query("SELECT * FROM hero_slider ORDER BY id DESC");
 // HEADER
 include 'includes/admin_header.php';
 ?>
-<style>
-    /* Local overrides for slider page specific elements */
-    .table-wrapper {
-        overflow-x: auto;
-        background: #fff;
-        border-radius: 10px;
-        padding: 10px;
-        margin-top: 15px;
-    }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 650px;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-    }
-
-    th {
-        background: #f0f0f0;
-        text-align: left;
-    }
-
-    img.thumb {
-        max-width: 140px;
-        border-radius: 6px;
-        cursor: pointer;
-    }
-
-    .msg {
-        background: #dff0d8;
-        color: #3c763d;
-        padding: 10px 15px;
-        border-radius: 6px;
-        margin-bottom: 15px;
-        display: inline-block;
-    }
-
-    .badge {
-        padding: 4px 10px;
-        border-radius: 10px;
-        color: white;
-        font-size: 12px;
-    }
-
-    .badge-aktif { background: #27ae60; }
-    .badge-nonaktif { background: #7f8c8d; }
-</style>
 
 <!-- Purple Banner -->
 <div class="page-banner">
-    <h1 class="banner-title">Kelola Slider Homepage</h1>
+    <h1 class="banner-title">Slider Homepage</h1>
 </div>
 
 <?php if (!empty($pesan)): ?>
-    <div class="msg"><?= htmlspecialchars($pesan) ?></div>
+    <div class="alert alert-info mb-6"><?= htmlspecialchars($pesan) ?></div>
 <?php endif; ?>
 
 <!-- Card Upload -->
@@ -226,20 +176,6 @@ include 'includes/admin_header.php';
 </div>
 
 <!-- Inline script for this page specific modal -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const modalImage = document.getElementById('modalImage');
 
-    document.querySelectorAll('.js-preview').forEach(el => {
-        el.addEventListener('click', () => {
-            const src = el.getAttribute('data-src');
-            if(src) {
-                modalImage.src = src;
-                window.modalShow('imageModal');
-            }
-        });
-    });
-});
-</script>
 
 <?php include 'includes/admin_footer.php'; ?>

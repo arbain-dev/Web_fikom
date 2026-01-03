@@ -1,5 +1,11 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $query = "SELECT * FROM ruangan ORDER BY id DESC";
@@ -50,16 +56,14 @@ $result = $conn->query($query);
 </section>
 
 <!-- Lightbox / Popup -->
+<!-- Lightbox / Popup -->
 <div class="popup" id="imagePopup">
-    <div class="popup-content gallery-popup-content">
-        <div class="relative">
-            <button class="close-btn" onclick="closePopup()">
-                <i class="fas fa-times"></i>
+    <div class="popup-content gallery-popup-content" style="padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); max-width: 900px; width: auto; position: relative;">
+        <div class="relative" style="position: relative; display: inline-block;">
+            <button onclick="closePopup()" style="position: absolute; top: 15px; right: 15px; background: #ef4444; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; z-index: 50; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                Tutup
             </button>
-            <img id="popupImg" src="" alt="" class="gallery-popup-image">
-        </div>
-        <div class="gallery-popup-caption">
-            <h3 id="popupCaption"></h3>
+            <img id="popupImg" src="" alt="" style="display: block; max-height: 80vh; max-width: 100%; border-radius: 4px;">
         </div>
     </div>
 </div>

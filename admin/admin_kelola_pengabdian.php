@@ -137,11 +137,13 @@ include 'includes/admin_header.php';
 
     <!-- Purple Banner -->
     <div class="page-banner">
-        <h1 class="banner-title">Kelola Pengabdian</h1>
+        <h1 class="banner-title">Pengabdian</h1>
     </div>
     
     <?php if ($message): ?>
-    <div class="message <?= $message_type ?>"><?= $message ?></div>
+    <div class="alert alert-<?= $message_type ?>">
+        <?= $message ?>
+    </div>
     <?php endif; ?>
     
     <div class="card">
@@ -186,7 +188,7 @@ include 'includes/admin_header.php';
                         </td>
                         <td><?= $row['tanggal_kegiatan'] ? date('d-m-Y',strtotime($row['tanggal_kegiatan'])) : '-' ?></td>
                         <td class="action-links">
-                            <a href="#" class="edit"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="edit btn-edit-pengabdian"><i class="fas fa-edit"></i></a>
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="action" value="hapus_pengabdian">
                                 <input type="hidden" name="pengabdian_id" value="<?= $row['id'] ?>">
@@ -277,46 +279,6 @@ include 'includes/admin_header.php';
             </div>
         </form>
     </div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // TAMBAH
-    const btnTambah = document.getElementById('openTambah');
-    if(btnTambah) {
-        btnTambah.addEventListener('click', () => {
-             // Reset form if possible, or just open
-             window.modalShow('modalTambah');
-        });
-    }
-
-    // EDIT
-    document.querySelectorAll('.edit').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const tr = btn.closest('tr');
-            if(!tr) return;
-
-            const id = tr.dataset.id;
-            const judul = tr.dataset.judul;
-            const pelaksana = tr.dataset.pelaksana;
-            const deskripsi = tr.dataset.deskripsi;
-            const file = tr.dataset.file;
-            const tanggal = tr.dataset.tanggal;
-
-            document.getElementById('edit_id').value = id;
-            document.getElementById('edit_judul').value = judul;
-            document.getElementById('edit_pelaksana').value = pelaksana;
-            document.getElementById('edit_deskripsi').value = deskripsi;
-            document.getElementById('edit_tanggal').value = tanggal;
-            document.getElementById('old_file_pdf').value = file;
-            
-            const info = document.getElementById('info_file');
-            if(file) info.innerHTML = `File saat ini: <a href="../uploads/pengabdian_file/${file}" target="_blank">${file}</a>`;
-            else info.innerHTML = 'Belum ada file.';
-
-            window.modalShow('modalEdit');
-        });
-    });
-});
-</script>
+<!-- Data Container (if needed) -->
 
 <?php include 'includes/admin_footer.php'; ?>

@@ -1,8 +1,9 @@
 <?php
 $bodyClass = "bem-struktur-page";
 
+require_once 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
-require 'config/database.php';
 
 $inti = [];
 $sekben = [];

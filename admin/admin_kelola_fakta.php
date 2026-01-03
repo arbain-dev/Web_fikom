@@ -44,10 +44,10 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
     <?php 
     if (isset($_GET['msg'])) {
         if ($_GET['msg'] == 'tambah_ok') {
-            echo '<div class="message-box success"><i class="fas fa-check-circle"></i> Fakta berhasil ditambahkan!</div>';
+            echo '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Fakta berhasil ditambahkan!</div>';
         }
         if ($_GET['msg'] == 'edit_ok') {
-            echo '<div class="message-box success"><i class="fas fa-check-circle"></i> Fakta berhasil diperbarui!</div>';
+            echo '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Fakta berhasil diperbarui!</div>';
         }
     }
     ?>
@@ -60,39 +60,43 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
             </button>
         </div>
         <div class="card-body p-0">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th width="50">No</th>
-                        <th>Judul Fakta</th>
-                        <th>Angka</th>
-                        <th>Urutan</th>
-                        <th width="100" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul Fakta</th>
+                            <th>Angka</th>
+                            <th>Urutan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                <?php 
-                $i = 1;
-                while ($row = $data->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= $i++ ?></td>
-                        <td><?= htmlspecialchars($row['judul']) ?></td>
-                        <td><span class="badge info"><?= $row['angka'] ?></span></td>
-                        <td><?= $row['urutan'] ?></td>
+                    <tbody>
+                    <?php 
+                    $i = 1;
+                    while ($row = $data->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= htmlspecialchars($row['judul']) ?></td>
+                            <td><span class="badge info"><?= $row['angka'] ?></span></td>
+                            <td><?= $row['urutan'] ?></td>
 
-                        <td class="text-center">
-                            <button 
-                               class="btn btn-sm btn-outline" 
-                               onclick='faktaModule.bukaPopup("edit", <?= json_encode($row) ?>)'>
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                        </td>
-                    </tr>
-                <?php endwhile ?>
-                </tbody>
-
-            </table>
+                            <td class="action-links">
+                                <button 
+                                   class="edit" 
+                                   onclick='faktaModule.bukaPopup("edit", <?= json_encode($row) ?>)'>
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <a href="?action=hapus&id=<?= $row['id'] ?>" class="delete" onclick="return confirm('Yakin hapus fakta ini?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endwhile ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -135,35 +139,6 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
     </div>
 </div>
 
-<script>
-const faktaModule = {
-    bukaPopup(mode, data = null) {
-        const modal = document.getElementById("faktaModal");
-        const form = document.getElementById("faktaForm");
-        
-        modal.classList.add("show");
-        document.getElementById("faktaAction").value = mode;
 
-        if (mode === "tambah") {
-            document.getElementById("faktaTitle").innerText = "Tambah Fakta";
-            form.reset();
-            document.getElementById("faktaId").value = "";
-        }
-
-        if (mode === "edit") {
-            document.getElementById("faktaTitle").innerText = "Edit Fakta";
-            document.getElementById("faktaId").value = data.id;
-            // Case sensitive ID fixing based on previous code form inputs
-            document.getElementById("faktajudul").value = data.judul;
-            document.getElementById("faktaangka").value = data.angka;
-            document.getElementById("faktaurutan").value = data.urutan;
-        }
-    },
-
-    tutupPopup() {
-        document.getElementById("faktaModal").classList.remove("show");
-    }
-};
-</script>
 
 <?php include 'includes/admin_footer.php'; ?>

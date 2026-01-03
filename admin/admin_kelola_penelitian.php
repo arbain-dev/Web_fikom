@@ -228,7 +228,7 @@ include 'includes/admin_header.php';
 
     <!-- Purple Banner -->
     <div class="page-banner">
-        <h1 class="banner-title">Kelola Penelitian</h1>
+        <h1 class="banner-title">Penelitian</h1>
     </div>
 
     <div class="card">
@@ -265,9 +265,12 @@ include 'includes/admin_header.php';
 
         <div class="card-body">
             <?php if ($msg != ""): ?>
-                <div class="message <?= $type ?>"><?= $msg ?></div>
+                <div class="alert alert-<?= $type == 'success' ? 'success' : 'error' ?> mb-6">
+                    <?= $msg ?>
+                </div>
             <?php endif; ?>
-       <table class="data-table">
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+        <table class="data-table" style="min-width: 600px;">
     <thead>
         <tr>
             <th>No</th>
@@ -300,8 +303,8 @@ include 'includes/admin_header.php';
                     <td data-label="Jumlah Dana"><?= number_format($p['jumlah_dana']) ?></td>
                     <td class="action-buttons" data-label="Aksi">
 
-                        <button class="edit"
-                            onclick="openEditPenelitian(this)"
+                        <button class="edit btn-edit-penelitian"
+                            type="button"
                             data-id="<?= $p['id'] ?>"
                             data-judul="<?= htmlspecialchars($p['judul'], ENT_QUOTES) ?>"
                             data-peneliti="<?= htmlspecialchars($p['peneliti'], ENT_QUOTES) ?>"
@@ -336,11 +339,11 @@ include 'includes/admin_header.php';
                 <td colspan="8" style="text-align:center;">Tidak ada data.</td>
             </tr>
         <?php endif; ?>
+        <?php endif; ?>
     </tbody>
 </table>
-
-
-    </div>
+</div>
+</div>
 
 <!-- ======================== MODAL TAMBAH / EDIT ======================== -->
 <div id="modalPenelitian" class="modal">
@@ -484,61 +487,5 @@ include 'includes/admin_header.php';
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Add Button
-    const btnAdd = document.getElementById('btnOpenTambah');
-    if(btnAdd) {
-        btnAdd.addEventListener('click', () => {
-             document.getElementById('formPenelitian').reset();
-             document.getElementById('mode_penelitian').value = 'tambah';
-             document.getElementById('id_penelitian').value = '';
-             document.getElementById('modalPenelitianTitle').innerText = 'TAMBAH PENELITIAN';
-             document.getElementById('info_proposal_text').innerText = '';
-             document.getElementById('info_laporan_text').innerText = '';
-             window.modalShow('modalPenelitian');
-        });
-    }
-});
 
-// Edit Function (called inline from table)
-function openEditPenelitian(btn) {
-    const d = btn.dataset;
-    
-    document.getElementById('mode_penelitian').value = 'edit';
-    document.getElementById('id_penelitian').value = d.id;
-    
-    document.getElementById('judul').value = d.judul;
-    document.getElementById('peneliti').value = d.peneliti;
-    document.getElementById('tahun').value = d.tahun;
-    document.getElementById('status').value = d.status;
-    document.getElementById('skim_penelitian').value = d.skim_penelitian;
-    document.getElementById('kelompok_bidang').value = d.kelompok_bidang;
-    document.getElementById('nomor_sk').value = d.nomor_sk;
-    document.getElementById('lama_kegiatan').value = d.lama_kegiatan;
-    document.getElementById('sumber_dana').value = d.sumber_dana;
-    document.getElementById('jumlah_dana').value = d.jumlah_dana;
-    document.getElementById('tanggal_mulai').value = d.tanggal_mulai;
-    document.getElementById('tanggal_selesai').value = d.tanggal_selesai;
-    document.getElementById('lokasi_penelitian').value = d.lokasi_penelitian;
-    document.getElementById('afiliasi').value = d.afiliasi;
-    
-    // Files
-    document.getElementById('old_file_proposal').value = d.file_proposal;
-    document.getElementById('old_file_laporan').value = d.file_laporan;
-    document.getElementById('link_publikasi').value = d.link_publikasi;
-
-    const infoProp = document.getElementById('info_proposal_text');
-    if(d.file_proposal) infoProp.innerHTML = `File saat ini: <a href="../uploads/penelitian_proposal/${d.file_proposal}" target="_blank">Lihat</a>`;
-    else infoProp.innerText = 'Belum ada file.';
-
-    const infoLap = document.getElementById('info_laporan_text');
-    if(d.file_laporan) infoLap.innerHTML = `File saat ini: <a href="../uploads/penelitian_laporan/${d.file_laporan}" target="_blank">Lihat</a>`;
-    else infoLap.innerText = 'Belum ada file.';
-    
-    document.getElementById('modalPenelitianTitle').innerText = 'EDIT PENELITIAN';
-    window.modalShow('modalPenelitian');
-}
-</script>
 <?php include 'includes/admin_footer.php'; ?>
-```

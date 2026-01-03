@@ -1,5 +1,6 @@
 <?php
 require_once 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $sql = "SELECT * FROM kurikulum ORDER BY nama_kurikulum DESC";

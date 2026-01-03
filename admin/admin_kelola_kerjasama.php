@@ -153,7 +153,7 @@ include 'includes/admin_header.php';
     </div>
     
     <?php if (!empty($message)): ?>
-        <div class="message <?= htmlspecialchars($message_type) ?>">
+        <div class="alert alert-<?= htmlspecialchars($message_type) ?>">
             <?= htmlspecialchars($message) ?>
         </div>
     <?php endif; ?>
@@ -167,8 +167,8 @@ include 'includes/admin_header.php';
         </div>
 
         <div class="card-body">
-            <div class="data-table-wrapper">
-                <table class="data-table">
+            <div class="data-table-wrapper" style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -202,13 +202,13 @@ include 'includes/admin_header.php';
                                 </td>
                                 <td data-label="Aksi" class="action-links">
                                     <a href="#"
-                                       class="btn-icon edit kerjasama-edit-btn"
+                                       class="edit kerjasama-edit-btn"
                                        data-id="<?= $item['id'] ?>"
                                        title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="admin_kelola_kerjasama.php?hapus_id=<?= $item['id'] ?>"
-                                       class="btn-icon delete"
+                                       class="delete"
                                        title="Hapus"
                                        onclick="return confirm('Yakin ingin menghapus partner <?= htmlspecialchars($item['nama_instansi']) ?>?');">
                                         <i class="fas fa-trash"></i>
@@ -297,57 +297,9 @@ include 'includes/admin_header.php';
     </div>
 </div>
 <?php include 'includes/admin_footer.php'; ?>
-<script>
-    window.dataKerjasama = <?= $kerjasama_json ?>;
-    window.uploadKerjasama = '<?= $upload_dir_path ?>';
-</script>
-
-<script>
-    window.kerjasamaData = <?= json_encode($list_kerjasama) ?>;
-    window.uploadDir = "<?= $upload_dir_path ?>";
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Add
-        const btnAdd = document.getElementById('openKerjasamaTambahBtn');
-        if(btnAdd) {
-            btnAdd.addEventListener('click', () => {
-                 window.modalShow('kerjasamaTambahModal');
-            });
-        }
-
-        // Edit
-        document.querySelectorAll('.kerjasama-edit-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const id = this.dataset.id;
-                const data = window.kerjasamaData.find(item => item.id == id);
-                if(!data) return;
-
-                document.getElementById('edit_kerjasama_id').value = data.id;
-                document.getElementById('edit_nama_instansi').value = data.nama_instansi;
-                document.getElementById('edit_link_website').value = data.link_website;
-                document.getElementById('edit_logo_lama').value = data.logo;
-
-                const img = document.getElementById('currentLogoSrc');
-                const name = document.getElementById('currentLogoName');
-                if(data.logo) {
-                    img.src = window.uploadDir + data.logo;
-                    img.style.display = 'block';
-                    name.innerText = data.logo;
-                } else {
-                    img.style.display = 'none';
-                    name.innerText = 'Tidak ada logo';
-                }
-
-                 window.modalShow('kerjasamaEditModal');
-            });
-        });
-
-        // Close buttons (Generic loop for this page)
-        document.querySelectorAll('.close-btn, .btn-tutup').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                if(modal) window.modalHide(modal.id);
-            });
-        });
-    });
-</script>
+<!-- Data Container for Kerjasama -->
+<div id="kerjasama-page-data" 
+     data-items='<?= htmlspecialchars(json_encode($list_kerjasama), ENT_QUOTES, 'UTF-8') ?>'
+     data-upload-dir="<?= $upload_dir_path ?>"
+     class="hidden">
+</div>

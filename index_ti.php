@@ -1,5 +1,6 @@
 <?php
 require 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $query_dosen = "SELECT * FROM dosen WHERE program_studi = 'Informatika'";

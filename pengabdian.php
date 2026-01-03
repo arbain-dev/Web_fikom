@@ -1,5 +1,6 @@
 <?php
 require 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
 
 $sql = "SELECT * FROM pengabdian ORDER BY judul ASC";

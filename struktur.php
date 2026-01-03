@@ -1,6 +1,7 @@
 <?php
+require_once 'config/database.php';
+require_once 'config/constants.php';
 include 'includes/header.php';
-require 'config/database.php';
 
 $main_title = "Struktur Organisasi";
 $sub_title = "STRUKTUR ORGANISASI FAKULTAS ILMU KOMPUTER";

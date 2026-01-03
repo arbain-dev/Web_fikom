@@ -146,8 +146,8 @@ include 'includes/admin_header.php';
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="message <?= $message_type ?>">
-            <?= htmlspecialchars($message) ?>
+        <div class="alert alert-<?= $message_type == 'success' ? 'success' : 'error' ?> mb-6">
+            <?= $message ?>
         </div>
     <?php endif; ?>
 
@@ -159,8 +159,8 @@ include 'includes/admin_header.php';
             </button>
         </div>
         <div class="card-body">
-            <div class="data-table-wrapper">
-                <table class="data-table">
+            <div class="data-table-wrapper" style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
+                <table class="data-table" style="min-width: 600px;">
                     <thead>
                         <tr>
                             <th style="width: 50px;">No</th>
@@ -185,7 +185,7 @@ include 'includes/admin_header.php';
             </td>
                         <td data-label="Aksi">
                             <div class="action-links">
-                                <button type="button" class="btn-icon edit" onclick="openEditModal(<?= $r['id'] ?>)" title="Edit">
+                                <button type="button" class="btn-icon edit btn-edit-sop" data-id="<?= $r['id'] ?>" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 
@@ -291,36 +291,9 @@ include 'includes/admin_header.php';
     </div>
 </div>
 
-<script>
-    window.sopData = <?= $json_data ?>;
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Add Button
-        const btnAdd = document.getElementById('openModalBtnTambah');
-        if(btnAdd) {
-            btnAdd.addEventListener('click', () => {
-                 window.modalShow('tambahModal');
-            });
-        }
-    });
-
-    function openEditModal(id) {
-        const data = window.sopData.find(item => item.id == id);
-        if(!data) return;
-
-        document.getElementById('id_edit').value = data.id;
-        document.getElementById('nama_dokumen_edit').value = data.nama_sop;
-        document.getElementById('deskripsi_edit').value = data.deskripsi;
-        document.getElementById('file_lama_edit').value = data.file_pdf;
-        
-        const fileStat = document.getElementById('file_status_edit');
-        if(data.file_pdf) {
-            fileStat.innerHTML = `File saat ini: <a href="../uploads/sop/${data.file_pdf}" target="_blank">${data.file_pdf}</a>`;
-        } else {
-            fileStat.innerText = "Tidak ada file.";
-        }
-
-        window.modalShow('editModal');
-    }
-</script>
+<!-- Data Container for SOP -->
+<div id="sop-page-data" 
+     data-items='<?= htmlspecialchars($json_data, ENT_QUOTES, 'UTF-8') ?>'
+     class="hidden">
+</div>
 <?php include 'includes/admin_footer.php'; ?>

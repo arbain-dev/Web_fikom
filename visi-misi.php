@@ -58,18 +58,22 @@ $conn->close();
                     <h2 class="text-2xl font-bold text-gray-800 m-0">Misi</h2>
                 </div>
                 <div class="text-gray-700">
-                    <div class="space-y-4">
+                    <ul class="misi-list">
                         <?php if (count($misi_list) > 0): ?>
                             <?php foreach ($misi_list as $index => $misi): ?>
-                                <div class="flex gap-3 leading-relaxed">
-                                    <span class="font-bold text-success-600"><?= ($index + 1) ?>.</span>
-                                    <span><?= htmlspecialchars($misi); ?></span>
-                                </div>
+                                <li class="misi-item">
+                                    <div class="misi-number">
+                                        <?= ($index + 1) ?>
+                                    </div>
+                                    <p class="misi-text">
+                                        <?= htmlspecialchars($misi); ?>
+                                    </p>
+                                </li>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <div class="text-gray-500 italic">Data misi belum diisi.</div>
+                            <li class="text-gray-500 italic p-4 text-center bg-gray-50 rounded-lg">Data misi belum diisi.</li>
                         <?php endif; ?>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

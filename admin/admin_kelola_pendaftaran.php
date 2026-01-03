@@ -68,61 +68,68 @@ if ($result && $result->num_rows > 0) {
     </div>
 
     <?php if (!empty($message)): ?>
-        <div class="kb-alert kb-alert-<?= $msg_type; ?>">
+        <div class="alert alert-<?= $msg_type == 'success' ? 'success' : 'error' ?> mb-6">
             <?= $message ?>
         </div>
     <?php endif; ?>
 
-    <div class="content-box">
-        <table class="data-table kb-data-table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Prodi</th>
-                    <th>HP/WA</th>
-                    <th>Tanggal Daftar</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($pendaftar_list)): $i=1; foreach($pendaftar_list as $row): ?>
-                <tr>
-                    <td><?= $i++ ?></td>
-                    <td>
-                        <strong><?= htmlspecialchars($row['nama']) ?></strong><br>
-                        <small>NIK: <?= htmlspecialchars($row['nik']) ?></small>
-                    </td>
-                    <td><?= htmlspecialchars($row['prodi']) ?> (<?= htmlspecialchars($row['jalur']) ?>)</td>
-                    <td>
-                        <a href="https://wa.me/<?= preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $row['hp'])) ?>" target="_blank">
-                            <i class="fab fa-whatsapp"></i> <?= htmlspecialchars($row['hp']) ?>
-                        </a>
-                    </td>
-                    <td><?= date('d M Y', strtotime($row['created_at'])) ?></td>
-                    <td>
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="action" value="update_status">
-                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <select name="status" onchange="this.form.submit()" style="padding:4px;border-radius:4px;
-                                background: <?= $row['status']=='Diterima'?'#d4edda':($row['status']=='Ditolak'?'#f8d7da':'#fff3cd') ?>;">
-                                <option value="Pending" <?= $row['status']=='Pending'?'selected':'' ?>>Pending</option>
-                                <option value="Diterima" <?= $row['status']=='Diterima'?'selected':'' ?>>Diterima</option>
-                                <option value="Ditolak" <?= $row['status']=='Ditolak'?'selected':'' ?>>Ditolak</option>
-                            </select>
-                        </form>
-                    </td>
-                    <td class="action-links">
-                        <button onclick='lihatDetail(<?= json_encode($row) ?>)' class="btn-sm btn-info" title="Lihat Detail"><i class="fas fa-eye"></i></button>
-                        <a href="?action=hapus&id=<?= $row['id'] ?>" onclick="return confirm('Hapus data ini?')" class="delete" title="Hapus"><i class="fas fa-trash"></i></a>
-                    </td>
-                </tr>
-                <?php endforeach; else: ?>
-                <tr><td colspan="7" style="text-align:center">Belum ada data pendaftaran</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Daftar Pendaftar</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Prodi</th>
+                            <th>HP/WA</th>
+                            <th>Tanggal Daftar</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($pendaftar_list)): $i=1; foreach($pendaftar_list as $row): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td>
+                                <strong><?= htmlspecialchars($row['nama']) ?></strong><br>
+                                <small>NIK: <?= htmlspecialchars($row['nik']) ?></small>
+                            </td>
+                            <td><?= htmlspecialchars($row['prodi']) ?> (<?= htmlspecialchars($row['jalur']) ?>)</td>
+                            <td>
+                                <a href="https://wa.me/<?= preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $row['hp'])) ?>" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> <?= htmlspecialchars($row['hp']) ?>
+                                </a>
+                            </td>
+                            <td><?= date('d M Y', strtotime($row['created_at'])) ?></td>
+                            <td>
+                                <form method="POST" style="display:inline;">
+                                    <input type="hidden" name="action" value="update_status">
+                                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                    <select name="status" onchange="this.form.submit()" style="padding:4px;border-radius:4px;
+                                        background: <?= $row['status']=='Diterima'?'#d4edda':($row['status']=='Ditolak'?'#f8d7da':'#fff3cd') ?>;">
+                                        <option value="Pending" <?= $row['status']=='Pending'?'selected':'' ?>>Pending</option>
+                                        <option value="Diterima" <?= $row['status']=='Diterima'?'selected':'' ?>>Diterima</option>
+                                        <option value="Ditolak" <?= $row['status']=='Ditolak'?'selected':'' ?>>Ditolak</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="action-links">
+                                <button class="edit btn-detail-pendaftaran" data-item='<?= htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8') ?>' title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                <a href="?action=hapus&id=<?= $row['id'] ?>" onclick="return confirm('Hapus data ini?')" class="delete" title="Hapus"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php endforeach; else: ?>
+                        <tr><td colspan="7" style="text-align:center">Belum ada data pendaftaran</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 <!-- Modal Detail -->
@@ -145,62 +152,7 @@ if ($result && $result->num_rows > 0) {
     </div>
 </div>
 
-<script>
-function lihatDetail(data) {
-    const table = document.getElementById('tableDetail');
-    let html = '';
-    const fields = {
-        'Nama Lengkap': data.nama,
-        'NIK': data.nik,
-        'Email': data.email,
-        'No HP': data.hp,
-        'TTL': (data.tempat_lahir || '') + ', ' + (data.tanggal_lahir || ''),
-        'Jenis Kelamin': data.jk,
-        'Asal Sekolah': data.asal_sekolah,
-        'Prodi Pilihan': data.prodi,
-        'Jalur Masuk': data.jalur,
-        'Alamat': data.alamat,
-        'Catatan': data.catatan,
-        'Status': data.status,
-        'Tanggal Daftar': data.created_at
-    };
-
-    for (let key in fields) {
-        html += `<tr>
-            <td style="padding:12px; border-bottom:1px solid #f0f0f0; width:160px; font-weight:600; color:#555;">${key}</td>
-            <td style="padding:12px; border-bottom:1px solid #f0f0f0; color:#333;">${fields[key] || '-'}</td>
-        </tr>`;
-    }
-
-    // Files
-    html += `<tr>
-        <td style="padding:12px; font-weight:600; color:#555;">Dokumen</td>
-        <td style="padding:12px;">`;
-    
-    if(data.file_ktp) {
-        html += `<a href="../uploads/pendaftaran/${data.file_ktp}" target="_blank" class="btn btn-sm btn-info" style="margin-right:8px; text-decoration:none;">Lihat KTP</a>`;
-    } else {
-        html += `<span style="color:var(--error-500); margin-right:8px;">KTP Kosong</span>`;
-    }
-
-    if(data.file_ijazah) {
-        html += `<a href="../uploads/pendaftaran/${data.file_ijazah}" target="_blank" class="btn btn-sm btn-info" style="text-decoration:none;">Lihat Ijazah</a>`;
-    } else {
-        html += `<span style="color:var(--error-500);">Ijazah Kosong</span>`;
-    }
-    
-    html += `</td></tr>`;
-
-    table.innerHTML = html;
-    
-    // Use standard modal show function
-    window.modalShow('modalDetail');
-}
-
-function tutupDetail() {
-    window.modalHide('modalDetail');
-}
-
-</script>
+<!-- Data Container for Pendaftaran -->
+<div id="pendaftaran-page-data" class="hidden"></div>
 
 <?php include 'includes/admin_footer.php'; ?>

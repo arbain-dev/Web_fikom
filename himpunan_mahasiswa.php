@@ -12,8 +12,8 @@ include 'includes/header.php';
         <div class="color"></div>
     </div>
 
-<section class="hero-himpunan">
-    <div class="container hero-content-himpunan">
+<section class="hero">
+    <div class="container hero-content">
         <h1 class="fade-in-up">Himpunan Mahasiswa FIKOM</h1>
         <p class="fade-in-up delay-1">Organisasi kemahasiswaan yang menaungi mahasiswa berdasarkan program studi</p>
     </div>
@@ -21,9 +21,8 @@ include 'includes/header.php';
 
 <section class="section">
     <div class="container">
-        <div class="section-title fade-in-up">
-            <h2>Daftar Himpunan Mahasiswa</h2>
-            <p>Himpunan mahasiswa di lingkungan Fakultas Ilmu Komputer</p>
+        <div class="section-title fade-in-up" style="color: #fff;">
+            <p style="color: rgba(255,255,255,0.8);">Himpunan mahasiswa di lingkungan Fakultas Ilmu Komputer</p>
         </div>
 
         <div class="himpunan-grid">
@@ -39,17 +38,6 @@ include 'includes/header.php';
                 <div class="himpunan-desc">
                     Wadah aspirasi dan kreativitas mahasiswa Informatika dalam mengembangkan kompetensi di bidang programming dan teknologi.
                 </div>
-                <div class="contact-info-himpunan">
-                    <a href="https://instagram.com/hmif_unisan" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://wa.me/6282215322757" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:hmif@fikom-unisan.ac.id" target="_blank">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
             </div>
 
             <div class="himpunan-card zoom-in delay-3">
@@ -64,21 +52,12 @@ include 'includes/header.php';
                 <div class="himpunan-desc">
                     Himpunan mahasiswa yang berfokus pada infrastruktur IT, jaringan komputer, dan keamanan siber.
                 </div>
-                <div class="contact-info-himpunan">
-                    <a href="https://instagram.com/hmti_unisan" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://wa.me/6281234567892" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:hmti@fikom-unisan.ac.id" target="_blank">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </section>
+
+</main>
 
 <?php
 include 'includes/footer.php';

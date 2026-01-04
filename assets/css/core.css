@@ -642,6 +642,7 @@ table {
     background-color: var(--primary-700);
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
+    color: #fff !important;
 }
 
 .btn-primary:active {
@@ -699,6 +700,7 @@ table {
 .btn-success:hover {
     background-color: var(--success-700);
     transform: translateY(-1px);
+    color: #fff !important;
 }
 
 /* Danger Button */
@@ -710,6 +712,7 @@ table {
 .btn-danger:hover {
     background-color: var(--error-600);
     transform: translateY(-1px);
+    color: #fff !important;
 }
 
 /* Button Sizes */

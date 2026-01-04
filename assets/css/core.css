@@ -825,29 +825,86 @@ table {
 
 /* ===== GLOBAL MODAL FIX (NUCLEAR OPTION) ===== */
 .modal {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 99999 !important;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-modal);
     display: none;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
 }
 
+/* State ketika Muncul */
 .modal.show {
     display: flex !important;
+    opacity: 1;
+    visibility: visible;
 }
 
+/* 2. Kotak Putih (Konten) */
 .modal-content {
-    margin: auto !important;
-    position: relative !important;
-    z-index: 100000 !important;
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2xl);
+    border: 1px solid var(--gray-200);
+    transform: scale(0.95) translateY(10px);
+    transition: transform var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    position: relative;
+}
+
+.modal.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+/* Header Modal */
+.modal-header {
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.modal-header h2,
+.modal-header .card-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    /* Judul auto tengah */
+}
+
+/* Body Modal */
+.modal-body {
+    padding: var(--space-6);
+    overflow-y: auto;
+    /* Scrollable jika konten panjang */
+}
+
+/* Footer Modal */
+.modal-footer {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    background-color: #fff;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
 /* Form States */
@@ -939,48 +996,6 @@ table {
     border: 1px solid var(--error-500);
 }
 
-/* Modals */
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: var(--z-modal-backdrop);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-base);
-}
-
-.modal-backdrop.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal {
-    background: #fff;
-    border-radius: var(--radius-xl);
-    max-width: 500px;
-    width: 90%;
-    transform: scale(0.95);
-    transition: transform var(--transition-base);
-}
-
-.modal-backdrop.show .modal {
-    transform: scale(1);
-}
-
-.modal-header {
-    padding: var(--space-5) var(--space-6);
-    border-bottom: 1px solid var(--gray-100);
-    display: flex;
-    justify-content: space-between;
-}
-
-.modal-body {
-    padding: var(--space-6);
-}
 
 /* Container */
 .container {
@@ -1101,129 +1116,4 @@ table {
 .page-header .reveal-on-scroll,
 .page-header-section .reveal-on-scroll {
     animation: fadeInUp 0.8s ease-out;
-}
-
-/* =========================================
-   SCROLL ANIMATIONS & MICRO-INTERACTIONS
-   ========================================= */
-
-/* Base Reveal Config */
-.reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: opacity, transform;
-}
-
-.reveal-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Directional Reveals */
-.reveal-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reveal-left.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.reveal-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reveal-right.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Staggered Animations Container */
-.stagger-container .stagger-item,
-.stagger-container>* {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.stagger-container.is-visible .stagger-item,
-.stagger-container.is-visible>* {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Stagger Delays (up to 12 items) */
-.stagger-container.is-visible>*:nth-child(1) {
-    transition-delay: 0.05s;
-}
-
-.stagger-container.is-visible>*:nth-child(2) {
-    transition-delay: 0.1s;
-}
-
-.stagger-container.is-visible>*:nth-child(3) {
-    transition-delay: 0.15s;
-}
-
-.stagger-container.is-visible>*:nth-child(4) {
-    transition-delay: 0.2s;
-}
-
-.stagger-container.is-visible>*:nth-child(5) {
-    transition-delay: 0.25s;
-}
-
-.stagger-container.is-visible>*:nth-child(6) {
-    transition-delay: 0.3s;
-}
-
-.stagger-container.is-visible>*:nth-child(7) {
-    transition-delay: 0.35s;
-}
-
-.stagger-container.is-visible>*:nth-child(8) {
-    transition-delay: 0.4s;
-}
-
-.stagger-container.is-visible>*:nth-child(9) {
-    transition-delay: 0.45s;
-}
-
-.stagger-container.is-visible>*:nth-child(10) {
-    transition-delay: 0.5s;
-}
-
-.stagger-container.is-visible>*:nth-child(11) {
-    transition-delay: 0.55s;
-}
-
-.stagger-container.is-visible>*:nth-child(12) {
-    transition-delay: 0.6s;
-}
-
-/* Micro-interactions (Hover Effects) */
-.hover-scale {
-    transition: transform var(--transition-base);
-}
-
-.hover-scale:hover {
-    transform: scale(1.03);
-}
-
-.hover-lift {
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.hover-glow:hover {
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }

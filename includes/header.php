@@ -49,7 +49,7 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle) ?> - FIKOM UNISAN</title>
     <meta name="description" content="Website resmi Fakultas Ilmu Komputer UNISAN Sidenreng Rappang">
-    <link rel="icon" href="assets/img/pp.png" type="image/png">
+    <link rel="icon" href="<?= defined('BASE_URL') ? BASE_URL : '.' ?>/assets/img/pp.png" type="image/png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,10 +57,10 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Main Stylesheet (Consolidated) -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '.' ?>/assets/css/main.css?v=<?= time() ?>">
 </head>
 <body class="<?= isset($bodyClass) ? $bodyClass : '' ?>">
 

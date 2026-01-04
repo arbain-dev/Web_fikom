@@ -102,8 +102,6 @@ include 'includes/admin_header.php';
 </div>
 
 <!-- Card Daftar -->
-
-
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Daftar Slider</h2>
@@ -179,8 +177,4 @@ include 'includes/admin_header.php';
         </div>
     </div>
 </div>
-
-<!-- Inline script for this page specific modal -->
-
-
 <?php include 'includes/admin_footer.php'; ?>

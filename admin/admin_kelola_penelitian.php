@@ -231,6 +231,13 @@ include 'includes/admin_header.php';
         <h1 class="banner-title">Penelitian</h1>
     </div>
 
+    <?php if ($msg != ""): ?>
+        <div class="alert alert-<?= $type === 'success' ? 'success' : 'error' ?>" style="margin-top: 20px;">
+            <i class="fas fa-<?= $type === 'success' ? 'check-circle' : 'exclamation-circle' ?>"></i>
+            <?= htmlspecialchars($msg) ?>
+        </div>
+    <?php endif; ?>
+
     <div class="card">
         <div class="card-header flex-between" style="flex-wrap:wrap; gap:10px;">
             <div style="display:flex; align-items:center; gap:15px;">
@@ -334,8 +341,8 @@ include 'includes/admin_header.php';
         </div>
 
 <!-- ======================== MODAL TAMBAH / EDIT ======================== -->
-<div id="modalPenelitian" class="modal">
-    <div class="modal-content" style="max-width: 800px;">
+<div id="modalPenelitian" class="modal modal-xl modal-dialog-centered">
+    <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalPenelitianTitle">TAMBAH PENELITIAN</h2>
             <span class="close-btn" onclick="window.modalHide('modalPenelitian')">&times;</span>
@@ -350,7 +357,7 @@ include 'includes/admin_header.php';
             <div class="modal-body">
                 <!-- Identitas -->
                 <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 15px; color: var(--primary-600);">
-                    <i class="fas fa-info-circle"></i> Identitas Penelitian
+                    <i class="fas fa-info-circle"></i> Identitas & Detail
                 </h3>
                 
                 <div class="input-box">
@@ -358,7 +365,7 @@ include 'includes/admin_header.php';
                     <textarea id="judul" name="judul" rows="2" required></textarea>
                 </div>
                 
-                <div class="input-row">
+                <div class="grid-3-cols">
                     <div class="input-box">
                         <label class="required">Nama Peneliti</label>
                         <input type="text" id="peneliti" name="peneliti" required>
@@ -367,9 +374,6 @@ include 'includes/admin_header.php';
                         <label class="required">Tahun</label>
                         <input type="number" id="tahun" name="tahun" min="2000" max="2099" required>
                     </div>
-                </div>
-
-                <div class="input-row">
                     <div class="input-box">
                         <label class="required">Status</label>
                         <select id="status" name="status" required>
@@ -378,13 +382,13 @@ include 'includes/admin_header.php';
                             <option value="Selesai">Selesai</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="grid-3-cols">
                     <div class="input-box">
                         <label>Skim Penelitian</label>
                         <input type="text" id="skim_penelitian" name="skim_penelitian">
                     </div>
-                </div>
-
-                <div class="input-row">
                     <div class="input-box">
                         <label>Kelompok Bidang</label>
                         <input type="text" id="kelompok_bidang" name="kelompok_bidang">
@@ -395,17 +399,11 @@ include 'includes/admin_header.php';
                     </div>
                 </div>
                 
-                <div class="input-box">
-                    <label>Lama Kegiatan</label>
-                    <input type="text" id="lama_kegiatan" name="lama_kegiatan">
-                </div>
-
-                <!-- Pendanaan -->
-                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin: 25px 0 15px 0; color: var(--primary-600);">
-                    <i class="fas fa-dollar-sign"></i> Pendanaan & Periode
-                </h3>
-
-                <div class="input-row">
+                <div class="grid-3-cols">
+                    <div class="input-box">
+                        <label>Lama Kegiatan</label>
+                        <input type="text" id="lama_kegiatan" name="lama_kegiatan">
+                    </div>
                     <div class="input-box">
                         <label>Sumber Dana</label>
                         <select id="sumber_dana" name="sumber_dana">
@@ -421,8 +419,13 @@ include 'includes/admin_header.php';
                     </div>
                 </div>
 
-                <div class="input-row">
-                    <div class="input-box">
+                <!-- Lokasi & Dokumen -->
+                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin: 25px 0 15px 0; color: var(--primary-600);">
+                     <i class="fas fa-folder"></i> Pelaksanaan & Dokumen
+                </h3>
+
+                <div class="grid-3-cols">
+                     <div class="input-box">
                         <label>Tanggal Mulai</label>
                         <input type="date" id="tanggal_mulai" name="tanggal_mulai">
                     </div>
@@ -430,25 +433,24 @@ include 'includes/admin_header.php';
                         <label>Tanggal Selesai</label>
                         <input type="date" id="tanggal_selesai" name="tanggal_selesai">
                     </div>
-                </div>
-
-                <!-- Lokasi & Dokumen -->
-                <h3 style="font-size: 1.1rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin: 25px 0 15px 0; color: var(--primary-600);">
-                     <i class="fas fa-folder"></i> Lokasi & Dokumen
-                </h3>
-
-                <div class="input-row">
                     <div class="input-box">
                         <label>Lokasi Penelitian</label>
                         <input type="text" id="lokasi_penelitian" name="lokasi_penelitian">
                     </div>
+                </div>
+
+                <div class="grid-2-cols">
                     <div class="input-box">
                         <label>Afiliasi</label>
                         <input type="text" id="afiliasi" name="afiliasi">
                     </div>
+                     <div class="input-box">
+                        <label>Link Publikasi</label>
+                        <input type="url" id="link_publikasi" name="link_publikasi" placeholder="https://...">
+                    </div>
                 </div>
 
-                <div class="input-row">
+                <div class="grid-2-cols">
                     <div class="input-box">
                         <label>Upload Proposal (PDF/DOC)</label>
                         <input type="file" id="file_proposal" name="file_proposal" accept=".pdf,.doc,.docx">
@@ -461,14 +463,8 @@ include 'includes/admin_header.php';
                     </div>
                 </div>
 
-                 <div class="input-box">
-                    <label>Link Publikasi</label>
-                    <input type="url" id="link_publikasi" name="link_publikasi" placeholder="https://...">
-                </div>
-            </div>
-
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" onclick="window.modalHide('modalPenelitian')">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="window.modalHide('modalPenelitian')">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>

@@ -580,28 +580,51 @@ body {
     align-items: center;
 }
 
-.badge.success {
+.badge.success,
+.badge.badge-success {
     background: var(--success-50);
     color: var(--success-600);
     border: 1px solid var(--success-100);
 }
 
-.badge.warning {
+.badge.warning,
+.badge.badge-warning {
     background: var(--warning-50);
     color: var(--warning-600);
     border: 1px solid var(--warning-100);
 }
 
-.badge.error {
+.badge.error,
+.badge.badge-error,
+.badge.badge-danger {
     background: var(--error-50);
     color: var(--error-600);
     border: 1px solid var(--error-100);
 }
 
-.badge.info {
+.badge.info,
+.badge.badge-info {
     background: var(--info-50);
     color: var(--info-600);
     border: 1px solid var(--info-100);
+}
+
+.badge.badge-category {
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border: 1px solid var(--primary-200);
+}
+
+.badge.badge-aktif {
+    background: var(--success-50);
+    color: var(--success-700);
+    border: 1px solid var(--success-200);
+}
+
+.badge.badge-nonaktif {
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border: 1px solid var(--gray-300);
 }
 
 
@@ -893,53 +916,53 @@ body.auth-body::after {
    MODAL STYLES (Standardized)
    ========================================= */
 .modal {
-    position: fixed;
-    inset: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 10000 !important;
-    transform: none !important;
+    z-index: 9999 !important;
     display: none;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: transparent !important;
-    backdrop-filter: none !important;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    background: transparent;
+    transform: none !important;
 }
 
+/* Class untuk memunculkan Modal */
 .modal.show {
     display: flex !important;
-}
-
-.modal.active {
-    display: flex;
     opacity: 1;
     visibility: visible;
 }
 
-
-
 .modal-overlay {
-    display: none;
-    /* Hide the overlay completely since modal itself has background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: -1;
 }
+
 
 
 /* RESTORED MODAL STYLES (Clean White Box, Centered) */
 .modal-content {
     background: #fff;
-    width: 90%;
-    max-width: 700px;
-    min-width: unset;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--gray-200);
+    width: 100%;
+    max-width: 500px;
+    margin: auto !important;
+    border-radius: var(--radius-xl, 12px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--gray-100, #e5e7eb);
     position: relative;
     z-index: 2;
     transform: translateY(20px);
@@ -947,62 +970,49 @@ body.auth-body::after {
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    padding: 0;
-    margin: 0;
 }
 
-@media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-        min-width: unset;
-    }
+.modal.show .modal-content {
+    transform: translateY(0);
 }
 
-
-.modal.show {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    opacity: 1;
-    visibility: visible;
-}
-
+/* =========================================
+   HEADER, BODY, FOOTER (TIDAK ADA YANG DIHAPUS)
+   ========================================= */
 
 .modal-header {
     background: #fff;
-    /* Keep white to blend */
-    padding: var(--space-5) var(--space-6);
-    border-bottom: 1px solid var(--gray-100);
+    padding: var(--space-5, 16px) var(--space-6, 24px);
+    border-bottom: 1px solid var(--gray-100, #e5e7eb);
     display: flex;
     justify-content: center;
-    /* Center the title */
+    /* Judul rata tengah */
     align-items: center;
     position: relative;
-    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border-radius: var(--radius-xl, 12px) var(--radius-xl, 12px) 0 0;
 }
 
 .modal-header h2 {
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
-    color: var(--primary-600);
+    color: var(--primary-600, #333);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     text-align: center;
-    flex: 1;
+    width: 100%;
 }
 
-.modal-header .modal-close,
-.modal-header .close-btn {
+.modal-close,
+.close-btn {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
     border: none;
-    font-size: 28px;
-    line-height: 1;
-    color: var(--gray-400);
+    font-size: var(--text-lg, 18px);
+    color: var(--gray-400, #999);
     cursor: pointer;
     width: 32px;
     height: 32px;
@@ -1011,7 +1021,7 @@ body.auth-body::after {
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
-    padding: 0;
+    box-shadow: none;
     z-index: 10;
 }
 
@@ -1022,126 +1032,55 @@ body.auth-body::after {
 }
 
 .modal-body {
-    padding: var(--space-6);
+    padding: var(--space-6, 24px);
     overflow-y: auto;
     flex: 1;
-    max-height: 60vh;
-    /* Prevent too tall modals */
+    max-height: calc(90vh - 140px);
+    /* Ensure space for header/footer */
+    scrollbar-width: thin;
+    /* Firefox */
 }
 
-.modal-body .input-box {
-    margin-bottom: var(--space-4);
+/* Custom Scrollbar for Modal Body */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
 }
 
-.modal-body .input-box:last-child {
-    margin-bottom: 0;
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
 }
 
-.modal-body label {
-    display: block;
-    margin-bottom: var(--space-2);
-    font-weight: 500;
-    color: var(--gray-700);
-    font-size: 14px;
+.modal-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
 }
 
-.modal-body input[type="text"],
-.modal-body input[type="email"],
-.modal-body input[type="number"],
-.modal-body input[type="date"],
-.modal-body input[type="file"],
-.modal-body textarea,
-.modal-body select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--gray-300);
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.2s;
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
 
-.modal-body input:focus,
-.modal-body textarea:focus,
-.modal-body select:focus {
-    outline: none;
-    border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-.modal-body textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-.modal-body .text-muted {
-    display: block;
-    margin-top: var(--space-1);
-    font-size: 12px;
-    color: var(--gray-500);
-}
-
-/* Two Column Layout for Forms */
-.input-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-    margin-bottom: var(--space-4);
-}
-
-.input-row .input-box {
-    margin-bottom: 0;
-}
-
-@media (max-width: 640px) {
-    .input-row {
-        grid-template-columns: 1fr;
-    }
-}
-
-.modal-body label .required,
-.modal-body label.required::after {
-    content: " *";
-    color: var(--error-500);
-}
 
 
 .modal-footer {
-    padding: var(--space-4) var(--space-6);
-    border-top: 1px solid var(--gray-200);
-    background: #f9fafb;
+    padding: var(--space-4, 16px) var(--space-6, 24px);
+    border-top: none;
+    background: transparent;
     display: flex;
     justify-content: flex-end;
-    gap: var(--space-3);
-    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    gap: var(--space-3, 12px);
 }
 
-.modal-footer .btn {
-    min-width: 100px;
-    padding: 10px 20px;
-    font-weight: 500;
+.modal-lg .modal-content {
+    max-width: 800px;
 }
 
-.modal-footer .btn-secondary {
-    background: #fff;
-    border: 1px solid var(--gray-300);
-    color: var(--gray-700);
+.modal-sm .modal-content {
+    max-width: 400px;
 }
 
-.modal-footer .btn-secondary:hover {
-    background: var(--gray-50);
-    border-color: var(--gray-400);
-}
-
-.modal-footer .btn-primary {
-    background: var(--primary-600);
-    color: #fff;
-    border: 1px solid var(--primary-600);
-}
-
-.modal-footer .btn-primary:hover {
-    background: var(--primary-700);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+.modal-xl .modal-content {
+    max-width: 1100px;
 }
 
 
@@ -1657,6 +1596,7 @@ body.auth-body::after {
 .auth-footer a i {
     margin-right: 5px;
 }
+
 /* =========================================
    Slider Page Specific Styles
    ========================================= */
@@ -1674,7 +1614,8 @@ table {
     min-width: 650px;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 10px;
 }
@@ -1706,8 +1647,13 @@ img.thumb {
     font-size: 12px;
 }
 
-.badge-aktif { background: #27ae60; }
-.badge-nonaktif { background: #7f8c8d; }
+.badge-aktif {
+    background: #27ae60;
+}
+
+.badge-nonaktif {
+    background: #7f8c8d;
+}
 
 
 .toggle-password {
@@ -1719,6 +1665,7 @@ img.thumb {
     color: #94a3b8;
     z-index: 10;
 }
+
 .toggle-password:hover {
     color: var(--primary-600);
 }
@@ -1767,7 +1714,8 @@ img.thumb {
 
 .news-content {
     flex: 1;
-    min-width: 0; /* Fix flex truncation */
+    min-width: 0;
+    /* Fix flex truncation */
 }
 
 .news-title {
@@ -1817,7 +1765,7 @@ img.thumb {
         margin-bottom: 15px;
         border-radius: 8px;
     }
-    
+
     .news-thumb.avatar {
         width: 80px;
         height: 80px;
@@ -1831,7 +1779,7 @@ img.thumb {
         border-top: 1px solid #f1f5f9;
         padding-top: 15px;
     }
-    
+
     .news-title {
         white-space: normal;
     }
@@ -1860,4 +1808,33 @@ img.thumb {
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/* Utility for centered modal (requested explicitly) */
+.modal-dialog-centered {
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Grid Layout Utilities */
+.grid-3-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+
+    .grid-3-cols,
+    .grid-2-cols {
+        grid-template-columns: 1fr;
+    }
 }

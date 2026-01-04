@@ -174,34 +174,54 @@ const App = {
     },
 
     /* 5. COUNTERS */
-    countersStarted: false,
+    countersLooping: false,
     animateCounters: function () {
-        if (this.countersStarted) return;
+        if (this.countersLooping) return;
 
         const counters = document.querySelectorAll('[data-count]');
         if (counters.length === 0) return;
 
-        this.countersStarted = true;
+        this.countersLooping = true;
 
         counters.forEach(counter => {
-            const target = +counter.getAttribute('data-count');
-            const duration = 2500;
+            const tempAttr = counter.getAttribute('data-count');
+            if (!tempAttr) return;
 
-            // Simple easing
-            const startTime = performance.now();
-            const updateCounter = (currentTime) => {
-                const elapsed = currentTime - startTime;
-                if (elapsed < duration) {
-                    const progress = Math.min(elapsed / duration, 1);
-                    // EaseOutQuart
-                    const ease = 1 - Math.pow(1 - progress, 4);
-                    counter.innerText = Math.ceil(ease * target);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.innerText = target;
-                }
+            const target = +tempAttr;
+            const duration = 4000; // "Tidak terlalu cepat" -> 4 seconds
+
+            const runAnimation = () => {
+                const startTime = performance.now();
+                
+                const updateCounter = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    
+                    if (elapsed < duration) {
+                        const progress = elapsed / duration;
+                        // EaseOutQuart: 1 - (1-x)^4
+                        const ease = 1 - Math.pow(1 - progress, 4);
+                        
+                        // Ensure we don't exceed target
+                        const currentVal = Math.ceil(ease * target);
+                        counter.innerText = currentVal;
+                        
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target;
+                        // "Bergerak terus" -> Loop after 3 seconds pause
+                        setTimeout(() => {
+                            // Optional: Smoothly reset or just jump to 0?
+                            // Jumping to 0 and restarting is standard for simple loops
+                            counter.innerText = 0;
+                            runAnimation();
+                        }, 3000);
+                    }
+                };
+                
+                requestAnimationFrame(updateCounter);
             };
-            requestAnimationFrame(updateCounter);
+
+            runAnimation();
         });
     },
 

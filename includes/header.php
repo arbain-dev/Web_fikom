@@ -62,7 +62,7 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
     <!-- Main Stylesheet (Consolidated) -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/main.css?v=<?= time() ?>">
 </head>
-<body>
+<body class="<?= isset($bodyClass) ? $bodyClass : '' ?>">
 
 <!-- Navigation Bar -->
 <nav class="navbar" id="navbar">

@@ -88,6 +88,7 @@ include 'includes/admin_header.php';
         </div>
 
         <!-- Card Misi -->
+
         <div class="card">
             <div class="card-header">
                 <h2 class="card-title">Daftar Misi</h2>
@@ -129,16 +130,16 @@ include 'includes/admin_header.php';
                 <hr class="mb-4">
                 
                 <h3 class="mb-3">Tambah Misi Baru</h3>
-                <form method="POST" class="flex-between" style="gap: 15px;">
-                    <div class="form-group">
+                <form method="POST" style="display: flex; gap: 15px; align-items: flex-end;">
+                    <div class="form-group" style="width: 100px; margin-bottom: 0;">
                         <label class="form-label required">Urutan</label>
                         <input type="number" name="urutan" class="form-input" placeholder="No" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
                         <label class="form-label required">Isi Misi</label>
                         <input type="text" name="misi_konten" class="form-input" placeholder="Masukkan teks misi..." required>
                     </div>
-                    <button type="submit" name="tambah_misi" class="btn btn-success">
+                    <button type="submit" name="tambah_misi" class="btn btn-success" style="height: 42px;">
                         <i class="fas fa-plus"></i> Tambah
                     </button>
                 </form>

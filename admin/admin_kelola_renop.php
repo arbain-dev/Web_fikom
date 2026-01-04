@@ -155,6 +155,8 @@ include 'includes/admin_header.php';
     </div>
   <?php endif; ?>
 
+
+
   <div class="card">
     <div class="card-header flex-between">
         <h2 class="card-title">Daftar Dokumen RenOp</h2>
@@ -206,6 +208,7 @@ include 'includes/admin_header.php';
       </table>
     </div>
   </div>
+</div>
 
 <div id="tambahModal" class="modal">
   <div class="modal-content">

@@ -19,7 +19,6 @@
                     <a href="https://www.instagram.com/fikomunisansidrap?igsh=MWdjZWlxNm12bmxyMg==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     <a href="https://wa.me/6282215322757" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
 

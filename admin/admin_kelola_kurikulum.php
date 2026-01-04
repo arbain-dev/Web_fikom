@@ -110,56 +110,62 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
+        <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Kurikulum</h2>
             <button class="btn btn-primary" id="btnAddKurikulum">
                 <i class="fas fa-plus"></i> Tambah Kurikulum
             </button>
         </div>
+
+
         <div class="card-body">
-            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-                <table class="data-table" style="min-width: 600px;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kurikulum</th>
-                        <th>Deskripsi</th>
-                        <th>PDF</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <?php $no = 1; foreach ($list_kurikulum as $k): ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= htmlspecialchars($k['nama_kurikulum']) ?></td>
-                        <td><?= htmlspecialchars(substr($k['deskripsi'],0,80)) ?>...</td>
-                        <td>
-                            <?php if ($k['file_pdf']): ?>
-                                <a href="<?= $upload_dir . $k['file_pdf'] ?>" target="_blank">
-                                    <i class="fas fa-file-pdf"></i> Lihat PDF
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Kurikulum</th>
+                            <th>Deskripsi</th>
+                            <th>File PDF</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if (!empty($list_kurikulum)): $i=1; foreach ($list_kurikulum as $k): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= htmlspecialchars($k['nama_kurikulum']) ?></td>
+                            <td><?= htmlspecialchars($k['deskripsi']) ?></td>
+                            <td>
+                                <?php if ($k['file_pdf']): ?>
+                                    <a href="<?= $upload_dir . $k['file_pdf'] ?>" target="_blank" class="text-red-500 hover:underline">
+                                        <i class="fas fa-file-pdf"></i> Download
+                                    </a>
+                                <?php else: ?>
+                                    -
+                                <?php endif; ?>
+                            </td>
+                            <td class="action-links">
+                                <a class="btn-icon edit btn-edit-kurikulum" data-id="<?= $k['id'] ?>" title="Edit">
+                                    <i class="fas fa-edit"></i>
                                 </a>
-                            <?php else: ?>
-                                <i>- Tidak ada file -</i>
-                            <?php endif; ?>
-                        </td>
-                        <td class="action-links">
-                            <a class="edit btn-edit-kurikulum" data-id="<?= $k['id'] ?>">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a class="delete"
-                               href="admin_kelola_kurikulum.php?hapus_id=<?= $k['id'] ?>"
-                               onclick="return confirm('Yakin ingin menghapus?')">
-                               <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-
-            </table>
+                                <a class="btn-icon delete"
+                                   href="admin_kelola_kurikulum.php?hapus_id=<?= $k['id'] ?>"
+                                   onclick="return confirm('Yakin ingin menghapus?')"
+                                   title="Hapus">
+                                   <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; else: ?>
+                        <tr><td colspan="5" class="text-center">Belum ada data kurikulum.</td></tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

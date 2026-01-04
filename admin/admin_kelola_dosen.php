@@ -160,15 +160,18 @@ include 'includes/admin_header.php';
         </div>
     </div>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
+        <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Dosen</h2>
             <button type="button" class="btn btn-primary" onclick="openAddDosenModal()">
                 <i class="fas fa-plus"></i> Tambah Dosen
             </button>
         </div>
         
-        <div class="card-body">
+        <div class="card-body mb-6">
             <form action="" method="GET" class="filter-form">
                 <select name="filter_prodi" class="form-select filter-select">
                     <option value="">— Semua Prodi —</option>
@@ -178,25 +181,26 @@ include 'includes/admin_header.php';
                 <button type="submit" class="btn btn-sm btn-secondary">Filter</button>
             </form>
         </div>
-    
-            <div class="card-body table-responsive">
+
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="data-table">
                     <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Foto</th>
-                            <th>Nama</th>
-                            <th>NIDN</th>
-                            <th>Prodi</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama / NIDN</th>
+                        <th>Prodi</th>
+                        <th>Pendidikan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <?php if (count($dosen_list) > 0): ?>
-                            <?php foreach ($dosen_list as $i => $dosen): ?>
+                    <?php if (count($dosen_list) > 0): ?>
+                        <?php $no = 1; foreach ($dosen_list as $i => $dosen): ?>
                             <tr>
-                                <td><?= $i+1 ?></td>
+                                <td><?= $no++ ?></td>
                                 <td>
                                     <?php 
                                     $img_name = !empty($dosen['foto']) ? $dosen['foto'] : '';
@@ -208,38 +212,39 @@ include 'includes/admin_header.php';
                                         $display_img = 'https://ui-avatars.com/api/?name=' . urlencode($dosen['nama']) . '&background=random';
                                     }
                                     ?>
-                                    <img src="<?= $display_img ?>" class="table-avatar" alt="Foto">
+                                    <img src="<?= $display_img ?>" class="table-img-sm avatar-img">
                                 </td>
                                 <td>
                                     <strong><?= htmlspecialchars($dosen['nama']) ?></strong><br>
-                                    <small class="text-muted"><?= htmlspecialchars($dosen['pendidikan']) ?></small>
+                                    <small class="text-muted"><?= htmlspecialchars($dosen['nidn']) ?></small>
                                 </td>
-                                <td><?= htmlspecialchars($dosen['nidn']) ?></td>
                                 <td><?= htmlspecialchars($dosen['program_studi']) ?></td>
+                                <td><?= htmlspecialchars($dosen['pendidikan']) ?></td>
                                 <td>
-                                    <span class="badge <?= strtolower($dosen['status']) == 'tetap' ? 'success' : 'warning' ?>">
+                                    <span class="badge <?= strtolower($dosen['status']) == 'tetap' ? 'badge-aktif' : 'badge-nonaktif' ?>">
                                         <?= htmlspecialchars($dosen['status']) ?>
                                     </span>
                                 </td>
-                                <td>
-                                    <div class="action-links">
-                                        <a href="#" class="btn-icon edit" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="btn-icon delete" onclick="return confirm('Yakin hapus?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
+                                <td class="action-links">
+                                    <button class="btn-icon edit" onclick="setupEditDosen(<?= $dosen['id'] ?>); return false;" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <a href="admin_kelola_dosen.php?hapus=<?= $dosen['id'] ?>" class="btn-icon delete" onclick="return confirm('Yakin hapus?');" title="Hapus">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="7" class="text-center text-muted p-6">Tidak ada data.</td></tr>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="7" class="text-center">Tidak ada data dosen.</td></tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+        </div>
+    </div>
     
     <!-- MODAL DOSEN -->
     <div id="dosenModal" class="modal">

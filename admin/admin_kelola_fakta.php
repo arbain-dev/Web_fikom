@@ -52,48 +52,49 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
     }
     ?>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
+        <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Fakta</h2>
-            <button class="btn btn-primary btn-sm" onclick="faktaModule.bukaPopup('tambah')">
+            <button class="btn btn-primary" onclick="faktaModule.bukaPopup('tambah')">
                 <i class="fas fa-plus"></i> Tambah Fakta
             </button>
         </div>
-        <div class="card-body p-0">
-            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-                <table class="data-table" style="min-width: 600px;">
+
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="data-table">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Judul Fakta</th>
-                            <th>Angka</th>
                             <th>Urutan</th>
+                            <th>Judul</th>
+                            <th>Angka</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-
                     <tbody>
                     <?php 
-                    $i = 1;
-                    while ($row = $data->fetch_assoc()): ?>
+                    $data->data_seek(0);
+                    if ($data->num_rows > 0): 
+                        while ($row = $data->fetch_assoc()): ?>
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <td><?= htmlspecialchars($row['judul']) ?></td>
-                            <td><span class="badge info"><?= $row['angka'] ?></span></td>
                             <td><?= $row['urutan'] ?></td>
-
+                            <td><?= htmlspecialchars($row['judul']) ?></td>
+                            <td><?= $row['angka'] ?></td>
                             <td class="action-links">
-                                <button 
-                                   class="edit" 
-                                   onclick='faktaModule.bukaPopup("edit", <?= json_encode($row) ?>)'>
+                                <button class="btn-icon edit" 
+                                       onclick='faktaModule.bukaPopup("edit", <?= json_encode($row) ?>)'
+                                       title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <a href="?action=hapus&id=<?= $row['id'] ?>" class="delete" onclick="return confirm('Yakin hapus fakta ini?')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
                             </td>
                         </tr>
-                    <?php endwhile ?>
+                    <?php endwhile; else: ?>
+                        <tr><td colspan="4" class="text-center">Belum ada data fakta.</td></tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>

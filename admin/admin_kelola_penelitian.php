@@ -263,87 +263,75 @@ include 'includes/admin_header.php';
             </button>
         </div>
 
+
+
         <div class="card-body">
-            <?php if ($msg != ""): ?>
-                <div class="alert alert-<?= $type == 'success' ? 'success' : 'error' ?> mb-6">
-                    <?= $msg ?>
-                </div>
-            <?php endif; ?>
-        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-        <table class="data-table" style="min-width: 600px;">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Judul</th>
-            <th>Peneliti</th>
-            <th>Tahun</th>
-            <th>Status</th>
-            <th>Sumber Dana</th>
-            <th>Jumlah Dana</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Peneliti</th>
+                            <th>Tahun</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($penelitian_list)): $i=1; foreach ($penelitian_list as $p): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= htmlspecialchars($p['judul']) ?></td>
+                            <td><?= htmlspecialchars($p['peneliti']) ?></td>
+                            <td><?= $p['tahun'] ?></td>
+                            <td>
+                                <?php
+                                    $badge = strtolower($p['status']) === "selesai" ? "badge-aktif" :
+                                            (strtolower($p['status']) === "sedang berjalan" ? "badge-info" : "badge-nonaktif");
+                                ?>
+                                <span class="badge <?= $badge ?>"><?= $p['status'] ?></span>
+                            </td>
+                            <td class="action-links">
+                                <button class="btn-icon edit btn-edit-penelitian"
+                                    type="button"
+                                    data-id="<?= $p['id'] ?>"
+                                    data-judul="<?= htmlspecialchars($p['judul'], ENT_QUOTES) ?>"
+                                    data-peneliti="<?= htmlspecialchars($p['peneliti'], ENT_QUOTES) ?>"
+                                    data-tahun="<?= $p['tahun'] ?>"
+                                    data-status="<?= $p['status'] ?>"
+                                    data-skim_penelitian="<?= htmlspecialchars($p['skim_penelitian'], ENT_QUOTES) ?>"
+                                    data-kelompok_bidang="<?= htmlspecialchars($p['kelompok_bidang'], ENT_QUOTES) ?>"
+                                    data-nomor_sk="<?= htmlspecialchars($p['nomor_sk'], ENT_QUOTES) ?>"
+                                    data-lama_kegiatan="<?= htmlspecialchars($p['lama_kegiatan'], ENT_QUOTES) ?>"
+                                    data-sumber_dana="<?= htmlspecialchars($p['sumber_dana'], ENT_QUOTES) ?>"
+                                    data-jumlah_dana="<?= $p['jumlah_dana'] ?>"
+                                    data-tanggal_mulai="<?= $p['tanggal_mulai'] ?>"
+                                    data-tanggal_selesai="<?= $p['tanggal_selesai'] ?>"
+                                    data-lokasi_penelitian="<?= htmlspecialchars($p['lokasi_penelitian'], ENT_QUOTES) ?>"
+                                    data-afiliasi="<?= htmlspecialchars($p['afiliasi'], ENT_QUOTES) ?>"
+                                    data-link_publikasi="<?= htmlspecialchars($p['link_publikasi'], ENT_QUOTES) ?>"
+                                    data-file_proposal="<?= htmlspecialchars($p['file_proposal'], ENT_QUOTES) ?>"
+                                    data-file_laporan="<?= htmlspecialchars($p['file_laporan'], ENT_QUOTES) ?>"
+                                    title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
 
-    <tbody>
-        <?php if (!empty($penelitian_list)): $i=1; ?>
-            <?php foreach ($penelitian_list as $p): ?>
-                <?php
-                    $badge = strtolower($p['status']) === "selesai" ? "selesai" :
-                             (strtolower($p['status']) === "sedang berjalan" ? "proses" : "draft");
-                ?>
-                <tr>
-                    <td data-label="No"><?= $i++ ?></td>
-                    <td data-label="Judul"><?= htmlspecialchars($p['judul']) ?></td>
-                    <td data-label="Peneliti"><?= htmlspecialchars($p['peneliti']) ?></td>
-                    <td data-label="Tahun"><?= $p['tahun'] ?></td>
-                    <td data-label="Status">
-                        <span class="badge <?= $badge ?>"><?= $p['status'] ?></span>
-                    </td>
-                    <td data-label="Sumber Dana"><?= $p['sumber_dana'] ?></td>
-                    <td data-label="Jumlah Dana"><?= number_format($p['jumlah_dana']) ?></td>
-                    <td class="action-buttons" data-label="Aksi">
-
-                        <button class="edit btn-edit-penelitian"
-                            type="button"
-                            data-id="<?= $p['id'] ?>"
-                            data-judul="<?= htmlspecialchars($p['judul'], ENT_QUOTES) ?>"
-                            data-peneliti="<?= htmlspecialchars($p['peneliti'], ENT_QUOTES) ?>"
-                            data-tahun="<?= $p['tahun'] ?>"
-                            data-status="<?= $p['status'] ?>"
-                            data-skim_penelitian="<?= htmlspecialchars($p['skim_penelitian'], ENT_QUOTES) ?>"
-                            data-kelompok_bidang="<?= htmlspecialchars($p['kelompok_bidang'], ENT_QUOTES) ?>"
-                            data-nomor_sk="<?= htmlspecialchars($p['nomor_sk'], ENT_QUOTES) ?>"
-                            data-lama_kegiatan="<?= htmlspecialchars($p['lama_kegiatan'], ENT_QUOTES) ?>"
-                            data-sumber_dana="<?= htmlspecialchars($p['sumber_dana'], ENT_QUOTES) ?>"
-                            data-jumlah_dana="<?= $p['jumlah_dana'] ?>"
-                            data-tanggal_mulai="<?= $p['tanggal_mulai'] ?>"
-                            data-tanggal_selesai="<?= $p['tanggal_selesai'] ?>"
-                            data-lokasi_penelitian="<?= htmlspecialchars($p['lokasi_penelitian'], ENT_QUOTES) ?>"
-                            data-afiliasi="<?= htmlspecialchars($p['afiliasi'], ENT_QUOTES) ?>"
-                            data-link_publikasi="<?= htmlspecialchars($p['link_publikasi'], ENT_QUOTES) ?>"
-                            data-file_proposal="<?= htmlspecialchars($p['file_proposal'], ENT_QUOTES) ?>"
-                            data-file_laporan="<?= htmlspecialchars($p['file_laporan'], ENT_QUOTES) ?>">
-                            <i class="fas fa-edit"></i>
-                        </button>
-
-                        <a href="admin_kelola_penelitian.php?aksi=hapus&id=<?= $p['id'] ?>"
-                           onclick="return confirm('Yakin ingin menghapus?')"
-                           class="delete">
-                           <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="8" style="text-align:center;">Tidak ada data.</td>
-            </tr>
-        <?php endif; ?>
-        <?php endif; ?>
-    </tbody>
-</table>
-</div>
-</div>
+                                <a href="admin_kelola_penelitian.php?aksi=hapus&id=<?= $p['id'] ?>"
+                                   onclick="return confirm('Yakin ingin menghapus?')"
+                                   class="btn-icon delete"
+                                   title="Hapus">
+                                   <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; else: ?>
+                        <tr><td colspan="6" class="text-center">Tidak ada data penelitian.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 <!-- ======================== MODAL TAMBAH / EDIT ======================== -->
 <div id="modalPenelitian" class="modal">

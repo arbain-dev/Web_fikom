@@ -73,6 +73,8 @@ if ($result && $result->num_rows > 0) {
         </div>
     <?php endif; ?>
 
+
+
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Daftar Pendaftar</h2>
@@ -83,10 +85,9 @@ if ($result && $result->num_rows > 0) {
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Prodi</th>
-                            <th>HP/WA</th>
-                            <th>Tanggal Daftar</th>
+                            <th>Nama Lengkap</th>
+                            <th>Prodi & Jalur</th>
+                            <th>Kontak</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -97,21 +98,25 @@ if ($result && $result->num_rows > 0) {
                             <td><?= $i++ ?></td>
                             <td>
                                 <strong><?= htmlspecialchars($row['nama']) ?></strong><br>
-                                <small>NIK: <?= htmlspecialchars($row['nik']) ?></small>
+                                <small class="text-muted">NIK: <?= htmlspecialchars($row['nik']) ?></small>
                             </td>
-                            <td><?= htmlspecialchars($row['prodi']) ?> (<?= htmlspecialchars($row['jalur']) ?>)</td>
                             <td>
-                                <a href="https://wa.me/<?= preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $row['hp'])) ?>" target="_blank">
+                                <?= htmlspecialchars($row['prodi']) ?><br>
+                                <small class="text-muted"><?= htmlspecialchars($row['jalur']) ?></small>
+                            </td>
+                            <td>
+                                <a href="https://wa.me/<?= preg_replace('/^0/', '62', preg_replace('/[^0-9]/', '', $row['hp'])) ?>" target="_blank" class="text-success">
                                     <i class="fab fa-whatsapp"></i> <?= htmlspecialchars($row['hp']) ?>
                                 </a>
                             </td>
-                            <td><?= date('d M Y', strtotime($row['created_at'])) ?></td>
                             <td>
-                                <form method="POST" style="display:inline;">
+                                <form method="POST" class="m-0">
                                     <input type="hidden" name="action" value="update_status">
                                     <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                    <select name="status" onchange="this.form.submit()" style="padding:4px;border-radius:4px;
-                                        background: <?= $row['status']=='Diterima'?'#d4edda':($row['status']=='Ditolak'?'#f8d7da':'#fff3cd') ?>;">
+                                    <select name="status" onchange="this.form.submit()" class="status-select" 
+                                        style="background: <?= $row['status']=='Diterima'?'#dcfce7':($row['status']=='Ditolak'?'#fee2e2':'#fef9c3') ?>; 
+                                               color: <?= $row['status']=='Diterima'?'#166534':($row['status']=='Ditolak'?'#991b1b':'#854d0e') ?>;
+                                               border:1px solid #ddd; padding:4px; border-radius:4px; font-size:12px;">
                                         <option value="Pending" <?= $row['status']=='Pending'?'selected':'' ?>>Pending</option>
                                         <option value="Diterima" <?= $row['status']=='Diterima'?'selected':'' ?>>Diterima</option>
                                         <option value="Ditolak" <?= $row['status']=='Ditolak'?'selected':'' ?>>Ditolak</option>
@@ -119,12 +124,21 @@ if ($result && $result->num_rows > 0) {
                                 </form>
                             </td>
                             <td class="action-links">
-                                <button class="edit btn-detail-pendaftaran" data-item='<?= htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8') ?>' title="Lihat Detail"><i class="fas fa-eye"></i></button>
-                                <a href="?action=hapus&id=<?= $row['id'] ?>" onclick="return confirm('Hapus data ini?')" class="delete" title="Hapus"><i class="fas fa-trash"></i></a>
+                                <button class="btn-icon edit btn-detail-pendaftaran" 
+                                        data-item='<?= htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8') ?>' 
+                                        title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <a href="?action=hapus&id=<?= $row['id'] ?>" 
+                                   onclick="return confirm('Hapus data ini?')" 
+                                   class="btn-icon delete" 
+                                   title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; else: ?>
-                        <tr><td colspan="7" style="text-align:center">Belum ada data pendaftaran</td></tr>
+                        <tr><td colspan="6" class="text-center">Belum ada data pendaftaran.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

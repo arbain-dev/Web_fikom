@@ -172,65 +172,64 @@ if ($result && $result->num_rows > 0) {
         </div>
     <?php endif; ?>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
-            <h2 class="card-title">Data Berita Terkini</h2>
+        <div class="card-header flex-between mb-4">
+            <h2 class="text-xl font-bold text-gray-800">Data Berita Terkini</h2>
             <button class="btn btn-primary" onclick="beritaModule.bukaPopup('tambah')">
-                <i class="fas fa-plus"></i> Tambah Berita
+                <i class="fas fa-plus mr-2"></i> Tambah Berita
             </button>
         </div>
-        <div class="card-body table-responsive">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th width="5%">No</th>
-                        <th width="10%">Foto</th>
-                        <th>Judul</th>
-                        <th>Kategori</th>
-                        <th>Tanggal</th>
-                        <th>Link</th>
-                        <th width="10%">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($berita_list)): $i=1; foreach ($berita_list as $b): ?>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
                         <tr>
-                            <td><?= $i++; ?></td>
+                            <th>No</th>
+                            <th>Foto</th>
+                            <th>Judul</th>
+                            <th>Kategori</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($berita_list)): $i=1; foreach ($berita_list as $b): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
                             <td>
                                 <?php if (!empty($b['foto'])): ?>
-                                    <img src="../uploads/berita/<?= $b['foto']; ?>" class="table-img" onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
+                                    <img src="../uploads/berita/<?= $b['foto']; ?>" class="table-img-sm" style="width:50px; height:50px; object-fit:cover; border-radius:4px;" onclick="beritaModule.previewImage('../uploads/berita/<?= $b['foto']; ?>')">
                                 <?php else: ?>
-                                    <span class="text-muted text-xs">-</span>
+                                    <span class="text-muted"><i class="fas fa-image"></i></span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <span class="font-semibold text-gray-900"><?= htmlspecialchars($b['judul']); ?></span>
-                            </td>
-                            <td>
-                                <span class="badge info"><?= htmlspecialchars($b['kategori']); ?></span>
-                            </td>
-                            <td><?= date('d M Y', strtotime($b['tanggal_publish'])); ?></td>
-                            <td>
+                                <?= htmlspecialchars($b['judul']); ?>
                                 <?php if (!empty($b['link'])): ?>
-                                    <a href="<?= $b['link']; ?>" target="_blank" class="text-primary hover:underline text-sm"><i class="fas fa-external-link-alt"></i> Buka</a>
-                                <?php else: ?> - <?php endif; ?>
+                                    <br><a href="<?= $b['link']; ?>" target="_blank" class="text-xs text-blue-500"><i class="fas fa-external-link-alt"></i> External</a>
+                                <?php endif; ?>
                             </td>
-                            <td>
-                                <div class="action-links">
-                                    <button class="btn-icon edit" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)'>
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" onclick="return confirm('Yakin mau hapus berita ini?')">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
+                            <td><span class="badge badge-category"><?= htmlspecialchars($b['kategori']); ?></span></td>
+                            <td><?= date('d M Y', strtotime($b['tanggal_publish'])); ?></td>
+                            <td class="action-links">
+                                <button class="btn-icon edit" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)' title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" onclick="return confirm('Yakin mau hapus berita ini?')" title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
-                    <?php endforeach; else: ?>
-                        <tr><td colspan="7" class="text-center text-muted p-6">Belum ada data berita.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                        <?php endforeach; else: ?>
+                        <tr><td colspan="6" class="text-center">Belum ada data berita.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 <!-- MODAL FORM (FIXED CENTER) -->

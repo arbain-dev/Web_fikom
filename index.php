@@ -219,8 +219,10 @@ $about = $q_about->fetch_assoc();
             <?php if ($result_berita && $result_berita->num_rows > 0): ?>
                 <?php while ($berita = $result_berita->fetch_assoc()): ?>
                     <?php
-                    $img_berita = (!empty($berita['gambar']) && file_exists("uploads/berita/" . $berita['gambar']))
-                        ? "uploads/berita/" . $berita['gambar']
+                    $db_img = $berita['foto'] ?? '';
+                    $img_path = "uploads/berita/" . $db_img;
+                    $img_berita = (!empty($db_img) && file_exists(__DIR__ . '/' . $img_path))
+                        ? $img_path
                         : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400";
                     ?>
                     <article class="news-card stagger-item">
@@ -298,13 +300,19 @@ $about = $q_about->fetch_assoc();
                         }
                         
                         // Random Year for demo/placeholder purpose if not in DB
-                        $p_year = "20" . rand(20, 24); 
+                        // Use file upload time for "Since" date
+                        $upload_path = "uploads/kerjasama/" . $partner['logo'];
+                        if (file_exists($upload_path)) {
+                            $p_date = date("F Y", filemtime($upload_path));
+                        } else {
+                            $p_date = "2024"; // Fallback
+                        }
                         ?>
                         <a href="<?= $p_link ?>" class="partner-item" target="_blank" title="<?= $p_name ?>">
                             <div class="partner-logo-wrapper">
                                 <img src="<?= $p_img ?>" alt="<?= $p_name ?>" class="partner-logo">
                             </div>
-                            <span class="partner-year">Since <?= $p_year ?></span>
+                            <span class="partner-year"> <?= $p_date ?></span>
                         </a>
                         <?php
                     }

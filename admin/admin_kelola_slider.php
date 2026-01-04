@@ -102,6 +102,8 @@ include 'includes/admin_header.php';
 </div>
 
 <!-- Card Daftar -->
+
+
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">Daftar Slider</h2>
@@ -148,6 +150,9 @@ include 'includes/admin_header.php';
                                title="Hapus">
                                 <i class="fas fa-trash"></i>
                             </a>
+                           <a href="?toggle=<?= $row['id'] ?>" class="btn-sm btn-secondary" style="margin-left:5px; font-size: 0.8em;">
+                                <?= $row['is_active'] ? 'Nonaktifkan' : 'Aktifkan' ?>
+                           </a>
                         </td>
                     </tr>
                     <?php endwhile; ?>

@@ -1,14 +1,16 @@
 <?php
+$bodyClass = "bem-struktur-page";
+require_once 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
 ?>
 
-
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
+<main class="bem-page-wrapper">
+    <div class="color-bg">
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+    </div>
 
 <section class="hero-himpunan">
     <div class="container hero-content-himpunan">

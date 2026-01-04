@@ -96,14 +96,19 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
+        <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Lab Komputer</h2>
             <button class="btn btn-primary" id="openModalBtn"><i class="fas fa-plus"></i> Tambah Lab</button>
         </div>
+
+
         <div class="card-body">
-            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-                <table class="data-table" style="min-width: 600px;">
+            <div class="table-responsive">
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -114,30 +119,34 @@ include 'includes/admin_header.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($lab_list): $no=1; foreach ($lab_list as $lab): ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" class="table-foto"></td>
-                                <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
-                                <td><?= htmlspecialchars(substr($lab['deskripsi'], 0, 100)) ?><?= strlen($lab['deskripsi'])>100?'...':'' ?></td>
-                                <td class="action-buttons">
-                                        <a href="#" class="edit btn-edit-lab" 
-                                       data-id="<?= $lab['id'] ?>"
-                                       data-nama="<?= htmlspecialchars($lab['nama_lab']) ?>"
-                                       data-deskripsi="<?= htmlspecialchars($lab['deskripsi']) ?>"
-                                       data-foto="<?= htmlspecialchars($lab['foto']) ?>">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
-                                        <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
-                                        <input type="hidden" name="action" value="hapus_lab">
-                                        <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; else: ?>
-                            <tr><td colspan="5" style="text-align:center;">Belum ada data laboratorium.</td></tr>
-                        <?php endif; ?>
+                    <?php if ($lab_list): $i=1; foreach ($lab_list as $lab): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td>
+                                <img src="<?= $upload_dir . ($lab['foto'] ?: 'default-placeholder.png') ?>" 
+                                     class="table-img-sm" style="width: 100px; height: 60px; object-fit: cover; border-radius: 6px;">
+                            </td>
+                            <td><?= htmlspecialchars($lab['nama_lab']) ?></td>
+                            <td><?= htmlspecialchars($lab['deskripsi']) ?></td>
+                            <td class="action-links">
+                                <a href="#" class="btn-icon edit btn-edit-lab" 
+                                   data-id="<?= $lab['id'] ?>"
+                                   data-nama="<?= htmlspecialchars($lab['nama_lab']) ?>"
+                                   data-deskripsi="<?= htmlspecialchars($lab['deskripsi']) ?>"
+                                   data-foto="<?= htmlspecialchars($lab['foto']) ?>"
+                                   title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus lab ini?')">
+                                    <input type="hidden" name="lab_id" value="<?= $lab['id'] ?>">
+                                    <input type="hidden" name="action" value="hapus_lab">
+                                    <button type="submit" class="btn-icon delete" title="Hapus"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; else: ?>
+                        <tr><td colspan="5" class="text-center">Belum ada data laboratorium.</td></tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>

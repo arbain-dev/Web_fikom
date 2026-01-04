@@ -188,95 +188,92 @@ include 'includes/admin_header.php';
     </div>
 <?php endif; ?>
 
-<div class="card">
-    <div class="card-header flex-between">
-        <h2 class="card-title">Daftar Anggota BEM</h2>
-        <button type="button" id="btnOpenTambah" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Anggota
-        </button>
-    </div>
-    <div class="card-body">
-        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-        <table class="data-table" style="min-width: 600px;">
-        <thead>
-            <tr>
-                <th>Foto</th>
-                <th>Nama & Jabatan</th>
-                <th>Prodi</th>
-                <th>Kategori</th>
-                <th>Urutan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php if (count($bem_list) > 0): ?>
-            <?php foreach ($bem_list as $item): 
-                $fotoFile = !empty($item['foto']) ? $item['foto'] : '';
-                // Fix: Check if file exists to prevent 404
-                if ($fotoFile && file_exists($upload_dir . $fotoFile)) {
-                    $fotoUrl = $upload_dir . $fotoFile;
-                } else {
-                    $fotoUrl = 'https://ui-avatars.com/api/?name=' . urlencode($item['nama']) . '&background=random&size=50';
-                }
-            ?>
-                <tr>
-                    <td data-label="Foto">
-                        <img src="<?= htmlspecialchars($fotoUrl) ?>" alt="Foto" class="table-foto">
-                    </td>
-                    <td data-label="Nama & Jabatan">
-                        <strong><?= htmlspecialchars($item['nama']) ?></strong><br>
-                        <span class="jabatan-kecil">
-                            <?= htmlspecialchars($item['jabatan']) ?>
-                        </span>
-                    </td>
-                    <td data-label="Prodi">
-                        <?= htmlspecialchars($item['prodi']) ?>
-                    </td>
-                    <td data-label="Kategori">
-                        <?php 
-                        $badgeClass = ($item['kategori'] == 'inti')
-                            ? 'badge-bem badge-bem-inti'
-                            : (($item['kategori'] == 'sekben')
-                                ? 'badge-bem badge-bem-sekben'
-                                : 'badge-bem badge-bem-departemen');
-                        ?>
-                        <span class="<?= $badgeClass ?>">
-                            <?= strtoupper(htmlspecialchars($item['kategori'])) ?>
-                        </span>
-                    </td>
-                    <td data-label="Urutan">
-                        <?= (int)$item['urutan'] ?>
-                    </td>
-                    <td data-label="Aksi" class="action-links">
-                        <button type="button"
-                                class="edit"
-                                data-id="<?= $item['id'] ?>"
-                                data-nama="<?= htmlspecialchars($item['nama'], ENT_QUOTES) ?>"
-                                data-jabatan="<?= htmlspecialchars($item['jabatan'], ENT_QUOTES) ?>"
-                                data-prodi="<?= htmlspecialchars($item['prodi'], ENT_QUOTES) ?>"
-                                data-kategori="<?= htmlspecialchars($item['kategori'], ENT_QUOTES) ?>"
-                                data-urutan="<?= (int)$item['urutan'] ?>"
-                                data-foto="<?= htmlspecialchars($fotoFile, ENT_QUOTES) ?>">
-                            <i class="fas fa-edit"></i>
-                        </button>
 
-                        <a href="admin_kelola_bem.php?action=delete&id=<?= $item['id'] ?>"
-                           class="delete"
-                           onclick="return confirm('Hapus data ini?');">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="6" style="text-align:center;">Belum ada data pengurus.</td>
-            </tr>
-        <?php endif; ?>
-        </tbody>
-    </table>
+
+    <!-- Unified Card Layout -->
+    <div class="card">
+        <div class="card-header flex-between mb-4">
+            <h2 class="card-title">Daftar Anggota BEM</h2>
+            <button type="button" id="btnOpenTambah" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Tambah Anggota
+            </button>
+        </div>
+
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Urutan</th>
+                            <th>Foto</th>
+                            <th>Nama</th>
+                            <th>Jabatan</th>
+                            <th>Kategori</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if (count($bem_list) > 0): ?>
+                        <?php foreach ($bem_list as $item): 
+                            $fotoFile = !empty($item['foto']) ? $item['foto'] : '';
+                            if ($fotoFile && file_exists($upload_dir . $fotoFile)) {
+                                $fotoUrl = $upload_dir . $fotoFile;
+                            } else {
+                                $fotoUrl = 'https://ui-avatars.com/api/?name=' . urlencode($item['nama']) . '&background=random&size=50';
+                            }
+                        ?>
+                        <tr>
+                            <td><?= (int)$item['urutan'] ?></td>
+                            <td><img src="<?= htmlspecialchars($fotoUrl) ?>" class="table-img"></td>
+                            <td>
+                                <strong><?= htmlspecialchars($item['nama']) ?></strong><br>
+                                <small class="text-muted"><?= htmlspecialchars($item['prodi']) ?></small>
+                            </td>
+                            <td><?= htmlspecialchars($item['jabatan']) ?></td>
+                            <td>
+                                <?php 
+                                $badgeClass = ($item['kategori'] == 'inti')
+                                    ? 'badge-bem badge-bem-inti'
+                                    : (($item['kategori'] == 'sekben')
+                                        ? 'badge-bem badge-bem-sekben'
+                                        : 'badge-bem badge-bem-departemen');
+                                ?>
+                                <span class="<?= $badgeClass ?>">
+                                    <?= strtoupper(htmlspecialchars($item['kategori'])) ?>
+                                </span>
+                            </td>
+                            <td class="action-links">
+                                <button type="button"
+                                        class="btn-icon edit"
+                                        data-id="<?= $item['id'] ?>"
+                                        data-nama="<?= htmlspecialchars($item['nama'], ENT_QUOTES) ?>"
+                                        data-jabatan="<?= htmlspecialchars($item['jabatan'], ENT_QUOTES) ?>"
+                                        data-prodi="<?= htmlspecialchars($item['prodi'], ENT_QUOTES) ?>"
+                                        data-kategori="<?= htmlspecialchars($item['kategori'], ENT_QUOTES) ?>"
+                                        data-urutan="<?= (int)$item['urutan'] ?>"
+                                        data-foto="<?= htmlspecialchars($fotoFile, ENT_QUOTES) ?>"
+                                        title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+
+                                <a href="admin_kelola_bem.php?action=delete&id=<?= $item['id'] ?>"
+                                class="btn-icon delete"
+                                onclick="return confirm('Hapus data ini?');"
+                                title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="6" class="text-center">Belum ada data struktur.</td></tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
 
 <div id="modalTambah" class="modal">
     <div class="modal-content">

@@ -146,60 +146,68 @@ include 'includes/admin_header.php';
     </div>
     <?php endif; ?>
     
-    <div class="card">
-        <div class="card-header flex-between">
-            <h2 class="card-title">Daftar Pengabdian</h2>
-            <button id="openTambah" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
-        </div>
-        <div class="card-body">
-            <div style="overflow-x:auto;">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Pelaksana</th>
-                            <th>Deskripsi</th>
-                            <th>File</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
+
+
+    <div class="card"> 
+    <div class="card-header flex-between mb-4">
+        <h2 class="card-title">Daftar Pengabdian</h2>
+        <button id="openTambah" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Pelaksana</th>
+                        <th>Tanggal</th>
+                        <th>File</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <?php $no=1; foreach($list as $row): ?>
-                    <tr 
-                        data-id="<?= $row['id'] ?>"
-                        data-judul="<?= htmlspecialchars($row['judul']) ?>"
-                        data-pelaksana="<?= htmlspecialchars($row['pelaksana']) ?>"
-                        data-deskripsi="<?= htmlspecialchars($row['deskripsi']) ?>"
-                        data-file="<?= htmlspecialchars($row['file_pdf']) ?>"
-                        data-tanggal="<?= htmlspecialchars($row['tanggal_kegiatan']) ?>"
-                    >
-                        <td><?= $no++ ?></td>
+                    <?php if (!empty($list)): $i=1; foreach($list as $row): ?>
+                    <tr>
+                        <td><?= $i++ ?></td>
                         <td><?= htmlspecialchars($row['judul']) ?></td>
                         <td><?= htmlspecialchars($row['pelaksana']) ?></td>
-                        <td><?= htmlspecialchars(mb_substr($row['deskripsi'],0,60)) ?>...</td>
+                        <td><?= $row['tanggal_kegiatan'] ? date('d-m-Y',strtotime($row['tanggal_kegiatan'])) : '-' ?></td>
                         <td>
                             <?php if ($row['file_pdf']): ?>
-                                <a href="../uploads/pengabdian_file/<?= $row['file_pdf'] ?>" target="_blank">
-                                    <i class="fas fa-file-pdf"></i>
+                                <a href="../uploads/pengabdian_file/<?= $row['file_pdf'] ?>" target="_blank" class="text-primary hover:underline">
+                                    <i class="fas fa-file-pdf"></i> Lihat
                                 </a>
-                            <?php else: ?> - <?php endif; ?>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
                         </td>
-                        <td><?= $row['tanggal_kegiatan'] ? date('d-m-Y',strtotime($row['tanggal_kegiatan'])) : '-' ?></td>
                         <td class="action-links">
-                            <a href="#" class="edit btn-edit-pengabdian"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn-icon edit btn-edit-pengabdian" title="Edit"><i class="fas fa-edit"></i></a>
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="action" value="hapus_pengabdian">
                                 <input type="hidden" name="pengabdian_id" value="<?= $row['id'] ?>">
-                                <button type="submit" class="delete"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn-icon delete" onclick="return confirm('Hapus data ini?')" title="Hapus"><i class="fas fa-trash"></i></button>
                             </form>
+                            
+                            <!-- Hidden Data for Edit -->
+                            <div class="hidden-data" style="display:none;" 
+                                data-id="<?= $row['id'] ?>"
+                                data-judul="<?= htmlspecialchars($row['judul']) ?>"
+                                data-pelaksana="<?= htmlspecialchars($row['pelaksana']) ?>"
+                                data-deskripsi="<?= htmlspecialchars($row['deskripsi']) ?>"
+                                data-file="<?= htmlspecialchars($row['file_pdf']) ?>"
+                                data-tanggal="<?= htmlspecialchars($row['tanggal_kegiatan']) ?>">
+                            </div>
                         </td>
                     </tr>
-                <?php endforeach ?>
+                    <?php endforeach; else: ?>
+                    <tr><td colspan="6" class="text-center">Belum ada data pengabdian.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 
 <div id="modalTambah" class="modal">

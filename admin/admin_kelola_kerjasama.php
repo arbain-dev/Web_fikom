@@ -158,69 +158,72 @@ include 'includes/admin_header.php';
         </div>
     <?php endif; ?>
 
+
+
+    <!-- Unified Card Layout -->
     <div class="card">
-        <div class="card-header flex-between">
+        <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Partner Kerjasama</h2>
             <button id="openKerjasamaTambahBtn" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Tambah Partner
             </button>
         </div>
 
+
         <div class="card-body">
-            <div class="data-table-wrapper" style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px;">
-                <table class="data-table" style="min-width: 600px;">
+            <div class="table-responsive">
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Logo</th>
-                            <th>Instansi</th>
-                            <th>Link</th>
+                            <th>Nama Instansi</th>
+                            <th>Website</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                <tbody>
+                    <tbody>
                     <?php if (count($list_kerjasama) > 0): ?>
-                        <?php $i = 1; foreach ($list_kerjasama as $item): ?>
-                            <tr>
-                                <td data-label="No"><?= $i++ ?></td>
-                                <td data-label="Logo">
-                                    <img src="<?= $upload_dir_path . htmlspecialchars($item['logo']) ?>"
-                                         class="table-img"
-                                         alt="Logo <?= htmlspecialchars($item['nama_instansi']) ?>">
-                                </td>
-                                <td data-label="Instansi"><?= htmlspecialchars($item['nama_instansi']) ?></td>
-                                <td data-label="Link">
-                                    <?php if (!empty($item['link_website'])): ?>
-                                        <a href="<?= htmlspecialchars($item['link_website']) ?>"
-                                           target="_blank"
-                                           title="Kunjungi Website">
-                                            Kunjungi <i class="fas fa-external-link-alt" style="font-size:0.8em;"></i>
-                                        </a>
-                                    <?php else: ?>
-                                        -
-                                    <?php endif; ?>
-                                </td>
-                                <td data-label="Aksi" class="action-links">
-                                    <a href="#"
-                                       class="edit kerjasama-edit-btn"
-                                       data-id="<?= $item['id'] ?>"
-                                       title="Edit">
-                                        <i class="fas fa-edit"></i>
+                        <?php $no = 1; foreach ($list_kerjasama as $item): ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td>
+                                <img src="<?= $upload_dir_path . htmlspecialchars($item['logo']) ?>" 
+                                     alt="Logo" 
+                                     class="table-img-sm" 
+                                     style="max-width: 80px; max-height: 50px; object-fit: contain;">
+                            </td>
+                            <td><?= htmlspecialchars($item['nama_instansi']) ?></td>
+                            <td>
+                                <?php if (!empty($item['link_website'])): ?>
+                                    <a href="<?= htmlspecialchars($item['link_website']) ?>" target="_blank" class="text-blue-500 hover:underline">
+                                        <i class="fas fa-external-link-alt"></i> Link
                                     </a>
-                                    <a href="admin_kelola_kerjasama.php?hapus_id=<?= $item['id'] ?>"
-                                       class="delete"
-                                       title="Hapus"
-                                       onclick="return confirm('Yakin ingin menghapus partner <?= htmlspecialchars($item['nama_instansi']) ?>?');">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <?php else: ?>
+                                    -
+                                <?php endif; ?>
+                            </td>
+                            <td class="action-links">
+                                <a href="#" class="btn-icon edit kerjasama-edit-btn" 
+                                   data-id="<?= $item['id'] ?>"
+                                   title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="admin_kelola_kerjasama.php?hapus_id=<?= $item['id'] ?>" 
+                                   class="btn-icon delete"
+                                   title="Hapus"
+                                   onclick="return confirm('Yakin ingin menghapus partner <?= htmlspecialchars($item['nama_instansi']) ?>?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr><td colspan="5" style="text-align:center;">Belum ada data kerjasama.</td></tr>
+                        <tr><td colspan="5" class="text-center">Belum ada data kerjasama.</td></tr>
                     <?php endif; ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

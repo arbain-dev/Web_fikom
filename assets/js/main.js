@@ -192,19 +192,19 @@ const App = {
 
             const runAnimation = () => {
                 const startTime = performance.now();
-                
+
                 const updateCounter = (currentTime) => {
                     const elapsed = currentTime - startTime;
-                    
+
                     if (elapsed < duration) {
                         const progress = elapsed / duration;
                         // EaseOutQuart: 1 - (1-x)^4
                         const ease = 1 - Math.pow(1 - progress, 4);
-                        
+
                         // Ensure we don't exceed target
                         const currentVal = Math.ceil(ease * target);
                         counter.innerText = currentVal;
-                        
+
                         requestAnimationFrame(updateCounter);
                     } else {
                         counter.innerText = target;
@@ -217,7 +217,7 @@ const App = {
                         }, 3000);
                     }
                 };
-                
+
                 requestAnimationFrame(updateCounter);
             };
 
@@ -290,14 +290,23 @@ const App = {
                 if (el) el.textContent = text.startsWith(':') ? text : ": " + text;
             };
 
-            setText('popupNama', data.nama);
+            // Special case for Name (Direct text, no colon)
+            const elNama = document.getElementById('popupNama') || document.getElementById('popNama');
+            if (elNama) elNama.textContent = data.nama;
+
+            // Other fields with colon prefix
             setText('popupJabatan', data.jabatan);
             setText('popupNidn', data.nidn);
             setText('popupProdi', data.program_studi || data.prodi);
             setText('popupKeahlian', data.keahlian);
             setText('popupPendidikan', data.pendidikan);
             setText('popupStatus', data.status);
+            // setText('popupStatus', data.status); // Removed duplicate line
             setText('popupEmail', data.email);
+
+            // Update Email Button Href
+            const btnEmail = document.getElementById('btnEmail');
+            if (btnEmail) btnEmail.href = 'mailto:' + data.email;
 
             const img = document.getElementById('popupFoto') || document.getElementById('popFoto');
             if (img) img.src = data.foto;

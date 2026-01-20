@@ -161,7 +161,7 @@ if ($result && $result->num_rows > 0) {
         </div>
         
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close-btn" onclick="tutupDetail()">Tutup</button>
+            <button type="button" class="btn btn-secondary" onclick="tutupDetail()">Tutup</button>
         </div>
     </div>
 </div>

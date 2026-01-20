@@ -220,7 +220,7 @@ include 'includes/admin_header.php';
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('tambahModal')">Batal</button>
+        <button type="button" class="btn btn-secondary" onclick="modalHide('tambahModal')">Batal</button>
         <button type="submit" class="btn btn-primary">Simpan Data</button>
       </div>
     </form>

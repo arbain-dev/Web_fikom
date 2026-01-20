@@ -68,7 +68,7 @@ if ($result && $result->num_rows > 0) {
                 <button class="close-btn-custom" onclick="closePopup()">
                     <i class="fas fa-times"></i>
                 </button>
-                <h3 id="popNama"></h3>
+                <h4 id="popNama" class="text-xl font-bold text-gray-800"></h4>
                 <div class="dosen-popup-details">
                     <p><strong>Jabatan</strong> <span id="popJabatan"></span></p>
                     <p><strong>NIDN</strong> <span id="popNidn"></span></p>
@@ -76,9 +76,10 @@ if ($result && $result->num_rows > 0) {
                     <p><strong>Keahlian</strong> <span id="popKeahlian"></span></p>
                     <p><strong>Pendidikan</strong> <span id="popPendidikan"></span></p>
                     <p><strong>Status</strong> <span id="popStatus"></span></p>
+                    <p><strong>Email</strong> <span id="popEmail"></span></p>
                 </div>
                 <div class="dosen-popup-action">
-                    <a id="popEmail" href="" class="btn btn-primary w-full">
+                    <a id="btnEmail" href="" class="btn btn-primary w-full">
                         <i class="fas fa-envelope"></i> Kirim Email
                     </a>
                 </div>

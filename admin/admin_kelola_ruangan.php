@@ -315,7 +315,7 @@ include 'includes/admin_header.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" data-modal-id="ruanganModal">Tutup</button>
+                <button type="button" class="btn btn-secondary" data-modal-id="ruanganModal">Tutup</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>

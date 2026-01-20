@@ -207,10 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <select class="input req" name="prodi" required>
                     <option value="">-- Pilih Prodi --</option>
                     <option value="Informatika">Informatika</option>
-                    <option value="Sistem Informasi">Sistem Informasi</option>
-                    <option value="Ilmu Komunikasi">Ilmu Komunikasi</option>
-                    <option value="Manajemen">Manajemen</option>
-                    <option value="Akuntansi">Akuntansi</option>
+                    <option value="Pendidikan Teknologi Informasi">Pendidikan Teknologi Informasi</option>
                 </select>
                 <div class="hint">Silakan sesuaikan daftar prodi UNISAN.</div>
                 </div>

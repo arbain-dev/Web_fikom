@@ -20,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     $action       = $_POST['action'];
     $nama         = $conn->real_escape_string($_POST['nama_instansi'] ?? '');
     $link         = $conn->real_escape_string($_POST['link_website'] ?? '');
+    $bulan        = $conn->real_escape_string($_POST['bulan'] ?? '');
+    $tahun        = intval($_POST['tahun'] ?? date('Y'));
     $kerjasama_id = intval($_POST['kerjasama_id'] ?? 0); 
     $logo_lama    = $_POST['logo_lama'] ?? null; 
     
@@ -50,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     }
     if (empty($message)) {
         if ($action === 'tambah_kerjasama' && !empty($logo_db)) {
-            $stmt = $conn->prepare("INSERT INTO kerjasama (nama_instansi, logo, link_website) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $nama, $logo_db, $link);
+            $stmt = $conn->prepare("INSERT INTO kerjasama (nama_instansi, logo, link_website, bulan, tahun) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssi", $nama, $logo_db, $link, $bulan, $tahun);
             if ($stmt->execute()) {
                 header("Location: admin_kelola_kerjasama.php?status=tambah_sukses");
                 exit;
@@ -60,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $message_type = "error";
             }
         } elseif ($action === 'edit_kerjasama' && $kerjasama_id > 0) {
-            $stmt = $conn->prepare("UPDATE kerjasama SET nama_instansi = ?, logo = ?, link_website = ? WHERE id = ?");
-            $stmt->bind_param("sssi", $nama, $logo_db, $link, $kerjasama_id);
+            $stmt = $conn->prepare("UPDATE kerjasama SET nama_instansi = ?, logo = ?, link_website = ?, bulan = ?, tahun = ? WHERE id = ?");
+            $stmt->bind_param("ssssii", $nama, $logo_db, $link, $bulan, $tahun, $kerjasama_id);
             if ($stmt->execute()) {
                 header("Location: admin_kelola_kerjasama.php?status=edit_sukses");
                 exit;
@@ -178,6 +180,7 @@ include 'includes/admin_header.php';
                             <th>No</th>
                             <th>Logo</th>
                             <th>Nama Instansi</th>
+                            <th>Bulan & Tahun</th>
                             <th>Website</th>
                             <th>Aksi</th>
                         </tr>
@@ -194,6 +197,7 @@ include 'includes/admin_header.php';
                                      style="max-width: 80px; max-height: 50px; object-fit: contain;">
                             </td>
                             <td><?= htmlspecialchars($item['nama_instansi']) ?></td>
+                            <td><?= htmlspecialchars($item['bulan'] ?? '-') ?> <?= htmlspecialchars($item['tahun'] ?? '') ?></td>
                             <td>
                                 <?php if (!empty($item['link_website'])): ?>
                                     <a href="<?= htmlspecialchars($item['link_website']) ?>" target="_blank" class="text-blue-500 hover:underline">
@@ -247,6 +251,25 @@ include 'includes/admin_header.php';
                     <input type="text" name="link_website">
                 </div>
                 <div class="input-box">
+                    <label>Bulan kerjasama</label>
+                    <select name="bulan" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option value="">-- Pilih Bulan --</option>
+                        <?php
+                        $months = [
+                            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                        ];
+                        foreach ($months as $m) {
+                            echo "<option value='$m'>$m</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>Tahun Kerjasama</label>
+                    <input type="number" name="tahun" value="<?= date('Y') ?>" required>
+                </div>
+                <div class="input-box">
                     <label>Logo (PNG/JPG/WEBP, Transparan disarankan) *</label>
                     <input type="file" name="logo_baru" accept=".jpg,.jpeg,.png,.webp" required>
                 </div>
@@ -280,6 +303,19 @@ include 'includes/admin_header.php';
                     <label>Link Website (Opsional)</label>
                     <input type="text" name="link_website" id="edit_link_website">
                 </div>
+                <div class="input-box">
+                    <label>Bulan Kerjasama</label>
+                    <select name="bulan" id="edit_bulan" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option value="">-- Pilih Bulan --</option>
+                        <?php foreach ($months as $m): ?>
+                            <option value="<?= $m ?>"><?= $m ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>Tahun Kerjasama</label>
+                    <input type="number" name="tahun" id="edit_tahun" required>
+                </div>
 
                 <div class="file-preview-box" id="logoPreviewContainer">
                     <img id="currentLogoSrc" src="" alt="Logo Lama">
@@ -293,7 +329,7 @@ include 'includes/admin_header.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn">Batal</button>
+                <button type="button" class="btn btn-secondary">Batal</button>
                 <button type="submit" class="btn btn-primary">Update Data</button>
             </div>
         </form>

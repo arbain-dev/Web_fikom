@@ -133,7 +133,7 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" onclick="faktaModule.tutupPopup()">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="faktaModule.tutupPopup()">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>

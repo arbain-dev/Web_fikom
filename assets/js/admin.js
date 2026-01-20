@@ -484,6 +484,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('edit_kerjasama_id').value = data.id;
                 document.getElementById('edit_nama_instansi').value = data.nama_instansi;
                 document.getElementById('edit_link_website').value = data.link_website;
+                document.getElementById('edit_bulan').value = data.bulan;
+                document.getElementById('edit_tahun').value = data.tahun;
                 document.getElementById('edit_logo_lama').value = data.logo;
 
                 const img = document.getElementById('currentLogoSrc');

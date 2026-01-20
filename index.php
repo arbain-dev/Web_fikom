@@ -37,7 +37,6 @@ $about = $q_about->fetch_assoc();
             $file = $row['gambar'];
             $path = 'uploads/slider/' . $file;
             if (!file_exists($path)) {
-                $path = 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600';
             }
     ?>
     <div class="hero-slide <?= $i === 0 ? 'active' : '' ?>" style="background-image: url('<?= $path ?>');">
@@ -75,7 +74,7 @@ $about = $q_about->fetch_assoc();
      =================================== -->
 <section class="stats-section reveal-on-scroll">
     <div class="container">
-        <h2 class="section-title text-center text-white mb-10">Fakta FIKOM dalam Angka</h2>
+        <h2 class="section-title text-center text-white mb-10">Fakta Fakultas Ilmu Komputer</h2>
         <div class="stats-grid">
             <?php while ($f = $fact->fetch_assoc()): ?>
             <div class="stat-item">
@@ -299,13 +298,17 @@ $about = $q_about->fetch_assoc();
                             $p_img = 'uploads/kerjasama/' . $partner['logo'];
                         }
                         
-                        // Random Year for demo/placeholder purpose if not in DB
-                        // Use file upload time for "Since" date
-                        $upload_path = "uploads/kerjasama/" . $partner['logo'];
-                        if (file_exists($upload_path)) {
-                            $p_date = date("F Y", filemtime($upload_path));
+                        // Use Month & Year from DB
+                        $p_bulan = $partner['bulan'] ?? '';
+                        $p_tahun = $partner['tahun'] ?? '';
+                        
+                        if (!empty($p_bulan) && !empty($p_tahun)) {
+                            $p_date = $p_bulan . ' ' . $p_tahun;
+                        } elseif (!empty($p_tahun)) {
+                            $p_date = $p_tahun;
                         } else {
-                            $p_date = "2024"; // Fallback
+                            // Fallback if empty (e.g. old data)
+                            $p_date = "2024";
                         }
                         ?>
                         <a href="<?= $p_link ?>" class="partner-item" target="_blank" title="<?= $p_name ?>">

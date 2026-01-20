@@ -198,6 +198,14 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <!-- Logout Sidebar Item -->
+            <li class="sidebar-item <?php if($currentPage == 'admin_profile.php') echo 'active'; ?>">
+                <a href="admin_profile.php" class="sidebar-link">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-cog"></i> <span>Pengaturan</span>
+                    </div>
+                </a>
+            </li>
+
              <li class="sidebar-item" style="margin-top: auto;">
                 <a href="logout.php" class="sidebar-link text-error">
                     <div style="display:flex; align-items:center; gap:12px; color: var(--error-600);">

@@ -22,8 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_profile'])) {
         $username = trim($_POST['username']);
         $email = trim($_POST['email']);
-        $bulan = trim($_POST['bulan']);
-        $tahun = trim($_POST['tahun']);
+
 
         // Validasi sederhana
         if (empty($username) || empty($email)) {
@@ -36,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = "Username atau Email sudah digunakan oleh akun lain.";
                 $message_type = 'error';
             } else {
-                $stmt = $conn->prepare("UPDATE users SET username=?, email=?, bulan=?, tahun=? WHERE id=?");
-                $stmt->bind_param("sssii", $username, $email, $bulan, $tahun, $user_id);
+                $stmt = $conn->prepare("UPDATE users SET username=?, email=? WHERE id=?");
+                $stmt->bind_param("ssi", $username, $email, $user_id);
                 if ($stmt->execute()) {
                     $message = "Profil berhasil diperbarui.";
                     $message_type = 'success';
@@ -124,27 +123,7 @@ include 'includes/admin_header.php';
                         <label class="form-label required">Email</label>
                         <input type="email" name="email" class="form-input" value="<?= htmlspecialchars($user_data['email'] ?? '') ?>" required>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Bulan</label>
-                        <select name="bulan" class="form-input">
-                            <option value="">-- Pilih Bulan --</option>
-                            <?php
-                            $months = [
-                                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-                            ];
-                            foreach ($months as $m) {
-                                $selected = ($user_data['bulan'] == $m) ? 'selected' : '';
-                                echo "<option value='$m' $selected>$m</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tahun</label>
-                        <input type="number" name="tahun" class="form-input" value="<?= htmlspecialchars($user_data['tahun'] ?? date('Y')) ?>" placeholder="YYYY">
-                    </div>
-                    <button type="submit" name="update_profile" class="btn btn-primary w-full">
+                    <button type="submit" name="update_profile" class="btn btn-primary w-full mt-4">
                         <i class="fas fa-save"></i> Simpan Perubahan
                     </button>
                 </form>

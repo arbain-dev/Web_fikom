@@ -1,81 +1,97 @@
-# Implementasi Antarmuka Halaman Admin
+# Implementasi Antarmuka Backend (Administrator)
 
-Berikut adalah penjelasan detail mengenai tampilan dan fungsi dari setiap halaman pada dashboard administrator yang telah diimplementasikan dalam sistem website Fakultas Ilmu Komputer.
+Berikut adalah draf penjelasan Bab 5: Hasil dan Pembahasan untuk bagian implementasi antarmuka halaman administrator (*backend*).
 
-## 1. Halaman Dashboard Utama
-**File:** `dashboard.php`
+---
 
-Halaman Dashboard merupakan tampilan antarmuka utama yang pertama kali diakses oleh administrator setelah berhasil melewati proses login. Halaman ini dirancang untuk memberikan gambaran umum atau *overview* mengenai kondisi terkini sistem melalui ringkasan data statistik. Di bagian atas, terdapat kartu-kartu statistik (*Stats Cards*) yang menampilkan jumlah total data penting secara *real-time*, seperti total dosen aktif, jumlah berita yang telah dipublikasikan, total judul penelitian yang terdata, serta jumlah fasilitas fisik (ruangan dan laboratorium) yang dimiliki fakultas. Penempatan informasi ini bertujuan agar pengelola dapat memantau volume data operasional secara cepat tanpa harus membuka menu satu per satu.
+## 5.1 Deskripsi Umum Sistem Backend
 
-Selain ringkasan angka, dashboard juga dilengkapi dengan dua tabel aktivitas terbaru, yaitu tabel "Berita Terbaru" dan "Penelitian Terbaru". Tabel ini menampilkan lima data terakhir yang baru saja ditambahkan ke dalam sistem, memungkinkan administrator untuk segera melihat pembaruan atau input data yang baru masuk. Desain halaman ini mengutamakan keterbacaan dan kecepatan akses informasi, sehingga administrator dapat segera mengambil tindakan manajerial yang diperlukan.
+Halaman administrator (*backend*) pada website Fakultas Ilmu Komputer dirancang secara khusus sebagai *Content Management System* (CMS) yang berfungsi untuk mengelola seluruh data dan informasi yang ditampilkan pada halaman utama (*frontend*). Tujuan utama dari pembangunan sistem antarmuka berbasis web ini adalah untuk memberikan kemudahan bagi staf pengelola fakultas dalam melakukan pembaruan konten secara mandiri tanpa memerlukan intervensi teknis atau koding ulang. Antarmuka backend ini dibangun dengan mengedepankan prinsip desain yang bersih dan navigasi yang intuitif, serta didukung oleh mekanisme keamanan berbasis sesi (*session-based authentication*) untuk memastikan bahwa akses pengelolaan data hanya diberikan kepada pengguna yang memiliki hak otoritas.
 
-## 2. Manajemen Konten Informasi
-Modul ini berfungsi sebagai pusat kendali untuk mengelola seluruh informasi publik yang akan ditampilkan pada halaman depan (*front-end*) website fakultas.
+## 5.2 Implementasi Halaman Login
 
-### a. Kelola Berita
-**File:** `admin_kelola_berita.php`
+Halaman Login berfungsi sebagai gerbang keamanan utama sistem yang bertugas memverifikasi identitas pengguna sebelum memberikan hak akses ke dalam dashboard. Secara visual, antarmuka halaman ini didominasi oleh panel login interaktif yang terletak di tengah layar dengan latar belakang gedung fakultas yang diberi efek buram (*blur effect*) untuk menonjolkan area input. Identitas sistem dipertegas melalui penempatan logo universitas dan judul "Login Admin" di bagian atas panel.
 
-Halaman Kelola Berita memfasilitasi administrator dalam mempublikasikan berbagai jenis informasi, mulai dari berita kegiatan kampus, pengumuman akademik, hingga agenda fakultas. Melalui antarmuka ini, admin dapat melakukan operasi CRUD (*Create, Read, Update, Delete*) secara lengkap. Saat menambahkan berita baru, sistem menyediakan formulir yang meminta input judul artikel, kategori berita (misalnya Berita, Pengumuman, atau Kemahasiswaan), tanggal publikasi, tautan eksternal jika diperlukan, serta editor konten utama. Fitur unggulan lainnya adalah kemampuan untuk mengunggah foto utama (*thumbnail*) yang akan disimpan secara otomatis ke dalam direktori server, memastikan tampilan visual berita di halaman depan terlihat menarik dan profesional.
+Dari sisi fungsionalitas, sistem login ini bekerja dengan menerima input kredensial berupa username dan password dari pengguna. Data yang dimasukkan akan divalidasi dan dicocokkan dengan rekaman data yang tersimpan di tabel `users` pada database. Untuk aspek keamanan, sistem menggunakan algoritma *hashing* dalam memverifikasi kata sandi, sehingga password asli pengguna tidak pernah tersimpan dalam bentuk teks terang (*plain text*) yang rentan. Jika proses autentikasi berhasil, sistem akan membuat variabel sesi `$_SESSION['admin_logged_in']` sebagai token akses resmi, namun jika kredensial tidak sesuai atau kolom input dikosongkan, sistem akan secara otomatis menolak akses dan menampilkan pesan peringatan (*alert*) yang relevan kepada pengguna.
 
-### b. Kelola Slider (Hero Image)
-**File:** `admin_kelola_slider.php`
+## 5.3 Implementasi Dashboard Utama
 
-Fitur Kelola Slider bertanggung jawab atas pengaturan gambar spanduk utama (*hero image*) yang muncul di bagian paling atas halaman beranda. Administrator memiliki kendali penuh untuk mengunggah gambar promosi atau dokumentasi kegiatan terbaru yang ingin ditonjolkan kepada pengunjung website. Selain fitur unggah dan hapus, halaman ini menyediakan opsi untuk mengaktifkan atau menonaktifkan (*toggle*) status aktivitas slider tertentu tanpa harus menghapusnya, memberikan fleksibilitas dalam mengatur materi promosi visual sesuai dengan momentum atau acara yang sedang berlangsung di fakultas.
+Dashboard Utama merupakan halaman pusat informasi yang pertama kali diakses oleh administrator setelah berhasil melewati proses login. Halaman ini dirancang untuk menyajikan gambaran cepat (*overview*) mengenai status terkini sistem. Di bagian atas halaman, terdapat deretan kartu statistik (*Stats Cards*) yang menampilkan ringkasan jumlah data penting secara *real-time*, seperti total dosen aktif, jumlah berita yang terpublikasi, statistik penelitian, serta data fasilitas yang tersedia, dengan setiap kategori dibedakan menggunakan ikon representatif dan kode warna yang unik.
 
-### c. Kelola Profil Fakultas
-Sub-modul ini terdiri dari beberapa halaman yang saling terintegrasi untuk menyusun profil lengkap fakultas. Halaman **Tentang Fakultas** (`admin_kelola_tentangfak.php`) digunakan untuk menyunting narasi sejarah atau deskripsi singkat fakultas beserta gambar pendukungnya. Halaman **Visi Misi** (`admin_kelola_visimisi.php`) menyediakan editor khusus untuk memperbarui pernyataan visi organisasi, serta tabel interaktif untuk menambah, mengubah, atau menghapus poin-poin misi, tujuan, dan sasaran secara dinamis. Untuk memvisualisasikan hierarki manajemen, halaman **Struktur Organisasi** (`admin_kelola_struktur.php`) memungkinkan administrator mengunggah dan mengganti gambar bagan struktur organisasi terbaru. Terakhir, halaman **Data Fakta** (`admin_kelola_fakta.php`) mengelola angka-angka statistik pencapaian fakultas, seperti jumlah mahasiswa, alumni, dan dosen, yang nantinya ditampilkan dalam bentuk penghitung angka (*counter*) animasi di beranda untuk menunjukkan kredibilitas institusi.
+Selain ringkasan angka, dashboard juga dilengkapi dengan tabel aktivitas yang terletak di bagian bawah, yang menampilkan daftar entri data terbaru seperti "Berita Terbaru" dan "Penelitian Terbaru". Fitur pemantauan ini memungkinkan administrator untuk mengetahui pembaruan data terakhir tanpa harus membuka menu secara manual satu per satu. Untuk navigasi, tersedia *sidebar* di sebelah kiri yang menyediakan akses pintas (*shortcut*) menuju seluruh modul pengelolaan sistem, memudahkan pengguna berpindah antar fitur dengan cepat dan efisien.
 
-## 3. Manajemen Akademik & Kemahasiswaan
-Modul ini merupakan inti dari sistem administrasi yang menangani data operasional akademik serta kegiatan kemahasiswaan.
+## 5.4 Manajemen Konten Informasi
 
-### a. Kelola Dosen
-**File:** `admin_kelola_dosen.php`
+Menu ini terdiri dari beberapa sub-menu yang berfungsi untuk mengelola seluruh informasi publik yang akan ditampilkan di website.
 
-Halaman Kelola Dosen berfungsi sebagai basis data utama untuk profil tenaga pengajar di fakultas. Administrator dapat mengelola informasi detail setiap dosen, yang mencakup Nomor Induk Dosen Nasional (NIDN), nama lengkap beserta gelar, jabatan fungsional akademik, riwayat pendidikan terakhir, hingga bidang keahlian spesifik. Selain data tekstual, sistem juga mendukung pengunggahan foto profil dosen untuk ditampilkan pada menu direktori staf di website publik. Halaman ini juga dilengkapi dengan panel statistik ringkas yang mengklasifikasikan jumlah dosen berdasarkan jenjang pendidikan (S2 dan S3), membantu pimpinan dalam memetakan kualitas sumber daya manusia (SDM) yang dimiliki.
+### a. Sub-Menu Kelola Berita
 
-### b. Kelola Kurikulum
-**File:** `admin_kelola_kurikulum.php`
+Sub-menu Kelola Berita berfungsi sebagai modul utama untuk mempublikasikan berbagai jenis informasi, mulai dari berita harian, pengumuman akademik, hingga artikel kegiatan kemahasiswaan. Modul ini mendukung operasi CRUD (*Create, Read, Update, Delete*) secara lengkap. Administrator dapat menambahkan berita baru dengan mengisi judul, memilih kategori (seperti Berita atau Pengumuman), menentukan tanggal publikasi, menyematkan tautan eksternal, menulis konten berita, serta mengunggah foto *thumbnail* yang relevan. Sistem juga menyediakan tabel rekapitulasi untuk melihat daftar berita yang telah ada, fitur penyuntingan untuk memperbarui konten berita yang sudah terbit, serta opsi penghapusan data yang secara otomatis akan menghapus rekaman di database sekaligus membersihkan file gambar fisik dari direktori server.
 
-Fitur Kelola Kurikulum dirancang untuk mendistribusikan informasi mengenai struktur mata kuliah dan pedoman akademik kepada mahasiswa dan publik. Melalui halaman ini, administrator dapat mengunggah dokumen kurikulum dalam format PDF untuk setiap program studi, serta menyertakan nama kurikulum dan deskripsi singkatnya. File yang diunggah akan tersedia untuk diunduh (*download*) oleh pengunjung website, memastikan transparansi dan kemudahan akses terhadap informasi kurikulum yang berlaku saat ini.
+### b. Sub-Menu Kelola Slider (Hero Image)
 
-### c. Kelola Kalender Akademik
-**File:** `admin_kelola_kalender.php`
+Sub-menu Kelola Slider didedikasikan untuk pengaturan tampilan visual utama atau spanduk (*banner*) yang muncul di bagian paling atas halaman beranda website. Melalui antarmuka ini, admin dapat mengunggah gambar-gambar resolusi tinggi yang merepresentasikan wajah fakultas atau mempromosikan kegiatan unggulan. Fitur khusus yang disematkan pada modul ini adalah adanya sakelar status (*toggle switch*), yang memungkinkan admin untuk menyembunyikan atau menampilkan slider tertentu sewaktu-waktu tanpa harus menghapus datanya secara permanen, memberikan fleksibilitas dalam mengatur materi promosi visual sesuai kebutuhan.
 
-Halaman ini digunakan untuk mempublikasikan jadwal kegiatan akademik tahunan. Administrator dapat memasukkan data nama kalender, tahun akademik (seperti 2023/2024), serta deskripsi kegiatan. Selain itu, fitur ini mendukung pengunggahan representasi visual kalender dalam format gambar, sehingga mahasiswa dapat melihat linimasa kegiatan akademik—mulai dari periode perwalian, perkuliahan, hingga ujian—dengan lebih jelas dan menarik.
+### c. Sub-Menu Kelola Visi & Misi
 
-### d. Kelola Penelitian & Pengabdian
-Sistem ini memisahkan pengelolaan data tridharma perguruan tinggi menjadi dua bagian. Halaman **Penelitian** (`admin_kelola_penelitian.php`) mengarsipkan data riset dosen, mencakup judul penelitian, nama peneliti, tahun pelaksanaan, sumber dana, serta tautan publikasi. Admin juga dapat mengunggah dokumen proposal dan laporan akhir sebagai arsip digital. Sementara itu, halaman **Pengabdian** (`admin_kelola_pengabdian.php`) khusus mencatat kegiatan Pengabdian Kepada Masyarakat (PKM), dengan kolom data untuk judul kegiatan, pelaksana, tanggal, deskripsi, serta fail laporan kegiatan, guna mendokumentasikan kontribusi sosial fakultas.
+Sub-menu ini digunakan untuk mengelola konten statis yang berkaitan dengan profil fundamental fakultas, yaitu Visi, Misi, dan Tujuan. Pengelolaan data dilakukan melalui formulir input yang disesuaikan dengan jenis datanya. Untuk Visi yang berupa narasi tunggal, sistem menyediakan *text area* untuk penyuntingan. Sementara untuk Misi dan Tujuan yang terdiri atas beberapa poin, sistem mengimplementasikan tabel dinamis yang memungkinkan administrator menambah, mengedit, atau menghapus poin-poin items satu per satu. Pendekatan ini memastikan bahwa tampilan data di sisi *frontend* tetap terstruktur rapi dan mudah dibaca oleh pengunjung.
 
-### e. Kelola Kerjasama
-**File:** `admin_kelola_kerjasama.php`
+### d. Sub-Menu Kelola Struktur Organisasi
 
-Halaman Kelola Kerjasama didedikasikan untuk mendata mitra-mitra strategis fakultas, baik dari kalangan industri maupun institusi pendidikan lainnya. Pada halaman ini, administrator menginput nama instansi mitra, periode kerjasama (bulan dan tahun), tautan ke website resmi mitra, serta mengunggah logo instansi terkait. Logo-logo mitra yang telah diinput akan ditampilkan dalam bentuk galeri di bagian *footer* atau segmen kerjasama pada website utama, menegaskan jejaring luas yang dimiliki oleh fakultas.
+Sub-menu Struktur Organisasi berfungsi untuk memperbarui bagan hierarki kepemimpinan fakultas. Mengingat kompleksitas visual dari sebuah bagan organisasi, sistem ini menggunakan mekanisme berbasis unggah gambar (*image upload*). Administrator cukup mengunggah file gambar bagan terbaru dalam format JPG atau PNG, dan sistem akan secara otomatis menggantikan gambar lama di database dan direktori penyimpanan. Hal ini menyederhanakan proses update struktur organisasi tanpa perlu menyusun ulang elemen visual menggunakan kode HTML/CSS secara manual.
 
-### f. Kelola BEM (Kemahasiswaan)
-**File:** `admin_kelola_bem.php`
+### e. Sub-Menu Kelola Data Fakta (Counter)
 
-Fitur ini memfasilitasi pengelolaan struktur organisasi Badan Eksekutif Mahasiswa (BEM). Administrator dapat memperbarui susunan kepengurusan dengan menambahkan data anggota baru yang meliputi nama lengkap, jabatan yang diemban, program studi, dan kategori kepengurusan (seperti Pimpinan Inti, Sekretaris/Bendahara, atau Departemen). Sistem juga memungkinkan pengunggahan foto diri pengurus, sehingga struktur organisasi BEM dapat ditampilkan secara visual dan transparan kepada seluruh mahasiswa.
+Sub-menu Kelola Data Fakta bertanggung jawab untuk mengelola widget "Counter Angka" yang tampil secara dinamis di halaman beranda. Administrator dapat memperbarui data kuantitatif strategis yang menjadi indikator capaian fakultas, seperti jumlah total mahasiswa aktif, jumlah lulusan/alumni yang telah dicetak, serta jumlah program studi yang tersedia. Angka-angka ini ditampilkan dengan efek animasi penghitung (*counter animation*) pada antarmuka *front-end*, memberikan kesan profesional dan menunjukkan kredibilitas institusi dalam bentuk data nyata.
 
-### g. Data Pendaftaran Mahasiswa
-**File:** `admin_kelola_pendaftaran.php`
+## 5.5 Manajemen Data Akademik & Kemahasiswaan
 
-Halaman ini berfungsi sebagai panel monitoring untuk proses Penerimaan Mahasiswa Baru (PMB) yang dilakukan secara daring. Administrator dapat melihat daftar calon mahasiswa yang masuk dalam tabel responsif yang memuat Nama, NIK, Program Studi pilihan, Jalur Masuk, dan Nomor HP yang terintegrasi langsung dengan perintah klik-ke-WhatsApp. Fitur utamanya adalah manajemen status seleksi, di mana admin dapat mengubah status pendaftaran pelamar menjadi "Pending", "Diterima", atau "Ditolak", yang ditandai dengan perubahan warna indikator status. Tersedia pula fitur *modal popup* untuk melihat detail biodata pelamar serta tautan untuk memeriksa dan mengunduh berkas persyaratan seperti KTP dan Ijazah.
+Menu ini difokuskan pada pengelolaan data operasional akademik dan data terkait kemahasiswaan yang bersifat dinamis.
 
-## 4. Manajemen Dokumen & Sarana
-Bagian ini menangani pengarsipan dokumen legalitas fakultas serta inventarisasi fasilitas fisik kampus.
+### a. Sub-Menu Kelola Dosen
 
-### a. Dokumen Mutu (SPMI)
-Pengelolaan dokumen penjaminan mutu terbagi menjadi tiga halaman spesifik untuk memastikan pengarsipan yang rapi. Halaman **RenOp** (`admin_kelola_renop.php`) digunakan untuk dokumen Rencana Operasional, **Renstra** (`admin_kelola_renstra.php`) untuk Rencana Strategis jangka panjang, dan **SOP** (`admin_kelola_sop.php`) untuk Standar Operasional Prosedur. Ketiga halaman ini memiliki kesamaan fungsi teknis, yaitu memungkinkan administrator untuk mengunggah dokumen resmi dalam format PDF, Word, atau Excel dengan batas ukuran file yang memadai, serta menyertakan judul dan deskripsi dokumen untuk memudahkan pencarian dan aksesibilitas publik.
+Sub-menu Kelola Dosen merupakan basis data digital untuk profil seluruh tenaga pengajar di lingkungan fakultas. Sistem menyimpan atribut data yang lengkap untuk setiap dosen, mencakup Nama Lengkap, Nomor Induk Dosen Nasional (NIDN), Program Studi naungan, Jenjang Pendidikan Terakhir (S2/S3), Jabatan Akademik, Status Kepegawaian (Tetap/Kontrak), alamat email resmi, serta foto profil. Mengingat banyaknya jumlah data dosen, halaman ini dilengkapi dengan fitur filter berdasarkan "Program Studi" yang memudahkan administrator mencari dosen tertentu. Selain itu, terdapat panel statistik di bagian atas halaman yang memvisualisasikan komposisi SDM dosen berdasarkan kualifikasi pendidikannya (Doktor vs Magister), membantu pimpinan dalam analisis data SDM.
 
-### b. Fasilitas (Ruangan & Lab)
-**File:** `admin_kelola_ruangan.php`
+### b. Sub-Menu Kelola Kurikulum
 
-Halaman Kelola Fasilitas bertujuan untuk mempromosikan sarana dan prasarana pembelajaran yang dimiliki kampus. Administrator dapat mengelola data ruangan kelas dan laboratorium dengan memasukkan nama ruangan, deskripsi kegunaan atau peralatan yang tersedia, serta foto kondisi ruangan. Data ini penting untuk memberikan gambaran visual mengenai kelayakan dan kenyamanan fasilitas belajar kepada calon mahasiswa maupun orang tua.
+Sub-menu Kurikulum dirancang untuk mendistribusikan dokumen pedoman akademik kepada mahasiswa dan publik. Melalui fitur ini, administrator dapat mengunggah file dokumen kurikulum dalam format PDF dan melabelinya sesuai dengan Program Studi masing-masing. Sistem akan melakukan pemetaan (*mapping*) otomatis, sehingga file kurikulum yang diunggah akan tampil di halaman prodi yang relevan di sisi *frontend* dan tersedia untuk diunduh (*download*) oleh pengunjung yang membutuhkan informasi mengenai sebaran mata kuliah.
 
-## 5. Pengaturan Sistem
-Modul terakhir ini berkaitan dengan personalisasi akun dan keamanan akses administrator.
+### c. Sub-Menu Kelola Kalender Akademik
 
-### a. Profil Admin & Keamanan
-**File:** `admin_profile.php`
+Sub-menu Kalender Akademik digunakan untuk mempublikasikan jadwal kegiatan akademik tahunan. Administrator dapat memasukkan data periode tahun akademik (misalnya 2025/2026), deskripsi kegiatan, serta mengunggah representasi visual kalender dalam format gambar. Fitur ini sangat krusial bagi mahasiswa untuk mengetahui linimasa penting perkuliahan, mulai dari jadwal pembayaran, periode perwalian, hingga jadwal ujian, yang disajikan secara informatif dan mudah diakses.
 
-Halaman Profil Admin memberikan akses kepada pengguna untuk mengelola informasi akun pribadi mereka. Terdapat formulir untuk memperbarui data identitas seperti Username dan Email. Selain itu, aspek keamanan sangat ditekankan melalui fitur **Ganti Password**, yang mewajibkan pengguna memasukkan kata sandi lama sebelum membuat kata sandi baru, untuk mencegah akses yang tidak sah. Terdapat pula tombol **Logout** yang berfungsi untuk mengakhiri sesi kerja administrator secara aman, memastikan tidak ada penyalahgunaan akun setelah pengguna selesai beraktivitas.
+### d. Sub-Menu Kelola Penelitian & Pengabdian
+
+Sub-menu ini berfungsi sebagai repositori digital untuk mengarsipkan rekam jejak pelaksanaan Tridharma Perguruan Tinggi, khususnya bidang penelitian dan pengabdian masyarakat. Dalam modul ini, sistem tidak hanya menyimpan metadata kegiatan seperti Judul, Nama Peneliti, dan Tahun Pelaksanaan, tetapi juga mewajibkan pengunggahan dokumen bukti fisik berupa file "Proposal" dan "Laporan Akhir". Administrator juga disediakan kolom khusus untuk menyematkan tautan URL menuju publikasi jurnal eksternal, sehingga data penelitian dosen terintegrasi dengan baik dan mudah diakses untuk keperluan akreditasi.
+
+### e. Sub-Menu Kelola Kerjasama
+
+Sub-menu Kerjasama digunakan untuk mendata dan menampilkan daftar mitra strategis fakultas, baik dari kalangan industri maupun sesama institusi pendidikan. Fitur utamanya meliputi manajemen logo mitra, di mana admin dapat mengunggah gambar logo instansi untuk ditampilkan dalam galeri kerjasama di website. Sistem juga mencatat periode mula kerjasama (bulan dan tahun), yang berguna bagi administrator untuk memonitor masa berlaku *Memorandum of Understanding* (MoU) dengan masing-masing mitra.
+
+### f. Sub-Menu Kelola BEM (Badan Eksekutif Mahasiswa)
+
+Sub-menu Kelola BEM memfasilitasi pengelolaan informasi struktur organisasi kemahasiswaan. Melalui halaman ini, administrator dapat memperbarui susunan pengurus BEM dengan menambahkan data personal anggota, termasuk nama lengkap, jabatan (seperti Ketua, Sekretaris, atau Kepala Departemen), program studi asal, serta foto diri. Tujuannya adalah untuk memberikan transparansi mengenai kepengurusan organisasi mahasiswa kepada seluruh civitas akademika, sehingga profil pengurus BEM dapat ditampilkan secara visual dan terorganisir di halaman organisasi.
+
+### g. Sub-Menu Pendaftaran Mahasiswa (PMB)
+
+Sub-menu Pendaftaran Mahasiswa berfungsi sebagai panel kendali (*control panel*) untuk memantau proses Penerimaan Mahasiswa Baru yang masuk melalui website. Halaman ini menampilkan tabel data pelamar yang komprehensif, mencakup NIK, Nama, dan Pilihan Program Studi. Salah satu fitur unggulannya adalah integrasi dengan WhatsApp API, di mana nomor handphone pelamar dikonversi secara otomatis menjadi tautan interaktif yang memungkinkan admin menghubungi calon mahasiswa melalui WhatsApp hanya dengan satu klik. Selain itu, admin memiliki otoritas penuh untuk memverifikasi berkas persyaratan (seperti KTP dan Ijazah) yang diunggah serta mengubah status kelulusan pelamar menjadi "Diterima", "Ditolak", atau "Pending", yang akan langsung tercermin pada antarmuka pengguna melalui indikator warna status.
+
+## 5.6 Manajemen Dokumen & Sarana
+
+Bagian ini mencakup pengelolaan arsip dokumen resmi fakultas serta data sarana prasarana kampus.
+
+### a. Sub-Menu Kelola Dokumen Rencana (Renstra & Renop)
+
+Sub-menu ini terbagi menjadi dua bagian untuk mengelola dokumen perencanaan strategis fakultas. Bagian **Renstra** (Rencana Strategis) digunakan untuk mengarsipkan dokumen perencanaan jangka panjang (5 tahunan), sedangkan bagian **Renop** (Rencana Operasional) digunakan untuk dokumen perencanaan tahunan. Administrator dapat mengunggah file dokumen dalam format PDF dan memberikan deskripsi singkat mengenai periode berlakunya dokumen tersebut. Fitur ini memastikan transparansi arah kebijakan fakultas yang dapat diakses oleh publik maupun pihak internal yang berkepentingan.
+
+### b. Sub-Menu Kelola SOP (Standar Operasional Prosedur)
+
+Sub-menu Kelola SOP berfungsi sebagai perpustakaan digital untuk kumpulan prosedur baku yang berlaku di lingkungan fakultas. Setiap SOP, seperti prosedur pendaftaran skripsi atau pengajuan cuti, dapat diunggah dan diberi nama spesifik agar mudah dicari. Hal ini bertujuan untuk menyediakan akses mandiri bagi mahasiswa dan dosen terhadap pedoman-pedoman akademik, mengurangi ketergantungan pada pelayanan informasi tatap muka di sekretariat.
+
+### c. Sub-Menu Kelola Fasilitas (Ruangan & Lab)
+
+Sub-menu Kelola Fasilitas bertujuan untuk mempromosikan sarana pembelajaran yang dimiliki oleh kampus. Administrator dapat mengelola inventaris ruangan kelas dan laboratorium komputer dengan memasukkan detail nama ruangan, spesifikasi peralatan yang tersedia, serta foto kondisi ruangan terkini. Informasi visual ini sangat penting untuk memberikan gambaran nyata mengenai kualitas sarana pendidikan kepada calon mahasiswa dan orang tua sebagai bagian dari upaya promosi fasilitas.
+
+## 5.7 Pengaturan dan Utilitas
+
+Bagian terakhir ini mencakup fitur-fitur pendukung untuk manajemen akun dan keamanan sistem. Fitur "Kelola Akun Admin" memfasilitasi pengguna untuk memperbarui informasi kredensial mereka, seperti mengubah *username* dan *password* secara berkala demi menjaga keamanan akun. Selain itu, terdapat fitur "Logout" yang berfungsi untuk mengakhiri sesi kerja administrator secara aman, memastikan bahwa seluruh data sesi di *browser* dihapus untuk mencegah risiko penyalahgunaan akses oleh pihak yang tidak berwenang.

@@ -1,96 +1,76 @@
 # Dokumentasi dan Struktur Kode Admin (Bab 5)
 
-Dokumen ini disusun untuk menjelaskan struktur teknis, fungsionalitas, dan alur kerja sistem administrator pada Bab 5 (Implementasi dan Pengujian).
+Dokumen ini disusun untuk menjelaskan struktur teknis, fungsionalitas, dan alur kerja sistem administrator pada Bab 5 (Implementasi dan Pengujian). Penjelasan ini disatukan dalam satu dokumen lengkap mencakup struktur navigasi, detail fungsi menu, dan alur sistem.
 
-## 1. Struktur Navigasi dan Modul Admin
+## 1. Struktur Navigasi Dashboard
 
-Sistem administrator dibagi menjadi empat kelompok modul utama berdasarkan fungsinya:
+Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelompokkan menjadi empat segmen utama: **Sistem**, **Content**, **Data**, dan **Main**. Berikut adalah diagram struktur menu admin:
 
-| Kategori | Nama Modul / File | Fungsi Utama |
-| :--- | :--- | :--- |
-| **MAIN (UTAMA)** | `dashboard.php` | **Pusat Informasi:** Menampilkan ringkasan statistik dan akses cepat. |
-| **SISTEM (AKSES)** | `login.php`, `proses_login.php` | **Autentikasi:** Menangani validasi login dan keamanan sesi. |
-| | `profile.php`, `logout.php` | **Manajemen Akun:** Pengaturan profil admin dan keluar sistem. |
-| **CONTENT (KONTEN)** | `kelola_berita.php` | **Publikasi:** Mengelola artikel berita dengan fitur *popup modal*. |
-| | `kelola_galeri.php` | **Media:** Mengunggah foto kegiatan menggunakan *inline form*. |
-| | `kelola_visimisi.php`, dll. | **Profil Web:** Mengelola informasi statis profil fakultas. |
-| **DATA (AKADEMIK)** | `kelola_dosen.php` | **Data SDM:** Mengelola data dosen dengan fitur *popup modal*. |
-| | `kelola_kurikulum.php`, `kelola_lab.php` | **Akademik & Fasilitas:** Mengatur kurikulum dan fasilitas kampus. |
-| | `kelola_penelitian.php` | **Tridharma:** Arsip penelitian dan pengabdian masyarakat. |
+| **Sistem** | **Content** | **Data** | **Main** |
+| :--- | :--- | :--- | :--- |
+| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Kelola Profil (Visi Misi, Sejarah)<br>• Kelola Slider<br><br>**Media**<br>• Kelola Galeri | **Akademik & SDM**<br>• Kelola Dosen<br>• Kelola Akademik (Kurikulum)<br>• Kelola Fasilitas (Ruangan/Lab)<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• Kerjasama<br><br>**Arsip**<br>• Kelola Dokumen (SOP/Renstra) | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
 
 ---
 
-## 2. Penjelasan Fungsional Menu Sidebar
+## 2. Penjelasan Fungsional Menu (Detail)
 
-Berikut adalah penjabaran rinci mengenai fitur yang tersedia pada setiap menu navigasi:
+Bagian ini menjabarkan fungsi dari setiap menu yang terdapat dalam blok struktur di atas.
 
-### A. Kelompok Menu Utama
-**Dashboard**
-Halaman ini adalah antarmuka pertama yang diakses setelah login. Dashboard menyajikan rangkuman data penting dalam bentuk kartu statistik (total dosen, berita, dll) serta tabel aktivitas terbaru, memungkinkan admin untuk memantau status sistem secara cepat.
+### A. Bagian Main (Utama)
+*   **Dashboard**: Halaman yang pertama kali muncul saat login. Berfungsi sebagai pusat informasi yang menampilkan kartu statistik (jumlah dosen, berita, dll) dan tabel ringkasan data terbaru untuk pemantauan cepat.
 
-### B. Kelompok Manajemen Konten
-**Kelola Profil & Slider**
-Menu ini digunakan untuk memperbarui konten statis seperti Visi Misi, Sejarah, dan spanduk utama (*slider*) website. Perubahan di sini berdampak langsung pada identitas visual website publik.
+### B. Bagian Content (Manajemen Konten)
+Kelompok ini berfokus pada apa yang tampil bagi pengunjung website (front-end).
+*   **Kelola Profil**: Mengatur informasi statis identitas fakultas seperti Visi Misi, Struktur Organisasi, dan Sejarah.
+*   **Kelola Slider**: Mengelola gambar spanduk utama (*banner*) di halaman beranda untuk keperluan promosi atau informasi penting.
+*   **Kelola Berita**: Modul untuk menulis dan mempublikasikan artikel kegiatan kampus, pengumuman, atau info akademik terbaru.
+*   **Kelola Galeri**: Fitur untuk mengunggah dan mengelompokkan dokumentasi foto kegiatan fakultas.
 
-**Kelola Berita**
-Modul ini memfasilitasi publikasi artikel. Admin dapat menambahkan judul, kategori, konten, dan foto. Fitur ini menggunakan antarmuka *modal popup* agar admin tidak perlu berpindah halaman saat menambah atau mengedit berita.
+### C. Bagian Data (Basis Data Akademik)
+Kelompok ini berfokus pada pengelolaan data mentah yang mendukung operasional fakultas.
+*   **Kelola Dosen**: Database profil tenaga pengajar (NIDN, Jabatan, Pendidikan) yang terintegrasi dengan direktori staf.
+*   **Kelola Fasilitas**: Inventarisasi sarana prasarana seperti Ruang Kelas dan Laboratorium Komputer.
+*   **Kelola Akademik**: Mengatur Kalender Akademik dan Daftar Mata Kuliah (Kurikulum) yang berlaku.
+*   **Penelitian & Pengabdian**: Mengarsipkan judul dan data publikasi ilmiah serta kegiatan sosial para dosen/mahasiswa.
+*   **Kerjasama**: Mendata mitra instansi pemerintah atau swasta yang bekerjasama dengan fakultas.
+*   **Kelola Dokumen**: Repositori file digital seperti Renstra (Rencana Strategis) dan SOP yang bisa diunduh publik.
 
-**Kelola Galeri**
-Menu ini berfungsi sebagai album foto digital. Berbeda dengan berita, modul ini menyediakan formulir unggah langsung di bagian atas halaman untuk mempercepat proses dokumentasi kegiatan dalam jumlah banyak.
-
-### C. Kelompok Akademik & Data
-**Kelola Dosen & BEM**
-Mengelola *database* civitas akademika. Pada modul Dosen, admin dapat memasukkan data rinci seperti NIDN, Jabatan, dan Riwayat Pendidikan. Data ini ditampilkan di website sebagai direktori staf pengajar.
-
-**Kelola Fasilitas**
-Menginventarisasi ruang kelas dan laboratorium. Informasi ini memberikan transparansi mengenai sarana penunjang pembelajaran yang dimiliki fakultas.
-
-**Kelola Dokumen (Renstra/SOP)**
-Menyediakan repositori untuk dokumen resmi fakultas yang dapat diunduh oleh pengunjung, mendukung prinsip keterbukaan informasi publik.
+### D. Bagian Sistem (Pengaturan & Keamanan)
+Kelompok ini berkaitan dengan kontrol akses dan interaksi pengguna.
+*   **Data Pendaftaran**: Mengelola data masuk dari formulir pendaftaran online (feedback/input dari luar).
+*   **Pengaturan (Profile)**: Fitur bagi admin untuk mengubah nama, email, dan kata sandi akun sendiri.
+*   **Login / Logout**: Gerbang autentikasi keamanan sistem untuk memastikan hanya pengguna berhak yang dapat mengakses panel admin.
 
 ---
 
 ## 3. Alur Kerja Sistem (System Workflow)
 
-Bagian ini menjelaskan langkah-langkah prosedural (*step-by-step*) penggunaan fitur utama dalam sistem. Penjelasan ini menggambarkan interaksi antara pengguna (*user*) dengan sistem.
+Bagian ini menjelaskan mekanisme teknis bagaimana pengguna berinteraksi dengan sistem.
 
-### A. Alur Login Administrator
-1.  **Akses Halaman**: Pengguna membuka URL `/admin`. Sistem mendeteksi status sesi; jika belum aktif, pengguna diarahkan ke halaman Login.
-2.  **Input Kredensial**: Pengguna memasukkan *username* dan *password*.
-3.  **Validasi Sistem**: Sistem melakukan pengecekan ke database `users`.
-    *   Jika cocok: Sesi dibuat, pengguna diarahkan ke `dashboard.php`.
-    *   Jika salah: Sistem menampilkan pesan "Username atau Password salah".
+### 1. Alur Autentikasi (Sistem)
+*   **Login**: Pengguna mengakses `/admin`. Sistem memverifikasi *username* dan *password* terenkripsi dari tabel `users`. Jika valid, sesi login dibuat.
+*   **Security Check**: Setiap halaman memiliki skrip `admin_header.php` yang mengecek apakah sesi valid tersedia. Jika tidak, pengguna ditendang peluar ke halaman login.
 
-### B. Alur Manajemen Data dengan Modal (Contoh: Berita & Dosen)
-Modul Berita dan Dosen menggunakan pendekatan *Single Page Application* sederhana dengan bantuan Modal (jendela *popup*).
-1.  **Buka Menu**: Admin memilih menu "Kelola Berita" atau "Kelola Dosen".
-2.  **Lihat Data**: Sistem menampilkan tabel daftar data yang diambil dari database.
-3.  **Tambah Data**:
-    *   Admin menekan tombol "Tambah".
-    *   **Sistem**: Memunculkan formulir *popup* di tengah layar (tanpa memuat ulang halaman).
-    *   Admin mengisi data dan mengunggah foto.
-    *   Admin menekan "Simpan".
-4.  **Proses Simpan**: Data dikirim ke server, divalidasi, dan disimpan ke database.
-5.  **Umpan Balik**: Halaman diperbarui secara otomatis dan menampilkan pesan "Sukses menambahkan data".
+### 2. Alur Manajemen Data via Modal (Content & Data)
+Pada modul seperti **Berita** dan **Dosen**, sistem menggunakan antarmuka *Modal Popup* (jendela layar ganda):
+*   **Langkah 1**: Admin klik tombol "Tambah".
+*   **Langkah 2**: Formulir muncul di atas halaman tanpa *refresh*. Admin mengisi data.
+*   **Langkah 3**: Saat disimpan, data dikirim ke server. Foto (jika ada) diupload ke folder khusus, dan informasi teks disimpan ke MySQL.
 
-### C. Alur Manajemen Data dengan Form Langsung (Contoh: Galeri)
-Modul Galeri menggunakan pendekatan formulir statis untuk kemudahan unggah cepat.
-1.  **Buka Menu**: Admin memilih menu "Kelola Galeri".
-2.  **Input Data**: Admin langsung mengisi formulir yang tersedia di bagian atas halaman (Judul, Deskripsi, File Gambar).
-3.  **Upload**: Admin menekan tombol "Upload".
-4.  **Proses Sistem**: Server menerima file, menyimpannya ke folder `/uploads/galeri/`, dan mencatat informasinya ke database.
-5.  **Hasil**: Foto baru langsung muncul pada tabel daftar galeri di bagian bawah halaman.
+### 3. Alur Upload Cepat (Media)
+Pada modul **Galeri**, sistem menggunakan formulir *inline* (langsung di halaman):
+*   **Mekanisme**: Formulir upload tersedia langsung di bagian atas tabel data.
+*   **Proses**: Admin memilih foto -> Klik Upload -> Foto langsung tampil di daftar bawahnya. Metode ini dipilih untuk mempercepat proses dokumentasi banyak foto.
 
 ---
 
-## 4. Penjelasan Teknis (Logika Kode)
+## 4. Struktur File & Database
 
-**Pola CRUD (Create, Read, Update, Delete)**
-Hampir seluruh modul admin dibangun menggunakan pola standar CRUD:
-*   **Create (Tambah)**: Menggunakan perintah SQL `INSERT INTO` dan fungsi PHP `move_uploaded_file` untuk menangani gambar.
-*   **Read (Tampil)**: Menggunakan perintah SQL `SELECT` dengan pengulangan `foreach` untuk merender baris tabel HTML.
-*   **Update (Ubah)**: Menggunakan perintah SQL `UPDATE` berdasarkan ID unik data.
-*   **Delete (Hapus)**: Menggunakan perintah SQL `DELETE` dan fungsi `unlink()` untuk menghapus file fisik dari server.
+Secara teknis, kode program disusun sebagai berikut:
 
-**Keamanan Sistem**
-Setiap halaman admin dilindungi oleh skrip pengecekan sesi di bagian paling atas (`includes/admin_header.php`). Jika variabel `$_SESSION['admin_logged_in']` tidak ditemukan, sistem secara paksa menghentikan eksekusi kode dan melempar pengguna kembali ke halaman login.
+| Kategori Struktur | File Terkait | Tabel Database Utama |
+| :--- | :--- | :--- |
+| **Main** | `dashboard.php`, `index.php` | - |
+| **Sistem** | `login.php`, `logout.php`, `profile.php`, `kelola_pendaftaran.php` | `users`, `pendaftaran` |
+| **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_galeri.php`, `kelola_visimisi.php` | `berita`, `slider`, `galeri`, `halaman_statis` |
+| **Data** | `kelola_dosen.php`, `kelola_kurikulum.php`, `kelola_fasilitas.php`, `kelola_penelitian.php` | `dosen`, `matakuliah`, `ruangan`, `penelitian`, `pengabdian`, `dokumen` |

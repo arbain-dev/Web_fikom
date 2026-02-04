@@ -4,103 +4,79 @@ Dokumen ini disusun untuk menjelaskan struktur teknis, fungsionalitas, dan alur 
 
 ## 1. Struktur Navigasi Dashboard
 
-Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelompokkan menjadi empat segmen utama: **Sistem**, **Content**, **Data**, dan **Main**. Berikut adalah diagram struktur menu admin:
+Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelompokkan menjadi empat segmen utama: **Sistem**, **Content**, **Data**, dan **Main**.
 
 | **Sistem** | **Content** | **Data** | **Main** |
 | :--- | :--- | :--- | :--- |
-| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Kelola Profil (Visi Misi, Sejarah)<br>• Kelola Slider<br><br>**Media**<br>• Kelola Galeri | **Akademik & SDM**<br>• Kelola Dosen<br>• Kelola Akademik (Kurikulum)<br>• Kelola Fasilitas (Ruangan/Lab)<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• Kerjasama<br><br>**Arsip**<br>• Kelola Dokumen (SOP/Renstra) | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
+| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Kelola Profil (Visi Misi, Sejarah, Struktur, Civitas)<br>• Kelola Slider<br><br>**Media**<br>• Kelola Galeri | **Akademik & SDM**<br>• Kelola Dosen<br>• Kelola Akademik (Kurikulum, Kalender)<br>• Kelola Fasilitas (Ruangan, Lab)<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• Kerjasama (Mitra, BEM)<br><br>**Arsip**<br>• Kelola Dokumen (SOP, Renstra, Renop) | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
 
 ---
 
-## 2. Penjelasan Fungsional Menu (Detail)
+## 2. Penjelasan Fungsional Menu dan Sub-Menu
 
-Bagian ini menjabarkan fungsi secara rinci dari setiap menu yang terdapat dalam panel admin.
+Bagian ini menjabarkan fungsi secara rinci dari setiap menu dan sub-menu yang terdapat dalam panel admin dalam bentuk narasi deskriptif.
 
 ### A. Bagian Main (Utama)
-*   **Dashboard**:
-    Halaman muka (*homepage*) admin yang menyajikan ringkasan eksekutif. Fitur ini menampilkan *counter* jumlah data (Total Dosen, Total Berita, Jumlah Penelitian) dan tabel aktivitas terbaru. Tujuannya adalah memberikan gambaran cepat mengenai volume data yang dikelola sistem tanpa harus masuk ke menu masing-masing.
+
+**Menu Dashboard**
+Halaman Dashboard merupakan antarmuka utama yang pertama kali diakses oleh administrator setelah berhasil masuk ke sistem. Halaman ini dirancang untuk memberikan ringkasan eksekutif mengenai kondisi data terkini. Di dalamnya terdapat kartu statistik (*counter*) yang menampilkan jumlah total dosen, berita, penelitian, dan fasilitas secara *real-time*. Selain itu, terdapat tabel ringkasan aktivitas terbaru yang memudahkan admin memantau data yang baru saja ditambahkan tanpa perlu menelusuri menu satu per satu.
 
 ### B. Bagian Content (Manajemen Konten)
-Kelompok menu ini berfokus pada pengelolaan informasi publik. Simpanan data di sini akan tampil di halaman depan website yang diakses pengunjung.
 
-1.  **Kelola Profil**:
-    *   **Visi Misi**: Formulir *text editor* untuk memperbarui visi dan misi fakultas.
-    *   **Sejarah / Tentang Fakultas**: Mengelola narasi sejarah singkat fakultas.
-    *   **Struktur Organisasi**: Mengunggah gambar bagan struktur organisasi terbaru.
-    *   **Data Fakta**: Mengatur angka-angka fakta (Jumlah Mahasiswa, Alumni, Prodi) yang tampil di beranda.
+**Menu Kelola Profil**
+Menu ini berfungsi sebagai pusat kendali identitas fakultas yang ditampilkan di website publik. Di dalamnya terdapat beberapa sub-menu dengan fungsi spesifik. Sub-menu **Visi Misi** menyediakan editor teks yang memungkinkan admin memperbarui naskah visi dan misi fakultas. Sub-menu **Struktur Organisasi** digunakan untuk mengunggah gambar bagan struktur organisasi terbaru. Sub-menu **Data Civitas** berfungsi untuk mengelola angka statistik fakultas seperti jumlah mahasiswa aktif dan alumni. Terakhir, sub-menu **Tentang Fakultas** digunakan untuk menyunting narasi sejarah dan profil singkat fakultas.
 
-2.  **Kelola Slider**:
-    Modul untuk mengelola gambar spanduk (*banner*) yang berputar otomatis di halaman utama. Admin dapat mengunggah gambar promosi resolusi tinggi (1920x600px) dan memberikan judul/keterangan singkat.
+**Menu Kelola Slider**
+Menu ini didedikasikan untuk pengelolaan visual halaman depan website. Administrator dapat menambah, menghapus, atau mengganti gambar spanduk (*banner*) utama yang berputar otomatis. Fitur ini memungkinkan admin untuk menjaga tampilan beranda tetap segar dan relevan dengan kegiatan atau promosi terbaru fakultas.
 
-3.  **Kelola Berita**:
-    Modul jurnalistik untuk mempublikasikan artikel.
-    *   **Fitur**: Tambah berita baru, edit konten, atau hapus berita lama.
-    *   **Input**: Judul, Kategori (Akademik/Kegiatan), Tanggal, Gambar Utama, dan Isi Berita.
-    *   **Tampilan**: Menggunakan tabel data yang dilengkapi pencarian dan *pagination*.
+**Menu Kelola Berita**
+Sebagai modul jurnalistik utama, menu ini memungkinkan administrator untuk mempublikasikan informasi terkini kepada masyarakat. Melalui sub-menu **Semua Berita**, admin dapat menulis artikel baru menggunakan fitur *Rich Text Editor*, menyematkan foto utama, serta menentukan kategori berita. Sistem ini juga memfasilitasi pengubahan atau penghapusan artikel yang sudah tidak relevan.
 
-4.  **Kelola Galeri**:
-    Modul dokumentasi visual kegiatan kampus.
-    *   **Fitur**: *Upload* foto massal (*bulk*) untuk kegiatan tertentu.
-    *   **Input**: Judul Kegiatan, Deskripsi Singkat, dan File Foto.
+**Menu Kelola Galeri**
+Menu ini dirancang untuk kebutuhan dokumentasi visual kegiatan kampus. Melalui modul ini, administrator dapat mengunggah foto-foto kegiatan dalam jumlah banyak sekaligus (*bulk upload*). Setiap album foto dapat diberikan judul dan deskripsi singkat, sehingga pengunjung website dapat melihat rekam jejak aktivitas akademik maupun non-akademik di lingkungan fakultas.
 
 ### C. Bagian Data (Basis Data Akademik)
-Kelompok menu ini mengelola data inti (*core data*) yang berkaitan dengan operasional akademik dan sumber daya fakultas.
 
-1.  **Kelola Dosen & SDM**:
-    Mengelola pangkalan data tenaga pengajar.
-    *   **Input Data**: Nama Lengkap, NIDN/NIP, Prodi Homebase, Jabatan Akademik, Pendidikan Terakhir, dan Foto Profil.
-    *   **Integrasi**: Data ini otomatis tampil pada menu "Direktori Dosen" di website publik.
+**Menu Kelola Dosen**
+Menu ini mengelola pangkalan data sumber daya manusia, khususnya tenaga pengajar. Melalui sub-menu **Daftar Dosen**, administrator dapat memasukkan dan memperbarui profil lengkap dosen, mulai dari Nomor Induk Dosen Nasional (NIDN), jabatan akademik, riwayat pendidikan terakhir, hingga foto profil. Data ini terintegrasi langsung dengan halaman direktori dosen di website publik.
 
-2.  **Kelola Akademik (Kurikulum & Kalender)**:
-    *   **Kurikulum**: Mengelola daftar mata kuliah per semester, bobot SKS, dan kode mata kuliah.
-    *   **Kalender Akademik**: Mengunggah file atau gambar jadwal kegiatan akademik semester berjalan.
+**Menu Kelola Fasilitas**
+Menu ini bertujuan untuk menginventarisasi sarana dan prasarana pendidikan. Pada sub-menu **Ruangan**, admin dapat mendata ruang kelas dan ruang serbaguna beserta kapasitas dan fasilitas pendukungnya. Sedangkan pada sub-menu **Laboratorium**, admin dapat mencatat daftar laboratorium komputer atau praktikum yang dimiliki fakultas untuk informasi calon mahasiswa.
 
-3.  **Kelola Fasilitas**:
-    Inventarisasi sarana prasarana pendidikan.
-    *   **Ruangan**: Mendata ruang kelas, kapasitas, dan fasilitas didalamnya (AC/Proyektor).
-    *   **Laboratorium**: Mendata lab komputer atau praktik, beserta deskripsi peralatan utama.
+**Menu Kelola Akademik**
+Fitur ini mengatur informasi vital terkait proses belajar mengajar. Sub-menu **Kurikulum** digunakan untuk mengelola daftar mata kuliah yang ditawarkan, lengkap dengan kode mata kuliah dan bobot SKS-nya. Sub-menu **Kalender Akademik** memungkinkan admin mengunggah jadwal kegiatan akademik semester berjalan, baik dalam format dokumen maupun gambar.
 
-4.  **Tridharma (Penelitian & Pengabdian)**:
-    Repositori karya ilmiah dosen.
-    *   **Penelitian**: Mencatat judul penelitian, tahun pelaksanaan, sumber dana, dan tim peneliti.
-    *   **Pengabdian**: Mencatat kegiatan PkM (Pengabdian kepada Masyarakat), lokasi, dan tanggal kegiatan.
+**Menu Kelola Kerjasama**
+Menu ini mencatat jejaring eksternal dan internal fakultas. Sub-menu **mitra Kerjasama** mendata daftar instansi pemerintah atau swasta yang memiliki perjanjian formal (MoU/MoA) dengan fakultas. Sementara itu, sub-menu **BEM** digunakan untuk mengelola profil dan struktur organisasi Badan Eksekutif Mahasiswa.
 
-5.  **Kelola Kerjasama**:
-    Database mitra eksternal fakultas.
-    *   **Input**: Nama Mitra, Jenis Kerjasama (MoU/MoA), Bidang Kerjasama, dan Masa Berlaku.
+**Menu Tridharma (Penelitian & Pengabdian)**
+Menu ini merupakan repositori digital kinerja akademik dosen. Sub-menu **Kelola Penelitian** mencatat judul-judul penelitian yang dilakukan dosen beserta tahun pelaksanaannya. Sub-menu **Kelola Pengabdian** mengarsipkan kegiatan pengabdian kepada masyarakat (PkM). Data ini penting sebagai bentuk transparansi kinerja akademik fakultas.
 
-6.  **Kelola Dokumen**:
-    Pusat unduhan (*download center*) regulasi.
-    *   **Fitur**: Mengunggah file PDF untuk Renstra (Rencana Strategis), Renop (Rencana Operasional), dan SOP Layanan Akademik agar dapat diunduh oleh mahasiswa/dosen.
+**Menu Kelola Dokumen**
+Menu ini berfungsi sebagai pusat unduhan dokumen resmi. Administrator dapat mengunggah dokumen regulasi seperti Rencana Operasional (Renop), Rencana Strategis (Renstra), dan Standar Operasional Prosedur (SOP) layanan akademik. Dokumen-dokumen ini kemudian dapat diunduh secara bebas oleh dosen maupun mahasiswa yang membutuhkan.
 
 ### D. Bagian Sistem (Pengaturan & Keamanan)
 
-1.  **Data Pendaftaran (Feedback)**:
-    Kotak masuk (*inbox*) dari formulir pendaftaran atau kontak yang ada di website. Admin dapat melihat daftar nama pendaftar, kontak, dan pesan yang mereka kirimkan.
+**Menu Data Pendaftaran (Feedback)**
+Menu ini berfungsi sebagai kotak masuk (*inbox*) untuk menampung interaksi dari pengguna website. Data yang masuk melalui formulir pendaftaran *online* atau halaman kontak akan tersimpan di sini. Administrator dapat memantau, memverifikasi, dan menindaklanjuti pesan atau pendaftaran yang masuk dari pihak luar.
 
-2.  **Pengaturan Akun**:
-    Fitur keamanan personal admin. Memungkinkan pengelola untuk mengubah *Username*, *Email*, dan *Password* untuk mencegah akses ilegal.
+**Menu Pengaturan Akun**
+Menu ini memberikan kontrol privasi kepada administrator sistem. Di sini, pengguna admin dapat mengubah informasi akun mereka, seperti nama pengguna (*username*), alamat email, dan kata sandi (*password*). Fitur ini sangat krusial untuk menjaga keamanan sistem dari akses pihak yang tidak berwenang.
 
 ---
 
 ## 3. Alur Kerja Sistem (System Workflow)
 
-Bagian ini menjelaskan mekanisme teknis bagaimana pengguna berinteraksi dengan sistem.
+Bagian ini menjelaskan mekanisme teknis bagaimana pengguna berinteraksi dengan sistem dalam bentuk narasi alur.
 
 ### 1. Alur Autentikasi (Sistem)
-*   **Login**: Pengguna mengakses `/admin`. Sistem memverifikasi *username* dan *password* terenkripsi dari tabel `users`. Jika valid, sesi login dibuat.
-*   **Security Check**: Setiap halaman memiliki skrip `admin_header.php` yang mengecek apakah sesi valid tersedia. Jika tidak, pengguna ditendang peluar ke halaman login.
+Proses dimulai ketika pengguna mengakses alamat panel admin. Sistem akan secara otomatis memeriksa status otorisasi pengguna. Jika pengguna belum melakukan *login*, sistem akan mengalihkan tampilan ke halaman Login. Pengguna kemudian memasukkan nama pengguna dan kata sandi. Sistem akan memverifikasi kredensial tersebut dengan data di basis data. Jika cocok, sistem membuat sesi keamanan unik dan mengizinkan pengguna masuk ke Dashboard.
 
-### 2. Alur Manajemen Data via Modal (Content & Data)
-Pada modul seperti **Berita** dan **Dosen**, sistem menggunakan antarmuka *Modal Popup* (jendela layar ganda):
-*   **Langkah 1**: Admin klik tombol "Tambah".
-*   **Langkah 2**: Formulir muncul di atas halaman tanpa *refresh*. Admin mengisi data.
-*   **Langkah 3**: Saat disimpan, data dikirim ke server. Foto (jika ada) diupload ke folder khusus, dan informasi teks disimpan ke MySQL.
+### 2. Alur Manajemen Data via Modal
+Untuk efisiensi antarmuka pengguna, modul-modul seperti Berita dan Dosen menggunakan mekanisme *Modal Popup*. Ketika admin menekan tombol "Tambah", sebuah jendela formulir akan muncul di atas halaman aktif tanpa memuat ulang (*reload*) keseluruhan halaman. Setelah admin mengisi data dan menyimpannya, sistem akan memproses data tersebut di latar belakang dan memperbarui tabel data secara otomatis.
 
-### 3. Alur Upload Cepat (Media)
-Pada modul **Galeri**, sistem menggunakan formulir *inline* (langsung di halaman):
-*   **Mekanisme**: Formulir upload tersedia langsung di bagian atas tabel data.
-*   **Proses**: Admin memilih foto -> Klik Upload -> Foto langsung tampil di daftar bawahnya. Metode ini dipilih untuk mempercepat proses dokumentasi banyak foto.
+### 3. Alur Dokumentasi Galeri
+Pada modul Galeri, sistem menerapkan alur kerja unggah cepat. Formulir unggah foto ditempatkan langsung (*inline*) di bagian atas halaman data. Administrator cukup memilih file foto dari perangkat komputer, memberikan judul, dan menekan tombol unggah. Foto tersebut akan langsung diproses oleh server, disimpan dalam direktori penyimpanan, dan ditampilkan pada daftar galeri di bawah formulir dalam hitungan detik.
 
 ---
 

@@ -14,32 +14,72 @@ Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelomp
 
 ## 2. Penjelasan Fungsional Menu (Detail)
 
-Bagian ini menjabarkan fungsi dari setiap menu yang terdapat dalam blok struktur di atas.
+Bagian ini menjabarkan fungsi secara rinci dari setiap menu yang terdapat dalam panel admin.
 
 ### A. Bagian Main (Utama)
-*   **Dashboard**: Halaman yang pertama kali muncul saat login. Berfungsi sebagai pusat informasi yang menampilkan kartu statistik (jumlah dosen, berita, dll) dan tabel ringkasan data terbaru untuk pemantauan cepat.
+*   **Dashboard**:
+    Halaman muka (*homepage*) admin yang menyajikan ringkasan eksekutif. Fitur ini menampilkan *counter* jumlah data (Total Dosen, Total Berita, Jumlah Penelitian) dan tabel aktivitas terbaru. Tujuannya adalah memberikan gambaran cepat mengenai volume data yang dikelola sistem tanpa harus masuk ke menu masing-masing.
 
 ### B. Bagian Content (Manajemen Konten)
-Kelompok ini berfokus pada apa yang tampil bagi pengunjung website (front-end).
-*   **Kelola Profil**: Mengatur informasi statis identitas fakultas seperti Visi Misi, Struktur Organisasi, dan Sejarah.
-*   **Kelola Slider**: Mengelola gambar spanduk utama (*banner*) di halaman beranda untuk keperluan promosi atau informasi penting.
-*   **Kelola Berita**: Modul untuk menulis dan mempublikasikan artikel kegiatan kampus, pengumuman, atau info akademik terbaru.
-*   **Kelola Galeri**: Fitur untuk mengunggah dan mengelompokkan dokumentasi foto kegiatan fakultas.
+Kelompok menu ini berfokus pada pengelolaan informasi publik. Simpanan data di sini akan tampil di halaman depan website yang diakses pengunjung.
+
+1.  **Kelola Profil**:
+    *   **Visi Misi**: Formulir *text editor* untuk memperbarui visi dan misi fakultas.
+    *   **Sejarah / Tentang Fakultas**: Mengelola narasi sejarah singkat fakultas.
+    *   **Struktur Organisasi**: Mengunggah gambar bagan struktur organisasi terbaru.
+    *   **Data Fakta**: Mengatur angka-angka fakta (Jumlah Mahasiswa, Alumni, Prodi) yang tampil di beranda.
+
+2.  **Kelola Slider**:
+    Modul untuk mengelola gambar spanduk (*banner*) yang berputar otomatis di halaman utama. Admin dapat mengunggah gambar promosi resolusi tinggi (1920x600px) dan memberikan judul/keterangan singkat.
+
+3.  **Kelola Berita**:
+    Modul jurnalistik untuk mempublikasikan artikel.
+    *   **Fitur**: Tambah berita baru, edit konten, atau hapus berita lama.
+    *   **Input**: Judul, Kategori (Akademik/Kegiatan), Tanggal, Gambar Utama, dan Isi Berita.
+    *   **Tampilan**: Menggunakan tabel data yang dilengkapi pencarian dan *pagination*.
+
+4.  **Kelola Galeri**:
+    Modul dokumentasi visual kegiatan kampus.
+    *   **Fitur**: *Upload* foto massal (*bulk*) untuk kegiatan tertentu.
+    *   **Input**: Judul Kegiatan, Deskripsi Singkat, dan File Foto.
 
 ### C. Bagian Data (Basis Data Akademik)
-Kelompok ini berfokus pada pengelolaan data mentah yang mendukung operasional fakultas.
-*   **Kelola Dosen**: Database profil tenaga pengajar (NIDN, Jabatan, Pendidikan) yang terintegrasi dengan direktori staf.
-*   **Kelola Fasilitas**: Inventarisasi sarana prasarana seperti Ruang Kelas dan Laboratorium Komputer.
-*   **Kelola Akademik**: Mengatur Kalender Akademik dan Daftar Mata Kuliah (Kurikulum) yang berlaku.
-*   **Penelitian & Pengabdian**: Mengarsipkan judul dan data publikasi ilmiah serta kegiatan sosial para dosen/mahasiswa.
-*   **Kerjasama**: Mendata mitra instansi pemerintah atau swasta yang bekerjasama dengan fakultas.
-*   **Kelola Dokumen**: Repositori file digital seperti Renstra (Rencana Strategis) dan SOP yang bisa diunduh publik.
+Kelompok menu ini mengelola data inti (*core data*) yang berkaitan dengan operasional akademik dan sumber daya fakultas.
+
+1.  **Kelola Dosen & SDM**:
+    Mengelola pangkalan data tenaga pengajar.
+    *   **Input Data**: Nama Lengkap, NIDN/NIP, Prodi Homebase, Jabatan Akademik, Pendidikan Terakhir, dan Foto Profil.
+    *   **Integrasi**: Data ini otomatis tampil pada menu "Direktori Dosen" di website publik.
+
+2.  **Kelola Akademik (Kurikulum & Kalender)**:
+    *   **Kurikulum**: Mengelola daftar mata kuliah per semester, bobot SKS, dan kode mata kuliah.
+    *   **Kalender Akademik**: Mengunggah file atau gambar jadwal kegiatan akademik semester berjalan.
+
+3.  **Kelola Fasilitas**:
+    Inventarisasi sarana prasarana pendidikan.
+    *   **Ruangan**: Mendata ruang kelas, kapasitas, dan fasilitas didalamnya (AC/Proyektor).
+    *   **Laboratorium**: Mendata lab komputer atau praktik, beserta deskripsi peralatan utama.
+
+4.  **Tridharma (Penelitian & Pengabdian)**:
+    Repositori karya ilmiah dosen.
+    *   **Penelitian**: Mencatat judul penelitian, tahun pelaksanaan, sumber dana, dan tim peneliti.
+    *   **Pengabdian**: Mencatat kegiatan PkM (Pengabdian kepada Masyarakat), lokasi, dan tanggal kegiatan.
+
+5.  **Kelola Kerjasama**:
+    Database mitra eksternal fakultas.
+    *   **Input**: Nama Mitra, Jenis Kerjasama (MoU/MoA), Bidang Kerjasama, dan Masa Berlaku.
+
+6.  **Kelola Dokumen**:
+    Pusat unduhan (*download center*) regulasi.
+    *   **Fitur**: Mengunggah file PDF untuk Renstra (Rencana Strategis), Renop (Rencana Operasional), dan SOP Layanan Akademik agar dapat diunduh oleh mahasiswa/dosen.
 
 ### D. Bagian Sistem (Pengaturan & Keamanan)
-Kelompok ini berkaitan dengan kontrol akses dan interaksi pengguna.
-*   **Data Pendaftaran**: Mengelola data masuk dari formulir pendaftaran online (feedback/input dari luar).
-*   **Pengaturan (Profile)**: Fitur bagi admin untuk mengubah nama, email, dan kata sandi akun sendiri.
-*   **Login / Logout**: Gerbang autentikasi keamanan sistem untuk memastikan hanya pengguna berhak yang dapat mengakses panel admin.
+
+1.  **Data Pendaftaran (Feedback)**:
+    Kotak masuk (*inbox*) dari formulir pendaftaran atau kontak yang ada di website. Admin dapat melihat daftar nama pendaftar, kontak, dan pesan yang mereka kirimkan.
+
+2.  **Pengaturan Akun**:
+    Fitur keamanan personal admin. Memungkinkan pengelola untuk mengubah *Username*, *Email*, dan *Password* untuk mencegah akses ilegal.
 
 ---
 

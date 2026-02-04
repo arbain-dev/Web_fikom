@@ -52,25 +52,31 @@ Sub-menu Kalender Akademik berfungsi sebagai papan pengumuman jadwal kegiatan ak
 
 ---
 
-### D. Kelompok Menu Kerjasama & Kemahasiswaan
+### D. Kelompok Menu Tridharma & Kerjasama
 
-**9. Sub-menu: BEM (Badan Eksekutif Mahasiswa)**
+**9. Sub-menu: Penelitian**
+Sub-menu ini dirancang untuk mendata aktivitas penelitian yang dilakukan oleh dosen. Administrator dapat mencatat detail penelitian yang meliputi Judul Penelitian, Nama Peneliti, Tahun Pelaksanaan, Status (Draft, Sedang Berjalan, atau Selesai), serta sumber dan jumlah dana hibah. Selain itu, fitur ini mendukung pengunggahan dokumen digital berupa Proposal dan Laporan Akhir penelitian. Data ini penting untuk pemetaan roadmap penelitian fakultas serta pelaporan beban kerja dosen (BKD) setiap semester.
+
+**10. Sub-menu: Pengabdian Masyarakat**
+Fitur ini berfungsi untuk mendokumentasikan kegiatan Tri Dharma perguruan tinggi aspek pengabdian. Administrator menginput data kegiatan pengabdian meliputi Judul Kegiatan, Pelaksana, Tanggal Kegiatan, dan Deskripsi singkat. Sistem juga menyediakan fasilitas unggah laporan kegiatan (PDF/DOC) sebagai bukti fisik pelaksanaan. Database pengabdian ini menjadi arsip vital untuk kebutuhan akreditasi program studi maupun fakultas.
+
+**11. Sub-menu: BEM (Badan Eksekutif Mahasiswa)**
 Halaman ini dikhususkan untuk mengelola profil organisasi pemerintahan mahasiswa tingkat fakultas. Administrator dapat memperbarui deskripsi BEM, visi misi organisasi, logo kabinet, serta struktur pengurus BEM periode berjalan. Penampilan profil BEM di website fakultas merupakan bentuk dukungan institusi terhadap kegiatan ekstrakurikuler dan pengembangan *soft skill* mahasiswa dalam berorganisasi dan kepemimpinan.
 
-**10. Sub-menu: Kerjasama**
+**12. Sub-menu: Kerjasama**
 Sub-menu ini berfungsi sebagai pangkalan data kemitraan strategis fakultas. Administrator mencatat daftar instansi, baik perusahaan swasta, instansi pemerintah, maupun perguruan tinggi lain, yang telah menandatangani nota kesepahaman (MoU) atau perjanjian kerjasama (MoA). Informasi ini penting untuk menunjukkan jejaring (*networking*) luas yang dimiliki fakultas dalam rangka penyaluran magang, penelitian bersama, atau rekruitmen lulusan.
 
 ---
 
 ### E. Kelompok Menu Arsip Dokumen (Kelola Dokumen)
 
-**11. Sub-menu: Dokumen Fakultas**
+**13. Sub-menu: Dokumen Fakultas**
 Menu ini berfungsi sebagai repositori umum untuk dokumen-dokumen resmi tingkat fakultas yang bersifat publik. Administrator dapat mengunggah berbagai surat keputusan, buku panduan akademik, atau peraturan dekan yang relevan bagi sivitas akademika. Fitur pengunduhan (*download*) memudahkan dosen dan mahasiswa mendapatkan salinan digital dokumen resmi tanpa harus datang ke kantor tata usaha secara fisik.
 
-**12. Sub-menu: Rencana Strategis (Renstra)**
+**14. Sub-menu: Rencana Strategis (Renstra)**
 Rencana Strategis (Renstra) adalah dokumen perencanaan jangka panjang (biasanya 5 tahunan) yang menjadi arah pengembangan fakultas. Melalui sub-menu ini, administrator mempublikasikan file Renstra agar dapat diakses oleh publik. Hal ini merupakan bentuk transparansi manajemen dan akuntabilitas fakultas dalam mencapai visi jangka panjangnya, serta menjadi dokumen wajib dalam proses visitasi akreditasi.
 
-**13. Sub-menu: SOP (Standar Operasional Prosedur)**
+**15. Sub-menu: SOP (Standar Operasional Prosedur)**
 Halaman ini memuat kumpulan dokumen prosedur baku layanan akademik dan administrasi. Administrator mengunggah file SOP untuk berbagai layanan, seperti SOP Pengajuan Judul Skripsi, SOP Cuti Akademik, atau SOP Peminjaman Alat. Ketersediaan dokumen SOP di website menjamin standar pelayanan yang konsisten dan memudahkan mahasiswa memahami alur birokrasi yang benar dalam mengurus administrasi perkuliahan.
 
 ---

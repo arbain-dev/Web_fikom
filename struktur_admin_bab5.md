@@ -93,6 +93,26 @@ Halaman ini memuat kumpulan dokumen prosedur baku layanan akademik dan administr
 
 ---
 
+### G. Kelompok Menu Data Pendaftaran (Feedback)
+
+**16. Halaman Data Pendaftaran Mahasiswa**
+Halaman ini dirancang khusus untuk mengelola data calon mahasiswa baru yang mendaftar melalui website. Tampilan halaman menyajikan tabel data pendaftaran yang responsif dan informatif.
+
+Fitur utama pada halaman ini meliputi:
+1.  **Tabel Data Pendaftar**: Menampilkan ringkasan data penting seperti:
+    *   **Identitas**: Nama Lengkap dan NIK (Nomor Induk Kependudukan).
+    *   **Akademik**: Program Studi pilihan dan Jalur Pendaftaran (misal: Reguler).
+    *   **Kontak**: Nomor WhatsApp aktif yang dapat langsung dihubungi (klik-untuk-chat).
+    *   **Status Penerimaan**: Label status (misal: "Diterima") untuk memantau proses seleksi.
+2.  **Tombol Aksi**:
+    *   **Detail (Ikon Mata Kuning)**: Untuk melihat formulir biodata lengkap pendaftar.
+    *   **Hapus (Ikon Sampah Merah)**: Untuk menghapus data pendaftar yang tidak valid atau duplikat.
+3.  **Navigasi Sidebar**: Menu ini dapat diakses dengan mudah melalui sidebar administrator untuk pemantauan rutin.
+
+Halaman ini berfungsi sebagai pusat database calon mahasiswa yang memudahkan panitia PMB (Penerimaan Mahasiswa Baru) dalam melakukan verifikasi dan pendataan ulang.
+
+---
+
 ## 3. Alur Kerja Sistem (System Workflow)
 
 Bagian ini menjelaskan mekanisme teknis bagaimana pengguna berinteraksi dengan sistem dalam bentuk narasi alur.
@@ -119,22 +139,3 @@ Secara teknis, kode program disusun sebagai berikut:
 | **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_galeri.php`, `kelola_visimisi.php`, `kelola_struktur.php`, `kelola_fakta.php`, `kelola_tentangfak.php` | `berita`, `slider`, `galeri`, `halaman_statis` |
 | **Data** | `kelola_dosen.php`, `kelola_kurikulum.php`, `kelola_ruangan.php`, `kelola_lab.php`, `kelola_penelitian.php`, `kelola_bem.php`, `kelola_kerjasama.php` | `dosen`, `matakuliah`, `ruangan`, `penelitian`, `pengabdian`, `dokumen`, `kerjasama` |
 
----
-
-### G. Kelompok Menu Data Pendaftaran (Feedback)
-
-**16. Halaman Data Pendaftaran Mahasiswa**
-Halaman ini dirancang khusus untuk mengelola data calon mahasiswa baru yang mendaftar melalui website. Tampilan halaman menyajikan tabel data pendaftaran yang responsif dan informatif.
-
-Fitur utama pada halaman ini meliputi:
-1.  **Tabel Data Pendaftar**: Menampilkan ringkasan data penting seperti:
-    *   **Identitas**: Nama Lengkap dan NIK (Nomor Induk Kependudukan).
-    *   **Akademik**: Program Studi pilihan dan Jalur Pendaftaran (misal: Reguler).
-    *   **Kontak**: Nomor WhatsApp aktif yang dapat langsung dihubungi (klik-untuk-chat).
-    *   **Status Penerimaan**: Label status (misal: "Diterima") untuk memantau proses seleksi.
-2.  **Tombol Aksi**:
-    *   **Detail (Ikon Mata Kuning)**: Untuk melihat formulir biodata lengkap pendaftar.
-    *   **Hapus (Ikon Sampah Merah)**: Untuk menghapus data pendaftar yang tidak valid atau duplikat.
-3.  **Navigasi Sidebar**: Menu ini dapat diakses dengan mudah melalui sidebar administrator untuk pemantauan rutin.
-
-Halaman ini berfungsi sebagai pusat database calon mahasiswa yang memudahkan panitia PMB (Penerimaan Mahasiswa Baru) dalam melakukan verifikasi dan pendataan ulang.

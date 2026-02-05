@@ -14,9 +14,21 @@ Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelomp
 
 ## 2. Penjelasan Detail Fungsi Menu dan Sub-Menu
 
-Berikut adalah penjelasan mendalam mengenai fungsi dan kegunaan dari setiap menu yang terdapat pada panel administrator, yang disusun berdasarkan kelompok fitur.
+Berikut adalah penjelasan mendalam mengenai fungsi dan kegunaan dari setiap halaman dan menu yang terdapat pada panel administrator, dimulai dari akses masuk hingga pengelolaan data.
 
-### A. Kelompok Menu Profil (Kelola Profil)
+### A. Halaman Login Administrator
+
+Halaman Login merupakan gerbang keamanan utama untuk mengakses sistem backend administrator. Antarmuka halaman ini didesain dengan gaya modern dan minimalis, menggunakan latar belakang gedung fakultas yang diburamkan (*blur*) untuk memberikan fokus visual pada panel login di tengah layar.
+
+Elemen-elemen kunci pada halaman ini meliputi:
+1.  **Identitas Visual**: Menampilkan logo resmi fakultas di bagian atas panel untuk validasi institusi.
+2.  **Formulir Autentikasi**: Menyediakan kolom input untuk *username* dan *password*. Kolom sandi dilengkapi dengan fitur *toggle visibility* (ikon mata) yang memungkinkan pengguna memeriksa input sandi mereka sebelum dikirim, meningkatkan kenyamanan pengguna (User Experience).
+3.  **Link Lupa Kata Sandi**: Fitur bantuan bagi admin yang mengalami kendala akses akun.
+4.  **Navigasi Kembali**: Tautan "Kembali ke Beranda" di bagian bawah memungkinkan pengguna untuk membatalkan proses login dan kembali ke halaman utama pengunjung (Front-end).
+
+---
+
+### B. Kelompok Menu Profil (Kelola Profil)
 
 **1. Sub-menu: Visi Misi**
 Halaman ini adalah editor konten vital yang menampilkan visi dan misi resmi fakultas. Melalui antarmuka ini, administrator diberikan wewenang untuk menyunting teks visi dan misi menggunakan fitur *text editor* yang lengkap. Fungsi ini sangat krusial karena visi misi merupakan identitas utama institusi yang menjadi acuan bagi seluruh sivitas akademika. Perubahan yang dilakukan di halaman ini akan secara otomatis memperbarui tampilan di halaman "Tentang Kami" pada website publik, memastikan masyarakat selalu mendapatkan informasi visi misi yang mutakhir tanpa perlu mengubah kode sumber website.
@@ -32,7 +44,7 @@ Halaman ini didedikasikan untuk pengelolaan narasi profil, sejarah, dan latar be
 
 ---
 
-### B. Kelompok Menu Fasilitas (Kelola Fasilitas)
+### C. Kelompok Menu Fasilitas (Kelola Fasilitas)
 
 **5. Sub-menu: Ruangan**
 Sub-menu ini merupakan sistem inventaris aset ruangan yang dimiliki oleh fakultas. Administrator bertugas mendata setiap ruang kelas, ruang seminar, dan aula, lengkap dengan atribut detailnya seperti kapasitas kursi, lokasi lantai, dan kelengkapan fasilitas (misalnya ketersediaan AC, Proyektor, dan Papan Tulis). Informasi ini ditampilkan di website agar mahasiswa dan dosen dapat mengetahui ketersediaan dan spesifikasi ruangan yang dapat digunakan untuk kegiatan perkuliahan maupun kegiatan kemahasiswaan.
@@ -42,7 +54,7 @@ Laboratorium adalah sarana penunjang utama kegiatan praktikum. Melalui sub-menu 
 
 ---
 
-### C. Kelompok Menu Akademik (Kelola Akademik)
+### D. Kelompok Menu Akademik (Kelola Akademik)
 
 **7. Sub-menu: Kurikulum**
 Halaman ini mengelola basis data mata kuliah yang ditawarkan oleh setiap program studi. Administrator dapat menambah, menghapus, atau mengedit daftar mata kuliah per semester, lengkap dengan Kode Mata Kuliah, Nama Mata Kuliah, dan bobot SKS. Data kurikulum ini sangat transparan dan penting bagi mahasiswa untuk merencanakan pengambilan mata kuliah (KRS) serta bagi calon mahasiswa untuk melihat gambaran materi studi yang akan mereka pelajari selama kuliah.
@@ -52,7 +64,7 @@ Sub-menu Kalender Akademik berfungsi sebagai papan pengumuman jadwal kegiatan ak
 
 ---
 
-### D. Kelompok Menu Tridharma & Kerjasama
+### E. Kelompok Menu Tridharma & Kerjasama
 
 **9. Sub-menu: Penelitian**
 Sub-menu ini dirancang untuk mendata aktivitas penelitian yang dilakukan oleh dosen. Administrator dapat mencatat detail penelitian yang meliputi Judul Penelitian, Nama Peneliti, Tahun Pelaksanaan, Status (Draft, Sedang Berjalan, atau Selesai), serta sumber dan jumlah dana hibah. Selain itu, fitur ini mendukung pengunggahan dokumen digital berupa Proposal dan Laporan Akhir penelitian. Data ini penting untuk pemetaan roadmap penelitian fakultas serta pelaporan beban kerja dosen (BKD) setiap semester.
@@ -68,7 +80,7 @@ Sub-menu ini berfungsi sebagai pangkalan data kemitraan strategis fakultas. Admi
 
 ---
 
-### E. Kelompok Menu Arsip Dokumen (Kelola Dokumen)
+### F. Kelompok Menu Arsip Dokumen (Kelola Dokumen)
 
 **13. Sub-menu: Dokumen Fakultas**
 Menu ini berfungsi sebagai repositori digital untuk menyimpan dan mempublikasikan dokumen-dokumen resmi fakultas. Pada halaman ini, administrator dapat mengelola daftar dokumen dengan informasi detail meliputi **Nama Dokumen** dan **Deskripsi** singkat mengenai isi dokumen tersebut. Jenis dokumen yang dapat diunggah bervariasi, mulai dari Surat Keputusan (SK) Kepanitiaan, Laporan Pertanggungjawaban Kegiatan, Laporan Pelaksanaan Ujian (UAS/UTS), hingga Surat Penetapan Mahasiswa Berprestasi. Setiap entri dokumen dilengkapi dengan fitur **Lihat** untuk mengunduh atau meninjau file asli, serta tombol aksi untuk mengubah atau menghapus data. Fungsionalitas ini memastikan arsip fakultas tersimpan rapi dan mudah diakses oleh pihak yang berkepentingan secara transparan.

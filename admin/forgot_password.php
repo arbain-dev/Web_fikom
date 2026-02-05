@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['reset_user_id'] = $user['id'];
             
             // Redirect to reset form
-            header("Location: reset_password.php");
+            header("Location: reset_password");
             exit;
         } else {
             $error = "Data tidak ditemukan.";
@@ -71,9 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <div class="auth-footer">
-        <a href="login.php"><i class="fas fa-arrow-left"></i> Kembali ke Login</a>
+        <a href="login"><i class="fas fa-arrow-left"></i> Kembali ke Login</a>
     </div>
 </div>
 
 </body>
 </html>
+

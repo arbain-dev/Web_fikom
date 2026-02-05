@@ -101,7 +101,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
     <div class="card">
         <div class="card-header flex-between">
             <h2 class="card-title">Berita Terbaru</h2>
-            <a href="admin_kelola_berita.php" class="btn btn-sm btn-outline">Lihat Semua</a>
+            <a href="kelola_berita" class="btn btn-sm btn-outline">Lihat Semua</a>
         </div>
         <div class="table-responsive">
         <table class="data-table">
@@ -133,7 +133,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
     <div class="card">
         <div class="card-header flex-between">
             <h2 class="card-title">Penelitian Terbaru</h2>
-            <a href="admin_kelola_penelitian.php" class="btn btn-sm btn-outline">Lihat Semua</a>
+            <a href="kelola_penelitian" class="btn btn-sm btn-outline">Lihat Semua</a>
         </div>
         <div class="table-responsive">
         <table class="data-table">
@@ -163,3 +163,4 @@ if ($result_berita && $result_berita->num_rows > 0) {
 </div>
 
 <?php include 'includes/admin_footer.php'; ?>
+

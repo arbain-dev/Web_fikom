@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
 
-                header("Location: dashboard.php");
+                header("Location: dashboard");
                 exit;
             } else {
                 $error_message = "Username atau Password salah!";
@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         
         <div style="text-align: right; margin-bottom: 20px;">
-            <a href="forgot_password.php" style="color: var(--primary-600); font-size: 0.9rem; text-decoration: none;">Lupa Kata Sandi?</a>
+            <a href="forgot_password" style="color: var(--primary-600); font-size: 0.9rem; text-decoration: none;">Lupa Kata Sandi?</a>
         </div>
 
         <button type="submit" class="auth-btn">
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <div class="auth-footer">
-        <a href="../index.php"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+        <a href="../index"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
     </div>
 </div>
 
@@ -127,3 +127,4 @@ function togglePassword() {
 
 </body>
 </html>
+

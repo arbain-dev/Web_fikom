@@ -96,9 +96,9 @@ Halaman ini memuat kumpulan dokumen prosedur baku layanan akademik dan administr
 ### G. Kelompok Menu Data Pendaftaran (Feedback)
 
 **16. Halaman Data Pendaftaran Mahasiswa**
-Halaman Data Pendaftaran Mahasiswa dirancang khusus sebagai pusat pengelolaan data calon mahasiswa baru yang mendaftar melalui website. Pada halaman ini, administrator disajikan dengan tabel data responsif yang memuat informasi krusial pendaftar, meliputi identitas diri (Nama Lengkap dan NIK), pilihan akademik (Program Studi dan Jalur Pendaftaran), serta informasi kontak berupa nomor WhatsApp yang terintegrasi dengan fitur *click-to-chat* untuk memudahkan komunikasi.
+Halaman Data Pendaftaran Mahasiswa dirancang khusus sebagai pusat pengelolaan data calon mahasiswa baru yang mendaftar melalui situs web. Pada halaman ini, administrator dapat mengakses tabel data responsif yang memuat informasi penting pendaftar, meliputi identitas diri (Nama Lengkap dan NIK), pilihan akademik (Program Studi dan Jalur Pendaftaran), serta informasi kontak berupa nomor WhatsApp yang terintegrasi dengan fitur *click-to-chat* untuk memudahkan komunikasi.
 
-Selain itu, administrator dapat memantau status seleksi penerimaan setiap calon mahasiswa secara *real-time*. Untuk pengelolaan lebih lanjut, tersedia tombol aksi yang memungkinkan admin melihat detail biodata lengkap melalui ikon mata kuning, atau menghapus data yang tidak valid menggunakan ikon sampah merah. Fitur ini sangat vital bagi panitia Penerimaan Mahasiswa Baru (PMB) dalam melakukan verifikasi berkas dan pendataan ulang secara efisien dan terpusat.
+Selain itu, administrator dapat memantau status seleksi penerimaan setiap calon mahasiswa secara *real-time*. Untuk pengelolaan lebih lanjut, tersedia tombol aksi yang memungkinkan administrator melihat detail biodata lengkap melalui ikon detail (berwarna kuning), atau menghapus data yang tidak valid menggunakan ikon hapus (berwarna merah). Fitur ini memiliki fungsi vital bagi panitia Penerimaan Mahasiswa Baru (PMB) dalam melakukan verifikasi berkas dan pendataan ulang secara efisien dan terpusat.
 
 ---
 

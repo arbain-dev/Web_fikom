@@ -123,7 +123,7 @@ $kalender_data_json = json_encode($kalender);
 
 include 'includes/admin_header.php';
 ?>
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Kelola Kalender Akademik</h1>
     </div>

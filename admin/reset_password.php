@@ -3,7 +3,7 @@ session_start();
 require_once '../config/database.php';
 require_once '../config/constants.php';
 
-// Security check: Must have come from forgot_password verification
+// Cek Keamanan: Harus berasal dari verifikasi lupa password
 if (!isset($_SESSION['allow_reset_password']) || !isset($_SESSION['reset_user_id'])) {
     header("Location: login");
     exit;

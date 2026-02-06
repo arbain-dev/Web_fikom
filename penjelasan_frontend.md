@@ -3,9 +3,42 @@
 Dokumen ini menguraikan struktur antarmuka pengguna pada website Fakultas Ilmu Komputer Universitas Muhammadiyah Sidenreng Rappang (UNISAN). Penjelasan difokuskan pada halaman Beranda dan rincian setiap menu yang tersedia untuk memberikan panduan komprehensif bagi pengguna.
 
 ## 1. Halaman Beranda (Home)
-Halaman Beranda merupakan representasi wajah digital fakultas yang dirancang untuk memberikan informasi esensial secara cepat dan menarik. Bagian atas halaman ini didominasi oleh *slider* gambar yang berputar secara otomatis, menampilkan visual aktivitas kampus serta moto fakultas yang mencerminkan visi akademis. Fitur ini bertujuan untuk membangun kesan pertama yang profesional dan dinamis bagi setiap pengunjung yang mengakses laman web.
+Halaman Beranda dirancang sebagai pusat informasi terpadu yang menyambut setiap pengunjung website Fakultas Ilmu Komputer. Tata letak halaman ini disusun secara strategis untuk menampilkan identitas, pencapaian, dan informasi krusial fakultas dalam satu alur visual yang menarik. Berikut adalah penjelasan lengkap untuk setiap komponen yang terdapat pada halaman utama, mulai dari bagian atas hingga bawah.
 
-Di bawah area utama, terdapat pemaparan data statistik fakultas, seperti jumlah dosen, mahasiswa, dan angka kelulusan, yang disajikan dengan animasi angka interaktif. Selain itu, pengunjung disuguhkan ringkasan berita terbaru dan informasi singkat mengenai program studi unggulan. Halaman ini diakhiri dengan tampilan daftar mitra kerja sama fakultas yang bergerak secara berurutan, menunjukkan luasnya jejaring institusional yang telah dibangun.
+### A. Slider Utama (Hero Section)
+Bagian paling atas dari halaman beranda ditempati oleh *Hero Slider*, sebuah fitur tampilan gambar layar penuh yang berganti secara otomatis. Slider ini berfungsi sebagai etalase visual utama yang menampilkan foto-foto kegiatan akademik, prestasi mahasiswa, atau suasana lingkungan kampus yang dinamis. Setiap slide dilengkapi dengan teks judul (*heading*) dan sub-judul yang kuat, serta tombol aksi (*Call to Action*) yang mengarahkan pengunjung ke halaman strategis seperti profil Program Studi atau Berita Terbaru.
+
+Keberadaan slider ini sangat penting untuk membangun kesan pertama (*first impression*) yang profesional dan modern. Dengan kualitas visual yang tinggi dan transisi yang halus, fitur ini efektif untuk menangkap perhatian pengunjung dalam hitungan detik pertama mereka mendarat di website. Selain aspek estetika, slider ini juga menjadi media komunikasi visual untuk menyampaikan pesan-pesan kunci atau moto fakultas, seperti komitmen terhadap inovasi teknologi dan keunggulan akademik.
+
+### B. Statistik Fakultas
+Tepat di bawah slider utama, terdapat panel statistik yang menampilkan data kuantitatif fakultas. Bagian ini menyajikan angka-angka penting, seperti jumlah dosen aktif, jumlah mahasiswa, jumlah alumni, atau jumlah penelitian yang telah dipublikasikan. Angka-angka ini ditampilkan dengan efek animasi "penghitung" (*counter*) yang bergerak naik saat halaman digulir, menambah interaktivitas tampilan.
+
+Tujuan dari penampilan statistik ini adalah untuk memberikan bukti sosial (*social proof*) dan transparansi mengenai skala dan kredibilitas fakultas. Bagi calon mahasiswa atau mitra kerja sama, data ini memberikan gambaran cepat mengenai kapasitas dan produktivitas institusi tanpa harus membaca laporan panjang lebar. Penyajian data dalam bentuk visual ikon dan angka besar memudahkan pengunjung untuk menyerap informasi vital ini secara instan.
+
+### C. Berita Terbaru
+Bagian Berita Terbaru menyajikan jendela informasi terkini dari kegiatan dan pencapaian civitas akademika. Grid kartu berita menampilkan enam artikel terakhir yang dipublikasikan, lengkap dengan foto *thumbnail*, judul artikel, kategori, dan tanggal terbit. Tata letak grid yang responsif memastikan tampilan tetap rapi baik di layar komputer maupun perangkat seluler.
+
+Fitur ini berfungsi untuk menjaga keterbukaan informasi dan menunjukkan bahwa fakultas memiliki dinamika kegiatan yang aktif. Pengunjung dapat dengan mudah memantau agenda seminar, prestasi mahasiswa dalam kompetisi, pengumuman akademik, atau kunjungan industri. Tombol "Lihat Semua" disediakan bagi mereka yang ingin menelusuri arsip berita yang lebih lengkap, menjadikan bagian ini sebagai pintu masuk utama ke portal berita fakultas.
+
+### D. Sekilas Tentang Fakultas
+Komponen ini memberikan pengantar naratif mengenai profil Fakultas Ilmu Komputer. Di sini terdapat judul dan paragraf ringkas yang mendeskripsikan identitas, sejarah singkat, atau keunggulan komparatif fakultas. Teks penjelasan disandingkan dengan elemen visual berupa foto atau video profil yang relevan, menciptakan keseimbangan antara informasi teks dan gambar.
+
+Bagian ini dirancang bagi pengunjung yang ingin mendapatkan gambaran umum sebelum menyelami detail visi-misi atau struktur organisasi. Penjelasan yang padat namun komprehensif di bagian ini membantu pengunjung memahami esensi keberadaan fakultas. Terdapat juga tautan "Selengkapnya" yang mengarahkan ke halaman profil lengkap, memfasilitasi pengguna yang membutuhkan informasi lebih mendalam.
+
+### E. Program Studi
+Untuk menjawab kebutuhan informasi akademik calon mahasiswa, bagian Program Studi menampilkan kartu profil singkat dari jurusan-jurusan yang tersedia, yaitu S1 Informatika dan S1 Pendidikan Teknologi Informasi. Setiap kartu didesain elegan dengan ikon representatif, nama program studi, dan deskripsi singkat mengenai fokus keilmuan masing-masing jurusan.
+
+Penyajian ini memudahkan calon pendaftar untuk membandingkan pilihan jurusan yang ada. Deskripsi singkat memberikan *highlight* kompetensi utama, misalnya fokus pada pengembangan perangkat lunak untuk Informatika atau kompetensi pedagogik untuk Pendidikan TI. Tombol "Pelajari Lebih Lanjut" pada setiap kartu mengarahkan pengunjung ke halaman detail prodi, di mana kurikulum dan prospek karir dijelaskan secara tuntas.
+
+### F. Informasi Akademik
+Bagian Informasi Akademik menyediakan akses cepat (*shortcut*) ke empat pilar informasi operasional perkuliahan. Terdiri dari empat kartu fitur yang masing-masing mengarah ke halaman Kalender Akademik, Kurikulum, Data Dosen, dan Fasilitas Laboratorium. Setiap kartu dilengkapi dengan ikon unik yang memudahkan identifikasi visual.
+
+Fitur ini sangat bermanfaat bagi mahasiswa aktif dan dosen untuk memangkas waktu pencarian informasi rutin. Alih-alih harus menavigasi menu yang bertingkat, pengguna dapat langsung melompat ke informasi teknis yang mereka butuhkan sehari-hari. Penempatan bagian ini di halaman depan mencerminkan prioritas fakultas dalam memberikan pelayanan informasi akademik yang efisien dan mudah diakses.
+
+### G. Mitra Kerja Sama
+Sebagai penutup halaman beranda, bagian Mitra Kerja Sama menampilkan deretan logo instansi pemerintah, perusahaan teknologi, dan organisasi industri yang menjalin kolaborasi dengan fakultas. Logo-logo ini ditampilkan dalam format *carousel* (pita berjalan) yang bergerak otomatis secara horizontal (looping), menciptakan tampilan yang dinamis dan tidak membosankan.
+
+Penampilan mitra kerja sama ini bukan sekadar hiasan, melainkan pernyataan kredibilitas institusi. Hal ini menunjukkan bahwa kurikulum dan aktivitas fakultas relevan dengan kebutuhan industri dan didukung oleh jaringan profesional yang luas. Bagi calon mahasiswa, ini menjadi sinyal positif mengenai peluang magang dan karir setelah lulus. Bagi institusi lain, ini membuka peluang untuk penjajakan kerja sama baru.
 
 ## 2. Navigasi dan Menu Website
 Sistem navigasi website terletak pada bagian atas (*header*) dan disusun secara hierarkis untuk memudahkan akses informasi. Berikut adalah penjelasan detail mengenai setiap menu dan sub-menu yang tersedia.
@@ -19,9 +52,14 @@ Halaman Sambutan Dekan memuat pesan resmi dari pimpinan tertinggi Fakultas Ilmu 
 Melalui sambutan ini, pengunjung dapat memahami nilai-nilai inti (*core values*) yang ditanamkan dalam budaya akademik fakultas. Penjelasan mengenai prioritas pengembangan, seperti peningkatan kualitas sumber daya manusia dan integrasi teknologi dalam pembelajaran, sering kali menjadi poin utama yang ditekankan. Hal ini memberikan keyakinan kepada masyarakat bahwa fakultas dikelola dengan visi yang jelas dan progresif.
 
 **2. Visi & Misi**
-Halaman ini merupakan dokumen fundamental yang menjabarkan cita-cita luhur fakultas melalui rumusan Visi, serta langkah-langkah strategis yang ditempuh melalui rumusan Misi. Visi menggambarkan tujuan jangka panjang yang ingin dicapai, misalnya menjadi fakultas unggulan di tingkat regional atau nasional. Sementara itu, Misi menguraikan tindakan nyata dalam bidang pendidikan, penelitian, dan pengabdian masyarakat untuk merealisasikan visi tersebut.
+Halaman ini menyajikan arah strategis Fakultas Ilmu Komputer melalui:
 
-Keberadaan halaman Visi & Misi sangat krusial sebagai pedoman arah bagi seluruh pemangku kepentingan (*stakeholders*). Bagi calon mahasiswa, halaman ini memberikan gambaran mengenai kualitas lulusan yang ingin dicetak. Bagi dosen dan staf, rumusan ini menjadi acuan dalam menyusun program kerja dan kurikulum, memastikan bahwa setiap aktivitas akademis selaras dengan tujuan besar institusi.
+*   **Visi**: Gambaran masa depan yang ingin dicapai oleh fakultas dalam jangka panjang, menjadi acuan utama dalam pengembangan institusi.
+*   **Misi**: Langkah-langkah konkret dan strategis yang dilakukan untuk mewujudkan visi tersebut.
+*   **Tujuan**: Pencapaian spesifik yang ingin diraih dari pelaksanaan misi, mencakup aspek pendidikan, penelitian, dan pengabdian.
+*   **Sasaran**: Target terukur yang ditetapkan untuk memastikan tujuan dapat tercapai dalam kurun waktu tertentu.
+
+Data pada halaman ini bersifat dinamis dan dikelola melalui panel admin, sehingga perubahan arah strategis dapat diperbarui dengan mudah tanpa mengubah kode program.
 
 **3. Dosen**
 Halaman Dosen menyajikan direktori lengkap tenaga pengajar di lingkungan Fakultas Ilmu Komputer. Pada halaman ini, ditampilkan profil singkat setiap dosen yang mencakup nama lengkap, gelar akademik, bidang keahlian, serta riwayat pendidikan. Transparansi data ini bertujuan untuk menunjukkan kompetensi dan kualifikasi sumber daya manusia yang dimiliki oleh fakultas dalam mendidik mahasiswa.

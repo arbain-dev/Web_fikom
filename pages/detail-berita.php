@@ -55,9 +55,9 @@ $recent_news = $stmt_recent->get_result();
         gap: 40px;
     }
 
-    /* Main Content */
+    /* Konten Utama */
     .main-content {
-        min-width: 0; /* Prevent overflow */
+        min-width: 0; /* Mencegah overflow */
     }
 
     .back-link {
@@ -149,7 +149,7 @@ $recent_news = $stmt_recent->get_result();
         margin-bottom: 1.5rem;
     }
 
-    /* Share Section */
+    /* Bagian Share */
     .share-section {
         background: #f1f5f9;
         padding: 24px;
@@ -197,7 +197,7 @@ $recent_news = $stmt_recent->get_result();
         border-radius: 16px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         position: sticky;
-        top: 100px; /* Adjust based on sticky header height */
+        top: 100px; /* Sesuaikan berdasarkan tinggi header sticky */
     }
 
     .sidebar-widget h3 {

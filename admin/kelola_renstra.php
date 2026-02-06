@@ -129,7 +129,7 @@ if ($result) while ($r = $result->fetch_assoc()) $list_dokumen[] = $r;
 include 'includes/admin_header.php';
 ?>
 
-  <!-- Purple Banner -->
+  <!-- Banner Ungu -->
   <div class="page-banner">
     <h1 class="banner-title">Rencana Strategis (Renstra)</h1>
   </div>

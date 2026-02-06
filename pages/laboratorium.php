@@ -7,7 +7,7 @@ $query = "SELECT * FROM laboratorium ORDER BY id DESC";
 $result = mysqli_query($conn, $query);
 ?>
 
-<!-- Page Header -->
+<!-- Header Halaman -->
 <header class="page-header-section">
     <div class="container reveal-on-scroll">
         <h1 class="page-title">Laboratorium Komputer</h1>
@@ -15,7 +15,7 @@ $result = mysqli_query($conn, $query);
     </div>
 </header>
 
-<!-- Main Content -->
+<!-- Konten Utama -->
 <section class="section-content">
     <div class="container">
         <div class="gallery-grid stagger-container">

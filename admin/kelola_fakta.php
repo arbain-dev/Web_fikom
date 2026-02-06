@@ -36,7 +36,7 @@ include 'includes/admin_header.php';
 $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Fakta Fakultas</h1>
     </div>
@@ -54,7 +54,7 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
 
 
 
-    <!-- Unified Card Layout -->
+    <!-- Layout Kartu Terpadu -->
     <div class="card">
         <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Fakta</h2>

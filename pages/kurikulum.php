@@ -7,7 +7,7 @@ $sql = "SELECT * FROM kurikulum ORDER BY nama_kurikulum DESC";
 $result = mysqli_query($conn, $sql);
 ?>
 
-<!-- Page Header -->
+<!-- Header Halaman -->
 <header class="page-header-section">
     <div class="container reveal-on-scroll">
         <h1 class="page-title">Kurikulum Fakultas</h1>
@@ -15,7 +15,7 @@ $result = mysqli_query($conn, $sql);
     </div>
 </header>
 
-<!-- Main Content -->
+<!-- Konten Utama -->
 <section class="section-content">
     <div class="container">
         <div class="document-grid stagger-container">

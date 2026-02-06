@@ -1,27 +1,26 @@
 <?php
 /**
- * Admin Header - Dashboard Layout
- * Clean & Modern Design System
+ * Admin Header - Layout Dashboard
+ * Sistem Desain Bersih & Modern
  */
 
-// Start session if not started
+// Mulai sesi jika belum dimulai
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include configuration
+// Sertakan konfigurasi
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/constants.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-// Security check - Verify admin is logged in
-// Security check - Verify admin is logged in
+// Cek Keamanan - Verifikasi admin sudah login
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login");
     exit;
 }
 
-// Get admin username and current page
+// Ambil username admin dan halaman saat ini
 $nama_admin = $_SESSION['username'] ?? "Admin";
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
@@ -37,13 +36,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
+    <!-- Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Favicon -->
     <link rel="icon" href="<?= BASE_URL ?>/assets/img/pp.png" type="image/png">
 
-    <!-- Admin Stylesheet (Consolidated) -->
+    <!-- Admin Stylesheet (Digabungkan) -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css?v=<?= time() ?>">
 </head>
 <body>
@@ -57,8 +56,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </div>
         
         <ul class="sidebar-menu">
-            <!-- Main -->
-            <li class="sidebar-title">Main</li>
+            <!-- Utama -->
+            <li class="sidebar-title">Utama</li>
             <li class="sidebar-item <?php if($currentPage == 'dashboard.php') echo 'active'; ?>">
                 <a href="dashboard" class="sidebar-link">
                     <div style="display:flex; align-items:center; gap:12px;">
@@ -134,7 +133,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </ul>
             </li>
 
-            <!-- Akademik Section Header in Screenshot -->
+            <!-- Akademik -->
             <li class="sidebar-title">Akademik</li>
 
             <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_kurikulum.php', 'admin_kelola_kalender.php', 'kelola_kurikulum.php', 'kelola_kalender.php'])) echo 'open active'; ?>">
@@ -186,7 +185,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </ul>
             </li>
 
-            <!-- Data Pendaftaran hidden/moved as per screenshot usually implies ends here or scrolls -->
+            <!-- Data Pendaftaran (Disembunyikan/Dipindahkan) -->
             <li class="sidebar-title">Lainnya</li>
             <li class="sidebar-item <?php if(strpos($currentPage, 'pendaftaran') !== false) echo 'active'; ?>">
                 <a href="kelola_pendaftaran" class="sidebar-link">
@@ -196,7 +195,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
 
-            <!-- Logout Sidebar Item -->
+            <!-- Item Sidebar Logout -->
             <li class="sidebar-item <?php if(strpos($currentPage, 'profile') !== false) echo 'active'; ?>">
                 <a href="profile" class="sidebar-link">
                     <div style="display:flex; align-items:center; gap:12px;">
@@ -215,15 +214,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </ul>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Konten Utama -->
     <div class="admin-main" id="main-content">
         <!-- Topbar -->
         <!-- Topbar -->
-        <!-- Mobile Hamburger Toggle (Visible only on mobile) -->
+        <!-- Toggle Hamburger Mobile (Hanya terlihat di mobile) -->
         <div class="hamburger" id="hamburger">
             <i class="fas fa-bars"></i>
         </div>
 
-        <!-- Content Area -->
+        <!-- Area Konten -->
         <main class="content-area">
-            <!-- Page content goes here -->
+            <!-- Konten halaman akan masuk di sini -->

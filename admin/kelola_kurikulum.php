@@ -99,7 +99,7 @@ include 'includes/admin_header.php';
 
 
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Kelola Kurikulum</h1>
     </div>
@@ -112,7 +112,7 @@ include 'includes/admin_header.php';
 
 
 
-    <!-- Unified Card Layout -->
+    <!-- Layout Kartu Terpadu -->
     <div class="card">
         <div class="card-header flex-between mb-4">
             <h2 class="card-title">Daftar Kurikulum</h2>

@@ -3,7 +3,7 @@ require_once 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
 
-// Fetch Data
+// Ambil Data
 $pimpinan = [];
 $dosen = [];
 
@@ -13,7 +13,7 @@ $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $jabatan = strtolower(trim($row['jabatan']));
-        // Improved detection for leaders
+        // Deteksi pimpinan yang ditingkatkan
         if (strpos($jabatan, 'dekan') !== false || strpos($jabatan, 'ketua') !== false || strpos($jabatan, 'kaprodi') !== false) {
             $pimpinan[] = $row;
         } else {
@@ -23,7 +23,7 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-<!-- Page Header -->
+<!-- Header Halaman -->
 <header class="page-header-section">
     <div class="container reveal-on-scroll">
         <h1 class="page-title">Dosen & Staff Pengajar</h1>
@@ -31,7 +31,7 @@ if ($result && $result->num_rows > 0) {
     </div>
 </header>
 
-<!-- Pimpinan Section -->
+<!-- Bagian Pimpinan -->
 <section class="section-content bg-white">
     <div class="container">
         <h2 class="section-title text-center">Pimpinan Fakultas</h2>
@@ -43,7 +43,7 @@ if ($result && $result->num_rows > 0) {
     </div>
 </section>
 
-<!-- Dosen Section -->
+<!-- Bagian Dosen -->
 <section class="section-content bg-gray-50">
     <div class="container">
         <h2 class="section-title text-center">Dosen Tetap Program Studi</h2>

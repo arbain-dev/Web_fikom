@@ -70,7 +70,7 @@ $q_sasaran = $conn->query("SELECT * FROM visi_misi WHERE kategori = 'Sasaran' OR
 include 'includes/admin_header.php'; 
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Visi, Misi, Tujuan & Sasaran</h1>
     </div>

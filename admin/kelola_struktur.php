@@ -84,7 +84,7 @@ $gambar_sekarang = $data['gambar_path'] ?? 'default_struktur.jpg';
 $conn->close();
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Struktur Organisasi</h1>
     </div>

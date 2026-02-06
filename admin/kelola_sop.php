@@ -140,7 +140,7 @@ $json_data = json_encode($list_dokumen);
 include 'includes/admin_header.php';
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Standar Operasional Prosedur (SOP)</h1>
     </div>

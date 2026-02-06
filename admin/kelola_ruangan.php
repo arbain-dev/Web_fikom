@@ -224,7 +224,7 @@ include 'includes/admin_header.php';
 ?>
 
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Ruangan</h1>
     </div>

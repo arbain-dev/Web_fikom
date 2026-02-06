@@ -20,12 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
             
-            // In a real production app, we would generate a unique token, save it to DB, and email it.
-            // For this local environment/request, we will simulate verification and allow immediate reset.
+            // Dalam aplikasi produksi nyata, kita akan membuat token unik, menyimpannya ke DB, dan mengirimkannya melalui email.
+            // Untuk lingkungan/permintaan lokal ini, kami akan mensimulasikan verifikasi dan mengizinkan reset segera.
             $_SESSION['allow_reset_password'] = true;
             $_SESSION['reset_user_id'] = $user['id'];
             
-            // Redirect to reset form
+            // Arahkan ke formulir reset
             header("Location: reset_password");
             exit;
         } else {

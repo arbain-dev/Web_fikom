@@ -1,10 +1,4 @@
 <?php
-/**
- * Router Utama (Front Controller)
- * 
- * Menangani semua permintaan masuk dan mengarahkannya ke halaman yang sesuai
- * di direktori 'pages/'.
- */
 
 // Sertakan konfigurasi global
 define('DB_CONFIG', true);
@@ -13,8 +7,7 @@ require_once 'config/database.php';
 
 // Ambil jalur permintaan
 $request = $_SERVER['REQUEST_URI'];
-$script_name = $_SERVER['SCRIPT_NAME']; // e.g., /web_fikom/index.php
-
+$script_name = $_SERVER['SCRIPT_NAME']; 
 // Tentukan jalur dasar aplikasi
 $base_path = dirname($script_name);
 

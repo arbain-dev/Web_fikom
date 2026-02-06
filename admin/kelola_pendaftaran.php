@@ -62,7 +62,7 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Data Pendaftaran Mahasiswa</h1>
     </div>

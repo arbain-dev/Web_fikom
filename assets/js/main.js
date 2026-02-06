@@ -1,10 +1,10 @@
 /**
- * Main JavaScript for Web FIKOM
- * Refactored & Consolidated
+ * JavaScript Utama untuk Web FIKOM
+ * Refactoring & Konsolidasi
  */
 
 /* =========================================
-   GLOBAL STATE & HELPER FUNCTIONS
+   STATE GLOBAL & FUNGSI BANTUAN
    ========================================= */
 const App = {
     init: function () {
@@ -17,7 +17,7 @@ const App = {
         this.initGlobalEvents();
     },
 
-    /* 1. SCROLL ANIMATIONS */
+    /* 1. ANIMASI SCROLL */
     initScrollAnimations: function () {
         const observerOptions = {
             threshold: 0.15,
@@ -28,14 +28,14 @@ const App = {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    entry.target.classList.add('show'); // For compatibility
+                    entry.target.classList.add('show'); // Untuk kompatibilitas
 
-                    // Specific logic: Start stats counters
+                    // Logika spesifik: Mulai penghitung statistik
                     if (entry.target.classList.contains('stats-section') || entry.target.querySelector('.stat-number')) {
                         App.animateCounters();
                     }
 
-                    // Specific logic: Start dosen card animations
+                    // Logika spesifik: Mulai animasi kartu dosen
                     if (entry.target.classList.contains('dosen-card')) {
                         entry.target.style.animationPlayState = 'running';
                     }
@@ -45,7 +45,7 @@ const App = {
             });
         }, observerOptions);
 
-        // Select all elements to animate
+        // Pilih semua elemen untuk dianimasikan
         const animatedElements = document.querySelectorAll(
             '.reveal-on-scroll, .reveal-left, .reveal-right, .stagger-container, ' +
             '.stats-section, .fade-in-up, .zoom-in, .fade, ' +
@@ -54,7 +54,7 @@ const App = {
 
         animatedElements.forEach(el => scrollObserver.observe(el));
 
-        // Stagger helper for hero
+        // Bantuan stagger untuk hero
         const heroElements = document.querySelectorAll('.hero-himpunan .fade-in-up, .hero .fade-in-up');
         heroElements.forEach((el, index) => {
             setTimeout(() => {
@@ -64,9 +64,9 @@ const App = {
         });
     },
 
-    /* 2. MOBILE MENU */
+    /* 2. MENU MOBILE */
     initMobileMenu: function () {
-        // Exposed globally for HTML onClick compatibility
+        // Diekspos secara global untuk kompatibilitas HTML onClick
         window.toggleMobileMenu = function () {
             const navMenu = document.getElementById('navMenu');
             const overlay = document.getElementById('mobileOverlay');
@@ -86,21 +86,21 @@ const App = {
             }
         };
 
-        // Internal Event Listeners
+        // Event Listeners Internal
         const hamburger = document.getElementById('hamburger');
         const overlay = document.getElementById('mobileOverlay');
 
         if (hamburger) hamburger.addEventListener('click', window.toggleMobileMenu);
         if (overlay) overlay.addEventListener('click', window.toggleMobileMenu);
 
-        // Mobile Dropdown Logic
+        // Logika Dropdown Mobile
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 if (window.innerWidth <= 992) {
                     const parent = link.parentElement;
                     if (parent.querySelector('.nav-dropdown')) {
                         e.preventDefault();
-                        // Close others
+                        // Tutup yang lain
                         document.querySelectorAll('.nav-item').forEach(item => {
                             if (item !== parent) item.classList.remove('open');
                         });
@@ -111,7 +111,7 @@ const App = {
         });
     },
 
-    /* 3. NAVBAR SCROLL EFFECT */
+    /* 3. EFEK SCROLL NAVBAR */
     initNavbar: function () {
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -125,7 +125,7 @@ const App = {
         });
     },
 
-    /* 4. HERO SLIDER */
+    /* 4. SLIDER HERO */
     initHeroSlider: function () {
         const slides = document.querySelectorAll('.hero-slide');
         if (slides.length === 0) return;
@@ -173,7 +173,7 @@ const App = {
         startAutoSlide();
     },
 
-    /* 5. COUNTERS */
+    /* 5. COUNTERS (PENGHITUNG) */
     countersLooping: false,
     animateCounters: function () {
         if (this.countersLooping) return;
@@ -188,7 +188,7 @@ const App = {
             if (!tempAttr) return;
 
             const target = +tempAttr;
-            const duration = 4000; // "Tidak terlalu cepat" -> 4 seconds
+            const duration = 4000; // "Tidak terlalu cepat" -> 4 detik
 
             const runAnimation = () => {
                 const startTime = performance.now();
@@ -201,17 +201,17 @@ const App = {
                         // EaseOutQuart: 1 - (1-x)^4
                         const ease = 1 - Math.pow(1 - progress, 4);
 
-                        // Ensure we don't exceed target
+                        // Pastikan tidak melebihi target
                         const currentVal = Math.ceil(ease * target);
                         counter.innerText = currentVal;
 
                         requestAnimationFrame(updateCounter);
                     } else {
                         counter.innerText = target;
-                        // "Bergerak terus" -> Loop after 3 seconds pause
+                        // "Bergerak terus" -> Loop setelah jeda 3 detik
                         setTimeout(() => {
-                            // Optional: Smoothly reset or just jump to 0?
-                            // Jumping to 0 and restarting is standard for simple loops
+                            // Opsional: Reset halus atau langsung lompat ke 0?
+                            // Lompat ke 0 dan restart adalah standar untuk loop sederhana
                             counter.innerText = 0;
                             runAnimation();
                         }, 3000);
@@ -225,24 +225,24 @@ const App = {
         });
     },
 
-    /* 6. POPUPS & MODALS (Consolidated) */
+    /* 6. POPUPS & MODALS (Dikonsolidasi) */
     initPopups: function () {
 
-        // --- A. GENERIC CLOSE LOGIC ---
-        // Close any active popup
+        // --- A. LOGIKA TUTUP UMUM ---
+        // Tutup popup aktif apa pun
         window.closePopup = function () {
             document.querySelectorAll('.popup').forEach(p => p.classList.remove('show'));
             document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-            document.body.style.overflow = 'auto'; // Restore scroll
+            document.body.style.overflow = 'auto'; // Kembalikan scroll
 
-            // Clear iframes/images to stop media
+            // Bersihkan iframe/gambar untuk menghentikan media
             const pdfFrame = document.getElementById('pdfFrame');
             if (pdfFrame) pdfFrame.src = '';
             const popupImg = document.getElementById('popupImg');
             if (popupImg) popupImg.src = '';
         };
 
-        // Attach close listeners
+        // Pasang listener tutup
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('popup') || e.target.id === 'popup') {
                 window.closePopup();
@@ -253,7 +253,7 @@ const App = {
             btn.addEventListener('click', window.closePopup);
         });
 
-        // --- B. IMAGE / GALLERY POPUP ---
+        // --- B. POPUP GAMBAR / GALERI ---
         window.showPopupImage = function (title, src) {
             const caption = document.getElementById('popupCaption');
             const img = document.getElementById('popupImg');
@@ -268,21 +268,21 @@ const App = {
             }
         };
 
-        // Attach Generic Image/Calendar Triggers
+        // Pasang Pemicu Gambar/Kalender Umum
         document.querySelectorAll('.js-calendar-trigger, .dosen-card img').forEach(el => {
             el.addEventListener('click', function () {
                 const src = this.getAttribute('data-img') || this.src;
-                const title = this.getAttribute('alt') || 'Image Preview';
+                const title = this.getAttribute('alt') || 'Pratinjau Gambar';
                 window.showPopupImage(title, src);
             });
         });
 
-        // --- C. DOSEN DETAIL POPUP ---
+        // --- C. POPUP DETAIL DOSEN ---
         window.showDosenDetail = function (data) {
-            // Support both object passing or individual arguments via HTML onclick override if needed
-            // But checking usage, most are likely updated to objects or we fix here.
+            // Mendukung pengiriman objek atau argumen individu melalui override HTML onclick jika diperlukan
+            // Tapi memeriksa penggunaan, sebagian besar kemungkinan sudah diperbarui ke objek atau kita perbaiki di sini.
 
-            const popup = document.getElementById('dosenPopup') || document.getElementById('popup'); // Handle multiple IDs from old code
+            const popup = document.getElementById('dosenPopup') || document.getElementById('popup'); // Menangani beberapa ID dari kode lama
             if (!popup) return;
 
             const setText = (id, text) => {
@@ -290,21 +290,21 @@ const App = {
                 if (el) el.textContent = text.startsWith(':') ? text : ": " + text;
             };
 
-            // Special case for Name (Direct text, no colon)
+            // Kasus khusus untuk Nama (Teks langsung, tanpa titik dua)
             const elNama = document.getElementById('popupNama') || document.getElementById('popNama');
             if (elNama) elNama.textContent = data.nama;
 
-            // Other fields with colon prefix
+            // Kolom lain dengan prefix titik dua
             setText('popupJabatan', data.jabatan);
             setText('popupNidn', data.nidn);
             setText('popupProdi', data.program_studi || data.prodi);
             setText('popupKeahlian', data.keahlian);
             setText('popupPendidikan', data.pendidikan);
             setText('popupStatus', data.status);
-            // setText('popupStatus', data.status); // Removed duplicate line
+            // setText('popupStatus', data.status); // Baris duplikat dihapus
             setText('popupEmail', data.email);
 
-            // Update Email Button Href
+            // Perbarui Href Tombol Email
             const btnEmail = document.getElementById('btnEmail');
             if (btnEmail) btnEmail.href = 'mailto:' + data.email;
 
@@ -315,7 +315,7 @@ const App = {
             popup.style.display = 'flex';
         };
 
-        // --- D. PDF / KURIKULUM POPUP ---
+        // --- D. POPUP PDF / KURIKULUM ---
         window.showPdfPopup = function (title, path) {
             const popup = document.getElementById('pdfPopup');
             const frame = document.getElementById('pdfFrame');
@@ -341,16 +341,16 @@ const App = {
             });
         });
 
-        // --- E. PENELITIAN DETAIL POPUP ---
+        // --- E. POPUP DETAIL PENELITIAN ---
         window.showPenelitianDetail = function (data) {
             if (typeof data === 'string') {
-                try { data = JSON.parse(data); } catch (e) { console.error("Invalid JSON", e); return; }
+                try { data = JSON.parse(data); } catch (e) { console.error("JSON Tidak Valid", e); return; }
             }
 
             const popup = document.getElementById('detailPopup') || document.getElementById('popup');
             if (!popup) return;
 
-            // Mapping for Penelitian Popup IDs
+            // Pemetaan untuk ID Popup Penelitian
             const map = {
                 'popJudul': data.judul,
                 'popupJudul': data.judul,
@@ -385,18 +385,18 @@ const App = {
             popup.style.display = 'flex';
         };
 
-        // Attach Generic Triggers for Penelitian/Dosen if data attributes exist
+        // Pasang Pemicu Umum untuk Penelitian/Dosen jika atribut data ada
         document.querySelectorAll('.js-popup-trigger').forEach(card => {
             card.addEventListener('click', (event) => {
                 const data = event.currentTarget.dataset;
-                window.showPenelitianDetail(data); // Default to penelitian handler for this class
+                window.showPenelitianDetail(data); // Default ke handler penelitian untuk kelas ini
             });
         });
     },
 
-    /* 7. GLOBAL EVENTS */
+    /* 7. EVENT GLOBAL */
     initGlobalEvents: function () {
-        // Parallax Effect
+        // Efek Parallax
         const colors = document.querySelectorAll('.color-bg .color');
         if (colors.length > 0) {
             window.addEventListener('scroll', () => {
@@ -412,30 +412,30 @@ const App = {
     }
 };
 
-// Initialize App
+// Inisialisasi App
 document.addEventListener('DOMContentLoaded', () => {
     App.init();
 });
 
 /* =========================================
-   LEGACY/GLOBAL COMPATIBILITY LAYER
-   (Mapping old function names to new Logic)
+   LAYER KOMPATIBILITAS LEGACY/GLOBAL
+   (Memetakan nama fungsi lama ke Logika baru)
    ========================================= */
 
-// Old: window.showPopup = function (title, src) // Used in Ruangan
-// Old: window.showDosen = function (data) // Used in Dosen
-// Old: window.showDetail = function (data) // Used in Penelitian
-// Old: window.showPdf = function (title, path) // Used in Pengabdian/Kurikulum
-// Old: function showDosenPopup(...) // Used in some Dosen files
+// Lama: window.showPopup = function (title, src) // Digunakan di Ruangan
+// Lama: window.showDosen = function (data) // Digunakan di Dosen
+// Lama: window.showDetail = function (data) // Digunakan di Penelitian
+// Lama: window.showPdf = function (title, path) // Digunakan di Pengabdian/Kurikulum
+// Lama: function showDosenPopup(...) // Digunakan di beberapa file Dosen
 
 window.showPopup = function (arg1, arg2) {
-    // Determine intent based on arg types
+    // Tentukan maksud berdasarkan tipe arg
     if (typeof arg1 === 'string' && typeof arg2 === 'string') {
         window.showPopupImage(arg1, arg2);
     } else if (typeof arg1 === 'object') {
-        // Could be penelitian or dosen, try generic fallback
-        // Ideally should update HTML to call specific functions
-        console.warn('Ambiguous showPopup call, check HTML');
+        // Bisa jadi penelitian atau dosen, coba fallback umum
+        // Idealnya harus memperbarui HTML untuk memanggil fungsi spesifik
+        console.warn('Panggilan showPopup ambigu, periksa HTML');
     }
 };
 
@@ -443,7 +443,7 @@ window.showDosen = function (data) { window.showDosenDetail(data); };
 window.showDetail = function (data) { window.showPenelitianDetail(data); };
 window.showPdf = function (title, path) { window.showPdfPopup(title, path); };
 
-// Compatibility for multi-argument calls
+// Kompatibilitas untuk panggilan multi-argumen
 window.showDosenPopup = function (nama, nidn, jabatan, prodi, keahlian, pendidikan, status, email, foto) {
     window.showDosenDetail({
         nama, nidn, jabatan, program_studi: prodi, keahlian, pendidikan, status, email, foto

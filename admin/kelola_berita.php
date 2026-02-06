@@ -161,7 +161,7 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-    <!-- Purple Banner -->
+    <!-- Banner Ungu -->
     <div class="page-banner">
         <h1 class="banner-title">Daftar Berita</h1>
     </div>
@@ -174,7 +174,7 @@ if ($result && $result->num_rows > 0) {
 
 
 
-    <!-- Unified Card Layout -->
+    <!-- Layout Kartu Terpadu -->
     <div class="card">
         <div class="card-header flex-between mb-4">
             <h2 class="text-xl font-bold text-gray-800">Data Berita Terkini</h2>
@@ -232,7 +232,7 @@ if ($result && $result->num_rows > 0) {
             </div>
         </div>
     </div>
-<!-- MODAL FORM (FIXED CENTER) -->
+<!-- POPUP FORM (POSISI TENGAH) -->
 <div id="kbPopupForm" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -297,7 +297,7 @@ if ($result && $result->num_rows > 0) {
     </div>
 </div>
 
-<!-- MODAL IMAGE PREVIEW -->
+<!-- POPUP PREVIEW GAMBAR -->
 <div id="kbPopupImagePreview" class="modal modal-image-preview">
     <img id="kbImgFull" src="" class="modal-image-full">
     <button class="modal-close-absolute" onclick="beritaModule.tutupPopupImage()">&times;</button>

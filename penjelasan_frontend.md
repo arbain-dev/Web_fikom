@@ -51,15 +51,25 @@ Halaman Sambutan Dekan memuat pesan resmi dari pimpinan tertinggi Fakultas Ilmu 
 
 Melalui sambutan ini, pengunjung dapat memahami nilai-nilai inti (*core values*) yang ditanamkan dalam budaya akademik fakultas. Penjelasan mengenai prioritas pengembangan, seperti peningkatan kualitas sumber daya manusia dan integrasi teknologi dalam pembelajaran, sering kali menjadi poin utama yang ditekankan. Hal ini memberikan keyakinan kepada masyarakat bahwa fakultas dikelola dengan visi yang jelas dan progresif.
 
-**2. Visi & Misi**
-Halaman ini menyajikan arah strategis Fakultas Ilmu Komputer melalui:
+**2. Visi, Misi, Tujuan, dan Sasaran**
+Halaman ini merupakan dokumen fundamental yang menjabarkan cita-cita luhur fakultas melalui rumusan Visi dan Misi, serta tolok ukur keberhasilan yang tertuang dalam Tujuan dan Sasaran. Halaman ini berfungsi sebagai kompas strategis yang menunjukkan arah pengembangan institusi di masa depan kepada seluruh pemangku kepentingan, mulai dari calon mahasiswa, orang tua, hingga mitra industri. Transparansi mengenai arah kebijakan ini penting untuk membangun kepercayaan publik terhadap kualitas penyelenggaraan pendidikan di Fakultas Ilmu Komputer.
 
-*   **Visi**: Gambaran masa depan yang ingin dicapai oleh fakultas dalam jangka panjang, menjadi acuan utama dalam pengembangan institusi.
-*   **Misi**: Langkah-langkah konkret dan strategis yang dilakukan untuk mewujudkan visi tersebut.
-*   **Tujuan**: Pencapaian spesifik yang ingin diraih dari pelaksanaan misi, mencakup aspek pendidikan, penelitian, dan pengabdian.
-*   **Sasaran**: Target terukur yang ditetapkan untuk memastikan tujuan dapat tercapai dalam kurun waktu tertentu.
+Data yang ditampilkan pada halaman ini terintegrasi langsung dengan database sistem dan dikelola secara dinamis melalui panel admin. Hal ini menjamin bahwa setiap perubahan pada rencana strategis fakultas dapat langsung terpublikasi secara *real-time* tanpa menunggu proses pembaruan kode yang rumit. Dengan demikian, informasi yang diterima oleh masyarakat selalu mutakhir dan selaras dengan dokumen resmi yang berlaku di internal fakultas.
 
-Data pada halaman ini bersifat dinamis dan dikelola melalui panel admin, sehingga perubahan arah strategis dapat diperbarui dengan mudah tanpa mengubah kode program.
+**A. Visi dan Misi**
+Visi adalah gambaran ideal masa depan yang ingin diwujudkan oleh Fakultas Ilmu Komputer dalam jangka panjang. Rumusan visi ini menjadi sumber inspirasi dan motivasi bagi seluruh civitas akademika untuk terus berinovasi dan berprestasi. Biasanya visi mencakup aspirasi untuk menjadi pusat unggulan dalam pendidikan teknologi informasi di tingkat regional maupun nasional, serta menghasilkan lulusan yang berkarakter islami dan berdaya saing global. Visi ini menjadi payung besar yang menaungi seluruh aktivitas akademik dan non-akademik di lingkungan kampus.
+
+Misi merupakan langkah-langkah strategis dan operasional yang dirumuskan untuk menjabarkan cara pencapaian visi tersebut. Misi mencakup penjabaran mengenai pelaksanaan Tri Dharma Perguruan Tinggi, yaitu pendidikan, penelitian, dan pengabdian kepada masyarakat. Melalui misi, fakultas menegaskan komitmennya untuk menyelenggarakan pendidikan berkualitas, melakukan riset yang solutif bagi permasalahan bangsa, serta menebar manfaat teknologi bagi masyarakat luas. Misi inilah yang kemudian diturunkan menjadi program kerja nyata di setiap unit fakultas.
+
+**B. Tujuan**
+Tujuan adalah pernyataan kualitatif mengenai hasil yang ingin dicapai dari pelaksanaan misi dalam kurun waktu tertentu. Perumusan tujuan difokuskan pada hasil dampak (*outcome*) yang diharapkan, seperti dihasilkannya lulusan yang kompeten di bidang rekayasa perangkat lunak dan jaringan, serta meningkatnya jumlah publikasi ilmiah dosen yang bereputasi. Tujuan memberikan rincian lebih spesifik mengenai profil kualitas institusi yang sedang dibangun.
+
+Selain berorientasi pada hasil akademik, tujuan juga mencakup aspek tata kelola organisasi dan kemitraan. Misalnya, tujuan untuk mewujudkan tata kelola fakultas yang transparan, akuntabel, dan berbasis teknologi informasi. Tujuan juga sering kali menyertakan aspirasi untuk memperluas jejaring kerja sama dengan dunia usaha dan dunia industri (DUDI) guna menjamin relevansi kurikulum dan ketersediaan lapangan kerja bagi para alumni.
+
+**C. Sasaran**
+Sasaran merupakan target kuantitatif atau kualitatif yang terukur, spesifik, dan memiliki batas waktu pencapaian yang jelas (*time-bound*) sebagai indikator keberhasilan dari tujuan yang telah ditetapkan. Sasaran berfungsi sebagai alat ukur kinerja institusi. Contoh sasarannya adalah tercapainya rata-rata IPK lulusan di atas 3.50, masa tunggu kerja lulusan kurang dari 3 bulan, atau diterbitkannya sejumlah jurnal internasional dalam satu tahun akademik.
+
+Penetapan sasaran yang jelas memungkinkan dilakukan evaluasi kinerja secara objektif dan berkala. Dengan adanya sasaran, fakultas dapat memonitor kemajuan (*progress*) dari setiap strategi yang dijalankan, apakah sudah sesuai jalur (*on-track*) atau memerlukan perbaikan. Bagi masyarakat luar, rincian sasaran ini menunjukkan keseriusan dan komitmen fakultas dalam menjaga standar mutu yang tinggi dan terus melakukan perbaikan berkelanjutan (*continuous improvement*).
 
 **3. Dosen**
 Halaman Dosen menyajikan direktori lengkap tenaga pengajar di lingkungan Fakultas Ilmu Komputer. Pada halaman ini, ditampilkan profil singkat setiap dosen yang mencakup nama lengkap, gelar akademik, bidang keahlian, serta riwayat pendidikan. Transparansi data ini bertujuan untuk menunjukkan kompetensi dan kualifikasi sumber daya manusia yang dimiliki oleh fakultas dalam mendidik mahasiswa.

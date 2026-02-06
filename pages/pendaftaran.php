@@ -4,7 +4,7 @@ require_once 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
 
-// CSRF Token Generation
+// Pembuatan Token CSRF
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -12,16 +12,16 @@ if (empty($_SESSION['csrf_token'])) {
 $message = "";
 $msg_type = "";
 
-// Helper Upload File (Enhanced Security)
+// Fungsi Bantuan Upload File (Keamanan ditingkatkan)
 function uploadFile($file, $destination) {
     if ($file['error'] !== UPLOAD_ERR_OK) return null;
     
-    // 1. Check Extension
+    // 1. Cek Ekstensi
     $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
     $allowed_ext = ['jpg', 'jpeg', 'png', 'pdf'];
     if (!in_array(strtolower($ext), $allowed_ext)) return false;
 
-    // 2. Check MIME Type (Real Content)
+    // 2. Cek Tipe MIME (Konten Asli)
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $mime = $finfo->file($file['tmp_name']);
     $allowed_mime = [
@@ -39,7 +39,7 @@ function uploadFile($file, $destination) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // CSRF Check
+    // Cek CSRF
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("Security violation: Invalid CSRF Token.");
     }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Mohon lengkapi data wajib!";
         $msg_type = "error";
     } else {
-        // Upload Files
+        // Unggah File
         $uploadDir = 'uploads/pendaftaran';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
@@ -76,14 +76,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $file_ijazah = uploadFile($_FILES['file_ijazah'], $uploadDir);
         }
 
-        // Insert Database
+        // Masukkan ke Database
         $stmt = $conn->prepare("INSERT INTO pendaftaran (nama, nik, email, hp, tempat_lahir, tanggal_lahir, jk, asal_sekolah, prodi, jalur, alamat, file_ktp, file_ijazah, catatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssssssssss", $nama, $nik, $email, $hp, $tempat_lahir, $tanggal_lahir, $jk, $asal_sekolah, $prodi, $jalur, $alamat, $file_ktp, $file_ijazah, $catatan);
 
         if ($stmt->execute()) {
             $message = "Pendaftaran berhasil! Data Anda telah tersimpan. Admin kami akan segera menghubungi Anda.";
             $msg_type = "success";
-            // Reset form logic could be here (redirect or clear vars)
+            // Logika reset form bisa di sini (redirect atau bersihkan variabel)
         } else {
             $message = "Terjadi kesalahan: " . $conn->error;
             $msg_type = "error";
@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <!-- Progress Bar (Optional, keeping it simple for now or hidden if not needed) -->
+            <!-- Progress Bar (Opsional, dibiarkan sederhana untuk saat ini) -->
             <div class="progress-line-container">
                  <div class="progress-line" id="progressBar"></div>
             </div>

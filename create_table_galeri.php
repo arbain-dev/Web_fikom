@@ -1,8 +1,8 @@
 <?php
-// Script to create 'galeri' table
+// Script untuk membuat tabel 'galeri' (Database Schema)
 require_once 'config/database.php';
 
-// Drop table if exists (optional, careful in production)
+// Hapus tabel jika ada (opsional, hati-hati di produksi)
 // $conn->query("DROP TABLE IF EXISTS galeri"); 
 
 $query = "CREATE TABLE IF NOT EXISTS galeri (
@@ -19,17 +19,17 @@ if ($conn->query($query) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
-// Create uploads directory if not exists
+// Buat direktori unggahan jika belum ada
 $upload_dir = 'uploads/galeri';
 if (!file_exists($upload_dir)) {
     mkdir($upload_dir, 0777, true);
     echo "Folder '$upload_dir' berhasil dibuat.<br>";
 }
 
-// Security: Prevent directory listing
+// Keamanan: Mencegah listing direktori
 $index_file = $upload_dir . '/index.php';
 if (!file_exists($index_file)) {
-    file_put_contents($index_file, '<?php // Silence is golden ?>');
+    file_put_contents($index_file, '<?php // Mencegah akses langsung ?>');
     echo "File index protection created.<br>";
 }
 

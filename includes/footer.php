@@ -24,12 +24,10 @@
 
             <!-- Quick Links -->
             <div>
-                <h4 class="footer-title-modern">Quick Links</h4>
+                <h4 class="footer-title-modern">Tautan Penting</h4>
                 <ul class="footer-links-modern">
-                    <li><a href="visi-misi"><i class="fas fa-chevron-right text-xs"></i> Visi & Misi</a></li>
-                    <li><a href="dosen"><i class="fas fa-chevron-right text-xs"></i> Dosen</a></li>
-                    <li><a href="kurikulum"><i class="fas fa-chevron-right text-xs"></i> Kurikulum</a></li>
-                    <li><a href="kalender"><i class="fas fa-chevron-right text-xs"></i> Kalender Akademik</a></li>
+                    <li><a href="https://www.unisan-sidrap.ac.id/"><i class="fas fa-chevron-right text-xs"></i> Unisan Sidrap</a></li>
+                    <li><a href="https://www.siakad.unisan-sidrap.ac.id/"><i class="fas fa-chevron-right text-xs"></i> Sistem Akademik</a></li>
                     <li><a href="pendaftaran"><i class="fas fa-chevron-right text-xs"></i> Pendaftaran Mahasiswa</a></li>
                 </ul>
             </div>

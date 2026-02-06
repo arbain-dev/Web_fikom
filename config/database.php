@@ -1,13 +1,13 @@
 <?php
 /**
- * Database Configuration
- * Improved database connection with error handling and security
+ * Konfigurasi Database
+ * Koneksi database yang ditingkatkan dengan penanganan error dan keamanan
  */
 
-// Prevent direct access
+// Mencegah akses langsung
 defined('DB_CONFIG') or define('DB_CONFIG', true);
 
-// Database credentials
+// Kredensial Database
 if (!defined('DB_SERVER')) {
     define('DB_SERVER', 'localhost');
     define('DB_USERNAME', 'root');
@@ -15,20 +15,20 @@ if (!defined('DB_SERVER')) {
     define('DB_NAME', 'db_web_fikom');
 }
 
-// Create connection
+// Buat koneksi
 $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-// Set charset to UTF-8 for proper Indonesian character support
+// Atur charset ke UTF-8 untuk dukungan karakter Indonesia yang benar
 $conn->set_charset("utf8mb4");
 
-// Check connection
+// Cek koneksi
 if ($conn->connect_error) {
-    // Log error (in production, write to file instead of displaying)
+    // Catat error (di produksi, tulis ke file, bukan ditampilkan)
     error_log("Database Connection Failed: " . $conn->connect_error);
     die("Maaf, terjadi kesalahan pada sistem. Silakan coba lagi nanti.");
 }
 
-// Optional: Set timezone
+// Opsional: Atur zona waktu
 date_default_timezone_set('Asia/Makassar');
 
 ?>

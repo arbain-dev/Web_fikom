@@ -1,55 +1,54 @@
 <?php
 /**
- * Main Router (Front Controller)
+ * Router Utama (Front Controller)
  * 
- * Handles all incoming requests and routes them to the appropriate page
- * in the 'pages/' directory.
+ * Menangani semua permintaan masuk dan mengarahkannya ke halaman yang sesuai
+ * di direktori 'pages/'.
  */
 
-// Include configuration if needed globally (optional, but good practice)
+// Sertakan konfigurasi global
 define('DB_CONFIG', true);
 require_once 'config/constants.php';
 require_once 'config/database.php';
 
-// Get the requested path
+// Ambil jalur permintaan
 $request = $_SERVER['REQUEST_URI'];
 $script_name = $_SERVER['SCRIPT_NAME']; // e.g., /web_fikom/index.php
 
-// Determine the base path of the application
+// Tentukan jalur dasar aplikasi
 $base_path = dirname($script_name);
 
-// Remove the base path from the request URI to get the relative path
-// Example: Request /web_fikom/dosen -> Relative: /dosen
+// Hapus jalur dasar dari URI permintaan untuk mendapatkan jalur relatif
+// Contoh: Request /web_fikom/dosen -> Relative: /dosen
 $path = str_replace($base_path, '', $request);
 
-// Clean up the path (remove query strings and trailing slashes)
+// Bersihkan jalur (hapus query string dan slash di akhir)
 $path = parse_url($path, PHP_URL_PATH);
 $path = trim($path, '/');
 
-// Default page
+// Halaman default
 if (empty($path)) {
     $path = 'home';
 }
 
-// Security: Prevent directory traversal
+// Keamanan: Mencegah directory traversal
 $path = str_replace(['.', '/'], '', $path);
 
-// Define the target file
+// Tentukan file target
 $file = 'pages/' . $path . '.php';
 
-// Check if file exists
+// Cek apakah file ada
 if (file_exists($file)) {
-    // Current Page variable for header/nav active states
-    // We map 'home' back to 'index.php' for compatibility with existing isActive() logic if needed,
-    // OR we update isActive() logic. Let's keep consistency.
+    // Variabel Current Page untuk status aktif header/navigasi
+    // Kami memetakan 'home' kembali ke 'index.php' untuk konsistensi
     $currentPage = ($path === 'home') ? 'index.php' : $path . '.php';
     
-    // Include the page
+    // Sertakan halaman
     include $file;
 } else {
-    // 404 Not Found
+    // 404 Halaman Tidak Ditemukan
     http_response_code(404);
-    // You can create a pages/404.php if you want
+    // Anda bisa membuat pages/404.php jika diinginkan
     echo "<h1>404 - Halaman Tidak Ditemukan</h1>";
     echo "<p>Halaman yang Anda cari ($path) tidak ada.</p>";
     echo "<a href='" . BASE_URL . "'>Kembali ke Beranda</a>";

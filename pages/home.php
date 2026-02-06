@@ -1,15 +1,10 @@
 <?php
-/**
- * Homepage - Web FIKOM
- * Clean & Modern Design
- */
-
-// Include configuration
+// Sertakan konfigurasi
 require_once 'config/database.php';
 require_once 'config/constants.php';
 require_once 'includes/functions.php';
 
-// Fetch data
+// Ambil data
 $query_berita = "SELECT * FROM berita ORDER BY tanggal_publish DESC LIMIT 6";
 $result_berita = $conn->query($query_berita);
 
@@ -25,9 +20,9 @@ $about = $q_about->fetch_assoc();
 <?php include 'includes/header.php'; ?>
 
 <!-- ===================================
-     HERO SLIDER
-     Auto-rotating image slider with navigation
-     Controls: btnPrev, btnNext, sliderDots
+     SLIDER UTAMA
+     Slider gambar yang berputar otomatis dengan navigasi
+     Kontrol: btnPrev, btnNext, sliderDots
      =================================== -->
 <section class="hero-slider" id="heroSlider">
     <?php
@@ -55,7 +50,7 @@ $about = $q_about->fetch_assoc();
     endif;
     ?>
     
-    <!-- Slider Navigation -->
+    <!-- Navigasi Slider -->
     <button class="slider-nav prev" id="btnPrev" aria-label="Previous">
         <i class="fas fa-chevron-left"></i>
     </button>
@@ -63,14 +58,14 @@ $about = $q_about->fetch_assoc();
         <i class="fas fa-chevron-right"></i>
     </button>
     
-    <!-- Slider Dots -->
+    <!-- Titik Slider -->
     <div class="slider-dots" id="sliderDots"></div>
 </section>
 
 <!-- ===================================
-     STATS SECTION
-     Animated counter displaying faculty statistics
-     Triggered by IntersectionObserver scroll animation
+     BAGIAN STATISTIK
+     Penghitung animasi menampilkan statistik fakultas
+     Dipicu oleh animasi scroll IntersectionObserver
      =================================== -->
 <section class="stats-section reveal-on-scroll">
     <div class="container">
@@ -87,122 +82,8 @@ $about = $q_about->fetch_assoc();
 </section>
 
 <!-- ===================================
-     ABOUT SECTION
-     Displays faculty introduction with image
-     =================================== -->
-<section class="section section-white about-section">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-content reveal-left">
-                <h2><?= $about ? htmlspecialchars($about['judul']) : "Tentang Fakultas" ?></h2>
-                <p><?= $about ? nl2br(htmlspecialchars($about['deskripsi'])) : "Belum ada deskripsi fakultas." ?></p>
-                <a href="visi-misi.php" class="btn btn-primary">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="about-image reveal-right">
-                <?php
-                $img = ($about && !empty($about['gambar']) && file_exists("uploads/tentang/" . $about['gambar']))
-                        ? "uploads/tentang/" . $about['gambar']
-                        : "https://images.unsplash.com/photo-1562774053-701939374585?w=600";
-                ?>
-                <img src="<?= $img ?>" alt="Tentang Fakultas">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===================================
-     PROGRAM STUDI SECTION
-     2-column grid showcasing study programs
-     =================================== -->
-<section class="section section-gray">
-    <div class="container">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title">Program Studi</h2>
-            <p class="section-subtitle">Pilihan program studi yang tersedia di Fakultas Ilmu Komputer</p>
-        </div>
-        
-        <div class="grid grid-cols-2 gap-8">
-            <!-- Informatika -->
-            <div class="program-card">
-                <div class="program-card-image">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <div class="program-card-body">
-                    <h3>S1 Informatika</h3>
-                    <p>Program studi yang mempelajari ilmu komputer, pemrograman, dan pengembangan perangkat lunak modern.</p>
-                    <a href="informatika.php" class="program-card-link">
-                        Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Pendidikan TI -->
-            <div class="program-card">
-                <div class="program-card-image bg-gradient-success">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div class="program-card-body">
-                    <h3>S1 Pendidikan Teknologi Informasi</h3>
-                    <p>Program studi yang mempersiapkan tenaga pendidik profesional di bidang teknologi informasi.</p>
-                    <a href="pendidikan_teknologi_informasi.php" class="program-card-link">
-                        Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===================================
-     INFORMASI AKADEMIK SECTION
-     4 feature cards with quick links
-     =================================== -->
-<section class="section section-white">
-    <div class="container">
-        <div class="section-header reveal-on-scroll">
-            <h2 class="section-title">Informasi Akademik</h2>
-            <p class="section-subtitle">Akses cepat ke informasi penting seputar akademik</p>
-        </div>
-        
-        <div class="feature-grid stagger-container">
-            <a href="kalender.php" class="feature-card stagger-item">
-                <div class="feature-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>Kalender Akademik</h3>
-                <p>Jadwal kegiatan akademik semester ini</p>
-            </a>
-            
-            <a href="kurikulum.php" class="feature-card stagger-item">
-                <div class="feature-icon icon-success">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                <h3>Kurikulum</h3>
-                <p>Struktur mata kuliah program studi</p>
-            </a>
-            
-            <a href="dosen.php" class="feature-card stagger-item">
-                <div class="feature-icon icon-warning">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Dosen</h3>
-                <p>Profil dosen pengajar fakultas</p>
-            </a>
-            
-            <a href="laboratorium.php" class="feature-card stagger-item">
-                <div class="feature-icon icon-error">
-                    <i class="fas fa-flask"></i>
-                </div>
-                <h3>Laboratorium</h3>
-                <p>Fasilitas lab untuk praktikum</p>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ===================================
-     BERITA SECTION
-     Latest 6 news articles in card grid
+     BAGIAN BERITA
+     6 artikel berita terbaru dalam grid kartu
      =================================== -->
 <section class="section section-gray">
     <div class="container">
@@ -250,9 +131,123 @@ $about = $q_about->fetch_assoc();
 </section>
 
 <!-- ===================================
-     PARTNERSHIP CAROUSEL
-     Infinite scrolling logo carousel
-     Displays partner institutions (2x loop for seamless animation)
+     BAGIAN TENTANG
+     Menampilkan pengantar fakultas dengan gambar
+     =================================== -->
+<section class="section section-white about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content reveal-left">
+                <h2><?= $about ? htmlspecialchars($about['judul']) : "Tentang Fakultas" ?></h2>
+                <p><?= $about ? nl2br(htmlspecialchars($about['deskripsi'])) : "Belum ada deskripsi fakultas." ?></p>
+                <a href="visi-misi.php" class="btn btn-primary">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="about-image reveal-right">
+                <?php
+                $img = ($about && !empty($about['gambar']) && file_exists("uploads/tentang/" . $about['gambar']))
+                        ? "uploads/tentang/" . $about['gambar']
+                        : "https://images.unsplash.com/photo-1562774053-701939374585?w=600";
+                ?>
+                <img src="<?= $img ?>" alt="Tentang Fakultas">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================================
+     BAGIAN PROGRAM STUDI
+     Grid 2 kolom menampilkan program studi
+     =================================== -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title">Program Studi</h2>
+            <p class="section-subtitle">Pilihan program studi yang tersedia di Fakultas Ilmu Komputer</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Informatika -->
+            <div class="program-card">
+                <div class="program-card-image">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="program-card-body">
+                    <h3>S1 Informatika</h3>
+                    <p>Program studi yang mempelajari ilmu komputer, pemrograman, dan pengembangan perangkat lunak modern.</p>
+                    <a href="informatika.php" class="program-card-link">
+                        Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Pendidikan TI -->
+            <div class="program-card">
+                <div class="program-card-image bg-gradient-success">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="program-card-body">
+                    <h3>S1 Pendidikan Teknologi Informasi</h3>
+                    <p>Program studi yang mempersiapkan tenaga pendidik profesional di bidang teknologi informasi.</p>
+                    <a href="pendidikan_teknologi_informasi.php" class="program-card-link">
+                        Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================================
+     BAGIAN INFORMASI AKADEMIK
+     4 kartu fitur dengan tautan cepat
+     =================================== -->
+<section class="section section-white">
+    <div class="container">
+        <div class="section-header reveal-on-scroll">
+            <h2 class="section-title">Informasi Akademik</h2>
+            <p class="section-subtitle">Akses cepat ke informasi penting seputar akademik</p>
+        </div>
+        
+        <div class="feature-grid stagger-container">
+            <a href="kalender.php" class="feature-card stagger-item">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Kalender Akademik</h3>
+                <p>Jadwal kegiatan akademik semester ini</p>
+            </a>
+            
+            <a href="kurikulum.php" class="feature-card stagger-item">
+                <div class="feature-icon icon-success">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Kurikulum</h3>
+                <p>Struktur mata kuliah program studi</p>
+            </a>
+            
+            <a href="dosen.php" class="feature-card stagger-item">
+                <div class="feature-icon icon-warning">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Dosen</h3>
+                <p>Profil dosen pengajar fakultas</p>
+            </a>
+            
+            <a href="laboratorium.php" class="feature-card stagger-item">
+                <div class="feature-icon icon-error">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3>Laboratorium</h3>
+                <p>Fasilitas lab untuk praktikum</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===================================
+     CAROUSEL MITRA
+     Carousel logo scrolling tak terbatas
+     Menampilkan institusi mitra (loop 2x untuk animasi mulus)
      =================================== -->
 <section class="section section-white partnership-section">
     <div class="container">
@@ -264,7 +259,7 @@ $about = $q_about->fetch_assoc();
         <div class="carousel-container reveal-on-scroll">
             <div class="carousel-track">
                 <?php
-                // Fetch partnership data
+                // Ambil data kerja sama
                 $query_kerjasama = "SELECT * FROM kerjasama ORDER BY id DESC";
                 $result_kerjasama = $conn->query($query_kerjasama);
                 $partners = [];
@@ -274,7 +269,7 @@ $about = $q_about->fetch_assoc();
                         $partners[] = $row;
                     }
                 } else {
-                    // Fallback Placeholders if no data
+                    // Placeholder cadangan jika tidak ada data
                     $partners = [
                         ['nama_instansi' => 'Google Indonesia', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg', 'link_website' => '#'],
                         ['nama_instansi' => 'Microsoft', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg', 'link_website' => '#'],
@@ -285,20 +280,20 @@ $about = $q_about->fetch_assoc();
                     ];
                 }
 
-                // Output DOUBLE loop for seamless infinite scroll
+                // Output loop GANDA untuk scroll tak terbatas yang mulus
                 for ($k = 0; $k < 2; $k++) {
                     foreach ($partners as $partner) {
                         $p_name = htmlspecialchars($partner['nama_instansi']);
                         $p_link = !empty($partner['link_website']) ? $partner['link_website'] : '#';
                         
-                        // Handle logo path
+                        // Tangani jalur logo
                         if (strpos($partner['logo'], 'http') === 0) {
                             $p_img = $partner['logo']; // Url placeholder
                         } else {
                             $p_img = 'uploads/kerjasama/' . $partner['logo'];
                         }
                         
-                        // Use Month & Year from DB
+                        // Gunakan Bulan & Tahun dari DB
                         $p_bulan = $partner['bulan'] ?? '';
                         $p_tahun = $partner['tahun'] ?? '';
                         

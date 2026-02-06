@@ -1,13 +1,13 @@
 <?php
 /**
- * Admin Dashboard - Main Overview Page
- * Clean & Modern Design
+ * Dashboard Admin - Halaman Ringkasan Utama
+ * Desain Bersih & Modern
  */
 
-// Include admin header (handles session, security, and config)
+// Sertakan header admin (menangani sesi, keamanan, dan konfigurasi)
 include 'includes/admin_header.php';
 
-// Fetch dashboard data
+// Ambil data dashboard
 $q_dosen = $conn->query("SELECT COUNT(id) as total FROM dosen");
 $total_dosen = ($q_dosen && $q_dosen->num_rows > 0) ? $q_dosen->fetch_assoc()['total'] : 0;
 
@@ -22,7 +22,7 @@ $sql_ruangan_lab = "(SELECT id FROM ruangan) UNION ALL (SELECT id FROM laborator
 $q_ruangan = $conn->query("SELECT COUNT(*) as total FROM ($sql_ruangan_lab) as gabungan");
 $total_ruangan = ($q_ruangan && $q_ruangan->num_rows > 0) ? $q_ruangan->fetch_assoc()['total'] : 0;
 
-// Get recent penelitian
+// Ambil penelitian terbaru
 $penelitian_list = [];
 $result_penelitian = $conn->query("SELECT * FROM penelitian ORDER BY tahun DESC, tanggal_mulai DESC LIMIT 5");
 if ($result_penelitian && $result_penelitian->num_rows > 0) {
@@ -31,7 +31,7 @@ if ($result_penelitian && $result_penelitian->num_rows > 0) {
     }
 }
 
-// Get recent berita
+// Ambil berita terbaru
 $berita_list = [];
 $result_berita = $conn->query("SELECT * FROM berita ORDER BY tanggal_publish DESC LIMIT 5");
 if ($result_berita && $result_berita->num_rows > 0) {
@@ -43,7 +43,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
 
 
 
-<!-- Page Banner -->
+<!-- Banner Halaman -->
 <div class="page-banner">
     <h1 class="banner-title">Selamat Datang, <?= htmlspecialchars($nama_admin) ?>! 👋</h1>
     <p class="banner-subtitle">
@@ -51,7 +51,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
     </p>
 </div>
 
-<!-- Stats Cards -->
+<!-- Kartu Statistik -->
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-icon pink">
@@ -94,10 +94,10 @@ if ($result_berita && $result_berita->num_rows > 0) {
     </div>
 </div>
 
-<!-- Recent Content -->
+<!-- Konten Terbaru -->
 <div class="dashboard-content-grid">
     
-    <!-- Recent Berita -->
+    <!-- Berita Terbaru -->
     <div class="card">
         <div class="card-header flex-between">
             <h2 class="card-title">Berita Terbaru</h2>
@@ -129,7 +129,7 @@ if ($result_berita && $result_berita->num_rows > 0) {
         </div>
     </div>
     
-    <!-- Recent Penelitian -->
+    <!-- Penelitian Terbaru -->
     <div class="card">
         <div class="card-header flex-between">
             <h2 class="card-title">Penelitian Terbaru</h2>

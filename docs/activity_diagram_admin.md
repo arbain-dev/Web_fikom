@@ -2,7 +2,7 @@
 
 Dokumen ini berisi **Activity Diagram** secara detail untuk setiap modul pengelolaan data di halaman Administrator.
 
-> **Catatan:** Diagram di bawah ini menggunakan format **Mermaid Flowchart** yang kompatibel dengan GitHub.
+> **Catatan:** Diagram di bawah ini menggunakan format **Mermaid Flowchart** yang kompatibel dengan GitHub. label teks menggunakan tanda kutip untuk mencegah error parsing.
 
 ---
 
@@ -12,18 +12,18 @@ Proses autentikasi administrator untuk masuk ke dalam sistem.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Halaman Login]
-    A --> B[/Input Username & Password/]
-    B --> C[Klik Tombol Login]
-    C --> D{Username Ada?}
-    D -- Tidak --> E[Tampilkan Pesan Error: Username tidak ditemukan]
+    Start(["Mulai"]) --> A["Buka Halaman Login"]
+    A --> B[/"Input Username & Password"/]
+    B --> C["Klik Tombol Login"]
+    C --> D{"Username Ada?"}
+    D -- Tidak --> E["Tampilkan Pesan Error: Username tidak ditemukan"]
     E --> A
-    D -- Ya --> F{Password Valid?}
-    F -- Tidak --> G[Tampilkan Pesan Error: Password salah]
+    D -- Ya --> F{"Password Valid?"}
+    F -- Tidak --> G["Tampilkan Pesan Error: Password salah"]
     G --> A
-    F -- Ya --> H[Buat Session Admin]
-    H --> I[Redirect ke Dashboard]
-    I --> End([Selesai])
+    F -- Ya --> H["Buat Session Admin"]
+    H --> I["Redirect ke Dashboard"]
+    I --> End(["Selesai"])
 ```
 
 **Penjelasan:**
@@ -41,34 +41,34 @@ Modul untuk manajemen data dosen tetap/tidak tetap, termasuk upload foto profil.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> Menu[Buka Menu Kelola Dosen]
-    Menu --> List[Tampil Daftar Dosen]
+    Start(["Mulai"]) --> Menu["Buka Menu Kelola Dosen"]
+    Menu --> List["Tampil Daftar Dosen"]
     
-    List --> Branch{Pilih Aksi}
+    List --> Branch{"Pilih Aksi"}
     
     %% Tambah
-    Branch -- Tambah Dosen --> FormAdd[Isi Form: NIDN, Nama, Prodi]
-    FormAdd --> UploadAdd[Upload Foto]
-    UploadAdd --> SimpanAdd[Klik Simpan]
-    SimpanAdd --> CekFoto{Foto Valid?}
-    CekFoto -- Ya --> SaveDB[Simpan ke Database & Upload Server]
-    CekFoto -- Tidak --> ErrVal[Tampilkan Error Validasi]
-    SaveDB --> SuksesAdd[Tampilkan Pesan Sukses]
+    Branch -- Tambah Dosen --> FormAdd["Isi Form: NIDN, Nama, Prodi"]
+    FormAdd --> UploadAdd["Upload Foto"]
+    UploadAdd --> SimpanAdd["Klik Simpan"]
+    SimpanAdd --> CekFoto{"Foto Valid?"}
+    CekFoto -- Ya --> SaveDB["Simpan ke Database & Upload Server"]
+    CekFoto -- Tidak --> ErrVal["Tampilkan Error Validasi"]
+    SaveDB --> SuksesAdd["Tampilkan Pesan Sukses"]
     
     %% Edit
-    Branch -- Edit Dosen --> FormEdit[Ubah Data Dosen]
-    FormEdit --> CekGanti{Ganti Foto?}
-    CekGanti -- Ya --> UpNew[Upload Foto Baru & Hapus Lama]
-    CekGanti -- Tidak --> Skip[Pertahankan Foto Lama]
-    UpNew --> UpdateDB[Update Database]
+    Branch -- Edit Dosen --> FormEdit["Ubah Data Dosen"]
+    FormEdit --> CekGanti{"Ganti Foto?"}
+    CekGanti -- Ya --> UpNew["Upload Foto Baru & Hapus Lama"]
+    CekGanti -- Tidak --> Skip["Pertahankan Foto Lama"]
+    UpNew --> UpdateDB["Update Database"]
     Skip --> UpdateDB
-    UpdateDB --> SuksesEdit[Tampilkan Pesan Sukses]
+    UpdateDB --> SuksesEdit["Tampilkan Pesan Sukses"]
     
     %% Hapus
-    Branch -- Hapus Dosen --> Confirm[Konfirmasi Hapus?]
-    Confirm -- Ya --> DelFile[Hapus Foto Fisik]
-    DelFile --> DelDB[Hapus Data Database]
-    DelDB --> SuksesDel[Tampilkan Pesan Sukses]
+    Branch -- Hapus Dosen --> Confirm["Konfirmasi Hapus?"]
+    Confirm -- Ya --> DelFile["Hapus Foto Fisik"]
+    DelFile --> DelDB["Hapus Data Database"]
+    DelDB --> SuksesDel["Tampilkan Pesan Sukses"]
     Confirm -- Tidak --> List
 
     SuksesAdd --> List
@@ -89,26 +89,26 @@ Modul untuk mempublikasikan berita, pengumuman, atau artikel kegiatan kampus.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Menu Kelola Berita]
-    A --> B[Tampil Tabel Berita]
-    B --> C{Pilih Aksi}
+    Start(["Mulai"]) --> A["Buka Menu Kelola Berita"]
+    A --> B["Tampil Tabel Berita"]
+    B --> C{"Pilih Aksi"}
     
     %% Tambah
-    C -- Tambah --> D[Isi Judul, Kategori, Konten]
-    D --> E[Upload Thumbnail]
-    E --> F[Klik Simpan]
-    F --> G[Insert Data & Upload File]
+    C -- Tambah --> D["Isi Judul, Kategori, Konten"]
+    D --> E["Upload Thumbnail"]
+    E --> F["Klik Simpan"]
+    F --> G["Insert Data & Upload File"]
     
     %% Edit
-    C -- Edit --> H[Update Konten / Ganti Foto]
-    H --> I[Klik Simpan Perubahan]
-    I --> J[Update Data di Database]
+    C -- Edit --> H["Update Konten / Ganti Foto"]
+    H --> I["Klik Simpan Perubahan"]
+    I --> J["Update Data di Database"]
     
     %% Hapus
-    C -- Hapus --> K[Konfirmasi Hapus]
-    K -- Ya --> L[Hapus File Foto & Data]
+    C -- Hapus --> K["Konfirmasi Hapus"]
+    K -- Ya --> L["Hapus File Foto & Data"]
     
-    G --> End([Selesai / Refresh Tabel])
+    G --> End(["Selesai / Refresh Tabel"])
     J --> End
     L --> End
 ```
@@ -126,19 +126,19 @@ Modul untuk memverifikasi data calon mahasiswa yang mendaftar secara online.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Halaman Pendaftaran]
-    A --> B[Lihat List Pendaftar Masuk]
-    B --> C{Pilih Aksi}
+    Start(["Mulai"]) --> A["Buka Halaman Pendaftaran"]
+    A --> B["Lihat List Pendaftar Masuk"]
+    B --> C{"Pilih Aksi"}
     
-    C -- Lihat Detail --> D[Popup Biodata Lengkap]
-    D --> E[Review Nilai & Berkas]
+    C -- Lihat Detail --> D["Popup Biodata Lengkap"]
+    D --> E["Review Nilai & Berkas"]
     
-    C -- Update Status --> F[Pilih Status: Diterima/Ditolak]
-    F --> G[Update Database via Ajax/Post]
-    G --> H[Warna Status Berubah]
+    C -- Update Status --> F["Pilih Status: Diterima/Ditolak"]
+    F --> G["Update Database via Ajax/Post"]
+    G --> H["Warna Status Berubah"]
     
-    C -- Hapus --> I[Konfirmasi Hapus]
-    I -- Ya --> J[Hapus File KTP/Ijazah & Data]
+    C -- Hapus --> I["Konfirmasi Hapus"]
+    I -- Ya --> J["Hapus File KTP/Ijazah & Data"]
     
     E --> B
     H --> B
@@ -157,18 +157,18 @@ Modul untuk menampilkan logo instansi yang bekerja sama dengan fakultas.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Menu Kerjasama]
-    A --> B[Klik Tambah Partner]
-    B --> C[Input Nama Instansi & Link]
-    C --> D[Input Bulan & Tahun]
-    D --> E[Upload Logo Instansi]
-    E --> F{Format Gambar Valid?}
+    Start(["Mulai"]) --> A["Buka Menu Kerjasama"]
+    A --> B["Klik Tambah Partner"]
+    B --> C["Input Nama Instansi & Link"]
+    C --> D["Input Bulan & Tahun"]
+    D --> E["Upload Logo Instansi"]
+    E --> F{"Format Gambar Valid?"}
     
-    F -- Tidak --> G[Tampilkan Error]
-    F -- Ya --> H[Upload ke Server]
-    H --> I[Simpan Data ke Database]
-    I --> J[Tampilkan Pesan Sukses]
-    J --> End([Selesai])
+    F -- Tidak --> G["Tampilkan Error"]
+    F -- Ya --> H["Upload ke Server"]
+    H --> I["Simpan Data ke Database"]
+    I --> J["Tampilkan Pesan Sukses"]
+    J --> End(["Selesai"])
 ```
 
 **Penjelasan:**
@@ -183,22 +183,22 @@ Modul *Multi-Section* yang mengelola beberapa jenis data dalam satu halaman.
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Halaman Visi Misi]
-    A --> Ops{Bagian Mana?}
+    Start(["Mulai"]) --> A["Buka Halaman Visi Misi"]
+    A --> Ops{"Bagian Mana?"}
     
-    Ops -- Visi Utama --> B[Edit Textarea Visi]
-    B --> C[Klik Simpan Visi]
-    C --> D[Update Tabel visi_misi]
+    Ops -- Visi Utama --> B["Edit Textarea Visi"]
+    B --> C["Klik Simpan Visi"]
+    C --> D["Update Tabel visi_misi"]
     
-    Ops -- Misi / Tujuan --> E[Input Text Baru]
-    E --> F[Input Nomor Urut]
-    F --> G[Klik Tambah]
-    G --> H[Insert ke Database]
+    Ops -- Misi / Tujuan --> E["Input Text Baru"]
+    E --> F["Input Nomor Urut"]
+    F --> G["Klik Tambah"]
+    G --> H["Insert ke Database"]
     
-    Ops -- Hapus Item --> I[Klik Ikon Hapus di List]
-    I --> J[Delete Item dari Database]
+    Ops -- Hapus Item --> I["Klik Ikon Hapus di List"]
+    I --> J["Delete Item dari Database"]
     
-    D --> End([Selesai])
+    D --> End(["Selesai"])
     H --> End
     J --> End
 ```
@@ -214,16 +214,16 @@ Modul umum untuk upload file (Gambar Kegiatan atau Dokumen Akademik).
 
 ```mermaid
 flowchart TD
-    Start([Mulai]) --> A[Buka Menu Galeri/Dokumen]
-    A --> B[Klik Tambah]
-    B --> C[Input Judul/Nama]
-    C --> D[Upload File (Gambar/PDF)]
-    D --> E{Ukuran Sesuai?}
+    Start(["Mulai"]) --> A["Buka Menu Galeri/Dokumen"]
+    A --> B["Klik Tambah"]
+    B --> C["Input Judul/Nama"]
+    C --> D["Upload File (Gambar/PDF)"]
+    D --> E{"Ukuran Sesuai?"}
     
-    E -- Tidak --> F[Tolak Upload]
-    E -- Ya --> G[Upload File ke Server]
-    G --> H[Simpan info ke Database]
-    H --> End([Selesai])
+    E -- Tidak --> F["Tolak Upload"]
+    E -- Ya --> G["Upload File ke Server"]
+    G --> H["Simpan info ke Database"]
+    H --> End(["Selesai"])
 ```
 
 **Penjelasan:**

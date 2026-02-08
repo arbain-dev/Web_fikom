@@ -196,14 +196,29 @@ erDiagram
     }
 
     %% Relationships
-    %% Secara teknis, tabel-tabel konten tidak memiliki Foreign Key constraint ke Users,
-    %% namun secara logika bisnis, semua tabel di bawah ini dikelola oleh Admin (Users).
+    %% Secara teknis, tabel-tabel konten tidak memiliki Foreign Key constraint ke Users
+    %% namun secara logika bisnis (CMS), Administrator mengelola seluruh konten ini.
     
     users ||--o{ berita : "mengelola"
     users ||--o{ dosen : "mengelola"
     users ||--o{ pendaftaran : "verifikasi"
     users ||--o{ penelitian : "mengelola"
     users ||--o{ pengabdian : "mengelola"
+    users ||--o{ tb_fakta : "mengelola"
+    users ||--o{ galeri : "mengelola"
+    users ||--o{ kerjasama : "mengelola"
+    users ||--o{ laboratorium : "mengelola"
+    users ||--o{ ruangan : "mengelola"
+    users ||--o{ bem_struktur : "mengelola"
+    users ||--o{ kurikulum : "mengelola"
+    users ||--o{ sop : "mengelola"
+    users ||--o{ rencana_strategis : "mengelola"
+    users ||--o{ rencana_operasional : "mengelola"
+    users ||--o{ visi_misi : "mengelola"
+    users ||--o{ tentang_fikom : "mengelola"
+    users ||--o{ hero_slider : "mengelola"
+    users ||--o{ tracer_study : "memantau"
+    users ||--o{ halaman_statis : "mengelola"
 ```
 
 ## Penjelasan Tabel
@@ -243,4 +258,7 @@ erDiagram
 *   **`tracer_study`**: Tabel ini (diinferensi dari query di `alumni.php`) digunakan untuk menyimpan data pelacakan alumni, seperti masa tunggu kerja dan gaji pertama.
 
 ## Catatan Relasi
-Dalam desain database ini, relasi antar tabel bersifat **implisit**. Aplikasi dibangun dengan logika bahwa satu atau beberapa admin mengelola seluruh konten. Tidak ada relasi *Foreign Key* yang kompleks (seperti `user_id` di setiap tabel berita) karena sistem ini didesain sebagai CMS sederhana di mana kepemilikan konten tidak dibatasi per individu admin, melainkan "Milik Fakultas".
+Dalam desain database ini, relasi antar tabel bersifat **implisit (Logika Aplikasi)**. 
+- Secara fisik (SQL), tabel-tabel konten berdiri sendiri tanpa *Foreign Key* ke tabel `users`.
+- Namun secara logis (Bisnis Proses), Administrator (`users`) memiliki kendali penuh untuk *Create, Read, Update, Delete* (CRUD) pada seluruh tabel tersebut.
+- Diagram di atas menggambarkan hubungan logika **"Administrator Mengelola Konten"** tersebut agar memudahkan pemahaman alur data dalam laporan.

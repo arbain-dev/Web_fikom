@@ -1,211 +1,267 @@
-# Activity Diagram Admin - Web FIKOM
+# Activity Diagram & Penjelasan - Admin Web FIKOM
 
-Dokumen ini berisi **Activity Diagram** untuk seluruh proses pengelolaan data di Administrator Web FIKOM. Mengingat banyaknya modul yang memiliki logika serupa (CRUD), diagram dikelompokkan berdasarkan **Pola Logika** masing-masing fitur.
+Dokumen ini berisi **Activity Diagram** secara detail untuk setiap modul pengelolaan data di halaman Administrator, dilengkapi dengan penjelasan alur sistem.
 
 ---
 
-## 1. Autentikasi Admin
+## 1. Login Admin
 
-### A. Login
-Proses masuk ke sistem admin.
+Proses autentikasi administrator untuk masuk ke dalam sistem.
 
 ```mermaid
 activityDiagram
     start
     :Buka Halaman Login;
     :Input Username & Password;
-    :Klik Login;
-    if (Username Valid?) then (TIDAK)
-        :Tampilkan "Username tidak ditemukan";
+    :Klik Tombol Login;
+    if (Username Ada?) then (TIDAK)
+        :Sistem Menampilkan Pesan Error
+        "Username tidak ditemukan";
         stop
     else (YA)
-        if (Password Valid?) then (TIDAK)
-             :Tampilkan "Password salah";
+        if (Password Cocok?) then (TIDAK)
+             :Sistem Menampilkan Pesan Error
+             "Password salah";
              stop
         else (YA)
-            :Set Session Admin;
+            :Sistem Membuat Session Admin;
             :Redirect ke Dashboard;
             stop
         endif
     endif
 ```
 
-### B. Logout
-Proses keluar dari sistem.
-
-```mermaid
-activityDiagram
-    start
-    :Klik Tombol Logout;
-    :Hapus Session;
-    :Redirect ke Login Page;
-    stop
-```
+**Penjelasan:**
+1.  Admin mengakses halaman login.
+2.  Sistem menerima input username dan password.
+3.  Sistem mengecek ketersediaan username di database.
+4.  Jika username ada, sistem memverifikasi kesesuaian password (hashed).
+5.  Jika valid, session `admin_logged_in` dibuat dan admin diarahkan ke Dashboard.
 
 ---
 
-## 2. Pola "Standard CRUD" (Create, Read, Update, Delete)
+## 2. Kelola Data Dosen
 
-**Berlaku untuk Modul:**
-*   **Kelola Berita** (`kelola_berita.php`)
-*   **Kelola Dosen** (`kelola_dosen.php`) - *Ada Upload Foto*
-*   **Kelola Kerjasama** (`kelola_kerjasama.php`) - *Ada Upload Logo*
-*   **Kelola Galeri** (`kelola_galeri.php`)
-*   **Kelola Slider** (`kelola_slider.php`)
-*   **Kelola SOP/Dokumen** (`kelola_sop.php`, `kelola_renstra.php`, `kelola_renop.php`, `kelola_kurikulum.php`, `kelola_fakta.php`, `kelola_lab.php`, `kelola_ruangan.php`, `kelola_penelitian.php`, `kelola_pengabdian.php`)
+Modul untuk manajemen data dosen tetap/tidak tetap, termasuk upload foto profil.
 
-### A. Alur Tambah Data (Create)
 ```mermaid
 activityDiagram
     start
-    :Buka Halaman Kelola [Modul];
-    :Klik Tombol "Tambah Data";
-    :Isi Form Input;
-    note right
-      (Nama, Deskripsi, Tanggal, dll)
-    end note
-    if (Ada Upload File/Foto?) then (YA)
-        :Pilih File dari Komputer;
-        :Validasi Ekstensi & Ukuran;
-        if (File Valid?) then (TIDAK)
-            :Tampilkan Error File;
-            stop
-        else (YA)
-            :Upload File ke Server;
-        endif
-    endif
-    :Simpan ke Database (INSERT);
-    :Tampilkan Pesan Sukses;
-    stop
-```
-
-### B. Alur Edit & Hapus (Update & Delete)
-```mermaid
-activityDiagram
-    start
-    :Admin melihat Tabel Data;
+    :Buka Menu "Kelola Dosen";
+    :Sistem Menampilkan Daftar Dosen;
     fork
-        :Klik Tombol **Edit**;
-        :Form terisi data lama;
-        :Ubah Data;
-        if (Upload File Baru?) then (YA)
-            :Upload File Baru;
-            :Hapus File Lama dari Server;
+        :Klik "Tambah Dosen";
+        :Isi Form (NIDN, Nama, Prodi, Foto);
+        :Klik Simpan;
+        if (Foto Valid?) then (YA)
+            :Upload Foto ke Server;
+            :Simpan Data ke Database;
+            :Tampilkan Pesan Sukses;
         else (TIDAK)
-            :Pertahankan File Lama;
+            :Tampilkan Error Validasi;
         endif
-        :Update Database (UPDATE);
+    fork again
+        :Klik "Edit" pada Data Dosen;
+        :Ubah Data (Jabatan, Pendidikan, dll);
+        if (Ganti Foto?) then (YA)
+            :Upload Foto Baru;
+            :Hapus Foto Lama;
+        endif
+        :Update Database;
         :Tampilkan Pesan Sukses;
     fork again
-        :Klik Tombol **Hapus**;
-        :Konfirmasi "Yakin Hapus?";
+        :Klik "Hapus";
+        :Konfirmasi Penghapusan;
         if (Ya) then (YES)
-            :Cek File di Server;
-            if (Ada File?) then (YA)
-                :Hapus File Fisik;
-            endif
-            :Hapus Data Database (DELETE);
-            :Tampilkan Pesan Sukses;
-        else (NO)
-            :Batal;
+            :Hapus Foto dari Server;
+            :Hapus Data dari Database;
         endif
     end fork
     stop
 ```
 
+**Penjelasan:**
+*   **Tambah**: Admin menginput NIDN, Nama, Prodi, Jabatan, dan upload Foto. Sistem memvalidasi ekstensi foto (JPG/PNG).
+*   **Edit**: Admin dapat mengubah data. Jika foto baru diupload, foto lama dihapus secara otomatis.
+*   **Hapus**: Menghapus baris data di database sekaligus file fisik foto di folder `uploads/dosen/`.
+
 ---
 
-## 3. Pola "Verifikasi & Status" (List Only)
+## 3. Kelola Berita
 
-**Berlaku untuk Modul:**
-*   **Kelola Pendaftaran** (`kelola_pendaftaran.php`)
-
-Modul ini tidak menambahkan data secara manual, melainkan menerima data dari form pendaftaran user (Mahasiswa). Admin hanya mengubah status atau menghapus.
+Modul untuk mempublikasikan berita, pengumuman, atau artikel kegiatan kampus.
 
 ```mermaid
 activityDiagram
     start
-    :Buka Halaman Pendaftaran;
-    :Lihat Tabel Pendaftar Masuk;
-    fork
-        :Klik **Lihat Detail**;
-        :Muncul Popup Biodata Lengkap;
-        :Admin Review Data;
-    fork again
-        :Ubah **Status**;
-        note right
-          Pending -> Diterima / Ditolak
-        end note
-        :Otomatis Update Database (Ajax/Form);
-        :Warna Status Berubah;
-    fork again
-        :Klik **Hapus**;
-        :Konfirmasi Hapus;
-        if (Ya) then (YES)
-            :Hapus File (KTP/Ijazah);
-            :Hapus Data Pendaftar;
-        endif
-    end fork
-    stop
-```
-
----
-
-## 4. Pola "Single Page Update" (Satu Data)
-
-**Berlaku untuk Modul:**
-*   **Kelola Struktur Organisasi** (`kelola_struktur.php`)
-*   **Kelola Tentang Fakultas** (`kelola_tentangfak.php`)
-
-Halaman ini hanya mengelola satu baris data (atau satu file) yang terus diperbarui.
-
-```mermaid
-activityDiagram
-    start
-    :Buka Halaman Kelola;
-    :Sistem Load Data Saat Ini;
-    :Admin Mengubah Konten / Upload Gambar Baru;
-    :Klik Tombol **Simpan / Update**;
-    :Update Database (UPDATE WHERE...);
-    if (Ada Gambar Baru?) then (YA)
-        :Hapus Gambar Lama;
-        :Simpan Gambar Baru;
+    :Buka Menu "Kelola Berita";
+    :Tampil Tabel Berita;
+    if (Aksi Admin?) then (TAMBAH)
+        :Klik "Tambah Berita";
+        :Isi Judul, Kategori, Konten, Foto;
+        :Simpan;
+        :Sistem Upload Foto & Insert Data;
+    else (EDIT)
+        :Pilih Berita -> Klik Edit;
+        :Update Konten / Ganti Foto;
+        :Simpan Perubahan;
+    else (HAPUS)
+        :Pilih Berita -> Klik Hapus;
+        :Konfirmasi;
+        :Hapus Data & Foto;
     endif
-    :Reload Halaman dengan Data Baru;
+    :Refresh Tabel Data;
     stop
 ```
 
+**Penjelasan:**
+*   Admin wajib mengisi Judul, Kategori, dan Tanggal Publish.
+*   Konten berita dapat berupa teks panjang.
+*   Foto yang diupload akan menjadi *thumbnail* berita di halaman depan.
+
 ---
 
-## 5. Pola "Multi-Section Management"
+## 4. Kelola Pendaftaran Mahasiswa
 
-**Berlaku untuk Modul:**
-*   **Kelola Visi Misi** (`kelola_visimisi.php`)
-
-Modul ini memiliki beberapa bagian dalam satu halaman (Visi [Single], Misi [List], Tujuan [List], Sasaran [List]).
+Modul untuk memverifikasi data calon mahasiswa yang mendaftar secara online.
 
 ```mermaid
 activityDiagram
     start
-    :Buka Halaman Visi Misi;
+    :Buka Menu "Pendaftaran";
+    :Sistem Menampilkan List Pendaftar Masuk;
+    :Pilih Salah Satu Pendaftar;
     fork
-        :Edit **Visi** (Textarea);
-        :Klik Simpan Visi;
-        :Update Tabel Visi;
+        :Klik "Lihat Detail";
+        :Sistem Menampilkan Biodata Lengkap
+        (Data Diri, Sekolah, Nilai);
     fork again
-        :Tambah **Misi/Tujuan/Sasaran**;
-        :Isi Text & Urutan;
+        :Ubah Status Pendaftaran;
+        note right
+          Pilihan: Pending, Diterima, Ditolak
+        end note
+        :Sistem Mengupdate Status di Database;
+        :Warna Status Berubah di Tabel;
+    fork again
+        :Hapus Data Pendaftar;
+        :Sistem Menghapus File KTP & Ijazah;
+        :Hapus Record Database;
+    end fork
+    stop
+```
+
+**Penjelasan:**
+*   Admin **tidak menginput** data, melainkan **memproses** data yang masuk dari form pendaftaran publik.
+*   Fokus utama aktivitas adalah **Verifikasi** (Melihat Bukti Nilai/Ijazah) dan **Update Status** (Diterima/Ditolak).
+
+---
+
+## 5. Kelola Kerjasama (Partner)
+
+Modul untuk menampilkan logo instansi yang bekerja sama dengan fakultas.
+
+```mermaid
+activityDiagram
+    start
+    :Buka Menu "Kerjasama";
+    :Klik "Tambah Partner";
+    :Input Nama Instansi & Link Website;
+    :Input Bulan & Tahun Kerjasama;
+    :Upload Logo Instansi;
+    if (Format Logo Valid?) then (YA)
+        :Upload File ke `uploads/kerjasama`;
+        :Simpan Data;
+        :Tampilkan Pesan Sukses;
+    else (TIDAK)
+        :Tampilkan Error;
+    endif
+    stop
+```
+
+**Penjelasan:**
+*   Digunakan untuk menampilkan logo mitra di footer atau halaman kerjasama.
+*   Validasi file gambar sangat penting agar tampilan logo rapi.
+
+---
+
+## 6. Kelola Visi, Misi, & Tujuan
+
+Modul *Multi-Section* yang mengelola beberapa jenis data dalam satu halaman.
+
+```mermaid
+activityDiagram
+    start
+    :Buka Halaman "Visi Misi";
+    partition "Kelola Visi" {
+        :Edit Textarea Visi;
+        :Klik Simpan Visi;
+        :Update Tabel `visi_misi` (Kategori='Visi');
+    }
+    partition "Kelola Misi/Tujuan" {
+        :Input Teks Misi & Nomor Urut;
         :Klik Tambah;
         :Insert ke Database;
-    fork again
-        :Hapus **Misi/Tujuan/Sasaran**;
-        :Klik Tombol Hapus di Tabel;
-        :Delete dari Database;
-    end fork
-    :Tampilkan Notifikasi Sukses;
+    }
+    partition "Hapus Item" {
+        :Klik Ikon Hapus pada Item Misi/Tujuan;
+        :Konfirmasi;
+        :Delete Item dari Database;
+    }
     stop
 ```
 
+**Penjelasan:**
+*   Halaman ini unik karena menggabungkan form update tunggal (untuk Visi) dan list CRUD (untuk Misi/Tujuan) dalam satu tampilan.
+
 ---
-**Catatan:**
-Diagram ini mencakup logika teknis dari seluruh file PHP di folder `/admin` proyek Web FIKOM. Pengecekan sesi (`session_start` dan `!isset($_SESSION)`) dilakukan di awal setiap proses (Start Node).
+
+## 7. Kelola Galeri & Slider (Media)
+
+Modul sederhana untuk menampilkan gambar kegiatan atau banner utama.
+
+```mermaid
+activityDiagram
+    start
+    :Buka Menu Galeri / Slider;
+    :Klik Tambah Gambar;
+    :Isi Judul/Caption (Opsional);
+    :Upload File Gambar;
+    :Simpan;
+    note right
+      File masuk ke `uploads/galeri`
+      atau `uploads/slider`
+    end note
+    :Data Muncul di Tabel;
+    stop
+```
+
+**Penjelasan:**
+*   Fokus pada manajemen aset visual.
+*   Slider digunakan untuk *Hero Section* di beranda utama.
+*   Galeri digunakan untuk halaman dokumentasi kegiatan.
+
+---
+
+## 8. Kelola Dokumen (SOP, Renstra, Kurikulum)
+
+Modul untuk mengupload file PDF/Dokumen yang bisa didownload pengunjung.
+
+```mermaid
+activityDiagram
+    start
+    :Buka Menu Kelola Dokumen (SOP/Renstra);
+    :Klik Tambah Dokumen;
+    :Input Nama Dokumen;
+    :Upload File (PDF/DOC);
+    if (Ukuran File < 10MB?) then (YA)
+        :Upload Sukses;
+        :Simpan Info File ke Database;
+    else (TIDAK)
+        :Tolak Upload (File Terlalu Besar);
+    endif
+    stop
+```
+
+**Penjelasan:**
+*   Mengelola file-file akademik seperti Standar Operasional Prosedur (SOP), Rencana Strategis (Renstra), dan Kurikulum.
+*   File yang diupload bisa didownload oleh publik di menu "Penjaminan Mutu" atau "Akademik".

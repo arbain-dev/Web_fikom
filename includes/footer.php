@@ -24,13 +24,11 @@
 
             <!-- Quick Links -->
             <div>
-                <h4 class="footer-title-modern">Quick Links</h4>
+                <h4 class="footer-title-modern">Tautan Penting</h4>
                 <ul class="footer-links-modern">
-                    <li><a href="visi-misi.php"><i class="fas fa-chevron-right text-xs"></i> Visi & Misi</a></li>
-                    <li><a href="dosen.php"><i class="fas fa-chevron-right text-xs"></i> Dosen</a></li>
-                    <li><a href="kurikulum.php"><i class="fas fa-chevron-right text-xs"></i> Kurikulum</a></li>
-                    <li><a href="kalender.php"><i class="fas fa-chevron-right text-xs"></i> Kalender Akademik</a></li>
-                    <li><a href="pendaftaran.php"><i class="fas fa-chevron-right text-xs"></i> Pendaftaran Mahasiswa</a></li>
+                    <li><a href="https://www.unisan-sidrap.ac.id/"><i class="fas fa-chevron-right text-xs"></i> Unisan Sidrap</a></li>
+                    <li><a href="https://www.siakad.unisan-sidrap.ac.id/"><i class="fas fa-chevron-right text-xs"></i> Sistem Akademik</a></li>
+                    <li><a href="pendaftaran"><i class="fas fa-chevron-right text-xs"></i> Pendaftaran Mahasiswa</a></li>
                 </ul>
             </div>
 
@@ -38,8 +36,8 @@
             <div>
                 <h4 class="footer-title-modern">Program Studi</h4>
                 <ul class="footer-links-modern">
-                    <li><a href="index_ti.php"><i class="fas fa-laptop-code text-xs"></i> S1 Informatika</a></li>
-                    <li><a href="index_pti.php"><i class="fas fa-chalkboard-teacher text-xs"></i> S1 Pend. Teknologi Informasi</a></li>
+                    <li><a href="informatika"><i class="fas fa-laptop-code text-xs"></i> S1 Informatika</a></li>
+                    <li><a href="pendidikan_teknologi_informasi"><i class="fas fa-chalkboard-teacher text-xs"></i> S1 Pend. Teknologi Informasi</a></li>
                 </ul>
             </div>
 
@@ -56,7 +54,7 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom-modern">
-            <p>&copy; <?= date('Y') ?> Muhammad Arbain. All Rights Reserved. | <a href="#" style="color: inherit; text-decoration: underline;">Privacy Policy</a></p>
+            <p>&copy; <?= date('Y') ?> Muhammad Arbain. All Rights Reserved. | <a href="privacy" style="color: inherit; text-decoration: underline;">Privacy Policy</a></p>
         </div>
     </div>
 </footer>

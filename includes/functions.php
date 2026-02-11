@@ -1,11 +1,11 @@
 <?php
 /**
- * Helper Functions
- * Utility functions used throughout the application
+ * Fungsi Bantuan
+ * Fungsi utilitas yang digunakan di seluruh aplikasi
  */
 
 /**
- * Sanitize input to prevent XSS attacks
+ * Bersihkan input untuk mencegah serangan XSS
  */
 function sanitize_input($data) {
     if (is_array($data)) {
@@ -18,7 +18,7 @@ function sanitize_input($data) {
 }
 
 /**
- * Format date to Indonesian format
+ * Format tanggal ke format Indonesia
  */
 function format_date_indo($date, $include_time = false) {
     $bulan = [
@@ -42,7 +42,7 @@ function format_date_indo($date, $include_time = false) {
 }
 
 /**
- * Generate slug from string
+ * Buat slug dari string
  */
 function create_slug($string) {
     $string = strtolower($string);
@@ -53,7 +53,7 @@ function create_slug($string) {
 }
 
 /**
- * Truncate text with ellipsis
+ * Potong teks dengan ellipsis
  */
 function truncate_text($text, $length = 100, $ellipsis = '...') {
     if (strlen($text) <= $length) {
@@ -63,34 +63,34 @@ function truncate_text($text, $length = 100, $ellipsis = '...') {
 }
 
 /**
- * Handle file upload with validation
+ * Tangani unggahan file dengan validasi
  */
 function handle_upload($file, $upload_dir, $allowed_types = null) {
     if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
         return ['success' => false, 'message' => 'File upload error'];
     }
     
-    // Validate file type
+    // Validasi tipe file
     if ($allowed_types && !in_array($file['type'], $allowed_types)) {
         return ['success' => false, 'message' => 'File type not allowed'];
     }
     
-    // Validate file size
+    // Validasi ukuran file
     if (defined('MAX_FILE_SIZE') && $file['size'] > MAX_FILE_SIZE) {
         return ['success' => false, 'message' => 'File size too large'];
     }
     
-    // Generate unique filename
+    // Buat nama file unik
     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
     $filename = uniqid() . '_' . time() . '.' . $extension;
     $filepath = $upload_dir . '/' . $filename;
     
-    // Create directory if not exists
+    // Buat direktori jika belum ada
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);
     }
     
-    // Move uploaded file
+    // Pindahkan file yang diunggah
     if (move_uploaded_file($file['tmp_name'], $filepath)) {
         return ['success' => true, 'filename' => $filename, 'filepath' => $filepath];
     }
@@ -99,7 +99,7 @@ function handle_upload($file, $upload_dir, $allowed_types = null) {
 }
 
 /**
- * Get active menu class
+ * Ambil kelas menu aktif
  */
 function is_active_menu($page_name) {
     $current_page = basename($_SERVER['PHP_SELF']);
@@ -107,14 +107,14 @@ function is_active_menu($page_name) {
 }
 
 /**
- * Check if user is logged in (admin)
+ * Cek apakah pengguna sudah login (admin)
  */
 function is_logged_in() {
     return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
 }
 
 /**
- * Redirect to URL
+ * Alihkan ke URL
  */
 function redirect($url) {
     header("Location: $url");
@@ -122,7 +122,7 @@ function redirect($url) {
 }
 
 /**
- * Get time ago format
+ * Dapatkan format "waktu yang lalu"
  */
 function time_ago($datetime) {
     $timestamp = strtotime($datetime);
@@ -145,14 +145,14 @@ function time_ago($datetime) {
 }
 
 /**
- * Format number in Indonesian style
+ * Format angka gaya Indonesia
  */
 function format_number_indo($number) {
     return number_format($number, 0, ',', '.');
 }
 
 /**
- * Generate random string
+ * Buat string acak
  */
 function generate_random_string($length = 10) {
     return bin2hex(random_bytes($length / 2));

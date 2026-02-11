@@ -1,5 +1,5 @@
 <?php
-// File: proses_login.php
+// File: proses_login
 // (Legacy/Backup Login Processor)
 
 // 1. TAMPILKAN ERROR
@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 session_start();
 
 // 3. KONEKSI KE DATABASE (PERBAIKANNYA DI SINI)
-// Panggil file koneksi.php yang ada di folder yang sama
+// Panggil file koneksi yang ada di folder yang sama
 require_once '../config/database.php'; 
 
 // 4. CEK JIKA FORM SUDAH DI-SUBMIT
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 6. VALIDASI DASAR (Cek jika ada yang kosong)
     if (empty($username) || empty($password) || empty($role)) {
-        header("location: login.php?status=kosong");
+        header("location: login?status=kosong");
         exit;
     }
 
@@ -38,17 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($role == 'admin') {
         $tabel       = "users";
         $kolom_user  = "username"; // Kolom untuk username admin
-        $dashboard   = "dashboard.php"; // Halaman dashboard admin
+        $dashboard   = "dashboard"; // Halaman dashboard admin
     } elseif ($role == 'dosen') {
         $tabel       = "tb_dosen";
         $kolom_user  = "nidn";     // Kolom untuk NIDN dosen
-        $dashboard   = "dashboard_dosen.php"; // Halaman dashboard dosen
+        $dashboard   = "dashboard_dosen"; // Halaman dashboard dosen
     } elseif ($role == 'mahasiswa') {
         $tabel       = "tb_mahasiswa";
         $kolom_user  = "nim";      // Kolom untuk NIM mahasiswa
-        $dashboard   = "dashboard_mahasiswa.php"; // Halaman dashboard mhs
+        $dashboard   = "dashboard_mahasiswa"; // Halaman dashboard mhs
     } else {
-        header("location: login.php?status=gagal");
+        header("location: login?status=gagal");
         exit;
     }
 
@@ -87,13 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
             } else {
                 // Password salah
-                header("location: login.php?status=gagal");
+                header("location: login?status=gagal");
                 exit;
             }
 
         } else {
             // User tidak ditemukan
-            header("location: login.php?status=gagal");
+            header("location: login?status=gagal");
             exit;
         }
 
@@ -106,7 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
     // Jika file diakses langsung (bukan via POST)
-    // header("location: login.php");
+    // header("location: login");
     exit;
 }
 ?>
+

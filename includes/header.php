@@ -19,6 +19,7 @@ function isParentActive($pages, $currentPage) {
 // Page title mapping
 $pageTitles = [
     'index.php' => 'Beranda',
+    'sambutan.php' => 'Sambutan Dekan',
     'alumni.php' => 'Tracer Study Alumni',
     'bem.php' => 'Struktur BEM',
     'dosen.php' => 'Dosen',
@@ -38,6 +39,7 @@ $pageTitles = [
     'rencana_strategis.php' => 'Rencana Strategis',
     'sop.php' => 'SOP',
     'pendaftaran.php' => 'Pendaftaran Mahasiswa Baru',
+    'galeri.php' => 'Galeri Kegiatan',
 ];
 
 $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
@@ -68,8 +70,8 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
 <nav class="navbar" id="navbar">
     <div class="navbar-container">
         <!-- Logo -->
-        <a href="index.php" class="navbar-logo">
-            <img src="assets/img/pp.png" alt="Logo FIKOM">
+        <a href="<?= BASE_URL ?>" class="navbar-logo">
+            <img src="<?= BASE_URL ?>/assets/img/pp.png" alt="Logo FIKOM">
             <span>FIKOM</span>
         </a>
 
@@ -81,28 +83,29 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
         <!-- Navigation Menu -->
         <ul class="nav-menu" id="navMenu">
             <!-- Profil Dropdown -->
-            <li class="nav-item <?= isParentActive(['visi-misi.php', 'dosen.php', 'struktur.php'], $currentPage) ?>">
+            <li class="nav-item <?= isParentActive(['sambutan.php', 'visi-misi.php', 'dosen.php', 'struktur.php'], $currentPage) ?>">
                 <a href="#" class="nav-link">
                     Profil
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="visi-misi.php" class="nav-dropdown-item <?= isActive('visi-misi.php', $currentPage) ?>">Visi & Misi</a></li>
-                    <li><a href="dosen.php" class="nav-dropdown-item <?= isActive('dosen.php', $currentPage) ?>">Dosen</a></li>
-                    <li><a href="struktur.php" class="nav-dropdown-item <?= isActive('struktur.php', $currentPage) ?>">Struktur Organisasi</a></li>
-                    <li><a href="pendaftaran.php" class="nav-dropdown-item <?= isActive('pendaftaran.php', $currentPage) ?>">Pendaftaran</a></li>
+                    <li><a href="sambutan" class="nav-dropdown-item <?= isActive('sambutan.php', $currentPage) ?>">Sambutan Dekan</a></li>
+                    <li><a href="visi-misi" class="nav-dropdown-item <?= isActive('visi-misi.php', $currentPage) ?>">Visi & Misi</a></li>
+                    <li><a href="dosen" class="nav-dropdown-item <?= isActive('dosen.php', $currentPage) ?>">Dosen</a></li>
+                    <li><a href="struktur" class="nav-dropdown-item <?= isActive('struktur.php', $currentPage) ?>">Struktur Organisasi</a></li>
+                    <li><a href="pendaftaran" class="nav-dropdown-item <?= isActive('pendaftaran.php', $currentPage) ?>">Pendaftaran</a></li>
                 </ul>
             </li>
 
             <!-- Program Studi Dropdown -->
-            <li class="nav-item <?= isParentActive(['index_ti.php', 'index_pti.php'], $currentPage) ?>">
+            <li class="nav-item <?= isParentActive(['informatika.php', 'pendidikan_teknologi_informasi.php'], $currentPage) ?>">
                 <a href="#" class="nav-link">
                     Program Studi
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="index_ti.php" class="nav-dropdown-item <?= isActive('index_ti.php', $currentPage) ?>">Informatika</a></li>
-                    <li><a href="index_pti.php" class="nav-dropdown-item <?= isActive('index_pti.php', $currentPage) ?>">Pend. Teknologi Informasi</a></li>
+                    <li><a href="informatika" class="nav-dropdown-item <?= isActive('informatika.php', $currentPage) ?>">Informatika</a></li>
+                    <li><a href="pendidikan_teknologi_informasi" class="nav-dropdown-item <?= isActive('pendidikan_teknologi_informasi.php', $currentPage) ?>">Pend. Teknologi Informasi</a></li>
                 </ul>
             </li>
 
@@ -113,8 +116,8 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="ruangan.php" class="nav-dropdown-item <?= isActive('ruangan.php', $currentPage) ?>">Ruangan</a></li>
-                    <li><a href="laboratorium.php" class="nav-dropdown-item <?= isActive('laboratorium.php', $currentPage) ?>">Laboratorium</a></li>
+                    <li><a href="ruangan" class="nav-dropdown-item <?= isActive('ruangan.php', $currentPage) ?>">Sarana dan Prasarana</a></li>
+                    <li><a href="laboratorium" class="nav-dropdown-item <?= isActive('laboratorium.php', $currentPage) ?>">Laboratorium</a></li>
                 </ul>
             </li>
 
@@ -125,8 +128,8 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="kurikulum.php" class="nav-dropdown-item <?= isActive('kurikulum.php', $currentPage) ?>">Kurikulum</a></li>
-                    <li><a href="kalender.php" class="nav-dropdown-item <?= isActive('kalender.php', $currentPage) ?>">Kalender Akademik</a></li>
+                    <li><a href="kurikulum" class="nav-dropdown-item <?= isActive('kurikulum.php', $currentPage) ?>">Kurikulum</a></li>
+                    <li><a href="kalender" class="nav-dropdown-item <?= isActive('kalender.php', $currentPage) ?>">Kalender Akademik</a></li>
                 </ul>
             </li>
 
@@ -137,9 +140,9 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="rencana_operasional.php" class="nav-dropdown-item <?= isActive('rencana_operasional.php', $currentPage) ?>">Rencana Operasional</a></li>
-                    <li><a href="rencana_strategis.php" class="nav-dropdown-item <?= isActive('rencana_strategis.php', $currentPage) ?>">Rencana Strategis</a></li>
-                    <li><a href="sop.php" class="nav-dropdown-item <?= isActive('sop.php', $currentPage) ?>">Standar Operasional Prosedur</a></li>
+                    <li><a href="rencana_operasional" class="nav-dropdown-item <?= isActive('rencana_operasional.php', $currentPage) ?>">Rencana Operasional</a></li>
+                    <li><a href="rencana_strategis" class="nav-dropdown-item <?= isActive('rencana_strategis.php', $currentPage) ?>">Rencana Strategis</a></li>
+                    <li><a href="sop" class="nav-dropdown-item <?= isActive('sop.php', $currentPage) ?>">Standar Operasional Prosedur</a></li>
                 </ul>
             </li>
 
@@ -150,8 +153,8 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="penelitian.php" class="nav-dropdown-item <?= isActive('penelitian.php', $currentPage) ?>">Penelitian</a></li>
-                    <li><a href="pengabdian.php" class="nav-dropdown-item <?= isActive('pengabdian.php', $currentPage) ?>">Pengabdian</a></li>
+                    <li><a href="penelitian" class="nav-dropdown-item <?= isActive('penelitian.php', $currentPage) ?>">Penelitian</a></li>
+                    <li><a href="pengabdian" class="nav-dropdown-item <?= isActive('pengabdian.php', $currentPage) ?>">Pengabdian</a></li>
                 </ul>
             </li>
 
@@ -162,15 +165,20 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="bem.php" class="nav-dropdown-item <?= isActive('bem.php', $currentPage) ?>">BEM</a></li>
-                    <li><a href="berita-ukm.php" class="nav-dropdown-item <?= isActive('berita-ukm.php', $currentPage) ?>">UKM</a></li>
-                    <li><a href="himpunan_mahasiswa.php" class="nav-dropdown-item <?= isActive('himpunan_mahasiswa.php', $currentPage) ?>">Himpunan</a></li>
+                    <li><a href="bem" class="nav-dropdown-item <?= isActive('bem.php', $currentPage) ?>">BEM</a></li>
+                    <li><a href="berita-ukm" class="nav-dropdown-item <?= isActive('berita-ukm.php', $currentPage) ?>">UKM</a></li>
+                    <li><a href="himpunan_mahasiswa" class="nav-dropdown-item <?= isActive('himpunan_mahasiswa.php', $currentPage) ?>">Himpunan</a></li>
                 </ul>
+            </li>
+
+            <!-- Galeri (No Dropdown) -->
+            <li class="nav-item <?= isActive('galeri.php', $currentPage) ?>">
+                <a href="galeri" class="nav-link">Galeri</a>
             </li>
 
             <!-- Alumni (No Dropdown) -->
             <li class="nav-item <?= isActive('alumni.php', $currentPage) ?>">
-                <a href="alumni.php" class="nav-link">Alumni</a>
+                <a href="alumni" class="nav-link">Alumni</a>
             </li>
         </ul>
     </div>

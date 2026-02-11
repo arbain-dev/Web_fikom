@@ -382,6 +382,19 @@ body {
     padding: var(--space-8);
     width: 100%;
     margin: 0 auto;
+    flex: 1;
+    /* Pushes footer down */
+}
+
+.admin-footer {
+    padding: var(--space-6);
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    margin-top: auto;
+    /* Double ensure it stays at bottom */
 }
 
 /* =========================================

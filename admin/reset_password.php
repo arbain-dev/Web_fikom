@@ -3,9 +3,9 @@ session_start();
 require_once '../config/database.php';
 require_once '../config/constants.php';
 
-// Security check: Must have come from forgot_password verification
+// Cek Keamanan: Harus berasal dari verifikasi lupa password
 if (!isset($_SESSION['allow_reset_password']) || !isset($_SESSION['reset_user_id'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
@@ -37,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Redirect with success flag (or handle message on login page if query params supported)
             // For now, simpler to show a success page or redirect with a script alert? 
             // Better: Redirect to login and maybe login logic can show message? 
-            // Current login.php doesn't handle success msgs from GET params well (only shows errors).
-            // I will update login.php later or just assume user knows. 
+            // Current login doesn't handle success msgs from GET params well (only shows errors).
+            // I will update login later or just assume user knows. 
             // Let's create a simple success view here before redirecting or show a link.
             $success = "Password berhasil diubah. Silakan login kembali using password baru.";
             // Auto redirect after 3 seconds
-            header("refresh:3;url=login.php");
+            header("refresh:3;url=login");
         } else {
             $error = "Terjadi kesalahan saat mengupdate password. Silakan coba lagi.";
         }
@@ -121,3 +121,4 @@ function togglePassword(inputId, iconId) {
 
 </body>
 </html>
+

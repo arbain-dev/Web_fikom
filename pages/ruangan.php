@@ -14,8 +14,8 @@ $result = $conn->query($query);
 
 <!-- Page Header -->
 <header class="page-header-section">
-    <div class="container reveal-on-scroll">
-        <h1 class="page-title">Sarana dan Prasarana</h1>
+    <div class="container">
+        <h1 class="page-title">Ruangan Kelas & Fasilitas</h1>
         <p class="page-subtitle">Fasilitas pendukung kegiatan belajar mengajar</p>
     </div>
 </header>

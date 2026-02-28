@@ -9,28 +9,29 @@ Dokumen ini berisi activity diagram untuk alur pengguna pada tampilan publik web
 Diagram ini menggambarkan bagaimana pengunjung berinteraksi dengan website mulai dari halaman utama hingga menelusuri berbagai menu informasi yang tersedia.
 
 ```mermaid
-activityDiagram
-    start
-    :Pengunjung membuka URL Website;
-    :Sistem menampilkan Halaman Beranda;
+flowchart TD
+    Start([Start]) --> OpenURL[Pengunjung membuka URL Website]
+    OpenURL --> ShowHome[Sistem menampilkan Halaman Beranda]
     
-    if (Ingin melihat profil?) then (Ya)
-        :Pilih Menu Profil;
-        :Sistem menampilkan (Sambutan/Visi-Misi/Dosen/Struktur);
-    else if (Ingin melihat Akademik?) then (Ya)
-        :Pilih Menu Akademik/Prodi;
-        :Sistem menampilkan (Kurikulum/Program Studi/Kalender);
-    else if (Mencari Berita Terbaru?) then (Ya)
-        :Scroll ke bagian Berita / Pilih Menu Berita;
-        :Klik pada salah satu Judul Berita;
-        :Sistem menampilkan Halaman Detail Berita;
-    else if (Ingin Mendaftar?) then (Ya)
-        :Klik tombol Pendaftaran / Pilih Menu Pendaftaran;
-        :Sistem menampilkan Form Pendaftaran;
-    endif
+    ShowHome --> Choice{Ingin apa?}
     
-    :Pengunjung membaca informasi;
-    stop
+    Choice -- "Melihat Profil" --> Profil[Pilih Menu Profil]
+    Profil --> ShowProfil[Sistem menampilkan Sambutan/Visi-Misi/Dosen/Struktur]
+    
+    Choice -- "Akademik" --> Akad[Pilih Menu Akademik/Prodi]
+    Akad --> ShowAkad[Sistem menampilkan Kurikulum/Program Studi/Kalender]
+    
+    Choice -- "Berita" --> Berita[Scroll ke bagian Berita / Pilih Menu Berita]
+    Berita --> ClickBerita[Klik pada salah satu Judul Berita]
+    ClickBerita --> ShowDetail[Sistem menampilkan Halaman Detail Berita]
+    
+    Choice -- "Mendaftar" --> Daftar[Klik tombol Pendaftaran / Pilih Menu Pendaftaran]
+    Daftar --> ShowForm[Sistem menampilkan Form Pendaftaran]
+    
+    ShowProfil --> End([End])
+    ShowAkad --> End
+    ShowDetail --> End
+    ShowForm --> End
 ```
 
 ### Penjelasan Diagram Navigasi Umum:
@@ -50,29 +51,23 @@ activityDiagram
 Diagram ini merinci proses teknis saat calon mahasiswa melakukan pendaftaran online melalui form yang tersedia.
 
 ```mermaid
-activityDiagram
-    start
-    :Pengunjung membuka Halaman Pendaftaran;
-    :Sistem menampilkan Form Pendaftaran & CSRF Token;
+flowchart TD
+    Start([Start]) --> OpenPendaftaran[Pengunjung membuka Halaman Pendaftaran]
+    OpenPendaftaran --> ShowForm[Sistem menampilkan Form Pendaftaran & CSRF Token]
     
-    repeat
-        :Pengguna mengisi data diri (Nama, NIK, Email, HP, dll);
-        :Pengguna memilih Program Studi & Jalur Masuk;
-        :Pengguna mengunggah dokumen (KTP/Ijazah) - Opsional;
-        :Klik tombol "Kirim Pendaftaran";
-        
-        if (Data lengkap & Valid?) then (Ya)
-            :Sistem memvalidasi CSRF & Keamanan File;
-            :Sistem menyimpan data ke Database;
-            :Sistem menampilkan Pesan Sukses;
-        else (Tidak)
-            :Sistem menampilkan Pesan Error (Data tidak lengkap);
-        endif
-    backward :Perbaiki data;
-    until (Pendaftaran Berhasil)
+    ShowForm --> InputData[Pengguna mengisi data diri & unggah dokumen]
+    InputData --> ClickSubmit[Klik tombol Kirim Pendaftaran]
     
-    :Admin menerima data & Menghubungi pendaftar;
-    stop
+    ClickSubmit --> Validation{Data Lengkap & Valid?}
+    
+    Validation -- "Ya" --> SaveData[Sistem memvalidasi & simpan ke Database]
+    SaveData --> SuccessMsg[Sistem menampilkan Pesan Sukses]
+    SuccessMsg --> AdminProcess[Admin menerima data & Menghubungi pendaftar]
+    AdminProcess --> End([End])
+    
+    Validation -- "Tidak" --> ErrorMsg[Sistem menampilkan Pesan Error]
+    ErrorMsg --> FixData[Perbaiki data]
+    FixData --> InputData
 ```
 
 ### Penjelasan Diagram Pendaftaran:
@@ -92,29 +87,27 @@ activityDiagram
 Diagram ini menjelaskan alur sistem saat pengguna mencari dan membaca detail berita atau informasi riset.
 
 ```mermaid
-activityDiagram
-    start
-    :Pengguna membuka Halaman Berita;
-    :Sistem mengambil daftar berita dari Database;
-    :Sistem menampilkan Grid Kartu Berita;
+flowchart TD
+    Start([Start]) --> OpenBerita[Pengguna membuka Halaman Berita]
+    OpenBerita --> FetchNews[Sistem mengambil daftar berita dari Database]
+    FetchNews --> ShowGrid[Sistem menampilkan Grid Kartu Berita]
     
-    :Pengguna memilih/klik berita tertentu;
-    :Sistem mengirim ID Berita via URL (GET);
+    ShowGrid --> ClickNews[Pengguna memilih/klik berita tertentu]
+    ClickNews --> SendID[Sistem mengirim ID Berita via URL]
     
-    :Sistem mencari detail berita berdasarkan ID;
-    if (Berita ditemukan?) then (Ya)
-        :Sistem menampilkan Halaman Detail Berita;
-        :Sistem mengambil berita terkait/terbaru untuk Sidebar;
-    else (Tidak)
-        :Sistem mengalihkan kembali ke Daftar Berita;
-    endif
+    SendID --> CheckID{Berita ditemukan?}
     
-    if (Ingin membagikan?) then (Ya)
-        :Klik tombol Share (FB/WA/Twitter);
-        :Membuka URL Share Platform terkait;
-    endif
+    CheckID -- "Ya" --> ShowDetail[Sistem menampilkan Halaman Detail Berita]
+    ShowDetail --> Sidebar[Sistem mengambil berita terkait untuk Sidebar]
     
-    stop
+    CheckID -- "Tidak" --> Redirect[Sistem mengalihkan kembali ke Daftar Berita]
+    
+    Sidebar --> Share{Ingin membagikan?}
+    Share -- "Ya" --> OpenShare[Membuka URL Share Platform]
+    OpenShare --> End([End])
+    
+    Share -- "Tidak" --> End
+    Redirect --> End
 ```
 
 ### Penjelasan Diagram Penemuan Konten:

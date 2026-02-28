@@ -118,3 +118,113 @@ flowchart TD
     *   Jika valid, konten lengkap berita ditampilkan beserta gambar dan meta data.
     *   Jika ID tidak valid atau berita dihapus, sistem secara otomatis melakukan redirect demi kenyamanan pengguna.
 4.  **Fitur Tambahan**: Pengguna dapat langsung membagikan konten ke media sosial atau melihat berita populer lainnya di bagian sidebar.
+
+---
+
+## 4. Diagram Profil & Struktur (Profile & Structure)
+
+Diagram ini menggambarkan bagaimana pengguna mengakses informasi profil kepemimpinan dan data dosen.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenMenuProfil[Pengguna membuka Menu Profil]
+    OpenMenuProfil --> SelectSubMenu{Pilih Sub-Menu}
+    
+    SelectSubMenu -- "Sambutan Dekan" --> Sambutan[Tampilkan Sambutan Dekan]
+    SelectSubMenu -- "Visi-Misi" --> VisiMisi[Tampilkan Visi, Misi, Tujuan & Sasaran]
+    SelectSubMenu -- "Data Dosen" --> Dosen[Tampilkan Direktori Dosen dari DB]
+    SelectSubMenu -- "Struktur Orgn." --> Struktur[Tampilkan Bagan Organisasi]
+    
+    Sambutan --> End([End])
+    VisiMisi --> End
+    Dosen --> End
+    Struktur --> End
+```
+
+### Penjelasan:
+- **Data Dosen**: Sistem mengambil data profil dosen secara dinamis dari database untuk memastikan informasi keahlian dan riwayat pendidikan selalu mutakhir.
+- **Visi & Misi**: Menampilkan landasan strategis fakultas yang juga dikelola melalui panel admin.
+
+---
+
+## 5. Diagram Program Studi & Akademik (Academic & Departments)
+
+Diagram ini merinci alur penelusuran informasi akademik dan detail program studi.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenAkademik[Pengguna membuka Menu Akademik/Prodi]
+    OpenAkademik --> Choice{Pilih Informasi}
+    
+    Choice -- "Detail Prodi" --> Prodi[Tampilkan Profil Informatika/PTI]
+    Choice -- "Kurikulum" --> Kurikulum[Tampilkan Daftar Mata Kuliah & SKS]
+    Choice -- "Kalender" --> Kalender[Tampilkan Jadwal Kegiatan Akademik]
+    Choice -- "Fasilitas" --> Fasilitas[Tampilkan Lab & Sarpras]
+    
+    Prodi --> End([End])
+    Kurikulum --> End
+    Kalender --> End
+    Fasilitas --> End
+```
+
+### Penjelasan:
+- **Prodi**: Memberikan gambaran kompetensi lulusan dan prospek karir di bidang Informatika atau Pendidikan TI.
+- **Fasilitas**: Dokumentasi fisik laboratorium untuk meyakinkan pengguna tentang kesiapan teknis pembelajaran.
+
+---
+
+## 6. Diagram Dokumen & Riset (Documents & Research)
+
+Diagram ini menunjukkan alur akses dokumen strategis dan hasil karya ilmiah civitas akademika.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenRiset[Pengguna membuka Menu Riset/Dokumen]
+    OpenRiset --> Action{Pilih Konten}
+    
+    Action -- "Daftar Penelitian" --> Penelitian[Tampilkan Judul & Abstrak Riset]
+    Action -- "Pengabdian" --> Pengabdian[Tampilkan Kegiatan Sosial Masyarakat]
+    Action -- "Dokumen (SOP/Renstra)" --> Dokumen[Tampilkan Link Download/View PDF]
+    
+    Penelitian --> End([End])
+    Pengabdian --> End
+    Dokumen --> End
+```
+
+---
+
+## 7. Diagram Kemahasiswaan & Organisasi (Student Affairs)
+
+Diagram ini menggambarkan interaksi dengan lembaga kemahasiswaan.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenMhs[Pengguna membuka Menu Kemahasiswaan]
+    OpenMhs --> SelectOrg{Pilih Organisasi}
+    
+    SelectOrg -- "BEM" --> BEM[Tampilkan Struktur & Program BEM]
+    SelectOrg -- "Himpunan" --> Hima[Tampilkan Aktivitas Hima Jurusan]
+    SelectOrg -- "UKM" --> UKM[Tampilkan Unit Kegiatan Mahasiswa]
+    
+    BEM --> End([End])
+    Hima --> End
+    UKM --> End
+```
+
+---
+
+## 8. Diagram Galeri & Alumni
+
+Alur melihat memori kegiatan dan jaringan lulusan.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenExtra[Pengguna membuka Galeri/Alumni]
+    OpenExtra --> View{Pilih}
+    
+    View -- "Foto Galeri" --> Galeri[Tampilkan Album Foto Kegiatan]
+    View -- "Jejaring Alumni" --> Alumni[Tampilkan Info Alumni & Tracer Study]
+    
+    Galeri --> End([End])
+    Alumni --> End
+```

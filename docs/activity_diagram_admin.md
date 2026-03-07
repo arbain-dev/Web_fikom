@@ -27,11 +27,7 @@ flowchart TD
 ```
 
 **Penjelasan:**
-1.  Admin mengakses halaman login.
-2.  Sistem menerima input username dan password.
-3.  Sistem mengecek ketersediaan username di database.
-4.  Jika username ada, sistem memverifikasi kesesuaian password (hashed).
-5.  Jika valid, session `admin_logged_in` dibuat dan admin diarahkan ke Dashboard.
+Proses login administrator merupakan gerbang utama keamanan sistem. Admin memulai dengan mengakses halaman login dan memasukkan kredensial berupa username serta password. Sistem kemudian melakukan pengecekan ganda secara berurutan: pertama memvalidasi keberadaan username di database, dan kedua memverifikasi validitas password menggunakan teknik hashing yang aman. Jika kedua tahap verifikasi ini berhasil, sistem akan menginisialisasi session admin untuk menjaga status login pengguna selama berinteraksi dengan dashboard. Seluruh proses ini dirancang untuk mencegah akses tidak sah sambil tetap memberikan kemudahan navigasi bagi administrator yang sah.
 
 ---
 
@@ -77,9 +73,7 @@ flowchart TD
 ```
 
 **Penjelasan:**
-*   **Tambah**: Admin menginput NIDN, Nama, Prodi, Jabatan, dan upload Foto. Sistem memvalidasi ekstensi foto (JPG/PNG).
-*   **Edit**: Admin dapat mengubah data. Jika foto baru diupload, foto lama dihapus secara otomatis.
-*   **Hapus**: Menghapus baris data di database sekaligus file fisik foto di folder `uploads/dosen/`.
+Modul manajemen dosen memungkinkan administrator untuk menjaga kemutakhiran data pengajar dengan kontrol yang presisi. Saat menambahkan dosen baru, admin menginput informasi dasar seperti NIDN dan kualifikasi akademik serta mengunggah foto profil yang akan divalidasi sistem agar sesuai standar. Fitur edit dirancang cerdas untuk menangani pembaruan foto, di mana sistem akan secara otomatis menghapus file fisik foto lama jika foto baru diunggah untuk menghindari penumpukan data sampah. Demikian pula pada proses penghapusan, sistem menjamin sinkronisasi antara record di database dan file fisik di server, memastikan integritas data tetap terjaga dengan baik.
 
 ---
 
@@ -114,9 +108,7 @@ flowchart TD
 ```
 
 **Penjelasan:**
-*   Admin wajib mengisi Judul, Kategori, dan Tanggal Publish.
-*   Konten berita dapat berupa teks panjang.
-*   Foto yang diupload akan menjadi *thumbnail* berita di halaman depan.
+Pengelolaan berita fakultas dilakukan melalui antarmuka yang intuitif bagi administrator. Setiap berita yang dipublikasikan memerlukan informasi krusial seperti judul yang deskriptif, kategori untuk pengelompokan, dan konten lengkap yang informatif. Foto atau thumbnail yang diunggah berperan sebagai daya tarik visual utama di halaman depan website. Sistem menangani proses penyimpanan data dan manajemen file secara transparan, memungkinkan admin untuk melakukan pembaruan konten atau penggantian gambar kapan saja guna memastikan informasi yang sampai ke publik selalu terupdate dan relevan dengan perkembangan terkini di kampus.
 
 ---
 
@@ -146,8 +138,7 @@ flowchart TD
 ```
 
 **Penjelasan:**
-*   Admin **tidak menginput** data, melainkan **memproses** data yang masuk dari form pendaftaran publik.
-*   Fokus utama aktivitas adalah **Verifikasi** (Melihat Bukti Nilai/Ijazah) dan **Update Status** (Diterima/Ditolak).
+Modul ini berfungsi sebagai pusat kendali untuk memantau arus pendaftaran mahasiswa baru. Berbeda dengan modul lainnya, di sini administrator lebih bersifat responsif terhadap data yang masuk dari calon mahasiswa. Admin dapat meninjau detail biodata, memeriksa berkas administrasi yang diunggah, dan melakukan verifikasi nilai. Pengambilan keputusan dilakukan dengan memperbarui status pendaftaran menjadi diterima atau ditolak, yang secara otomatis akan memberikan umpan balik visual dan memicu proses administratif selanjutnya. Sistem juga menyediakan opsi penghapusan data untuk membersihkan record pendaftaran yang tidak valid atau sudah lewat masa berlakunya.
 
 ---
 
@@ -172,8 +163,7 @@ flowchart TD
 ```
 
 **Penjelasan:**
-*   Digunakan untuk menampilkan logo mitra di footer atau halaman kerjasama.
-*   Validasi file gambar sangat penting agar tampilan logo rapi.
+Kerjasama strategis dengan pihak eksternal didokumentasikan melalui modul mitra ini guna memperkuat reputasi fakultas. Administrator menginput nama instansi, tautan website resmi mitra, serta detail waktu dimulainya kerjasama. Aspek visual dikelola melalui unggahan logo instansi yang divalidasi secara sistematis untuk menjamin presisi tampilan di halaman publik. Setiap mitra yang ditambahkan akan memperkaya portofolio kolaborasi fakultas yang ditampilkan secara dinamis, memberikan informasi yang transparan kepada pengunjung mengenai luasnya jejaring kerjasama yang dimiliki Fakultas Ilmu Komputer.
 
 ---
 
@@ -208,16 +198,18 @@ flowchart TD
 
 ---
 
-## 7. Kelola Galeri & Dokumen
+---
 
-Modul umum untuk upload file (Gambar Kegiatan atau Dokumen Akademik).
+## 7. Kelola Dokumen
+
+Modul untuk manajemen file dokumen akademik dan strategis fakultas.
 
 ```mermaid
 flowchart TD
-    Start(["Mulai"]) --> A["Buka Menu Galeri/Dokumen"]
+    Start(["Mulai"]) --> A["Buka Menu Dokumen"]
     A --> B["Klik Tambah"]
     B --> C["Input Judul/Nama"]
-    C --> D["Upload File (Gambar/PDF)"]
+    C --> D["Upload File (PDF)"]
     D --> E{"Ukuran Sesuai?"}
     
     E -- Tidak --> F["Tolak Upload"]
@@ -227,5 +219,4 @@ flowchart TD
 ```
 
 **Penjelasan:**
-*   **Galeri**: Untuk foto kegiatan kampus.
-*   **Dokumen**: Untuk SOP, Renstra, dan Kurikulum (File PDF).
+Modul pengelolaan dokumen dirancang untuk memudahkan administrasi file-file penting seperti SOP, Rencana Strategis, dan Kurikulum. Administrator dapat mengunggah file baru dalam format PDF, di mana sistem akan melakukan pengecekan ukuran file untuk menjaga kinerja server. Setiap dokumen yang berhasil diunggah akan tercatat secara sistematis di database, memungkinkan akses yang mudah dan terorganisir baik bagi internal fakultas maupun bagi publik yang memerlukan akses terhadap dokumen-dokumen resmi tersebut.

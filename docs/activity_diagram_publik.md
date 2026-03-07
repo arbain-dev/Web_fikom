@@ -35,14 +35,7 @@ flowchart TD
 ```
 
 ### Penjelasan Diagram Navigasi Umum:
-1.  **Start**: Pengguna mengakses website melalui browser.
-2.  **Halaman Beranda**: Sistem menyajikan slider utama, statistik, dan ringkasan informasi.
-3.  **Pengambilan Keputusan**: Pengguna dapat memilih berbagai jalur navigasi:
-    *   **Profil**: Untuk mengetahui informasi dasar fakultas.
-    *   **Akademik**: Untuk melihat kurikulum, jadwal, dan profil prodi.
-    *   **Berita**: Untuk mendapatkan update kegiatan terkini.
-    *   **Pendaftaran**: Jalur khusus untuk calon mahasiswa baru.
-4.  **End**: Pengguna mendapatkan informasi yang dicari.
+Alur navigasi umum website ini dirancang untuk memberikan kemudahan bagi pengunjung dalam mengakses berbagai informasi penting mengenai Fakultas Ilmu Komputer. Begitu pengunjung membuka URL website, sistem akan menyuguhkan halaman beranda yang kaya akan informasi, mulai dari slider interaktif hingga statistik fakta fakultas. Dari titik ini, pengunjung dihadapkan pada beberapa pilihan utama: menelusuri profil fakultas untuk memahami visi dan struktur organisasi, mengakses informasi akademik yang mencakup kurikulum dan kalender pendidikan, membaca berita terbaru untuk tetap terinformasi tentang kegiatan kampus, atau langsung menuju jalur pendaftaran jika mereka adalah calon mahasiswa baru. Setiap jalur ini telah dioptimalkan untuk memberikan respons cepat dan informasi yang akurat guna memenuhi kebutuhan setiap pengunjung.
 
 ---
 
@@ -71,14 +64,7 @@ flowchart TD
 ```
 
 ### Penjelasan Diagram Pendaftaran:
-1.  **Persiapan**: Sistem menghasilkan CSRF token untuk keamanan form.
-2.  **Input Data**: Pengguna mengisi berbagai field wajib (bertanda *).
-3.  **Validasi Sistem**:
-    *   Mengecek apakah semua field wajib sudah terisi.
-    *   Memvalidasi format file yang diunggah (JPG/PNG/PDF).
-    *   Memastikan keamanan melalui token CSRF.
-4.  **Penyimpanan**: Jika valid, data dimasukkan ke tabel `pendaftaran`.
-5.  **Konfirmasi**: Pengguna menerima notifikasi bahwa data telah tersimpan, dan proses berpindah ke sisi admin secara offline (menghubungi via WA/Email).
+Proses pendaftaran mahasiswa baru dilakukan secara digital untuk efisiensi dan transparansi. Alur dimulai dengan pengunjung mengakses halaman pendaftaran, di mana sistem secara otomatis menyiapkan form yang dilengkapi dengan token keamanan CSRF untuk melindungi data pengguna. Calon mahasiswa kemudian mengisi data diri secara lengkap dan mengunggah dokumen pendukung yang diperlukan. Begitu tombol kirim diklik, sistem melakukan validasi menyeluruh baik dari sisi kelengkapan field maupun format berkas yang diupload. Jika data valid dan berhasil disimpan ke database, sistem akan menampilkan pesan sukses. Setelah tahap ini, data akan diproses lebih lanjut oleh panitia pendaftaran (admin) untuk dilakukan verifikasi lanjutan dan komunikasi personal melalui platform digital.
 
 ---
 
@@ -111,13 +97,7 @@ flowchart TD
 ```
 
 ### Penjelasan Diagram Penemuan Konten:
-1.  **Daftar Berita**: Sistem melakukan query ke database untuk menampilkan ringkasan berita terbaru.
-2.  **Interaksi**: Pengguna memilih berita yang menarik perhatiannya.
-3.  **Proses Detail**:
-    *   Sistem memvalidasi ID yang dikirim melalui parameter URL.
-    *   Jika valid, konten lengkap berita ditampilkan beserta gambar dan meta data.
-    *   Jika ID tidak valid atau berita dihapus, sistem secara otomatis melakukan redirect demi kenyamanan pengguna.
-4.  **Fitur Tambahan**: Pengguna dapat langsung membagikan konten ke media sosial atau melihat berita populer lainnya di bagian sidebar.
+Sistem penemuan konten, khususnya pada modul berita, dirancang agar pengunjung dapat dengan mudah menelusuri arsip berita yang ada. Saat halaman berita dibuka, sistem secara aktif menarik data terbaru dari database dan menyajikannya dalam bentuk grid kartu yang menarik secara visual. Pengguna dapat memilih berita tertentu untuk dibaca detailnya. Sistem kemudian melakukan verifikasi ID berita melalui parameter URL untuk memastikan konten yang diminta tersedia secara sah. Jika berhasil ditemukan, halaman detail berita akan ditampilkan lengkap dengan elemen pendukung seperti sidebar yang berisi rekomendasi berita terkait. Fitur ini bertujuan untuk meningkatkan keterikatan pengguna (user engagement) dan memastikan arus informasi di lingkungan fakultas tetap dinamis.
 
 ---
 
@@ -142,8 +122,7 @@ flowchart TD
 ```
 
 ### Penjelasan:
-- **Data Dosen**: Sistem mengambil data profil dosen secara dinamis dari database untuk memastikan informasi keahlian dan riwayat pendidikan selalu mutakhir.
-- **Visi & Misi**: Menampilkan landasan strategis fakultas yang juga dikelola melalui panel admin.
+Halaman Profil dan Struktur Organisasi merupakan pusat informasi mengenai identitas fakultas. Pengguna dapat memilih berbagai sub-menu mulai dari Sambutan Dekan yang berisi visi kepemimpinan, hingga Visi-Misi sebagai landasan operasional pendidikan. Selain itu, sistem menyediakan direktori dosen yang datanya diambil langsung dari database untuk menjamin akurasi profil akademik pengajar. Struktur organisasi juga disajikan secara visual untuk memberikan kejelasan mengenai hierarki dan pembagian tugas di lingkungan fakultas, sehingga pengunjung mendapatkan gambaran menyeluruh tentang tata kelola Fakultas Ilmu Komputer.
 
 ---
 
@@ -213,18 +192,19 @@ flowchart TD
 
 ---
 
-## 8. Diagram Galeri & Alumni
+---
 
-Alur melihat memori kegiatan dan jaringan lulusan.
+## 8. Diagram Alumni
+
+Alur melihat jaringan lulusan dan penelusuran karir.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenExtra[Pengguna membuka Galeri/Alumni]
-    OpenExtra --> View{Pilih}
-    
-    View -- "Foto Galeri" --> Galeri[Tampilkan Album Foto Kegiatan]
-    View -- "Jejaring Alumni" --> Alumni[Tampilkan Info Alumni & Tracer Study]
-    
-    Galeri --> End([End])
-    Alumni --> End
+    Start([Start]) --> OpenAlumni[Pengguna membuka Menu Alumni]
+    OpenAlumni --> FetchAlumni[Sistem mengambil data Alumni & Tracer Study]
+    FetchAlumni --> ShowAlumni[Tampilkan Info Alumni & Tracer Study]
+    ShowAlumni --> End([End])
 ```
+
+### Penjelasan:
+Modul Alumni difokuskan untuk membangun jejaring yang kuat antara fakultas dengan para lulusannya. Melalui menu ini, pengunjung dapat melihat hasil tracer study yang menggambarkan sebaran karir alumni serta kontribusi mereka di dunia industri. Data ini sangat krusial sebagai indikator keberhasilan program pendidikan sekaligus sebagai platform bagi mahasiswa aktif untuk mendapatkan inspirasi dari jejak langkah para senior mereka.

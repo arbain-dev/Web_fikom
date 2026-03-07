@@ -102,13 +102,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </ul>
             </li>
 
-            <li class="sidebar-item <?php if(strpos($currentPage, 'galeri') !== false) echo 'active'; ?>">
-                <a href="kelola_galeri" class="sidebar-link">
-                    <div style="display:flex; align-items:center; gap:12px;">
-                        <i class="fas fa-images"></i> <span>Kelola Galeri</span>
-                    </div>
-                </a>
-            </li>
+
 
             <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_dosen.php', 'kelola_dosen.php'])) echo 'open active'; ?>">
                 <a href="javascript:void(0);" class="sidebar-link">

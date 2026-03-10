@@ -1,17 +1,17 @@
-# Activity Diagram - Riset (Penelitian & Pengabdian)
+# Activity Diagram - Pengabdian Masyarakat
 
-Dokumen ini memetakan alur kerja untuk modul **Dokumen & Riset**, yang secara spesifik mencakup fitur **Penelitian Dosen** dan **Pengabdian Masyarakat**. Kedua fitur ini memiliki struktur alur yang sangat identik baik di sisi publik maupun admin.
+Dokumen ini memetakan alur kerja untuk modul **Pengabdian Masyarakat**, mencakup akses publik untuk melihat berbagai program pengabdian dan pengelolaan datanya oleh admin.
 
 ---
 
 ## 1. Alur Tampilan Publik (Public View)
 
-Diagram ini menggambarkan interaksi pengguna (mahasiswa, dosen, atau masyarakat umum) saat mengakses daftar penelitian atau pengabdian dan melihat detail spesifiknya.
+Diagram ini menggambarkan interaksi pengguna saat mengakses daftar kegiatan pengabdian masyarakat beserta detail spesifiknya.
 
 ```mermaid
 flowchart TD
-    Start([Pengguna Buka Menu Penelitian/Pengabdian]) --> FetchList[Sistem Mengambil Seluruh Data dari Database]
-    FetchList --> RenderCards[Sistem Merender Grid Kartu Dokumen]
+    Start([Pengguna Buka Menu Pengabdian]) --> FetchList[Sistem Mengambil Seluruh Data dari Database]
+    FetchList --> RenderCards[Sistem Merender Grid Kartu Pengabdian]
     
     RenderCards --> UserAction{Pengguna Klik Kartu?}
     
@@ -37,11 +37,11 @@ flowchart TD
 
 ## 2. Alur Pengelolaan Admin (Admin Management CRUD)
 
-Fitur CRUD untuk modul ini cukup kompleks karena melibatkan pengisian banyak form identitas detail, serta kewajiban/opsi mengunggah dokumen fisik (PDF/DOC) seperti Proposal dan Laporan Akademik.
+Fitur CRUD untuk modul ini melibatkan pengisian banyak form identitas detail pelaksanaan pengabdian, serta kewajiban/opsi mengunggah dokumen fisik (PDF/DOC) Proposal dan Laporan Kegiatan.
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Kelola Penelitian/Pengabdian]) --> ShowTable[Sistem Menampilkan Tabel Data]
+    Start([Admin Akses Kelola Pengabdian]) --> ShowTable[Sistem Menampilkan Tabel Data Pengabdian]
     
     %% Fitur Filter Data
     ShowTable --> FilterAction{Pilih Filter?}
@@ -83,7 +83,6 @@ flowchart TD
 
 ---
 
-### Penjelasan Teknis Modul Riset:
-1.  **Format Seragam**: Alur dan struktur tabel untuk tabel `penelitian` dan tabel `pengabdian` adalah simetris, sehingga logika penanganan `uploadFile()` dalam PHP juga bersifat polimorfik (dapat digunakan kembali alias reusable code).
-2.  **Keamanan File Upload**: Sistem sisi server secara ketat memvalidasi variabel ekstensinya: **hanya mengizinkan `pdf`, `doc`, `docx`** untuk dokumen riset, sekaligus merename nama file menggunakan enkripsi `uniqid()` untuk mencegah bentrok/tertabraknya nama file di direktori publik server.
-3.  **Manajemen Pop-Up Publik**: Semua modul pop-up informasi detail (modal) di halaman publik tidak perlu me-reload halaman atau nge-hit AJAX API. Semua elemen dirender awal jadi atribut HTML berformat *JSON Strings* (`htmlspecialchars(json_encode())`), kemudian ditangkap JavaScript klien murni untuk mempercepat rendering (Zero Latency Modal).
+### Penjelasan Teknis Modul Pengabdian:
+1.  **Keamanan File Upload**: Sistem sisi server secara ketat memvalidasi variabel ekstensinya: **hanya mengizinkan `pdf`, `doc`, `docx`** untuk dokumen pengabdian, sekaligus merename nama file menggunakan enkripsi `uniqid()` untuk mencegah bentrok/tertabraknya nama file di direktori publik server.
+2.  **Manajemen Pop-Up Publik**: Semua modul pop-up informasi detail (modal) di halaman publik tidak perlu me-reload halaman atau nge-hit AJAX API. Semua elemen dirender awal jadi atribut HTML berformat *JSON Strings* (`htmlspecialchars(json_encode())`), kemudian ditangkap JavaScript klien murni untuk mempercepat rendering (Zero Latency Modal).

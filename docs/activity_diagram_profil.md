@@ -1,100 +1,117 @@
-# Activity Diagram - Profil (Visi-Misi, Struktur, Fakta, Tentang)
+# Activity Diagram - Fitur Profil FIKOM
 
-Dokumen ini berisi activity diagram untuk alur penggunaan dan pengelolaan informasi profil fakultas pada Website Fakultas Ilmu Komputer.
+Dokumen ini menyajikan alur kerja mendalam untuk fitur-fitur yang tergabung dalam modul **Profil** pada Website Fakultas Ilmu Komputer.
 
 ---
 
-## 1. Alur Tampilan Publik (Public View)
+## 1. Navigasi Profil (Public Perspective)
 
-Diagram ini menggambarkan bagaimana pengunjung mengakses berbagai informasi profil fakultas.
+Menggambarkan bagaimana pengguna berinteraksi dengan menu profil untuk mendapatkan informasi fakultas.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenProfile[Pengguna memilih Menu Profil]
-    OpenProfile --> Choice{Pilih Sub-Menu}
+    Start([Start]) --> UserAction[Pengguna klik Menu Profil di Navbar]
+    UserAction --> Dropdown[Sistem menampilkan Dropdown Profil]
     
-    Choice -- "Visi & Misi" --> FetchVM[Sistem mengambil data Visi, Misi, Tujuan, Sasaran]
-    Choice -- "Struktur Organisasi" --> FetchStruktur[Sistem mengambil gambar Struktur Organisasi]
-    Choice -- "Fakta Fakultas" --> FetchFakta[Sistem mengambil data Statistik/Fakta]
-    Choice -- "Tentang Fikom" --> FetchTentang[Sistem mengambil deskripsi & gambar Fakultas]
+    Dropdown --> SubMenu{Pilih Sub-Menu}
+    SubMenu -- "Sambutan Dekan" --> OpenSambutan[Buka Halaman Sambutan]
+    SubMenu -- "Visi & Misi" --> OpenVM[Buka Halaman Visi Misi]
+    SubMenu -- "Dosen" --> OpenDosen[Buka Halaman Daftar Dosen]
+    SubMenu -- "Struktur" --> OpenStruktur[Buka Halaman Struktur Organisasi]
+    SubMenu -- "Pendaftaran" --> OpenDaftar[Buka Form Pendaftaran]
     
-    FetchVM --> ShowVM[Tampilkan Halaman Visi Misi]
-    FetchStruktur --> ShowStruktur[Tampilkan Gambar Struktur]
-    FetchFakta --> ShowFakta[Tampilkan Animasi Angka/Fakta]
-    FetchTentang --> ShowTentang[Tampilkan Informasi Tentang Fakultas]
+    OpenSambutan --> ViewContent[Sistem mengambil data dari Database]
+    OpenVM --> ViewContent
+    OpenStruktur --> ViewContent
     
-    ShowVM --> End([End])
-    ShowStruktur --> End
-    ShowFakta --> End
-    ShowTentang --> End
+    ViewContent --> Render[Sistem menampilkan konten secara visual]
+    Render --> End([End])
 ```
 
 ---
 
-## 2. Alur Pengelolaan Admin (Admin Management)
+## 2. Fitur Visi, Misi, Tujuan & Sasaran (Admin CRUD)
 
-Diagram ini merinci bagaimana administrator mengelola berbagai komponen profil.
+Fitur ini memungkinkan pengelolaan poin-poin strategis fakultas dengan urutan tertentu.
 
-### A. Alur Visi, Misi, Tujuan & Sasaran
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenVM[Admin buka Kelola Visi Misi]
-    OpenVM --> Action{Pilih Aksi}
+    Start([Start]) --> OpenModule[Admin buka Kelola Visi Misi]
+    OpenModule --> Fetch[Sistem memuat Visi Utama & List Misi/Tujuan]
     
-    Action -- "Update Visi" --> EditVisi[Ubah teks Visi di Form]
+    Fetch --> Interaction{Aksi Admin}
+    
+    %% Alur Update Visi Utama
+    Interaction -- "Update Visi" --> EditVisi[Ubah teks dalam Textarea Visi]
     EditVisi --> SaveVisi[Klik Simpan Visi]
+    SaveVisi --> UpdateDB1[Sistem update tabel visi_misi kategori='Visi']
     
-    Action -- "Tambah Misi/Tujuan/Sasaran" --> InputItem[Isi Teks & Nomor Urutan]
-    InputItem --> SaveItem[Klik Tombol Tambah]
+    %% Alur Kelola List
+    Interaction -- "Tambah Misi/Tujuan" --> InputForm[Input Teks Item & Nomor Urutan]
+    InputForm --> AddItem[Klik Tombol Tambah]
+    AddItem --> InsertDB[Sistem Simpan Item Baru ke DB]
     
-    Action -- "Hapus Item" --> ConfirmHapus[Klik Ikon Sampah & Konfirmasi]
+    Interaction -- "Hapus Item" --> Confirm[Klik Hapus & Konfirmasi Dialog]
+    Confirm --> DeleteDB[Sistem Hapus Item berdasarkan ID]
     
-    SaveVisi --> Notify[Sistem tampilkan Notifikasi Sukses]
-    SaveItem --> Notify
-    ConfirmHapus --> Notify
+    UpdateDB1 --> Notify[Notifikasi Berhasil & Refresh]
+    InsertDB --> Notify
+    DeleteDB --> Notify
     Notify --> End([End])
-```
-
-### B. Alur Struktur & Tentang Fakultas (Update Konten)
-```mermaid
-flowchart TD
-    Start([Start]) --> OpenModule[Admin buka Kelola Struktur / Tentang]
-    OpenModule --> ShowCurrent[Sistem tampilkan Form & Gambar Saat Ini]
-    
-    ShowCurrent --> UpdateContent[Admin ubah Teks / Pilih Gambar Baru]
-    UpdateContent --> ClickSave[Klik Tombol Simpan/Update]
-    
-    ClickSave --> Validation{Validasi File?}
-    Validation -- "Valid" --> Process[Sistem upload file & update DB]
-    Validation -- "Tidak Valid" --> Error[Tampilkan Pesan Error]
-    
-    Process --> Notify[Tampilkan Notifikasi Berhasil]
-    Error --> ShowCurrent
-    Notify --> End([End])
-```
-
-### C. Alur Fakta Fakultas (CRUD)
-```mermaid
-flowchart TD
-    Start([Start]) --> OpenFakta[Admin buka Kelola Fakta]
-    OpenFakta --> ShowList[Tampilkan Tabel Daftar Fakta]
-    
-    ShowList --> Action{Pilih Aksi}
-    Action -- "Tambah" --> ModalTambah[Input Judul, Angka & Urutan]
-    Action -- "Edit" --> ModalEdit[Ubah data pada Modal]
-    
-    ModalTambah --> Save[Klik Simpan Data]
-    ModalEdit --> Save
-    
-    Save --> Notify[Sistem update DB & Tampilkan Pesan Sukses]
-    Notify --> Refresh[Refresh Tabel Fakta]
-    Refresh --> End([End])
 ```
 
 ---
 
-### Penjelasan Teknis:
-1.  **Visi Misi**: Menggunakan tabel `visi_misi` dengan kolom `kategori` untuk membedakan jenis informasi. Admin dapat melakukan update langsung pada Visi utama atau menambah item list pada Misi/Tujuan.
-2.  **Struktur Organisasi**: Menggunakan tabel `halaman_statis` (row: `struktur_organisasi`). Admin mengupload gambar yang akan menggantikan file lama di folder `uploads/profil/`.
-3.  **Fakta Fakultas**: Menggunakan tabel `tb_fakta`. Data ini ditampilkan di halaman publik dengan animasi counter (angka bergerak) yang dikelola oleh `main.js`.
-4.  **Tentang Fakultas**: Menggunakan tabel `tentang_fikom`. Admin dapat memperbarui deskripsi panjang menggunakan textarea dan mengupdate gambar utama fakultas.
+## 3. Fitur Struktur Organisasi (Admin Media Update)
+
+Fokus pada pengelolaan dokumen visual struktur organisasi.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenStruktur[Admin buka Kelola Struktur]
+    OpenStruktur --> ShowImage[Sistem menampilkan Gambar Struktur Aktif]
+    
+    ShowImage --> Interaction{Aksi}
+    Interaction -- "Ganti Gambar" --> SelectFile[Pilih file baru JPG/PNG/SVG]
+    SelectFile --> ClickUpdate[Klik Update Gambar]
+    
+    ClickUpdate --> CheckFile{Validasi Format?}
+    CheckFile -- "Valid" --> Process[Upload file & Hapus file lama]
+    Process --> UpdateDB2[Sistem update path di tabel halaman_statis]
+    CheckFile -- "Tidak Valid" --> Error[Tampilkan Pesan Peringatan]
+    
+    UpdateDB2 --> Success[Notifikasi Sukses]
+    Error --> ShowImage
+    Success --> End([End])
+```
+
+---
+
+## 4. Fitur Fakta & Statistik (High-Impact Data)
+
+Mengelola data angka yang ditampilkan secara dinamis di Beranda.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> OpenFakta[Admin masuk Kelola Fakta]
+    OpenFakta --> Table[Tampilkan Daftar Angka & Label]
+    
+    Table --> CRUD{Pilih Operasi}
+    CRUD -- "Tambah/Edit" --> Modal[Buka Modal Form]
+    Modal --> Input[Input Judul, Angka & No Urut]
+    Input --> Save[Klik Simpan]
+    Save --> DBUpdate[Update tabel tb_fakta]
+    
+    CRUD -- "Hapus" --> Del[Click Delete]
+    Del --> DBDelete[Hapus Record]
+    
+    DBUpdate --> Finish[Refresh UI & End]
+    DBDelete --> Finish
+```
+
+---
+
+### Catatan Teknis Fitur Profil:
+- **Optimasi Gambar**: Fitur Struktur Organisasi mendukung format **SVG** untuk memastikan diagram tetap tajam pada semua ukuran layar tanpa pecah (lossless scaling).
+- **UX Counter**: Data dari fitur Fakta diintegrasikan dengan `animateCounters` di `main.js`, memberikan efek visual angka yang berhitung naik saat pengguna men-scroll ke bagian tersebut.
+- **Relasi Data**: Semua fitur profil terikat dengan user ID administrator yang melakukan perubahan untuk keperluan audit sistem (log aktivitas).

@@ -45,14 +45,6 @@ erDiagram
         int urutan
     }
 
-    galeri {
-        int id PK
-        string judul
-        text deskripsi
-        string gambar
-        date tanggal_upload
-    }
-
     kerjasama {
         int id PK
         string nama_instansi
@@ -205,7 +197,7 @@ erDiagram
     users ||--o{ penelitian : "mengelola"
     users ||--o{ pengabdian : "mengelola"
     users ||--o{ tb_fakta : "mengelola"
-    users ||--o{ galeri : "mengelola"
+
     users ||--o{ kerjasama : "mengelola"
     users ||--o{ laboratorium : "mengelola"
     users ||--o{ ruangan : "mengelola"
@@ -239,7 +231,7 @@ erDiagram
 
 ### 4. Tabel Informasi & Publikasi
 *   **`berita`**: Tabel untuk artikel berita atau pengumuman. Mendukung kategori, tanggal publish, dan foto <i>thumbnail</i>.
-*   **`galeri`**: Menyimpan dokumentasi kegiatan fakultas berupa foto dan deskripsi singkat.
+
 *   **`hero_slider`**: Mengatur gambar <i>slider</i> (banner berjalan) di halaman beranda. Memiliki status aktif/nonaktif untuk mengontrol tampilan.
 *   **`tentang_fikom`**: Tabel tunggal (<i>single row usually</i>) yang menyimpan deskripsi profil fakultas dan gambar utamanya.
 

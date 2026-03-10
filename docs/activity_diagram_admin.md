@@ -30,13 +30,13 @@ flowchart TD
 
 ---
 
-## 2. Diagram Manajemen Konten (CRUD Berita/Galeri/Slider)
+## 2. Diagram Manajemen Konten (CRUD Berita/Slider)
 
 Alur umum untuk menambah, mengubah, atau menghapus konten dinamis.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenModule[Pilih Menu Kelola Berita/Galeri/Slider]
+    Start([Start]) --> OpenModule[Pilih Menu Kelola Berita/Slider]
     OpenModule --> ShowList[Sistem menampilkan Tabel Data]
     
     ShowList --> Action{Pilih Aksi}

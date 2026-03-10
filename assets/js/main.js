@@ -253,7 +253,7 @@ const App = {
             btn.addEventListener('click', window.closePopup);
         });
 
-        // --- B. POPUP GAMBAR / GALERI ---
+        // --- B. POPUP GAMBAR ---
         window.showPopupImage = function (title, src) {
             const caption = document.getElementById('popupCaption');
             const img = document.getElementById('popupImg');

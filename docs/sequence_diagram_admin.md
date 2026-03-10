@@ -149,7 +149,7 @@ Pola ini berlaku untuk file:
 *   `kelola_kerjasama.php`
 *   `kelola_bem.php`
 *   `kelola_kalender.php`
-*   `kelola_galeri.php`
+
 *   `kelola_slider.php`
 *   `kelola_lab.php` (tambah/edit fasilitas)
 *   `kelola_ruangan.php` (tambah/edit fasilitas)

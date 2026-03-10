@@ -37,7 +37,7 @@ Panel khusus bagi administrator untuk mengelola seluruh konten website tanpa per
     *   **Kelola Fasilitas:** Update data ruangan dan laboratorium.
     *   **Kelola Dokumen:** Upload file PDF untuk SOP, Renstra, dan Renop.
     *   **Kelola Organisasi:** Update struktur organisasi, BEM, dan data UKM.
-    *   **Kelola Slider & Galeri:** Mengganti banner halaman depan dengan mudah.
+    *   **Kelola Slider:** Mengganti banner halaman depan dengan mudah.
 *   **Manajemen Akun:** Fitur reset password dan update profil admin.
 *   **Keamanan:** Sistem login terproteksi untuk mencegah akses tidak sah.
 

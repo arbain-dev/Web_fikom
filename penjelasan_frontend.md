@@ -174,12 +174,7 @@ Halaman ini didedikasikan untuk Himpunan Mahasiswa Jurusan (seperti Himpunan Inf
 
 Keberadaan himpunan sangat vital dalam membangun solidaritas angkatan dan budaya akademik yang kuat di tingkat program studi. Halaman ini memfasilitasi komunikasi kegiatan himpunan kepada seluruh anggotanya.
 
-### H. Menu Galeri
-Halaman Galeri Kegiatan berfungsi sebagai arsip visual digital fakultas. Di sini ditampilkan koleksi foto dan video dari berbagai agenda penting, seperti wisuda, seminar nasional, kunjungan industri, hingga kegiatan kemahasiswaan seru lainnya.
-
-Dokumentasi visual ini tidak hanya sekadar kenangan, tetapi juga alat *branding* yang ampuh. Pengunjung dapat merasakan atmosfer lingkungan akademik ("*campus vibe*") yang aktif, dinamis, dan menyenangkan melalui rekaman momen-momen yang ditampilkan.
-
-### I. Menu Alumni
+### H. Menu Alumni
 Halaman Alumni disediakan sebagai sarana penghubung antara fakultas dengan para lulusannya yang telah tersebar di berbagai bidang pekerjaan. Halaman ini memuat informasi mengenai agenda temu alumni, berita sukses karir alumni, serta formulir *tracer study* untuk pendataan lulusan.
 
 Pemeliharaan hubungan dengan alumni sangat strategis untuk membangun jejaring profesional, membuka peluang kerja bagi mahasiswa aktif, serta mendapatkan masukan untuk pengembangan kurikulum yang relevan dengan kebutuhan industri. Halaman ini menjadi simpul komunikasi yang menjaga ikatan almamater tetap kuat.

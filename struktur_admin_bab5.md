@@ -8,7 +8,7 @@ Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelomp
 
 | **Sistem** | **Content** | **Data** | **Main** |
 | :--- | :--- | :--- | :--- |
-| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Visi Misi<br>• Struktur Organisasi<br>• Data Civitas<br>• Tentang Fakultas<br>• Kelola Slider<br><br>**Media**<br>• Kelola Galeri | **Akademik & SDM**<br>• Kelola Dosen<br>• Kurikulum<br>• Kalender<br>• Ruangan<br>• Laboratorium<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• BEM<br>• Kerjasama<br><br>**Arsip**<br>• Dokumen Fakultas<br>• Rencana Strategis<br>• SOP | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
+| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Visi Misi<br>• Struktur Organisasi<br>• Data Civitas<br>• Tentang Fakultas<br>• Kelola Slider<br><br> | **Akademik & SDM**<br>• Kelola Dosen<br>• Kurikulum<br>• Kalender<br>• Ruangan<br>• Laboratorium<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• BEM<br>• Kerjasama<br><br>**Arsip**<br>• Dokumen Fakultas<br>• Rencana Strategis<br>• SOP | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
 
 ---
 
@@ -112,8 +112,7 @@ Proses dimulai ketika pengguna mengakses alamat panel admin. Sistem akan secara 
 ### 2. Alur Manajemen Data via Modal
 Untuk efisiensi antarmuka pengguna, modul-modul seperti Berita dan Dosen menggunakan mekanisme *Modal Popup*. Ketika admin menekan tombol "Tambah", sebuah jendela formulir akan muncul di atas halaman aktif tanpa memuat ulang (*reload*) keseluruhan halaman. Setelah admin mengisi data dan menyimpannya, sistem akan memproses data tersebut di latar belakang dan memperbarui tabel data secara otomatis.
 
-### 3. Alur Dokumentasi Galeri
-Pada modul Galeri, sistem menerapkan alur kerja unggah cepat. Formulir unggah foto ditempatkan langsung (*inline*) di bagian atas halaman data. Administrator cukup memilih file foto dari perangkat komputer, memberikan judul, dan menekan tombol unggah. Foto tersebut akan langsung diproses oleh server, disimpan dalam direktori penyimpanan, dan ditampilkan pada daftar galeri di bawah formulir dalam hitungan detik.
+
 
 ---
 
@@ -125,6 +124,6 @@ Secara teknis, kode program disusun sebagai berikut:
 | :--- | :--- | :--- |
 | **Main** | `dashboard.php`, `index.php` | - |
 | **Sistem** | `login.php`, `logout.php`, `profile.php`, `kelola_pendaftaran.php` | `users`, `pendaftaran` |
-| **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_galeri.php`, `kelola_visimisi.php`, `kelola_struktur.php`, `kelola_fakta.php`, `kelola_tentangfak.php` | `berita`, `slider`, `galeri`, `halaman_statis` |
+| **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_visimisi.php`, `kelola_struktur.php`, `kelola_fakta.php`, `kelola_tentangfak.php` | `berita`, `slider`, `halaman_statis` |
 | **Data** | `kelola_dosen.php`, `kelola_kurikulum.php`, `kelola_ruangan.php`, `kelola_lab.php`, `kelola_penelitian.php`, `kelola_bem.php`, `kelola_kerjasama.php` | `dosen`, `matakuliah`, `ruangan`, `penelitian`, `pengabdian`, `dokumen`, `kerjasama` |
 

@@ -19,7 +19,7 @@ Website resmi untuk Fakultas Ilmu Komputer yang dibangun menggunakan PHP Native.
     -   Manajemen Data Dosen & Staf.
     -   Manajemen Fasilitas (Lab, Ruangan).
     -   Manajemen Dokumen (SOP, Kurikulum, Penelitian).
-    -   Manajemen Galeri & Slider.
+    -   Manajemen Slider.
     -   Manajemen Partner Kerjasama.
     -   Autentikasi Admin yang aman.
 

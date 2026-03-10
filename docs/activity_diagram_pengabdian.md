@@ -6,77 +6,75 @@ Dokumen ini memetakan alur kerja untuk modul **Pengabdian Masyarakat**, mencakup
 
 ## 1. Alur Tampilan Publik (Public View)
 
-Diagram ini menggambarkan interaksi pengguna saat mengakses daftar kegiatan pengabdian masyarakat beserta detail spesifiknya.
+Diagram ini menggambarkan interaksi pengguna saat mengakses daftar kegiatan pengabdian masyarakat beserta detail spesifiknya. Pada modul ini, pengguna dapat membaca ringkasan langsung di kartu, dan jika admin pernah mengunggah file laporannya (PDF), sistem akan menampilkan tombol khusus pembaca PDF.
 
 ```mermaid
 flowchart TD
-    Start([Pengguna Buka Menu Pengabdian]) --> FetchList[Sistem Mengambil Seluruh Data dari Database]
+    Start([Pengguna Buka Menu Pengabdian]) --> FetchList["Sistem Mengambil Seluruh Data Pengabdian (ORDER BY judul)"]
     FetchList --> RenderCards[Sistem Merender Grid Kartu Pengabdian]
     
-    RenderCards --> UserAction{Pengguna Klik Kartu?}
+    RenderCards --> UserRead["Pengguna Membaca Info Singkat (Judul, Pelaksana) di Kartu"]
+    UserRead --> CheckFile{Ada File Laporan (PDF)?}
     
-    UserAction -- "Ya" --> TriggerJS["JavaScript showDetail(json_data) Terpanggil"]
-    TriggerJS --> PopulateModal[JS Mengisi Data ke dalam Elemen Modal/Popup DOM]
-    PopulateModal --> CheckLink{Ada Link Publikasi/Dokumen?}
+    CheckFile -- "Tidak Ada" --> DetailText[Hanya Muncul Teks 'Laporan belum tersedia']
+    CheckFile -- "Ada File" --> ShowBtn[Muncul Tombol 'Lihat Laporan']
     
-    CheckLink -- "Ya" --> ShowMenuLink[Tampilkan Tombol 'Lihat Publikasi/Selengkapnya']
-    CheckLink -- "Tidak" --> HideMenuLink[Sembunyikan Tombol Link]
+    ShowBtn --> ClickBtn{Pengguna Klik Tombol?}
+    ClickBtn -- "Ya" --> TriggerJS["JavaScript showPdf(judul, url) Terpanggil"]
     
-    ShowMenuLink --> DisplayModal["Tampilkan Modal Secara Visual (display: flex)"]
-    HideMenuLink --> DisplayModal
+    TriggerJS --> OpenModal[Sistem Menampilkan PDF Viewer Modal]
+    OpenModal --> UserReadPDF[Pengguna Membaca Dokumen Laporan Eksternal]
     
-    DisplayModal --> WatchClose{Klik Tutup / Klik Luar?}
-    WatchClose -- "Ya" --> HideModal["Sembunyikan Modal (display: none)"]
-    HideModal --> RenderCards
+    UserReadPDF --> CloseModal[Klik Tutup Modal/Overlay]
+    CloseModal --> EndRead[Kembali Ke Tampilan Grid]
     
-    UserAction -- "Tidak" --> Scroll[Pengguna Scroll / Tinggalkan Halaman]
-    Scroll --> End([Selesai])
+    DetailText --> EndRead
+    ClickBtn -- "Tidak" --> EndRead
+    
+    EndRead --> End([Selesai])
 ```
 
 ---
 
 ## 2. Alur Pengelolaan Admin (Admin Management CRUD)
 
-Fitur CRUD untuk modul ini melibatkan pengisian banyak form identitas detail pelaksanaan pengabdian, serta kewajiban/opsi mengunggah dokumen fisik (PDF/DOC) Proposal dan Laporan Kegiatan.
+Fitur CRUD untuk modul ini terpusat pada pengisian form identitas kegiatan (Judul, Pelaksana, Deskripsi, Tanggal) dan mengunggah dokumen tunggal PDF/DOC sebagai Laporan Kegiatan. Skema kueri di sini dirancang lebih sederhana namun presisi pada manajemen filenya.
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Kelola Pengabdian]) --> ShowTable[Sistem Menampilkan Tabel Data Pengabdian]
+    Start([Admin Akses Kelola Pengabdian]) --> FetchData["Sistem Query Fetch Data (ORDER BY id DESC)"]
+    FetchData --> ShowTable[Sistem Menampilkan Tabel Data]
     
-    %% Fitur Filter Data
-    ShowTable --> FilterAction{Pilih Filter?}
-    FilterAction -- "Filter Tahun/Status" --> SubmitFilter[Klik Filter]
-    SubmitFilter --> RefreshTable[Sistem Reload dengan Parameter Filter URL]
-    RefreshTable --> ShowTable
-    
-    FilterAction -- "Abaikan" --> Action{Pilih Aksi CRUD}
+    ShowTable --> Action{Pilih Aksi CRUD}
     
     %% Alur Tambah & Edit
-    Action -- "Tambah/Edit Data" --> ModalForm[Sistem Buka Form Pop-Up Input Berjenjang]
-    ModalForm --> FillData[Admin Isi Inputan Teks & Pilihan Select]
-    FillData --> UploadDocs["Admin Upload File Proposal dan/atau Laporan (Opsional untuk Edit)"]
-    UploadDocs --> SubmitForm[Klik Simpan]
+    Action -- "Tambah/Edit Data" --> ModalForm[Sistem Buka Form Modal]
+    ModalForm --> FillData["Admin Isi Inputan (Judul, Pelaksana, Deskripsi, Tanggal)"]
+    FillData --> UploadDocs["Admin Upload Dokumen Laporan (Max 5MB)"]
+    UploadDocs --> SubmitForm[Klik Simpan / Update]
     
-    SubmitForm --> ValidateExt{"Ekstensi Dokumen Valid? (PDF/DOC)"}
-    ValidateExt -- "Tidak" --> ErrorExt[Notifikasi Gagal Upload File]
-    ValidateExt -- "Ya" --> MoveFiles[Pindahkan File Tervalidasi ke Server]
+    SubmitForm --> ValidateExt{"Ekstensi Valid (PDF/DOC) & Size < 5MB?"}
+    ValidateExt -- "Tidak Valid" --> ErrorExt[Notifikasi Gagal: Format/Size Salah]
+    ValidateExt -- "Abaikan (Mode Edit tanpa Ganti File)" --> ProcessDB
+    ValidateExt -- "Valid" --> MoveFiles[Pindahkan File Tervalidasi ke Storage]
     
-    MoveFiles --> ProcessDB{Mode Tambah/Edit?}
-    ProcessDB -- "Tambah" --> DBInsert[Eksekusi SQL INSERT]
-    ProcessDB -- "Edit" --> DBUpdate[Eksekusi SQL UPDATE, Simpan File Lama Jika Tidak Diganti]
+    MoveFiles --> ProcessDB{Pengecekan Mode Target}
+    ProcessDB -- "tambah_pengabdian" --> DBInsert[Eksekusi SQL INSERT Data Baru]
+    ProcessDB -- "edit_pengabdian" --> DBUpdate[Eksekusi SQL UPDATE, Hapus File Lama Server]
     
     DBInsert --> NoticeSuccess[Sistem Notifikasi: Sukses]
     DBUpdate --> NoticeSuccess
     
     %% Alur Hapus
     Action -- "Hapus Data" --> ClickDelete[Klik Ikon Hapus]
-    ClickDelete --> ConfirmDelete{Konfirmasi Setuju?}
-    ConfirmDelete -- "Batal" --> Return[Batal, Kembali Ke Tabel]
-    ConfirmDelete -- "Setuju" --> FetchFiles[Sistem Mencari Nama File Proposal/Laporan Terkait Data Ini]
-    FetchFiles --> ExecDelete[Unlink File Fisik & Eksekusi SQL DELETE]
+    ClickDelete --> ConfirmDelete{Pilihan Konfirmasi (Alert JS)?}
+    ConfirmDelete -- "Batal" --> Return["Kembali Ke Tabel (Abaikan)"]
+    ConfirmDelete -- "Setuju" --> FetchFiles[Sistem Seleksi Data file_pdf Terkait]
+    FetchFiles --> ExecDelete["Unlink File Fisik (Jika Ada) & Eksekusi SQL DELETE"]
     ExecDelete --> NoticeSuccess
     
-    NoticeSuccess --> RefreshTable
+    NoticeSuccess --> RefreshTable[Redirect ke Halaman Sama + Status]
+    RefreshTable --> FetchData
     ErrorExt --> ModalForm
     Return --> ShowTable
 ```
@@ -84,5 +82,6 @@ flowchart TD
 ---
 
 ### Penjelasan Teknis Modul Pengabdian:
-1.  **Keamanan File Upload**: Sistem sisi server secara ketat memvalidasi variabel ekstensinya: **hanya mengizinkan `pdf`, `doc`, `docx`** untuk dokumen pengabdian, sekaligus merename nama file menggunakan enkripsi `uniqid()` untuk mencegah bentrok/tertabraknya nama file di direktori publik server.
-2.  **Manajemen Pop-Up Publik**: Semua modul pop-up informasi detail (modal) di halaman publik tidak perlu me-reload halaman atau nge-hit AJAX API. Semua elemen dirender awal jadi atribut HTML berformat *JSON Strings* (`htmlspecialchars(json_encode())`), kemudian ditangkap JavaScript klien murni untuk mempercepat rendering (Zero Latency Modal).
+1.  **Format Inline Card Viewer**: Pemanggilan data publik modul ini sedikit berbeda dengan _Penelitian_. Alih-alih merender ulang data berupa string JSON untuk Pop-Up, ringkasan informasi langsung terlihat statis pada kartu grid, dan interaksi mendalam diserahkan pada file viewer khusus (terutama PDF) tanpa menduduki keseluruhan _viewport_.
+2.  **Manajemen Dokumen Tunggal**: Berbeda dari sistem _Penelitian_ yang perlu memisahkan antara `file_proposal` dan `file_laporan`, mekanisme storage _Pengabdian_ mengkonsolidasi dokumen menjadi file laporannya saja. Validasi upload diperkuat dengan penjagaan ukuran berkas (size limit 5MB).
+3.  **Clean Deletion Principle (Hapus Tuntas)**: Baik pada proses Edit (menggantikan file) maupun Hapus Record (menghapus baris pada _Database_), sistem menggunakan sintaks fungsional PHP `@unlink()` sehingga efisiensi ruang _drive_ dari aplikasi selalu dioptimalkan.

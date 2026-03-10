@@ -14,7 +14,7 @@ flowchart TD
     FetchList --> RenderCards[Sistem Merender Grid Kartu Pengabdian]
     
     RenderCards --> UserRead["Pengguna Membaca Info Singkat (Judul, Pelaksana) di Kartu"]
-    UserRead --> CheckFile{Ada File Laporan (PDF)?}
+    UserRead --> CheckFile{"Ada File Laporan (PDF)?"}
     
     CheckFile -- "Tidak Ada" --> DetailText[Hanya Muncul Teks 'Laporan belum tersedia']
     CheckFile -- "Ada File" --> ShowBtn[Muncul Tombol 'Lihat Laporan']
@@ -67,7 +67,7 @@ flowchart TD
     
     %% Alur Hapus
     Action -- "Hapus Data" --> ClickDelete[Klik Ikon Hapus]
-    ClickDelete --> ConfirmDelete{Pilihan Konfirmasi (Alert JS)?}
+    ClickDelete --> ConfirmDelete{"Pilihan Konfirmasi (Alert JS)?"}
     ConfirmDelete -- "Batal" --> Return["Kembali Ke Tabel (Abaikan)"]
     ConfirmDelete -- "Setuju" --> FetchFiles[Sistem Seleksi Data file_pdf Terkait]
     FetchFiles --> ExecDelete["Unlink File Fisik (Jika Ada) & Eksekusi SQL DELETE"]

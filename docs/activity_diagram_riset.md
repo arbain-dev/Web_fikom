@@ -15,18 +15,18 @@ flowchart TD
     
     RenderCards --> UserAction{Pengguna Klik Kartu?}
     
-    UserAction -- "Ya" --> TriggerJS[JavaScript showDetail(json_data) Terpanggil]
+    UserAction -- "Ya" --> TriggerJS["JavaScript showDetail(json_data) Terpanggil"]
     TriggerJS --> PopulateModal[JS Mengisi Data ke dalam Elemen Modal/Popup DOM]
     PopulateModal --> CheckLink{Ada Link Publikasi/Dokumen?}
     
     CheckLink -- "Ya" --> ShowMenuLink[Tampilkan Tombol 'Lihat Publikasi/Selengkapnya']
     CheckLink -- "Tidak" --> HideMenuLink[Sembunyikan Tombol Link]
     
-    ShowMenuLink --> DisplayModal[Tampilkan Modal Secara Visual (display: flex)]
+    ShowMenuLink --> DisplayModal["Tampilkan Modal Secara Visual (display: flex)"]
     HideMenuLink --> DisplayModal
     
     DisplayModal --> WatchClose{Klik Tutup / Klik Luar?}
-    WatchClose -- "Ya" --> HideModal[Sembunyikan Modal (display: none)]
+    WatchClose -- "Ya" --> HideModal["Sembunyikan Modal (display: none)"]
     HideModal --> RenderCards
     
     UserAction -- "Tidak" --> Scroll[Pengguna Scroll / Tinggalkan Halaman]
@@ -54,10 +54,10 @@ flowchart TD
     %% Alur Tambah & Edit
     Action -- "Tambah/Edit Data" --> ModalForm[Sistem Buka Form Pop-Up Input Berjenjang]
     ModalForm --> FillData[Admin Isi Inputan Teks & Pilihan Select]
-    FillData --> UploadDocs[Admin Upload File Proposal dan/atau Laporan (Opsional untuk Edit)]
+    FillData --> UploadDocs["Admin Upload File Proposal dan/atau Laporan (Opsional untuk Edit)"]
     UploadDocs --> SubmitForm[Klik Simpan]
     
-    SubmitForm --> ValidateExt{Ekstensi Dokumen Valid? (PDF/DOC)}
+    SubmitForm --> ValidateExt{"Ekstensi Dokumen Valid? (PDF/DOC)"}
     ValidateExt -- "Tidak" --> ErrorExt[Notifikasi Gagal Upload File]
     ValidateExt -- "Ya" --> MoveFiles[Pindahkan File Tervalidasi ke Server]
     

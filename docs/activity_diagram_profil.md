@@ -111,6 +111,42 @@ flowchart TD
 
 ---
 
+## 5. Fitur Tentang Fakultas (Representasi Identitas)
+
+Fitur ini diperuntukkan bagi admin untuk mengelola narasi profil fakultas yang tampil pada halaman Beranda utama, mencakup pembaruan teks (judul & deskripsi) serta dokumentasi visual (gambar).
+
+```mermaid
+flowchart TD
+    %% Alur Admin
+    StartAdmin([Admin Mengakses Kelola Tentang Fakultas]) --> FetchData["Sistem Mengambil Data<br>(Tabel tentang_fikom baris ke-1)"]
+    FetchData --> DisplayForm["Tampilkan Formulir Edit<br>(Judul, Deskripsi, Preview Gambar)"]
+    
+    DisplayForm --> AdminEdit["Admin Memperbarui Teks / Memilih Gambar Baru"]
+    AdminEdit --> Submit["Klik Tombol Simpan Perubahan"]
+    
+    Submit --> CheckImg{"Apakah Ada Unggahan<br>Gambar Baru?"}
+    
+    CheckImg -- "Ya" --> UploadProcess["Unggah dan Pindahkan Berkas ke<br>Direktori uploads/tentang/"]
+    UploadProcess --> UpdateAll["Perbarui Teks dan Nama Berkas<br>Gambar di Database"]
+    
+    CheckImg -- "Tidak" --> UpdateText["Perbarui Hanya Teks<br>(Judul & Deskripsi) di Database"]
+    
+    UpdateAll --> Notify["Tampilkan Notifikasi Berhasil"]
+    UpdateText --> Notify
+    Notify --> EndAdmin([Selesai])
+    
+    %% Alur Publik
+    StartPublic([Pengunjung Membuka Beranda]) --> QueryPublic["Sistem Mengambil Data<br>Tentang Fakultas"]
+    QueryPublic --> CheckFallback{"Apakah Gambar Tersedia<br>di Server?"}
+    CheckFallback -- "Ya" --> RenderActual["Tampilkan Gambar Asli"]
+    CheckFallback -- "Tidak" --> RenderFallback["Tampilkan Gambar Pendukung<br>(Fallback dari Unsplash)"]
+    RenderActual --> RenderSection["Muat Teks Judul dan Deskripsi<br>pada Bagian Tentang Fakultas"]
+    RenderFallback --> RenderSection
+    RenderSection --> EndPublic([Selesai])
+```
+
+---
+
 ### Catatan Teknis Fitur Profil:
 - **Optimasi Gambar**: Fitur Struktur Organisasi mendukung format **SVG** untuk memastikan diagram tetap tajam pada semua ukuran layar tanpa pecah (lossless scaling).
 - **UX Counter**: Data dari fitur Fakta diintegrasikan dengan `animateCounters` di `main.js`, memberikan efek visual angka yang berhitung naik saat pengguna men-scroll ke bagian tersebut.

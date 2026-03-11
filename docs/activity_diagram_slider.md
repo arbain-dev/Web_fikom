@@ -10,26 +10,26 @@ Diagram ini menggambarkan bagaimana sistem merender slider pada halaman beranda 
 
 ```mermaid
 flowchart TD
-    Start([Pengunjung Buka Beranda]) --> DBQuery[Sistem Query DB:<br>SELECT * FROM hero_slider<br>WHERE is_active = 1]
+    Start(["Pengunjung Buka Beranda"]) --> DBQuery["Sistem Query DB:<br>SELECT * FROM hero_slider<br>WHERE is_active = 1"]
     
-    DBQuery --> CheckData{Data Ditemukan?}
+    DBQuery --> CheckData{"Data Ditemukan?"}
     
-    CheckData -- Ya --> Loop[Loop Data Slider]
-    Loop --> ValidateFile{File Fisik Ada?}
+    CheckData -- "Ya" --> Loop["Loop Data Slider"]
+    Loop --> ValidateFile{"File Fisik Ada?"}
     
-    ValidateFile -- Ya --> RenderSlide[Tampilkan Gambar<br>dalam Elemen Slider]
-    ValidateFile -- Tidak --> Fallback[Abaikan / Gunakan Default]
+    ValidateFile -- "Ya" --> RenderSlide["Tampilkan Gambar<br>dalam Elemen Slider"]
+    ValidateFile -- "Tidak" --> Fallback["Abaikan / Gunakan Default"]
     
-    RenderSlide --> CheckMore{Masih Ada Data?}
+    RenderSlide --> CheckMore{"Masih Ada Data?"}
     Fallback --> CheckMore
     
-    CheckMore -- Ya --> Loop
-    CheckMore -- Tidak --> InitJS[Inisialisasi JavaScript main.js]
+    CheckMore -- "Ya" --> Loop
+    CheckMore -- "Tidak" --> InitJS["Inisialisasi JavaScript main.js"]
     
-    CheckData -- Tidak --> InitJS
+    CheckData -- "Tidak" --> InitJS
     
-    InitJS --> AutoChange[Slider Bergerak<br>Otomatis Tiap 5 Detik]
-    AutoChange --> End([Selesai Merender])
+    InitJS --> AutoChange["Slider Bergerak<br>Otomatis Tiap 5 Detik"]
+    AutoChange --> End(["Selesai Merender"])
 ```
 
 **Catatan Publik:**
@@ -44,36 +44,36 @@ Diagram ini merinci bagaimana administrator menambahkan slider baru, menghapus s
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Kelola Slider]) --> ShowTable[Sistem Tampilkan Tabel Semua Slider]
+    Start(["Admin Akses Kelola Slider"]) --> ShowTable["Sistem Tampilkan Tabel Semua Slider"]
     
-    ShowTable --> Action{Pilih Aksi Admin}
+    ShowTable --> Action{"Pilih Aksi Admin"}
     
     %% Alur Upload / Tambah Baru
-    Action -- Upload Baru --> SelectFile[Pilih File Gambar]
-    SelectFile --> UploadSubmit[Klik Tombol Upload]
-    UploadSubmit --> Validation{Validasi File?}
-    Validation -- Sukses --> CopyFile[Pindahkan File ke<br>Folder uploads/slider/]
-    CopyFile --> InsertDB[Insert DB dengan<br>is_active = 1]
-    InsertDB --> NoticeSuccess[Tampilkan Pesan Berhasil]
-    Validation -- Gagal --> NoticeFail[Tampilkan Pesan Gagal]
+    Action -- "Upload Baru" --> SelectFile["Pilih File Gambar"]
+    SelectFile --> UploadSubmit["Klik Tombol Upload"]
+    UploadSubmit --> Validation{"Validasi File?"}
+    Validation -- "Sukses" --> CopyFile["Pindahkan File ke<br>Folder uploads/slider/"]
+    CopyFile --> InsertDB["Insert DB dengan<br>is_active = 1"]
+    InsertDB --> NoticeSuccess["Tampilkan Pesan Berhasil"]
+    Validation -- "Gagal" --> NoticeFail["Tampilkan Pesan Gagal"]
     
     %% Alur Hapus
-    Action -- Hapus Data --> ClickDelete[Klik Ikon Tong Sampah]
-    ClickDelete --> ConfirmDelete{Konfirmasi Hapus?}
-    ConfirmDelete -- Ya --> FetchImage[Ambil Nama File dari DB]
-    FetchImage --> Unlink[Hapus File Fisik Server<br>& Delete Data DB]
+    Action -- "Hapus Data" --> ClickDelete["Klik Ikon Tong Sampah"]
+    ClickDelete --> ConfirmDelete{"Konfirmasi Hapus?"}
+    ConfirmDelete -- "Ya" --> FetchImage["Ambil Nama File dari DB"]
+    FetchImage --> Unlink["Hapus File Fisik Server<br>& Delete Data DB"]
     Unlink --> NoticeSuccess
-    ConfirmDelete -- Batal --> CancelAction[Batal Eksekusi]
+    ConfirmDelete -- "Batal" --> CancelAction["Batal Eksekusi"]
     
     %% Alur Toggle Status
-    Action -- Ubah Status --> ClickToggle[Klik Tombol<br>Aktifkan / Nonaktifkan]
-    ClickToggle --> UpdateStatus[Update DB: Toggle is_active<br>0 jadi 1, atau 1 jadi 0]
+    Action -- "Ubah Status" --> ClickToggle["Klik Tombol<br>Aktifkan / Nonaktifkan"]
+    ClickToggle --> UpdateStatus["Update DB: Toggle is_active<br>0 jadi 1, atau 1 jadi 0"]
     UpdateStatus --> NoticeSuccess
     
-    NoticeSuccess --> Refresh[Muat Ulang Halaman Kelola]
+    NoticeSuccess --> Refresh["Muat Ulang Halaman Kelola"]
     NoticeFail --> Refresh
     CancelAction --> ShowTable
-    Refresh --> End([Proses Selesai])
+    Refresh --> End(["Proses Selesai"])
 ```
 
 **Catatan Administrasi:**

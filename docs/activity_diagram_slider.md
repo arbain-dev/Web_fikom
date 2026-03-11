@@ -49,25 +49,25 @@ flowchart TD
     ShowTable --> Action{"Pilih Aksi Admin"}
     
     %% Alur Upload / Tambah Baru
-    Action -- "Upload Baru" --> SelectFile["Pilih File Gambar"]
-    SelectFile --> UploadSubmit["Klik Tombol Upload"]
-    UploadSubmit --> Validation{"Validasi File?"}
-    Validation -- "Sukses" --> CopyFile["Pindahkan File ke<br>Folder uploads/slider/"]
-    CopyFile --> InsertDB["Insert DB dengan<br>is_active = 1"]
+    Action -- "Upload Baru" --> SelectFile["Pilih Berkas Gambar"]
+    SelectFile --> UploadSubmit["Klik Tombol Unggah"]
+    UploadSubmit --> Validation{"Validasi Berkas?"}
+    Validation -- "Sukses" --> CopyFile["Simpan Berkas ke Direktori<br>uploads/slider/"]
+    CopyFile --> InsertDB["Simpan Data ke Database<br>(Status = Aktif)"]
     InsertDB --> NoticeSuccess["Tampilkan Pesan Berhasil"]
-    Validation -- "Gagal" --> NoticeFail["Tampilkan Pesan Gagal"]
+    Validation -- "Gagal" --> NoticeFail["Tampilkan Pesan Kesalahan"]
     
     %% Alur Hapus
-    Action -- "Hapus Data" --> ClickDelete["Klik Ikon Tong Sampah"]
-    ClickDelete --> ConfirmDelete{"Konfirmasi Hapus?"}
-    ConfirmDelete -- "Ya" --> FetchImage["Ambil Nama File dari DB"]
-    FetchImage --> Unlink["Hapus File Fisik Server<br>& Delete Data DB"]
+    Action -- "Hapus Data" --> ClickDelete["Klik Ikon Hapus"]
+    ClickDelete --> ConfirmDelete{"Konfirmasi Penghapusan?"}
+    ConfirmDelete -- "Ya" --> FetchImage["Ambil Nama Berkas dari Database"]
+    FetchImage --> Unlink["Hapus Berkas dari Server<br>& Hapus Data dari Database"]
     Unlink --> NoticeSuccess
-    ConfirmDelete -- "Batal" --> CancelAction["Batal Eksekusi"]
+    ConfirmDelete -- "Batal" --> CancelAction["Batalkan Proses"]
     
-    %% Alur Toggle Status
+    %% Alur Ubah Status
     Action -- "Ubah Status" --> ClickToggle["Klik Tombol<br>Aktifkan / Nonaktifkan"]
-    ClickToggle --> UpdateStatus["Update DB: Toggle is_active<br>0 jadi 1, atau 1 jadi 0"]
+    ClickToggle --> UpdateStatus["Perbarui Status di Database<br>(Aktif menjadi Nonaktif / Sebaliknya)"]
     UpdateStatus --> NoticeSuccess
     
     NoticeSuccess --> Refresh["Muat Ulang Halaman Kelola"]

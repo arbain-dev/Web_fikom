@@ -10,7 +10,7 @@ Diagram ini menggambarkan interaksi pengguna saat mengakses daftar kegiatan peng
 
 ```mermaid
 flowchart TD
-    Start([Pengguna Buka Menu Pengabdian]) --> FetchList["Sistem Mengambil Seluruh Data Pengabdian (ORDER BY judul)"]
+    Mulai([Mulai]) --> FetchList["Sistem Mengambil Seluruh Data Pengabdian (ORDER BY judul)"]
     FetchList --> RenderCards[Sistem Merender Grid Kartu Pengabdian]
     
     RenderCards --> UserRead["Pengguna Membaca Info Singkat (Judul, Pelaksana) di Kartu"]
@@ -42,7 +42,7 @@ Fitur CRUD untuk modul ini terpusat pada pengisian form identitas kegiatan (Judu
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Kelola Pengabdian]) --> FetchData["Sistem Query Fetch Data (ORDER BY id DESC)"]
+    Mulai([Mulai]) --> FetchData["Sistem Query Fetch Data (ORDER BY id DESC)"]
     FetchData --> ShowTable[Sistem Menampilkan Tabel Data]
     
     ShowTable --> Action{Pilih Aksi CRUD}

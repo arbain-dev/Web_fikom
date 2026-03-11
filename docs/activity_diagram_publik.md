@@ -10,7 +10,7 @@ Diagram ini menggambarkan bagaimana pengunjung berinteraksi dengan website mulai
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenURL[Pengunjung membuka URL Website]
+    Mulai([Mulai]) --> OpenURL[Pengunjung membuka URL Website]
     OpenURL --> ShowHome[Sistem menampilkan Halaman Beranda]
     
     ShowHome --> Choice{Ingin apa?}
@@ -45,7 +45,7 @@ Diagram ini merinci proses teknis saat calon mahasiswa melakukan pendaftaran onl
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenPendaftaran[Pengunjung membuka Halaman Pendaftaran]
+    Mulai([Mulai]) --> OpenPendaftaran[Pengunjung membuka Halaman Pendaftaran]
     OpenPendaftaran --> ShowForm[Sistem menampilkan Form Pendaftaran & CSRF Token]
     
     ShowForm --> InputData[Pengguna mengisi data diri & unggah dokumen]
@@ -74,7 +74,7 @@ Diagram ini menjelaskan alur sistem saat pengguna mencari dan membaca detail ber
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenBerita[Pengguna membuka Halaman Berita]
+    Mulai([Mulai]) --> OpenBerita[Pengguna membuka Halaman Berita]
     OpenBerita --> FetchNews[Sistem mengambil daftar berita dari Database]
     FetchNews --> ShowGrid[Sistem menampilkan Grid Kartu Berita]
     
@@ -107,7 +107,7 @@ Diagram ini menggambarkan bagaimana pengguna mengakses informasi profil kepemimp
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenMenuProfil[Pengguna membuka Menu Profil]
+    Mulai([Mulai]) --> OpenMenuProfil[Pengguna membuka Menu Profil]
     OpenMenuProfil --> SelectSubMenu{Pilih Sub-Menu}
     
     SelectSubMenu -- "Sambutan Dekan" --> Sambutan[Tampilkan Sambutan Dekan]
@@ -132,7 +132,7 @@ Diagram ini merinci alur penelusuran informasi akademik dan detail program studi
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenAkademik[Pengguna membuka Menu Akademik/Prodi]
+    Mulai([Mulai]) --> OpenAkademik[Pengguna membuka Menu Akademik/Prodi]
     OpenAkademik --> Choice{Pilih Informasi}
     
     Choice -- "Detail Prodi" --> Prodi[Tampilkan Profil Informatika/PTI]
@@ -158,7 +158,7 @@ Diagram ini menunjukkan alur akses dokumen strategis dan hasil karya ilmiah civi
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenRiset[Pengguna membuka Menu Riset/Dokumen]
+    Mulai([Mulai]) --> OpenRiset[Pengguna membuka Menu Riset/Dokumen]
     OpenRiset --> Action{Pilih Konten}
     
     Action -- "Daftar Penelitian" --> Penelitian[Tampilkan Judul & Abstrak Riset]
@@ -178,7 +178,7 @@ Diagram ini menggambarkan interaksi dengan lembaga kemahasiswaan.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenMhs[Pengguna membuka Menu Kemahasiswaan]
+    Mulai([Mulai]) --> OpenMhs[Pengguna membuka Menu Kemahasiswaan]
     OpenMhs --> SelectOrg{Pilih Organisasi}
     
     SelectOrg -- "BEM" --> BEM[Tampilkan Struktur & Program BEM]
@@ -200,7 +200,7 @@ Alur melihat jaringan lulusan dan penelusuran karir.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenAlumni[Pengguna membuka Menu Alumni]
+    Mulai([Mulai]) --> OpenAlumni[Pengguna membuka Menu Alumni]
     OpenAlumni --> FetchAlumni[Sistem mengambil data Alumni & Tracer Study]
     FetchAlumni --> ShowAlumni[Tampilkan Info Alumni & Tracer Study]
     ShowAlumni --> End([End])

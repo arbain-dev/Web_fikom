@@ -17,7 +17,7 @@ Fitur ini memungkinkan Administrator untuk mengunggah dan mengelola dokumen pand
 
 ```mermaid
 flowchart TD
-    Start([Admin Membuka Kelola Kurikulum]) --> ShowTable["Sistem Menampilkan Daftar Kurikulum"]
+    Mulai([Mulai]) --> ShowTable["Sistem Menampilkan Daftar Kurikulum"]
     
     ShowTable --> Action{"Pilih Aksi Admin"}
     
@@ -62,7 +62,7 @@ Fitur ini berfungsi untuk menampilkan gambar jadwal kalender akademik per tahun 
 
 ```mermaid
 flowchart TD
-    Start([Admin Membuka Kelola Kalender]) --> ShowTable["Sistem Menampilkan Daftar Kalender"]
+    Mulai([Mulai]) --> ShowTable["Sistem Menampilkan Daftar Kalender"]
     
     ShowTable --> Action{"Pilih Aksi Admin"}
     
@@ -106,7 +106,7 @@ Fitur kelola anggota Badan Eksekutif Mahasiswa (BEM) digunakan untuk mempublikas
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Detail BEM]) --> QueryData["Sistem Melakukan Sortir Data<br>(Berdasarkan Kategori & Urutan)"]
+    Mulai([Mulai]) --> QueryData["Sistem Melakukan Sortir Data<br>(Berdasarkan Kategori & Urutan)"]
     QueryData --> ShowTable["Sistem Menampilkan Tabel Pengurus"]
     
     ShowTable --> Action{"Aksi Admin / Sistem"}

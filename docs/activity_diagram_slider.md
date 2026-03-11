@@ -10,7 +10,7 @@ Diagram ini menggambarkan bagaimana sistem merender slider pada halaman beranda 
 
 ```mermaid
 flowchart TD
-    Start(["Pengunjung Buka Beranda"]) --> DBQuery["Sistem Query DB:<br>SELECT * FROM hero_slider<br>WHERE is_active = 1"]
+    Mulai([Mulai]) --> DBQuery["Sistem Query DB:<br>SELECT * FROM hero_slider<br>WHERE is_active = 1"]
     
     DBQuery --> CheckData{"Data Ditemukan?"}
     
@@ -44,7 +44,7 @@ Diagram ini merinci bagaimana administrator menambahkan slider baru, menghapus s
 
 ```mermaid
 flowchart TD
-    Start(["Admin Akses Kelola Slider"]) --> ShowTable["Sistem Tampilkan Tabel Semua Slider"]
+    Mulai([Mulai]) --> ShowTable["Sistem Tampilkan Tabel Semua Slider"]
     
     ShowTable --> Action{"Pilih Aksi Admin"}
     

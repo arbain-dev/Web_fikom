@@ -10,7 +10,7 @@ Diagram ini menggambarkan alur keamanan saat administrator masuk ke sistem.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenLogin[Admin membuka Halaman Login]
+    Mulai([Mulai]) --> OpenLogin[Admin membuka Halaman Login]
     OpenLogin --> InputCreds[Input Username & Password]
     InputCreds --> ClickLogin[Klik Tombol Login]
     
@@ -36,7 +36,7 @@ Alur umum untuk menambah, mengubah, atau menghapus konten dinamis.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenModule[Pilih Menu Kelola Berita/Slider]
+    Mulai([Mulai]) --> OpenModule[Pilih Menu Kelola Berita/Slider]
     OpenModule --> ShowList[Sistem menampilkan Tabel Data]
     
     ShowList --> Action{Pilih Aksi}
@@ -67,7 +67,7 @@ Diagram khusus untuk pengelolaan aset pendidik dan kurikulum.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenAkad[Buka Menu Kelola Dosen/Kurikulum]
+    Mulai([Mulai]) --> OpenAkad[Buka Menu Kelola Dosen/Kurikulum]
     OpenAkad --> FetchData[Sistem mengambil data dari DB]
     FetchData --> ShowData[Tampilkan Daftar Dosen/Mata Kuliah]
     
@@ -91,7 +91,7 @@ Alur admin saat memproses data pendaftar yang masuk dari sisi publik.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenReg[Buka Menu Kelola Pendaftaran]
+    Mulai([Mulai]) --> OpenReg[Buka Menu Kelola Pendaftaran]
     OpenReg --> ListReg[Sistem menampilkan daftar pendaftar terbaru]
     
     ListReg --> DetailReg[Admin klik Detail Pendaftar]
@@ -114,7 +114,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenInst[Buka Menu Visi-Misi/Struktur]
+    Mulai([Mulai]) --> OpenInst[Buka Menu Visi-Misi/Struktur]
     OpenInst --> ShowEditor[Tampilkan Teks Editor / Upload Gambar]
     
     ShowEditor --> EditContent[Admin memperbarui konten Kelembagaan]

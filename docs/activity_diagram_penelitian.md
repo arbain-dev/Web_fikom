@@ -10,7 +10,7 @@ Diagram ini menggambarkan interaksi pengguna saat mengakses daftar penelitian do
 
 ```mermaid
 flowchart TD
-    Start([Pengguna Buka Menu Penelitian]) --> FetchList[Sistem Mengambil Seluruh Data dari Database]
+    Mulai([Mulai]) --> FetchList[Sistem Mengambil Seluruh Data dari Database]
     FetchList --> RenderCards[Sistem Merender Grid Kartu Penelitian]
     
     RenderCards --> UserAction{Pengguna Klik Kartu?}
@@ -41,7 +41,7 @@ Fitur CRUD untuk modul ini melibatkan pengisian form identitas detail, serta ops
 
 ```mermaid
 flowchart TD
-    Start([Admin Akses Kelola Penelitian]) --> ShowTable[Sistem Menampilkan Tabel Data Penelitian]
+    Mulai([Mulai]) --> ShowTable[Sistem Menampilkan Tabel Data Penelitian]
     
     %% Fitur Filter Data
     ShowTable --> FilterAction{Pilih Filter?}

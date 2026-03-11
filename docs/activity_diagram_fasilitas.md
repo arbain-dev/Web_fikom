@@ -10,7 +10,7 @@ Diagram ini menggambarkan bagaimana pengunjung melihat informasi fasilitas dan m
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenMenu[Pengguna memilih Menu Fasilitas]
+    Mulai([Mulai]) --> OpenMenu[Pengguna memilih Menu Fasilitas]
     OpenMenu --> Choice{Pilih Kategori}
     
     Choice -- "Ruangan" --> FetchRuangan[Sistem mengambil data Ruangan dari DB]
@@ -35,7 +35,7 @@ Diagram ini merinci bagaimana administrator mengelola data fasilitas, termasuk p
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> Login[Admin Login ke Dashboard]
+    Mulai([Mulai]) --> Login[Admin Login ke Dashboard]
     Login --> OpenModule[Pilih Kelola Ruangan / Kelola Lab]
     OpenModule --> ShowTable[Sistem menampilkan Tabel Data Fasilitas]
     

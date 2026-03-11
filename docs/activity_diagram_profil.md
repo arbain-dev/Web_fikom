@@ -10,7 +10,7 @@ Menggambarkan bagaimana pengguna berinteraksi dengan menu profil untuk mendapatk
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> UserAction[Pengguna klik Menu Profil di Navbar]
+    Mulai([Mulai]) --> UserAction[Pengguna klik Menu Profil di Navbar]
     UserAction --> Dropdown[Sistem menampilkan Dropdown Profil]
     
     Dropdown --> SubMenu{Pilih Sub-Menu}
@@ -36,8 +36,7 @@ Fitur ini memungkinkan pengelolaan poin-poin strategis fakultas dengan urutan te
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenModule[Admin buka Kelola Visi Misi]
-    OpenModule --> Fetch[Sistem memuat Visi Utama & List Misi/Tujuan]
+    Mulai([Mulai]) --> Fetch[Sistem memuat Visi Utama & List Misi/Tujuan]
     
     Fetch --> Interaction{Aksi Admin}
     
@@ -68,8 +67,7 @@ Fokus pada pengelolaan dokumen visual struktur organisasi.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenStruktur[Admin buka Kelola Struktur]
-    OpenStruktur --> ShowImage[Sistem menampilkan Gambar Struktur Aktif]
+    Mulai([Mulai]) --> ShowImage[Sistem menampilkan Gambar Struktur Aktif]
     
     ShowImage --> Interaction{Aksi}
     Interaction -- "Ganti Gambar" --> SelectFile[Pilih file baru JPG/PNG/SVG]
@@ -93,8 +91,7 @@ Mengelola data angka yang ditampilkan secara dinamis di Beranda.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> OpenFakta[Admin masuk Kelola Fakta]
-    OpenFakta --> Table[Tampilkan Daftar Angka & Label]
+    Mulai([Mulai]) --> Table[Tampilkan Daftar Angka & Label]
     
     Table --> CRUD{Pilih Operasi}
     CRUD -- "Tambah/Edit" --> Modal[Buka Modal Form]
@@ -118,7 +115,7 @@ Fitur ini diperuntukkan bagi admin untuk mengelola narasi profil fakultas yang t
 ```mermaid
 flowchart TD
     %% Alur Admin
-    StartAdmin([Admin Mengakses Kelola Tentang Fakultas]) --> FetchData["Sistem Mengambil Data<br>(Tabel tentang_fikom baris ke-1)"]
+    Mulai([Mulai]) --> FetchData["Sistem Mengambil Data<br>(Tabel tentang_fikom baris ke-1)"]
     FetchData --> DisplayForm["Tampilkan Formulir Edit<br>(Judul, Deskripsi, Preview Gambar)"]
     
     DisplayForm --> AdminEdit["Admin Memperbarui Teks / Memilih Gambar Baru"]

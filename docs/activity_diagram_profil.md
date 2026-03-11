@@ -134,15 +134,6 @@ flowchart TD
     UpdateAll --> Notify["Tampilkan Notifikasi Berhasil"]
     UpdateText --> Notify
     Notify --> EndAdmin([Selesai])
-    
-    %% Alur Publik
-    StartPublic([Pengunjung Membuka Beranda]) --> QueryPublic["Sistem Mengambil Data<br>Tentang Fakultas"]
-    QueryPublic --> CheckFallback{"Apakah Gambar Tersedia<br>di Server?"}
-    CheckFallback -- "Ya" --> RenderActual["Tampilkan Gambar Asli"]
-    CheckFallback -- "Tidak" --> RenderFallback["Tampilkan Gambar Pendukung<br>(Fallback dari Unsplash)"]
-    RenderActual --> RenderSection["Muat Teks Judul dan Deskripsi<br>pada Bagian Tentang Fakultas"]
-    RenderFallback --> RenderSection
-    RenderSection --> EndPublic([Selesai])
 ```
 
 ---

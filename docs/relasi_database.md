@@ -1,256 +1,121 @@
-# Relasi Database dan Penjelasan Skema
+# Relasi Database dan Penjelasan Skema (Update)
 
-Dokumen ini menjelaskan struktur database `db_web_fikom` yang digunakan dalam aplikasi Web Fakultas Ilmu Komputer.
+Dokumen ini menjelaskan struktur relasional dari database `db_web_fikom` berdasarkan hasil ekstraksi skema terbaru. Sistem ini dirancang sebagai *Content Management System (CMS)* dengan konsepsi *loose-coupling* (relasi fisik *Foreign Key* tidak dikunci di level SQL, melainkan dikelola secara logis di level aplikasi PHP).
 
-## Entity Relationship Diagram (ERD)
+## 1. Entity Relationship Diagram (ERD) Logis
 
-Berikut adalah diagram relasi antar tabel dalam database. Karena aplikasi ini bersifat Content Management System (CMS), banyak tabel berdiri sendiri (independen) untuk menyimpan konten dinamis, namun semuanya dikelola oleh administrator yang terautentikasi melalui tabel `users`.
+Berikut adalah gambaran relasi logis antar tabel utama dalam sistem. Relasi didominasi oleh peran **Administrator (`users`)** yang mengelola tabel-tabel konten lainnya, serta beberapa referensi logika seperti dari **Dosen** ke **Penelitian/Pengabdian**.
 
 ```mermaid
 erDiagram
     users {
         int id PK
-        string username
-        string password "Hashed"
-        string email
-    }
-
-    berita {
-        int id PK
-        string judul
-        string kategori
-        date tanggal_publish
-        string link
-        text konten
-        string foto
+        varchar username
+        varchar password
+        varchar email
+        varchar role
     }
 
     dosen {
         int id PK
-        string nidn
-        string nama
-        string program_studi
-        string keahlian
-        string pendidikan
-        string jabatan
-        enum status "Tetap/LB"
-        string email
-        string foto
-    }
-
-    tb_fakta {
-        int id PK
-        string judul
-        string angka
-        int urutan
-    }
-
-    kerjasama {
-        int id PK
-        string nama_instansi
-        string logo
-        string link_website
-        string bulan
-        string tahun
-    }
-
-    laboratorium {
-        int id PK
-        string nama_lab
-        text deskripsi
-        string foto
-    }
-
-    ruangan {
-        int id PK
-        string nama_ruangan
-        text deskripsi
-        string foto
-    }
-
-    bem_struktur {
-        int id PK
-        string nama
-        string jabatan
-        string prodi
-        string kategori
-        int urutan
-        string foto
-    }
-
-    kurikulum {
-        int id PK
-        string nama_kurikulum
-        text deskripsi
-        string file_pdf
+        varchar nidn "Unik"
+        varchar nama
+        varchar program_studi
     }
 
     penelitian {
         int id PK
-        string judul
-        string peneliti
-        string tahun
-        string status
-        string skim_penelitian
-        string kelompok_bidang
-        string nomor_sk
-        string lama_kegiatan
-        string sumber_dana
-        string jumlah_dana
-        date tanggal_mulai
-        date tanggal_selesai
-        string lokasi_penelitian
-        string afiliasi
-        string file_proposal
-        string file_laporan
-        string link_publikasi
+        varchar judul
+        varchar peneliti "Ref: Dosen"
+        int tahun
     }
 
     pengabdian {
         int id PK
-        string judul
-        string pelaksana
-        text deskripsi
-        string file_pdf
+        varchar judul
+        varchar pelaksana "Ref: Dosen"
         date tanggal_kegiatan
-    }
-
-    sop {
-        int id PK
-        string nama_sop
-        text deskripsi
-        string file_pdf
-    }
-
-    rencana_strategis {
-        int id PK
-        string nama_dokumen
-        text deskripsi
-        string file_pdf
-    }
-
-    rencana_operasional {
-        int id PK
-        string nama_dokumen
-        text deskripsi
-        string file_pdf
-    }
-
-    visi_misi {
-        int id PK
-        enum kategori "'Visi', 'Misi', 'Tujuan', 'Sasaran'"
-        text konten
-        int urutan
-    }
-
-    tentang_fikom {
-        int id PK
-        string judul
-        text deskripsi
-        string gambar
-    }
-
-    hero_slider {
-        int id PK
-        string gambar
-        boolean is_active
     }
 
     pendaftaran {
         int id PK
-        string nama
-        string nik
-        string email
-        string hp
-        string tempat_lahir
-        date tanggal_lahir
-        enum jk "L/P"
-        string asal_sekolah
-        string prodi
-        string jalur
-        text alamat
-        string file_ktp
-        string file_ijazah
-        text catatan
-        enum status "'Pending', 'Diterima', 'Ditolak'"
-        datetime created_at
+        varchar nik
+        varchar nama
+        varchar prodi
+        enum status "Pending/Diterima/Ditolak"
     }
 
-    tracer_study {
-        string status_pekerjaan
-        int masa_tunggu
-        decimal gaji_pertama
+    berita {
+        int id PK
+        varchar judul
+        varchar kategori
+        datetime tanggal_publish
     }
 
-    halaman_statis {
-        string nama_halaman
-        string gambar_path
+    mahasiswa {
+        int id PK
+        varchar nim "Unik"
+        varchar nama
+        varchar prodi
     }
 
-    %% Relationships
-    %% Secara teknis, tabel-tabel konten tidak memiliki Foreign Key constraint ke Users
-    %% namun secara logika bisnis (CMS), Administrator mengelola seluruh konten ini.
-    
+    bem_struktur {
+        int id PK
+        varchar nama "Ref: Mahasiswa"
+        varchar jabatan
+        varchar prodi
+    }
+
+    %% Relasi Logis
     users ||--o{ berita : "mengelola"
     users ||--o{ dosen : "mengelola"
-    users ||--o{ pendaftaran : "verifikasi"
     users ||--o{ penelitian : "mengelola"
     users ||--o{ pengabdian : "mengelola"
-    users ||--o{ tb_fakta : "mengelola"
-
-    users ||--o{ kerjasama : "mengelola"
-    users ||--o{ laboratorium : "mengelola"
-    users ||--o{ ruangan : "mengelola"
-    users ||--o{ bem_struktur : "mengelola"
-    users ||--o{ kurikulum : "mengelola"
-    users ||--o{ sop : "mengelola"
-    users ||--o{ rencana_strategis : "mengelola"
-    users ||--o{ rencana_operasional : "mengelola"
-    users ||--o{ visi_misi : "mengelola"
-    users ||--o{ tentang_fikom : "mengelola"
-    users ||--o{ hero_slider : "mengelola"
-    users ||--o{ tracer_study : "memantau"
-    users ||--o{ halaman_statis : "mengelola"
+    users ||--o{ pendaftaran : "verifikasi"
+    users ||--o{ mahasiswa : "mengelola"
+    
+    dosen ||--o{ penelitian : "melaksanakan"
+    dosen ||--o{ pengabdian : "melaksanakan"
+    
+    mahasiswa ||--o{ bem_struktur : "menjabat di"
 ```
 
-## Penjelasan Tabel
+## 2. Penjelasan Per Modul
 
-### 1. Tabel Utama (Admin & User)
-*   **`users`**: Tabel ini menyimpan data administrator yang memiliki hak akses penuh ke halaman admin (`/admin`). Kolom utamanya adalah `username`, `password` (terenkripsi), dan `email`. Tabel ini digunakan untuk otentikasi saat login.
+### A. Modul Pengguna & Autentikasi
+*   **`users`**: Menyimpan data administrator untuk login backend CMS. Mengatur hak akses staf/admin untuk seluruh tabel lainnya.
 
-### 2. Tabel Akademik & Civitas
-*   **`dosen`**: Menyimpan data lengkap dosen tetap maupun luar biasa, termasuk NIDN, jabatan fungsional, pendidikan terakhir, dan keahlian.
-*   **`tb_fakta`**: Menyimpan data statistik fakultas (misal: jumlah mahasiswa, jumlah dosen) yang ditampilkan dalam bentuk angka "Fact Counter" di halaman depan.
-*   **`kurikulum`**: Menyimpan dokumen kurikulum yang berlaku, biasanya dalam format PDF, untuk diunduh oleh mahasiswa.
-*   **`visimisi`**: Tabel fleksibel untuk menyimpan teks Visi, Misi, Tujuan, dan Sasaran. Konten dibedakan berdasarkan kolom `kategori`.
-*   **`bem_struktur`**: Menyimpan struktur organisasi Badan Eksekutif Mahasiswa (BEM), termasuk foto, jabatan, dan urutan tampilan.
+### B. Modul Sivitas Akademika
+*   **`dosen`**: Menyimpan profil lengkap dosen (NIDN, nama, keahlian, riwayat pendidikan).
+*   **`tabel_dosen`**: Versi ringkas dari profil dosen untuk keperluan grid pada *front-end*.
+*   **`mahasiswa`**: Menyimpan data identitas mahasiswa aktif.
 
-### 3. Tabel Fasilitas
-*   **`laboratorium`**: Menyimpan informasi fasilitas laboratorium komputer atau lainnya, termasuk deskripsi dan foto.
-*   **`ruangan`**: Menyimpan data ruangan kelas atau fasilitas umum lainnya di fakultas.
+### C. Modul Tridharma Perguruan Tinggi
+*   **`penelitian`**: Mendata daftar publikasi dan penelitian (judul, sumber dana, file laporan). Kolom `peneliti` menangkap referensi logika dari nama/NIDN tabel `dosen`.
+*   **`pengabdian`**: Mendata riwayat kegiatan pengabdian. Kolom `pelaksana` juga terhubung secara logika dengan `dosen`.
 
-### 4. Tabel Informasi & Publikasi
-*   **`berita`**: Tabel untuk artikel berita atau pengumuman. Mendukung kategori, tanggal publish, dan foto <i>thumbnail</i>.
+### D. Modul Publikasi & Informasi Front-End
+*   **`berita`**: Artikel dan pengumuman kegiatan fakultas yang muncul di portal utama.
+*   **`hero_slider`**: Mengelola aset gambar *banner* rotasi (*carousel*) di *homepage*.
+*   **`tb_fakta`**: Menyimpan data statistik ringkas fakultas (seperti jumlah dosen/mahasiswa/prodi) untuk komponen widget animasi (*counter*).
+*   **`tentang_fikom` & `visi_misi`**: Menyimpan profil teks naratif untuk laman sejarah dan Visi-Misi institusi.
 
-*   **`hero_slider`**: Mengatur gambar <i>slider</i> (banner berjalan) di halaman beranda. Memiliki status aktif/nonaktif untuk mengontrol tampilan.
-*   **`tentang_fikom`**: Tabel tunggal (<i>single row usually</i>) yang menyimpan deskripsi profil fakultas dan gambar utamanya.
+### E. Modul Profil Fasilitas & Organisasi
+*   **`bem_struktur`**: Daftar struktur organisasi Badan Eksekutif Mahasiswa. Secara logika, subjek personalnya bersinggungan dengan entitas `mahasiswa`.
+*   **`laboratorium` & `ruangan`**: Mendokumentasikan gambar dan status ketersediaan fasilitas gedung perkuliahan maupun lab.
 
-### 5. Tabel Penelitian & Pengabdian (Tri Dharma)
-*   **`penelitian`**: Database lengkap penelitian dosen, mencakup judul, status pendanaan, anggota peneliti, hingga link publikasi dan file laporan.
-*   **`pengabdian`**: Mirip dengan penelitian, namun khusus untuk kegiatan Pengabdian kepada Masyarakat (PkM).
+### F. Modul Dokumen Akademik Publik (Repositori)
+Tabel-tabel ini berfungsi menampilkan daftar *file/document* PDF yang dapat diunduh pengguna web:
+*   **`kurikulum`** (Silabus program studi)
+*   **`kalender_akademik`** (Jadwal kegiatan tahunan)
+*   **`rencana_operasional`** & **`rencana_strategis`** (Dokumen perencanaan fakultas)
+*   **`sop`** (Buku manual/pedoman mahasiswa)
+*   **`kerjasama`**: Mendata daftar instansi mitra kampus, lengkap dengan logonya.
+*   **`halaman_statis`**: Konfigurasi teks *custom* (HTML) untuk halaman sisipan khusus.
 
-### 6. Tabel Dokumen Resmi
-*   **`rencana_strategis` (Renstra)**: Dokumen perencanaan jangka menengah fakultas.
-*   **`rencana_operasional` (Renop)**: Dokumen rencana operasional tahunan.
-*   **`sop`**: Kumpulan dokumen Standar Operasional Prosedur.
-*   **`kerjasama`**: Mendata instansi mitra yang bekerja sama dengan fakultas, termasuk logo dan durasi kerjasama.
+### G. Modul Pendaftaran Calon Mahasiswa/Layanan Publik
+*   **`pendaftaran`**: Memuat log *form* registrasi yang di-*submit* oleh publik. Menampung data KTP, Ijazah, dll. Registrasi ini membutuhkan proses persetujuan (kolom `status`) yang akan diverifikasi manual oleh pengelola di tabel `users` (Admin).
 
-### 7. Tabel Pendaftaran & Alumni
-*   **`pendaftaran`**: Menyimpan data calon mahasiswa baru yang mendaftar secara online. Mencakup data diri, dokumen (KTP/Ijazah), dan status penerimaan (Pending/Diterima/Ditolak).
-*   **`tracer_study`**: Tabel ini (diinferensi dari query di `alumni.php`) digunakan untuk menyimpan data pelacakan alumni, seperti masa tunggu kerja dan gaji pertama.
-
-## Catatan Relasi
-Dalam desain database ini, relasi antar tabel bersifat **implisit (Logika Aplikasi)**. 
-- Secara fisik (SQL), tabel-tabel konten berdiri sendiri tanpa *Foreign Key* ke tabel `users`.
-- Namun secara logis (Bisnis Proses), Administrator (`users`) memiliki kendali penuh untuk *Create, Read, Update, Delete* (CRUD) pada seluruh tabel tersebut.
-- Diagram di atas menggambarkan hubungan logika **"Administrator Mengelola Konten"** tersebut agar memudahkan pemahaman alur data dalam laporan.
+---
+**Kesimpulan Relasi Konseptual:**
+Aplikasi ini memanfaatkan relasi semantik pada *Application Layer* alih-alih *Database Constraint* tingkat SQL (seperti `FOREIGN KEY` dengan `ON DELETE CASCADE`). Pendekatan ini umum dalam skrip CMS ringan, memungkinkan tiap entitas (dosen, pengumuman, dsb) diproses secara mandiri (*loose-coupled*) tanpa risiko kegagalan kueri cascading.

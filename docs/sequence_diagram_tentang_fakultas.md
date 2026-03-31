@@ -4,17 +4,9 @@ Diagram sekuensial ini merinci alur di dalam sistem tatkala seorang pengguna men
 
 ## Penjelasan Alur
 
-Berikut rincian naratif tahapan pemanggilan atas halaman tentang fakultas:
-1. **Interaksi Pengawal**: Pengguna mengunjungi situs dan mengarahkan navigasinya ke tautan "Tentang Fakultas" pada kumpulan menu beranda. 
-2. **Pola Pengendalian Rute**: *Web server* melimpahkan permintaan (*request*) tersebut ke skrip peladen utama kita, yaitu berkas `index.php`. Skrip inilah yang menugaskan penanganan awal berdasarkan struktur antarmuka URL.
-3. **Delegasi ke Modul Halaman**: Di bawah komando `index.php`, skrip fungsionalitas dari unit "Halaman Tentang Fakultas" dipanggil agar dieksekusi pemrosesannya.
-4. **Pembukaan Gerbang Basis Data**: Konfigurasi sambungan instansial ke ruang server basis data (*MySQL*) diresmikan lewat inklusi (*include*) *config database*.
-5. **Penggalian Substansi Sejarah**: Sistem menyampaikan kueri pemilahan informasi pada skema basis data dengan tujuan mengambil narasi panjang profil, deskripsi visi sejarah berdirinya, dan/atau citra estetis tentang fakultas.
-6. **Basis Data Bersuara**: Basis data menanggapinya dengan mengirimkan luaran set (*result set*) dari profil dekanat/fakultas yang otentik kembali pada berkas peminta tersebut.
-7. **Penyanderaan Header**: Tatanan kepala (*Header*) navigasi dan pengaya (*CSS*) dipetik dan dirawikan memakai `includes/header.php`.
-8. **Asimilasi Teks Naratif**: Narasi sejarah, potret (*image*), serta pendahuluan (*overview*) dilebur menyatu menempati struktur badan kode (*body html*).
-9. **Penjagaan Titik Akhir**: Perangkat `includes/footer.php` ditautkan buat menetapkan bingkai kaki yang paripurna (lengkap dengan hak cipta dan sambungan media sosial).
-10. **Penggenapan Halaman**: Susunan padu yang final ini dikemas lalu dilontarkan lewat pintu keluar sebagai tanggapan web kepada pembaca, dengan seutuhnya menayangkan profil rinci mengenai pihak fakultas.
+Pemanggilan atas profil naratif "Tentang Fakultas" digerakkan oleh aksi navigasi pengunjung yang bertamu ke halaman profil fakultas. Alur ini otomatis merangsang rekam kueri HTTP dari peramban, yang dengan sigap dipaparkan dan diambil alih posisinya oleh inti situs (`index.php`) selaku pintu pengatur presisi rute. Berkas inti menangguhkan tugas tersebut kepada skrip unit penampil Tentang Fakultas, di mana tahapan berikutnya sangat esensial: memicu panggilan ke titik akses repositori pangkalan data terpusat (MySQL).
+
+Sejenak sesudah sambungan *database* terbentuk mumpuni, sistem mengajukan sintaks perintah permohonan pengambilan rekam jejak histori fakultas, ikhtisar gambaran umum, dan atribut profil esensial lainnya. Luaran (*result set*) teks dari basis data yang sarat memori sejarah itu pun diteruskan lurus ke *backend* peladen. Sementara data disinggahkan, kerangka tatanan kepala bernavigasi situs beserta segenap berkas gaya (`includes/header.php`) dikail, dirakit mengitari pementasan rincian dokumen HTML, sebelum disempurnakan lagi dengan bingkai jejak bawah (*footer*). Sebagai tahap penyegelan fungsional, kumpulan balok-balok susunan komponen layar diumpankan satu arah menjadi kode respons berspesifikasi yang utuh di sisi antarmuka sang pengunjung.
 
 ## Diagram
 

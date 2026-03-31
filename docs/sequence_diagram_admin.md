@@ -1,8 +1,10 @@
 # Sequence Diagram - Admin Web FIKOM
 
-Dokumen ini berisi **Sequence Diagram** lengkap untuk seluruh modul di halaman Administrator Web FIKOM. Diagram dikelompokkan berdasarkan pola logika sistem.
+Dokumentasi *Sequence Diagram* (diagram sekuensial) ini disusun untuk memberikan representasi visual yang komprehensif mengenai alur komunikasi dan interaksi antar entitas di dalam sistem panel administrator Web Fakultas Ilmu Komputer (FIKOM). Diagram ini secara spesifik menitikberatkan pada kronologi waktu dan urutan proses pengiriman pesan (*messages*) sejak administrator web menginisiasi sebuah aksi—seperti melakukan validasi '*login*', melangsungkan operasi penambahan, pembaharuan, hingga penghapusan *record* data inti (*master data*)—sampai dengan sistem memberikan respons akhir yang tepat. 
 
-> **Catatan:** Diagram menggunakan format **Mermaid Sequence Diagram**.
+Pada skema-skema di bawah ini, proses logika internal berjalan konsisten antar subsistem; antarmuka dasbor akan secara rutin meneruskan format permintaan pos (*HTTP POST/GET Request*) dari admin ke ranah pemroses *backend* PHP. Mekanisme fungsional lalu mencocokkan kredensial sesi yang tengah aktif, mengamankan gerbang data, mengelola unggahan berkas ke peladen fisik, serta menjalin konektivitas ke *database* MySQL guna merekam jejak operasi basis data CRUD dengan tingkat presisi yang tinggi. Pada akhirnya, respons keberhasilan transaksi maupun lemparan galat operasional ditautkan kembali ke antarmuka untuk mencerminkan pangkalan data web secara utuh dan terjamin. Oleh karena itu, skema yang dirangkum menjadi satu dokumen sentral ini dibagi melintasi berbagai modul menurut pola arsitekturnya.
+
+> **Catatan:** Diagram menggunakan format ekspresi **Mermaid Sequence Diagram**.
 
 ---
 

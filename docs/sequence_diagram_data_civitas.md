@@ -4,17 +4,9 @@ Diagram sekuensial ini menjelaskan alur operasional di balik layar ketika penggu
 
 ## Penjelasan Alur
 
-Berikut adalah penjabaran langkah demi langkah dari diagram ini:
-1. **Permintaan Akses**: Pengguna membuka halaman civitas akademika melalui menu profil yang tersedia.
-2. **Penerimaan Permintaan**: `index.php` selaku tulang punggung situs menerima panggilan HTTP ini dan mulai memuat berkas inisiasi utama (*routing* & *system config*).
-3. **Pemuatan Fitur Civitas**: Sesuai dengan pembacaan URL yang diakses, sistem selanjutnya mengeksekusi skrip berkas halaman data civitas (`pages/civitas.php` atau sejenisnya).
-4. **Koneksi Database**: Halaman civitas ini kemudian membangun komunikasi ke *server* basis data fakultas.
-5. **Eksekusi Kueri Data Civitas**: Sistem memohon basis data untuk mengeluarkan senarai nama staf pengajar (dosen) berserta detail pangkat/pendidikan dan tenaga kependidikan dari tabel sivitas.
-6. **Distribusi Data Civitas**: Data mentah yang diserahkan `MySQL` ini disimpan sementara ke dalam ingatan program (variabel/array).
-7. **Pemuatan Header**: Puncak halaman (*navbar*, *logo*, inisialisasi *style*) dipanggil melalui komponen `includes/header.php`.
-8. **Penggabungan Tampilan**: Sistem mulai menjajarkan profil setiap civitas akademika secara rapi—mungkin dalam bentuk matriks (*grid*)—bercampur padu dengan susunan HTML statis.
-9. **Penutupan (*Footer*)**: Bagian bawah halaman diambil menggunakan berkas `includes/footer.php`.
-10. **Pemulangan Hasil**: Hasil susunan struktur grafis berupa respons HTML komprehensif dikirimkan kepada peramban pengunjung.
+Alur komunikasi pada diagram sekuensial ini bermula tatkala pengguna mengeklik menu atau langsung mengarahkan tautan URL untuk mengakses halaman Data Civitas Akademika. Panggilan antarmuka tersebut ditangkap terlebih dahulu oleh tulang punggung aplikasi (`index.php`), yang berperan meretas rute agar sistem dapat memanggil skrip fungsional yang berkaitan dengan halaman data (*civitas*). Setelah skrip diinisiasi, sebuah sesi negosiasi kepada lapis *database* (MySQL) pun disiapkan supaya situs web dapat bertukar informasi dengan aman.
+
+Melalui saluran penghubung basis data inilah, halaman Data Civitas secara aktif menghantarkan sekumpulan instruksi kueri untuk membentangkan profil para tenaga pengajar (dosen) berserta staf kependidikan yang terekam pada tabel sistem. Data rincian yang antara lain memuat potret jabatan dan latar belakang akademik tersebut lantas direkam sejenak di sisi *server*. Tak lama setelahnya, kerangka visual atas navigasi halaman (`includes/header.php`) diproses. Sistem merakit profil tiap-tiap entitas sivitas ini dalam tata letak yang berkesinambungan layaknya sebuah presentasi balok matriks (HTML *grid* statis), menyelaraskannya dengan blok ujung (`includes/footer.php`), hingga terbentuk sebuah keluaran tanggapan kode respons (HTML) yang dikirim dan dicetak ke peramban pengguna.
 
 ## Diagram
 

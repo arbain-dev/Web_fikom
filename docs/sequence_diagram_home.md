@@ -4,19 +4,9 @@ Diagram sekuensial ini menggambarkan alur kerja sistem ketika seorang pengunjung
 
 ## Penjelasan Alur
 
-1. **Pengguna Mengakses Halaman**: Pengguna mengakses *root url* (`/`) melalui browser.
-2. **Routing oleh `index.php`**: Permintaan diterima oleh `index.php` yang mengatur *routing* dasar dan memutuskan untuk memuat file `pages/home.php`.
-3. **Persiapan Halaman & Koneksi**: `pages/home.php` memuat file konfigurasi, fungsi, dan koneksi ke *database*.
-4. **Pengambilan Data (Query)**:
-   - **Berita**: Mengambil 6 berita terbaru (`LIMIT 6`, diurutkan berdasarkan `tanggal_publish`).
-   - **Fakta**: Mengambil seluruh fakta statistik fakultas.
-   - **Slider**: Mengambil semua gambar *hero slider* yang berstatus aktif (`is_active = 1`).
-   - **Tentang Fakultas**: Mengambil data deskripsi dan gambar tentang fakultas.
-   - **Mitra Kerja Sama**: Mengambil iterasi logo dan data instansi kerja sama untuk menampilkannya ke dalam fitur *auto-scroll carousel*.
-5. **Render Header**: Sistem memuat dan me-*render* tampilan awal atas halaman yang mencakup navigasi melalui komponen `includes/header.php`.
-6. **Render Konten Utama**: Sistem mencetak kerangka konten dengan menyematkan data yang telah diambil sebelumnya: *Hero Slider*, Statistik Fakta, *Grid* Berita Terbaru, Bagian Profil / Tentang Fakultas, *Grid* Program Studi, dan *Grid* Informasi Akademik.
-7. **Render Footer**: Tampilan bagian bawah (termasuk *scripts* interaktif) dimuat dari `includes/footer.php`.
-8. **Respon ke Pengguna**: Seluruh proses *rendering* HTML dikembalikan ke browser dengan respons sukses (200 OK) untuk ditampilkan kepada pengguna.
+Secara garis besar, proses interaksi pada Halaman Utama dimulai ketika pengguna mengakses antarmuka penelusuran utama (*root URL*) melalui peramban web mereka. Permintaan awal tersebut segera diterima oleh sistem peladen utama (`index.php`) yang bertugas sebagai pengendali rute (*router*). Sistem ini selanjutnya akan mengarahkan dan memuat modul khusus untuk halaman beranda. Pada tahapan persiapan ini, halaman beranda (`pages/home.php`) akan terlebih dahulu memuat seluruh konfigurasi dasar, fungsi pelengkap, serta memulai sesi koneksi yang aman menuju pangkalan data fakultas (*database* MySQL).
+
+Setelah simpul koneksi pangkalan data tersambung, sistem akan melanjutkan instruksi dengan melakukan serangkaian operasi pengambilan data secara komprehensif. Operasi penarikan ini mencakup pengambilan 6 (enam) rilis berita paling baru, pencatatan statistik dan fakta kampus, pemanggilan daftar media gambar untuk panel tata letak sorotan (*hero slider*) yang sedang berstatus aktif, hingga pencarian rincian singkatan profil fakultas dan rekaman entitas mitra kerja sama. Seluruh data mentah yang sukses diperingkas oleh *database* ini selanjutnya diracik untuk melengkapi komponen visual kerangka struktural web. Sistem akan mendirikan batas atas antarmuka (*header*) serta merangkai balok-balok informasi utama ke dalam *grid*, sebelum akhirnya menyudahi rangkuman halaman tersebut dengan pemuatan seksi penutup (*footer*) dan berkas interaktif JavaScript yang relevan. Pada ujung jalurnya, sistem melepas kompilasi struktur final dalam bentuk respons HTML penuh yang kemudian dibentangkan dengan tuntas pada layar pengguna.
 
 ## Diagram
 

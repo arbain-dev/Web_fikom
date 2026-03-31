@@ -4,17 +4,9 @@ Diagram sekuensial ini memvisualisasikan alur kerja interaksi sistem ketika seor
 
 ## Penjelasan Alur
 
-Diagram sekuensial berikut menjabarkan alur dari halaman struktur organisasi.
-1. **Pengguna Meminta Halaman**: Pengunjung mengklik menu struktur organisasi atau mengakses secara langsung via URL di peramban.
-2. **Pengaturan Rute (`index.php`)**: Permintaan diterima oleh `index.php` (*router*) yang menginisialisasi konfigurasi awal dan mendistribusikan permintaan ini.
-3. **Pemuatan Berkas Tujuan**: Sistem memuat berkas yang secara khusus bertugas menyajikan halaman struktur organisasi.
-4. **Persiapan Database**: Berkas halaman struktur organisasi selanjutnya memuat modul pengaturan pangkalan data.
-5. **Penarikan Data Struktur**: Halaman ini lalu merumuskan dan mengirim kueri ke basis data untuk mengambil daftar pejabat pimpinan fakultas dan informasi bagan struktur organisasi dari tabel yang bersesuaian.
-6. **Pengembalian Data**: Basis data merespons dengan rincian data pejabat/struktur.
-7. **Render Header**: Antarmuka bagian paling atas dirangkai menggunakan berkas `includes/header.php` yang meliputi menu utama situs.
-8. **Render Konten Utama**: Sistem secara dinamis menempatkan data pimpinan serta elemen gambar abstrak struktur ke dalam templat antarmuka (HTML).
-9. **Render Footer**: Tampilan bagian bawah (mencakup elemen terkait hak cipta atau JavaScript pendukung) dirapal melalui `includes/footer.php`.
-10. **Respon Akhir**: Tiga bagian tersebut lalu disatukan dan diumpankan baliknya ke peramban dalam bentuk respons dokumen HTML yang sudah dirender sempurna untuk ditilik pengunjung.
+Rangkaian interaksi skema Struktur Organisasi bermula di titik ketika pengguna mencetuskan kunjungan sistemnya melalui perpindahan navigasi menuju halaman struktur. Layaknya sistem manajemen rute satu pintu, pengelola `index.php` senantiasa mencatat dan mengolah permintaan (*request*) ini supaya dapat menyerahkan wewenang kontrol pemrosesan kepada unit berkas yang secara dedikatif dirancang untuk membacakan struktur organisasi fakultas. Sejak unit ini menerima beban kerja, konfigurasi *framework* dan modul ikatan basis data MySQL pun seketika dibangun guna merembuk kesepakatan penarikan informasi antara *server* dan *database*.
+
+Dengan meluncurkan baris perintah *query select*, sistem lantas membongkar koleksi tabel data untuk mengekstraksi senarai pimpinan pemegang mandat struktural fakultas dan mengambil rincian grafis terkait urutan eselon bagan hierarki tersebut. Bersamaan dengan pangkalan data yang menggulirkan balikan nilai data, sistem membagi kerangka *front-end* dengan menganyam batas navigasi pucuk situs (`includes/header.php`), mengisi badan templat web HTML dengan hasil pementasan daftar bagan pemimpin, serta melampirkan modul pengaya yang ada pada lantai kaki elemen (`includes/footer.php`). Lewat penggabungan tripartit inilah, sebuah arsitektur dokumen web terwujud paripurna lalu dipersembahkan ke arah layar peramban audiens.
 
 ## Diagram
 

@@ -20,7 +20,7 @@ flowchart TD
     D -- TIDAK --> E[Tampilkan Beranda\nTanpa Data Tambahan]
     E --> G
     
-    D -- YA --> F[Tampilkan Beranda Lengkap\n(Slider, Berita, & Fakta)]
+    D -- YA --> F[Tampilkan Beranda Lengkap\nSlider, Berita, dan Fakta]
     F --> G
     
     G[Pengunjung Membaca Informasi] --> End((( )))

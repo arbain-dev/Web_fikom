@@ -1,174 +1,195 @@
 # BAB IV — PERANCANGAN SISTEM: 4.1.2 Activity Diagram (Publik)
 
 ## 4.1.2 Pengertian *Activity Diagram* Sisi Pengunjung
-*Activity Diagram* (Diagram Aktivitas) berikut ini menjabarkan urutan proses pada sistem saat diakses secara terbuka oleh **Sivitas Akademika, Calon Mahasiswa, maupun Masyarakat Umum**. Tidak seperti struktur Administrator, akses di ranah Publik ini (*Frontend*) tidak membutuhkan tahapan *login*, melainkan berfokus pada kegiatan pencarian informasi, pengunduhan berkas, membaca berita, hingga partisipasi mendaftar. Diagram tetap menggunakan pola model *flowchart* konvensional agar mudah dimengerti. Komponen lingkaran penuh berwarna solid menandai *Start Node* (titik permulaan pengguna mengakses web), dan lingkaran dengan batas garis ganda menunjukkan *End Node* (titik akhir kegiatan).
+*Activity Diagram* (Diagram Aktivitas) berikut ini menjabarkan urutan proses pada sistem saat diakses secara terbuka oleh **Sivitas Akademika, Calon Mahasiswa, maupun Masyarakat Umum**. Tidak seperti struktur Administrator, akses di ranah Publik ini (*Frontend*) tidak membutuhkan tahapan *login*, melainkan memodelkan interaksi nyata antara antarmuka (*User Interface*) dengan pilihan navigasi pengunjung (seperti kehendak mengklik tombol, membaca rincian, atau melakukan *scroll*). Lingkaran penuh berwarna solid menandai *Start Node* (titik permulaan pengguna membuka halaman), *Decision Node* (bentuk ketupat) merepresentasikan persimpangan pilihan pengguna, dan lingkaran dengan batas garis ganda menunjukkan *End Node* (titik akhir kegiatan di suatu halaman).
 
 ---
 
 ## 4.3 Alur Aktivitas Publik (Pengunjung)
 
-### 4.3.1 Activity Diagram Akses Halaman Beranda (Home)
+### 4.3.1 Activity Diagram Interaksi Halaman Beranda (Home)
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses URL / Halaman Utama Web]
+    Start(( )) --> A[Membuka Halaman Utama Beranda]
     
-    A --> B[Sistem Merespons Permintaan Akses]
-    B --> C[Ambil Data di Sistem]
-    C --> D{Apakah Data\nTersedia?}
+    A --> B{Akses Menu\nNavigasi Atas?}
+    B -- Iya --> C[Pindah ke Halaman\nSesuai Pilihan Menu Profil/Akademik]
+    C --> End((( )))
     
-    D -- TIDAK --> E[Tampilkan Beranda\nTanpa Data Tambahan]
-    E --> G
+    B -- Tidak / Scroll --> D[Melewati Bagian\nSlider Banner Utama]
     
-    D -- YA --> F[Tampilkan Beranda Lengkap\nSlider, Fakta, Berita, Profil, Prodi, Info Akademik, Mitra]
-    F --> G
+    D --> E{Klik Tombol Prodi\nAtau Berita?}
+    E -- Iya --> F[Pindah ke Halaman\nProgram Studi / Berita Lainnya]
+    F --> End
     
-    G[Pengunjung Membaca Informasi] --> End((( )))
+    E -- Tidak --> G[Memperhatikan Fakta\nStatistik Fakultas]
+    G --> H[Melihat Daftar\nBerita Terbaru]
+    
+    H --> I{Pilih Baca\nArtikel Berita?}
+    I -- Iya --> J[Dialihkan ke Halaman\nDetail Berita Pilihan]
+    J --> End
+    
+    I -- Tidak --> K[Memperhatikan Ringkasan\nProfil Fakultas]
+    K --> L{Klik Tombol\nSelengkapnya?}
+    L -- Iya --> M[Dialihkan ke Halaman\nVisi Misi Fakultas]
+    M --> End
+    
+    L -- Tidak --> N[Melihat Program Studi\nInformatika dan Pendidikan TI]
+    N --> O[Melihat Kisi Fitur\nInformasi Akademik]
+    
+    O --> P{Klik Akses\nInfo Akademik?}
+    P -- Iya --> Q[Dialihkan ke Kalender / Kurikulum\n/ Dosen / Laboratorium]
+    Q --> End
+    
+    P -- Tidak --> R[Melihat Rentetan Logo\nMitra Kerja Sama Institusi]
+    R --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.22** Activity Diagram Akses Halaman Beranda (Home)*
+***Gambar 4.22** Activity Diagram Interaksi Halaman Beranda (Home)*
 
 **Penjelasan:**  
-Sebagai antarmuka penyambutan pertama, halaman *Home* (Beranda) menawarkan informasi sekilas dengan muatan melimpah namun padat. Proses ini diawali dari kunjungan alamat web (URL) fakultas oleh pengunjung publik. Untuk memunculkannya, mesin sistem utama seketika menghubungi *database* untuk mengambil sekumpulan data penting yang mencakup: gambar promosi gulir (*Slider*), data bilangan statistik (*Fakta Fakultas*), cuplikan warta terkini (*Berita*), ringkasan sejarah (*Tentang Fakultas*), hingga aset logo relasi (*Mitra Kerja Sama*). Di titik pemeriksaan ini, program mengevaluasi apakah seluruh informasi tersebut kosong atau eksis. Andai koleksi data basis utamanya benar-benar rumpang, sistem memotong pelaporannya ke wujud tampilan beranda polosan tanpa elemen data dinamis. Akan tetapi di skenario sempurnanya tatkala data sukses dibawa keluar, penampang halaman utama dimuat sempurna menjembrengkan semua komponen kebesaran fakultas (mulai dari *Slider*, *Fakta*, *Berita*, *Tentang*, *Program Studi*, tautan *Informasi Akademik*, dan selasar *Mitra*) untuk ditelusuri pengunjung dengan keleluasaan penuh.
+Bagan di atas merunut jejak interaksi pengguna selagi mereka berada di Beranda (*Home*). Seusai *loading* selesai, pengguna dihadapkan pada pilihan menggunakan fasilitas tombol menu atas *(Navbar)* atau menggerakkan layar *(scroll)* menelusuri penampang bawah. Setiap area *section* halaman semisal *Slider*, Berita, Tentang Fakultas, dan Informasi Akademik menawarkan penawaran tombol lanjutan (Persimpangan *Decision*) yang memungkinkan pengguna menghentikan perjalanan bacanya untuk langsung dikirim ke halaman cabang lain. Bila satu pun tombol pelintas tidak dihiraukan, rute interaksi linier berlanjut hanya sekadar memandangi ringkasan komprehensif hingga memutari galeri logo mitra kerja di titik akhir *footer*.
 
 ---
 
-### 4.3.2 Activity Diagram Menu Visi dan Misi
+### 4.3.2 Activity Diagram Interaksi Halaman Visi dan Misi
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses Halaman Visi & Misi]
+    Start(( )) --> A[Membuka Halaman Visi Misi]
     
-    A --> B[Sistem Mengenali Permintaan Akses]
-    B --> C[Ambil Data Visi Misi di Sistem]
-    C --> D{Apakah Data\nTersedia?}
+    A --> B[Sistem Menampilkan Judul Halaman dan Pembuka]
+    B --> C[Pengunjung Menggulir Laman Layar Membaca Visi]
+    C --> D[Membaca Barisan Nomor Poin Misi]
     
-    D -- TIDAK --> E[Tampilkan Halaman\nKosong / Peringatan]
-    E --> G
+    D --> E{Lanjut Cari Info\nTujuan/Sasaran?}
+    E -- Tidak --> End((( )))
     
-    D -- YA --> F[Tampilkan Teks\nVisi dan Misi Fakultas]
-    F --> G
-    
-    G[Pengunjung Membaca Teks Acuan] --> End((( )))
+    E -- Iya --> F[Menggulir Layar Lanjut untuk Membaca Bagian Tujuan]
+    F --> G[Membaca Poin Sasaran Strategis Akhir]
+    G --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.23** Activity Diagram Halaman Visi dan Misi (Publik)*
+***Gambar 4.23** Activity Diagram Interaksi Halaman Visi dan Misi*
 
 **Penjelasan:**  
-Kunjungan ke sub-menu Visi dan Misi mencerminkan rutinitas pencarian informasi profil dasar kelembagaan. Tatkala tautan menu ini diklik dari antarmuka *navbar* utama, sistem menerjemahkan rute lalu serta merta mencabut catatan parameter narasi Visi dan Misi yang diamankan di susunan *database*. Tahapan pemeriksaan ditugaskan untuk mengenali apakah *record* ini belum pernah diisi sebelumnya oleh admin (*kosong*), yang mana kondisi rumpang tersebut lantas merespons halaman menjadi lembaran polos berdampingan dengan teguran (*Error* / Tidak Tersedia). Di skenario yang sah, pencarian data mendeteksi rentetan wacana Visi Misi yang lengkap, sehingga halamannya dipermak menyajikan seluruh penjabaran poin kelembagaan itu bagi mata pengunjung.
+Halaman ini bersifat mutlak pembacaan statis dan memiliki pola pergerakan vertikal yang konsisten. Kehadiran pembaca berujung pada konsumsi naskah-teks yang disusun per petak (*card*). Setelah membuka URL Visi Misi, pengguna pertama kali mencerna judul dan tujuan halaman. Interaksi kognitif kemudian dipetakan searah seputar apakah figur pembaca itu mendedikasikan waktu sekadar menyerap makna Visi, bergeser memilah target di dalam balok daftar Misi, hingga bersedia mempertimbangkan sasaran strategis di segmen penutup yang bermuara menyelesaikan tur informasi halamannya.
 
 ---
 
-### 4.3.3 Activity Diagram Menu Sambutan Dekan (Pimpinan)
+### 4.3.3 Activity Diagram Interaksi Halaman Sambutan Pimpinan
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses Halaman Sambutan]
+    Start(( )) --> A[Membuka Halaman Sambutan]
     
-    A --> B[Sistem Menangkap Rute Akses]
-    B --> C[Ambil Data Sambutan & Foto di Pangkalan Data]
-    C --> D{Data/Profil\nTersedia?}
+    A --> B[Sistem Menata Layout Teks Bersisian dengan Gambar]
+    B --> C{Pengunjung\nMenggulir Layar?}
     
-    D -- TIDAK --> E[Tampilkan Halaman\nTanpa Sambutan]
-    E --> G
+    C -- Tidak --> End((( )))
     
-    D -- YA --> F[Tampilkan Foto Pimpinan\nBeserta Teks Sambutan]
-    F --> G
-    
-    G[Pengunjung Membaca Sambutan Pimpinan] --> End((( )))
+    C -- Iya --> D[Membaca Narasi Utama Sambutan Dekan di Sisi Kiri]
+    D --> E[Memperhatikan Kontak Profil dan Pesan Singkat Dekan di Sisi Kanan]
+    E --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.24** Activity Diagram Halaman Sambutan (Publik)*
+***Gambar 4.24** Activity Diagram Interaksi Halaman Sambutan*
 
 **Penjelasan:**  
-Halaman sambutan menampilkan pengantar kehormatan yang dimandatkan oleh figur dekan atau pimpinan dosen struktural fakultas. Pemanggilan halaman ini tidak memerlukan rute interaksi yang sulit. Setibanya pengunjung menyusuri *link* sambutan ini, instruksi peramban disalurkan menelusuri memori *server* dalam rangkan mencari dua aset utama: wacana naratif sambutan dan potret gambar sang pemimpin terkait. Verifikasi keberadaan kelengkapan komponen tersebut menyumbang kepastian alurnya; apabila hampa nihil tidak terkalibrasi data apapun dalam *database*, maka rute membelok menghasilkan rupa area antarmuka kosong yang sunyi wacana. Sebaliknya jika berkas sedia, potret sambutannya dipampang terencana di baris depan memuat pembuka kata-kata yang layak ditelaah bersama.
+Diagram interaksi area *Sambutan Dekan* tidak dikontrol serangkaian tombol rumit namun mengukur pengalaman persepsi *layout* responsif yang direkam ke dalam *database*. Setibanya pengguna, antarmuka mendatangkan kisi persilangan (*Grid Sidebar*) yang mengatur komposisi sosiokultural halaman. Andil pengunjung dikerucutkan pada aksi menyusuri paragraf pengantar di satu sisi layar (Kiri), sembari sesekali menoleh memeperhatikan penyeranta ringkasan petatah jabatan pimpinan dan potret fotonya di penadah bingkai (Kanan), yang kesemuanya dapat diselesaikan dalam durasi guliran pendek ke *End Node*.
 
 ---
 
-### 4.3.4 Activity Diagram Menu Direktori Dosen
+### 4.3.4 Activity Diagram Interaksi Direktori Dosen
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses Halaman Daftar Dosen]
+    Start(( )) --> A[Membuka Halaman Direktori Dosen]
     
-    A --> B[Sistem Merespons Rute Direktori]
-    B --> C[Ambil Tabel Biodata & Foto Dosen]
-    C --> D{Daftar Dosen\nTersedia?}
+    A --> B[Memperhatikan Susunan Pemimpin Fakultas Paling Atas]
+    B --> C[Mengamati Jajaran Dosen Tetap Program Studi]
     
-    D -- TIDAK --> E[Tampilkan Pesan 'Belum Ada Dosen']
-    E --> G
+    C --> D{Pilih Interaksi\nKlik Kartu Dosen?}
+    D -- Tidak --> End((( )))
     
-    D -- YA --> F[Tampilkan Susunan\nKartu/Grid Profil Dosen]
-    F --> G
+    D -- Iya --> E[Sistem Melapisi Layar Memunculkan Popup Detail Dosen]
     
-    G[Pengunjung Menelusuri Daftar Tenaga Pengajar] --> End((( )))
+    E --> F{Ingin Menghubungi\nDosen Tersebut?}
+    
+    F -- Iya --> G[Ketuk Tombol Opsi Kirim Email]
+    G --> H[Otomatis Dialihkan Penulisannya ke Klien Email Perangkat Pribadi]
+    H --> End
+    
+    F -- Tidak --> I[Ketuk Tombol Silang atau Tutup Area Popup]
+    I --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.25** Activity Diagram Halaman Direktori Dosen (Publik)*
+***Gambar 4.25** Activity Diagram Interaksi Direktori Dosen*
 
 **Penjelasan:**  
-Direktori pengenalan kolektif atas tenaga pendidik fakultanya diringkus lengkap lewat menu khusus yang menampilkan barisan potret dosen. Keriaan operasional publik ini bermuara pada kesanggupan komputasi saat merampas kumpulan (*array*) jejeran data dari sel-sel basis server. Proses di dalam kotak keputusan (*Decision Node*) ditugaskan mengevaluasi hitungan rekaman struktur tabel ini: apabila cacah jumlah tabel dosen berangka nol, halaman yang dirender hanyalah menginformasikan tiadanya laporan profil pengajar di prodi bersangkutan. Di ranah operasional lazimnya saat kalkulasi database meluas karena kepenuhan input, antarmuka ditata berjejer rapi mengeluarkan profil NIDN, jabatan, bersama pasfoto personal instruktur dalam selimut *grid* demi diperhatikan saksama oleh mahasiswa.
+Pengalaman berselancar di hamparan etalase pengajar (*Dosen*) membawa pengayaan antarmuka *Popup* (tumpangan modul layar kecil). Diagram mendikte pengunjung melewati identifikasi struktur utama menuju pemindaian tumpukan muka edukator. Bila pembaca menemukan instrukturnya lalu memicu klik pada salah satu kartunya, sistem mengabulkan inisiatif itu lewat tebaran informasi mendalam berupa biodata di dalam kotak interaktif *Popup*. Rute terpecah menjadi eksekusi tombol komunikasi rujukan menuju layanan bersurat menyurat elektronik (*Email*), ataupun tindakan sepele menutup bingkai modul guna melanjutkan penyarian ke dosen-dosen lainnya menuju kesimpulan penelusuran.
 
 ---
 
-### 4.3.5 Activity Diagram Menu Struktur Organisasi
+### 4.3.5 Activity Diagram Interaksi Halaman Struktur Organisasi
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses Halaman Struktur Organisasi]
+    Start(( )) --> A[Membuka Halaman Utama Struktur Organisasi]
     
-    A --> B[Permintaan Halaman Diterima]
-    B --> C[Ambil Susunan Jabatan & Foto Pejabat]
-    C --> D{Apakah Data\nStruktur Ada?}
+    A --> B[Membaca Teks Pendahuluan dan Deskripsi Halaman]
+    B --> C[Menggeser Tampilan Menuju Gambar Pusat Bagan Struktur]
     
-    D -- TIDAK --> E[Tampilkan Halaman Kosong / Info Terbatas]
-    E --> G
+    C --> D{Validasi Lanjut\nCek Posisi Pimpinan?}
+    D -- Iya --> E[Menelusuri Diagram Garis Komando Bagan dari Skala Atas ke Bawah]
+    E --> End((( )))
     
-    D -- YA --> F[Tampilkan Bagan/Susunan Anggota Struktural]
-    F --> G
-    
-    G[Pengunjung Mengamati Susunan Pimpinan] --> End((( )))
+    D -- Tidak --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.26** Activity Diagram Halaman Struktur Organisasi (Publik)*
+***Gambar 4.26** Activity Diagram Interaksi Halaman Struktur Organisasi*
 
 **Penjelasan:**  
-Sebagai refleksi hirarki dari tata kendali kepemimpinan akademik maupun dekanat, susunan *Struktur Organisasi* mutlak dikunjungi saat masa ajaran awal dimulai. Prosedur pemaparannya mengikuti skema seragam pemanggilan (*fetching data*) entitas profil jajaran direksi dari pangkalan penyimpan terpusat. Keputusan mutlak fungsionalitas memantau ketersediaan jalinan relasional anggota organisasi, bila struktur terlewat sama sekali perihal tak dirawatnya kepengurusan dari *backend*, kerangka halaman berinisiatif menggulirkan pemberitahuan sunyi struktur kosong. Bila dijumpai porsi tabel tersusun rapi seirama foto-foto jabatannya, sistem mencetaknya tegak dan sistematis memberikan kemudahan pengunjung mengenali bagan penguasa tata urutan pimpinan tertingginya.
+Cakupan fungsi di menu struktural amat ringkas. Skenario diagram merunut perjalanan navigasi visual terhadap cetak penampang grafis (*image/picture*) yang termuat di pusat kanvas. Urutan alurnya dipukul rata mulai dari menangkap maklumat nama bagannya, lalu fokus membelah dan menerjemahkan hirarki jabatan (misal melacak alur wewenang pengawasan program dan dewan kepengurusan) pada jalinan anak panah yang melakat di gambar struktur tersebut menuju penutup kegiatan.
 
 ---
 
-### 4.3.6 Activity Diagram Menu Pendaftaran Mahasiswa Baru
+### 4.3.6 Activity Diagram Interaksi Halaman Pendaftaran Mahasiswa Baru
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses Halaman Pendaftaran]
+    Start(( )) --> A[Akses Halaman Formulir Pendaftaran Maba]
     
-    A --> B[Tampilkan Formulir Pendaftaran Maba]
-    B --> C[Pengunjung Mengisi Data\n(Nama, Alamat, Info Pendukung)]
-    C --> D[Klik Tombol Daftar / Submit]
+    A --> B[Mempelajari Petunjuk Ringkas Pengisian di Kotak Panel Samping Kanan]
+    B --> C[Mengisi Data Wajib Utama di Kolom Formulir Pendaftaran]
+    C --> D[Ikut Serta Mengunggah File Format Opsional Serupa KTP dan Ijazah]
     
-    D --> E{Input Kolom\nTelah Lengkap?}
-    E -- TIDAK --> F[Munculkan Peringatan Validasi Input]
-    F --> B
+    D --> E[Tekan Tombol Segmen Kirim Pendaftaran]
     
-    E -- YA --> G[Simpan Data Pelamar ke Sistem (Tabel Pendaftar)]
-    G --> H[Tampilkan Notifikasi Pendaftaran Berhasil]
-    H --> End((( )))
+    E --> F{Sistem Identifikasi:\nAda Input Kosong / Format Error?}
+    
+    F -- Iya --> G[Tampilkan Peringatan Wajib Isi dan Kembalikan Fokus ke Kotak Form Perbaikan]
+    G --> C
+    
+    F -- Tidak --> H[Proses Enkripsi dan Simpan Data Pelamar Menjurus ke Pangkalan Database]
+    H --> I[Membuat dan Menampilkan Desain Kotak Pesan Sukses Mendaftar]
+    I --> End((( )))
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.27** Activity Diagram Halaman Pendaftaran Calon Mahasiswa*
+***Gambar 4.27** Activity Diagram Interaksi Halaman Pendaftaran Mahasiswa Baru*
 
 **Penjelasan:**  
-Keikutsertaan *user* di fasilitasi penuh lewat interaksi pengisian borang elektronik bagi bakal calon mahasiswa/peserta pada layanan pendaftaran fakultas. Tatkala laman ini membentangkan diri di peramban publik, fungsionalitas menghendaki isian rinci yang mencerminkan ketepatan info pribadi pelamar (contohnya data pokok, alamat, serta instrumen pelengkap kontak). Saat calon pendaftar menyudahi rincian formnya dan menjatuhkan konfirmasi persetujuan daftar ujung form (*Submit*), saringan perantara menangkap alur tersebut memvalidasi kelengkapan teks dan kolom vitalnya secara serentak. Kepintangan data yang dibiarkan rumpang maupun korup disanksi keras oleh sistem mencetak peringatan kendala warna merah guna diulang dan disempurnakan pelamar (*Form Error*). Meloloskan tahapan penyaringan data (*Validasi: YA*) mengemban langkah akhir terkirimnya catatan pelamar langsung terekam menggerus bilah-bilah *database* di bagian admin, memandu pelamar menikmati pengumuman kesuksesan terdaftarnya partisipasi tersebut.
+Memperagakan salah satu transaksi fungsional paling sibuk di panggung terdepan (*Frontend*), borang *Pendaftaran Mahasiswa Baru* meminta jaminan kepastian. *Flowchart* merekam kebebasan pembaca bersiap siaga mencocokkan wejangan pendaftaran sebelum akhirnya menceburkan data kependudukannya semisal NIK dan berkas PDF berlampir ke bilah kosongnya. Titik berat kehandalan sistem dipertontonkan kala tombol registrasi digenjrot. Bila kejanggalan format menaungi *(seperti sel pengisian masih rumpang atau terdeteksi cacat CSRF)*, siklus merendahkan putarannya menolak simpanan serta menandai blok eror guna direkayasa ulang partisipan (*Validasi*). Keluwesan lolos saringan meyakinkan pangkalan mematri identitas terpusat seiring munculnya sapaan selamat sukses berwujud plakat kecil di baris layarnya.

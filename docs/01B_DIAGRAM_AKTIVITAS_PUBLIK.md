@@ -91,7 +91,7 @@ Skema area *Sambutan Dekan* memaparkan pengalaman relasi persepsi responsif. Set
 ### 4.3.4 Activity Diagram Interaksi Direktori Dosen
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Direktori Dosen]
     
     A --> B[Mengamati Daftar Susunan Dosen & Pimpinan]
@@ -121,7 +121,7 @@ Pengalaman di etalase pengajar dibentuk menjalur ke samping (*Left-to-Right*). B
 ### 4.3.5 Activity Diagram Interaksi Halaman Struktur Organisasi
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Struktur Organisasi]
     
     A --> B[Membaca Deskripsi & Memusatkan Pandangan pada Bagan Struktur]
@@ -145,7 +145,7 @@ Berdasarkan bagan berorientasi bentang menyamping ini, cakupan navigasi visual p
 ### 4.3.6 Activity Diagram Interaksi Halaman Pendaftaran Mahasiswa Baru
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Akses Halaman Formulir Pendaftaran Maba]
     
     A --> B[Mengisi Data Wajib & Mengunggah File Opsional Berkas KTP/Ijazah]
@@ -172,7 +172,7 @@ Formulir Pendaftaran memodelkan untaian sekuensial yang merambat utuh lurus dari
 ### 4.3.7 Activity Diagram Prodi TI (Informatika)
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Prodi Informatika]
     
     A --> B[Menggulir Laman & Membaca Teks Pendahuluan Prodi]
@@ -202,7 +202,7 @@ Pemodelan *Informatika* dilarikan horizontal persis pergerakan ular. Interaksiny
 ### 4.3.8 Activity Diagram Prodi Pendidikan Teknologi Informasi (PTI)
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Prodi Pend. TI]
     
     A --> B[Menggulir Laman & Membaca Teks Pendahuluan Prodi]
@@ -231,7 +231,7 @@ Menyulap urutan bertingkat jadi berjajar memanjang melukiskan rute jelajah halam
 ### 4.3.9 Activity Diagram Menu Ruangan Kelas
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Ruangan Kelas]
     
     A --> B[Melihat Rentetan Daftar dan Gambar Kartu Ruangan]
@@ -256,7 +256,7 @@ Merunut ke samping guna pangkas kepadatan susunan, ruangan kelas dihidupkan via 
 ### 4.3.10 Activity Diagram Menu Laboratorium
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Laboratorium Komputer]
     
     A --> B[Melihat Galeri Gambar Fasilitas Tiap Lab]
@@ -281,7 +281,7 @@ Diagram menjalar rebah yang menjernihkan simulasi fasilitas laborat komputasi. B
 ### 4.3.11 Activity Diagram Menu Kurikulum
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Kurikulum Fakultas]
     
     A --> B[Memperhatikan Panel Kotak Info Spesifikasi Kurikulum]
@@ -306,7 +306,7 @@ Lintasan lateral *(kiri ke kanan)* melukis skenario ekstraksi dokumen kurikulum 
 ### 4.3.12 Activity Diagram Menu Kalender Akademik
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start(( )) --> A[Membuka Halaman Kalender Akademik]
     
     A --> B[Melihat Panel Rentetan Daftar Kegiatan Kartu Kalender Tahunan]

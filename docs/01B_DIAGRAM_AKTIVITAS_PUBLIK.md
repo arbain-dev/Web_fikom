@@ -202,27 +202,6 @@ Memperagakan salah satu transaksi fungsional paling sibuk di panggung terdepan (
 flowchart TD
     Start(( )) --> A[Membuka Halaman Prodi Informatika]
     
-    A --> B[Membaca Profil dan Visi Misi Prodi]
-    B --> C[Menggulir Layar ke Bawah]
-    
-    C --> D{Ingin Melihat\nFasilitas Belajar?}
-    D -- Iya --> E[Melihat Daftar Fasilitas Prodi]
-    E --> F{Cek Kompetensi\nLulusan?}
-    
-    D -- Tidak --> F
-    
-    F -- Iya --> G[Membaca Daftar Keahlian Lulusan]
-    G --> End((( )))
-    
-
----
-
-### 4.3.7 Activity Diagram Prodi TI (Informatika)
-
-```mermaid
-flowchart TD
-    Start(( )) --> A[Membuka Halaman Prodi Informatika]
-    
     A --> B[Membaca Teks Pendahuluan]
     B --> C[Menggulir ke Bagian Tentang Prodi]
     C --> D{Lanjut Lihat\nVisi Misi?}

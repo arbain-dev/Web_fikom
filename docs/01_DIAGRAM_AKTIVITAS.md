@@ -1,13 +1,13 @@
 # BAB IV — PERANCANGAN SISTEM: 4.1 Activity Diagram (Administrator)
 
 ## 4.1.1 Pengertian *Activity Diagram* 
-*Activity Diagram* (Diagram Aktivitas) digunakan untuk menggambarkan alur aktivitas suatu proses pada sistem. Pada dokumen ini, diagram difokuskan pada pengelolaan konten yang dilakukan melalui antarmuka pihak **Administrator**, di mana bahasanya telah disederhanakan agar mudah dipahami alurnya. Komponen bulat penuh menunjukkan titik awal (mulai), dan komponen bulat bergaris ganda menunjukkan titik akhir (selesai).
+*Activity Diagram* (Diagram Aktivitas) digunakan untuk menggambarkan urutan aktivitas proses pada suatu sistem. Pada dokumen ini, diagram difokuskan pada pengelolaan konten dan antarmuka yang dikendalikan secara eksklusif oleh pihak **Administrator**. Diagram ini menggunakan model aliran konvensional demi kemudahan pembacaan. Komponen lingkaran penuh berwarna solid menunjukkan *Start Node* (titik awal), sedangkan lingkaran dengan border ganda menunjukkan *End Node* (titik akhir kegiatan).
 
 ---
 
 ## 4.2 Alur Aktivitas Administrator
 
-### 4.2.1 Activity Diagram Login Admin
+### 4.2.1 Activity Diagram Login Administrator
 
 ```mermaid
 flowchart TD
@@ -41,11 +41,11 @@ flowchart TD
 ***Gambar 4.1** Activity Diagram Login Administrator*
 
 **Penjelasan:**  
-Alur ini mengilustrasikan proses otentikasi admin. Ketika admin masuk ke halaman login, sistem terlebih dahulu memeriksa apakah admin tersebut sudah dalam status *login* sebelumnya. Jika sudah, maka ia langsung dialihkan ke *dashboard*. Bila belum, ia akan melihat *form login*. Setelah mengisikan kata sandi dan menekan tombol *submit*, sistem mengevaluasi kekosongan/validitas masukan, kemudian mencocokkannya ke *database*. Jika kredensial terbukti valid, sistem akan mengatur (*set*) memori *session* untuk pengguna tersebut lalu mengarahkannya ke dalam *dashboard*.
+Diagram ini menjelaskan alur sistem saat administrator melakukan proses autentikasi atau *login* agar bisa mengelola web. Pertama kali, saat pengguna masuk ke halaman *login*, sistem akan memeriksa apakah mereka masih memiliki sesi akses masuk yang belum kedaluwarsa. Jika ya, pengguna langsung dialihkan secara kilat bergeser menuju *dashboard* tanpa perlu mengetik ulang kredensialnya. Namun jika sesi di peramban belum terbuka, maka sistem akan menampilkan formulir pengisian akun. Administrator diperintahkan mengetik teks *username* dan *password* lalu menekan tombol *submit*. Sistem bertugas memvalidasi isian tersebut; bila masukan kosong, muncul pesan penolakan dan form dimunculkan lagi. Apabila isi formulir berhasil masuk, lalu dicocokkan dengan sandi dan tabel administrator di ranah *Database* dan hasilnya sesuai (*valid*), sistem seketika melepaskan izin berupa entitas rekaman *session*. Di fase ini proses mencakup penyelesaian kelangsungan jejak log, selanjutnya peramban menerobos akses administrasi menuju *dashboard* beranda perwakilan menu manajemen seutuhnya.
 
 ---
 
-### 4.2.2 Activity Diagram Menu Visi dan Misi
+### 4.2.2 Activity Diagram Menu Kelola Visi dan Misi
 
 ```mermaid
 flowchart TD
@@ -73,11 +73,11 @@ flowchart TD
 ***Gambar 4.2** Activity Diagram Menu Kelola Visi Misi*
 
 **Penjelasan:**  
-Setelah admin tiba di *dashboard*, ia dapat membuka halaman Kelola Visi Misi. Dari sana, admin memilih untuk menambah rekaman baru atau mengubah isi yang lama (edit). Sesudah pengisian formulir teks Visi Misi beres dan *submit* ditekankan, sistem secara cepat menyeleksi kebenaran format (*Input Valid*). Apabila lolos kriteria aman, sistem akan menyimpan riwayat teks tersebut ke *database* dan segera menyegarkan tabel Visi Misi kembali.
+Siklus kegiatan administrasi pada halaman pengaturan Visi dan Misi dijabarkan di diagram di atas. Administrator bermula mengakses halaman kelola tersebut pada wilayah antarmuka kerjanya, dengan penawaran menyusun kembali tulisan dengan mengklik opsi *Tambah/Edit*. Bila *form* dibiarkan kosong sewaktu proses penyajian lalu Administrator bersikeras menekan perintah pemrosesan *submit*, lapisan perlindungan kelayakan isian akan menjengkelkan tangkapan kegagalan (*Input Valid: TIDAK*). Menindaklanjuti ketidakakuratan rincian input, layar segera menangguhkan operasional lalu menimpali keluhan gangguan peringatan agar pengguna menyunting kembali tulisan kosong itu hingga melengkapi validasi dasar. Bilamana teks perumusan wacana telah rapi, sempurna isiannya dan divalidasi ketiadaan galat oleh sistem tersebut, data terdorong membarui tabel terkait dari sistem pangkalan database-nya. Aktivitas administrator beralih dinonaktifkan kala layarnya dipandu bergerak meninggalkan kotak *form* lalu diredirect mengutamakan *interface* layar daftar profil Visi Misi semula.
 
 ---
 
-### 4.2.3 Activity Diagram Menu Struktur Organisasi
+### 4.2.3 Activity Diagram Menu Pengelolaan Struktur Organisasi
 
 ```mermaid
 flowchart TD
@@ -108,11 +108,11 @@ flowchart TD
 ***Gambar 4.3** Activity Diagram Menu Kelola Struktur Organisasi*
 
 **Penjelasan:**  
-Halaman struktur organisasi membutuhkan *file* fisik tambahan yaitu unggahan *Foto Pejabat*. Karena itu, diagram ini meperjelas bahwa sesaat setelah *submit* ditekankan, fokus sistem adalah mengeksekusi validasi gambar (*apakah itu benar berformat JPG/PNG?*). Bila sesuai, gambar foto tersebut langsung diunggah (*upload*) ke kandar penyimpan arsip seraya memperbarui letaknya secara bersamaan pada *database*. Alur ini juga menampilkan jalur kilat ke kiri bagi admin yang hanya ingin menghapus satu profil pimpinan dari sistem.
+Struktur Organisasi membutuhkan integrasi lebih lanjut tidak cukup mendasari pengetikan melainkan pelampiran ekstensi pengunggahan objek dokumentasi media (Foto Struktural Pejabat). Merujuk langkah siklus prosedur pembaharuan data pimpinan (*Tambah/Edit Pejabat*), kegiatan mutlak memberatkan persyaratan *Upload* dokumen visual per orangnya. Selesai memencet persetujuan operasi simpan rekaman form (*submit*), parameter pendeteksian rincian sistem (*Decision node: Gambar Valid?*) memberlakukan cek ganda kualifikasi dimensi ukuran maupun kepatuhan akhiran berkas medianya (.JPG/.PNG). Jikalau kriteria dokumen dirusakkan kesesuaian ekstensinya maupun cacat bentuk pengunggahannya, eksekusi pembaruan serta-merta dicabut sebelum penanaman di memori dan memberitahukan perihal notifikasi koreksinya kepada administrator pendata tersebut (*Error*). Secara beruntun jika keseluruhan data parameter dan gambarnya disahkan berhasil berkorespondensi baik, dokumen foto dikoleksi pada memori file peladen bersamaan mensinkronkan rujukan nilainya bersama teks catatan Pejabat memutar langsung masuk dan bergelimpangan di sel-sel relasional tatanan tabel memori basis datanya. Seberkas kegiatan ini memudar dan diputus pada instruksi pamungkas (*redirect*).
 
 ---
 
-### 4.2.4 Activity Diagram Menu Fakta Fakultas
+### 4.2.4 Activity Diagram Menu Pengelolaan Fakta Fakultas
 
 ```mermaid
 flowchart TD
@@ -139,11 +139,11 @@ flowchart TD
 ***Gambar 4.4** Activity Diagram Menu Kelola Fakta Fakultas*
 
 **Penjelasan:**  
-Pada halaman fakta (statistik capaian angka kampus), *field* pengisian dititikberatkan pada numerik/teks. Sistem akan bereaksi memblokir input jika di dalam isian angka ditaruh huruf, sehingga menelurkan reaksi penolakan kembali (*Error*). Andaikata form tersebut wajar dan diisi dengan benar, eksekusi berjalan tanpa halangan dengan mengubah wujud angka secara dinamis ke pada *database*.
+Kegiatan merekap info faktual capaian kampus diletakkan pada rincian operasional Kelola Fakta Fakultas. Layar pengelolaan *form* pembaharuan parameter nominal mengharuskankan ketelitian nilai hitungan matematis absolut berwujud angka bilangan utuh. Selepas pengetikan *input* deskripsi kolom naratif dan hitungan rekor selesai diterjemahkan lewat tindakan instruksi penyampaian akhir (*submit*), fungsionalitas memusatkan kendalinya mendeteksi validitas tipe input parameter numerik tersebut. Bila ada entri yang secara tidak sengaja terganggu kombinasi huruf/simbol spesifik sehingga menciderai konversi bilangan aslinya, sistem menginisiasi rintangan (*barrier*) kegagalan format dan membiarkan layar form masih menyuarakan seruan koreksi perbaikan (*Error*). Andaikata seluruh konversi data pengetikan lolos dan sah memenuhi standar tipe angkanya, data termodifikasi otomatis mengaktifkan parameter peletakan (*Query* Eksekusi) guna mengkristalkan wujud angka capaian baru menembus database sembari menampakkan fungsionalitas penyegaran ulang susunan rekaman antarmukanya.
 
 ---
 
-### 4.2.5 Activity Diagram Menu Tentang Fakultas
+### 4.2.5 Activity Diagram Menu Pengelolaan Tentang Fakultas
 
 ```mermaid
 flowchart TD
@@ -170,4 +170,4 @@ flowchart TD
 ***Gambar 4.5** Activity Diagram Menu Kelola Tentang Fakultas*
 
 **Penjelasan:**  
-Profil sejarah (*Tentang Fakultas*) lazimnya diakomodasi melalui modul *Text Editor* karena teksnya yang panjang dan terformat tebal/miring. Setelah admin merasa sudah cukup mengutarakan sejarah, tombol simpan ditekan. Apresiasi validasi dari program semata-mata memeriksa *apakah bidang isian luput dari keterisian kosong?* Jika tidak kosong (yaitu, memiliki konten memadai), maka jejak sejarah direkam menuju *database* dan segera diekspos sebagai laporan mutakhir web kampus.
+Pemenuhan dokumentasi artikel kepenulisan wacana panjang menyerap fitur utama perangkat pembentuk naskah di kelola komponen antarmuka admin (*Text Editor*) seperti halnya narasi profil *Tentang Fakultas*. Prosedur awal diajukan merambah *form* tersebut seraya menumpuk paragraf deskriptif latar jejak institusinya. Batasan eksekusi penyimpan sistem mendudukkan posisi kehati-hatian evaluasi sistem akan luputnya eksistensi karakter data yang mengakibatkan laporan form hampa tak bertulang (*Decision node: Teks Tidak Kosong?*). Jika komponen wacana gagal memenuhi ketetapan jumlah keterisian parameter mutlak ini (kondisi form murni polos dilempar/bersih tanpa ketikan) maka penempatan peringatan tanggapan keengganan pencatatan bakal mengentikan aliran transaksi administrasi di depan mata. Sedemikian sehingga begitu tervalidasi tulisan terangkum wajar disajikan tanpa melangggar kaidah pengecekan kosong formulir, operasional membebaskan transaksi pemutakhiran jejak catatannya dan sukses dirangkum menyimpannya bersama tumpukan database mengonfirmasi keberhasilan melalui sirkulasi *redirect*.

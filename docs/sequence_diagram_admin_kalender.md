@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Kalender Akademik (Admin Web FIKOM)
 
-Diagram sekuensial ini mendokumentasikan serangkaian alur komputasional teknis dalam manajemen mengunggah dan merilis edaran wujud pedoman waktu (Kalender Akademik) kepada khalayak antarmuka.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data kalender akademik.
 
 ## Penjelasan Alur
 
-Dalam kerangka lalu-lintas web Fakultas Ilmu Komputer, modul "Kelola Kalender Akademik" disusun ringkas untuk menghandel rilis pementasan media visual atau grafik lembar penunjuk waktu pendaftaran, ujian, hingga operasional edukatif tahunan. Mengingat kalender ini merupakan tongsi krusial yang perlu senantiasa diremajakan di setiap pergantian semesta perkuliahan, administrator cukup menjajaki alamat pengelola untuk meninjau kepingan potret penanggalan yang disuguhkan mesin *database* di papan penelusuran. Melalui antarmuka visual sederhana tersebut, tugas administrator ditekankan pada dua pokok fundamental: mengunggah susunan baru piktogram kalender yang dikemas dalam gambar, serta melakukan penyortiran pencabutan arsip dokumentasi tahun pengajaran yang kadaluwarsa.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Kalender Akademik:
 
-Selayaknya modul pemuat aset berwujud visual lainnya, siklus administrasi dipacu kala admin menetapkan judul semester penanggalan terkini dan mulai menyelundupkan hasil cetak biru file gambar kalender tersebut di borang pengisian. Menekan tombol pasak eksekusi segera mengirim formulasi *multipart HTTP POST* ini mengarungi lorong aplikasi (*PHP backend*). Sistem akan menyeleksi resolusi dan kualitas *jpg/png* agar proporsi bentangan grafis tersebut tetap cemerlang tanpa menekan ketersediaan penyimpanan peladen fisik utama. Menyadari keabsahannya, barisan perintah peladen menempatkan gambar pada rak arsip web `/uploads` atau keranjang publik yang ditugaskan. Tak lama kelang penyerahan mandat keamanan fisik berkas, kueri skrip memproyeksikan lintasan tautan URL (*path string*) dan judul periode perkuliahan ke kerangka struktur rekam jejak lajur kalender (*insert/update*) ke pangkalan *MySQL*. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Kalender Akademik", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Demi terhindarnya tumpukan boros gambar visual pedoman pengajaran tahunan, admin disediakan juga dengan fitur amputasi aset (Hapus Kalender Eksisting). Saat ekuitas data ditabrak perintah `Delete Action Get Request`, mekanisme perampingan server berjalan cepat menyerang nama tabel kalender terkait. Lapis operasional peladen tanpa ampun membakar presensi bayangan jejak potret kalender kuno (*unlink command*) sebelum perusak basis data berlanjut memberantas rekaman isian lajur kalender pada MySQL. Pertarungan komputasi ini lekas diakhiri dengan peredaman konflik (*redirect*) untuk mendapuk kembali administrasi web menampilkan status bersih sukses terangkut kepada hadapan layar peramban.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Tahun Akademik, Deskripsi dan mengunggah Gambar Kalender.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/kalender`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Gambar Kalender yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/kalender`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,47 +30,47 @@ Demi terhindarnya tumpukan boros gambar visual pedoman pengajaran tahunan, admin
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Kelola Kalender"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Media Kalender)"
+    participant View as "Halaman Manajemen Kalender Akademik"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/kalender)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Menelusuri Modul (/admin/kelola_kalender)
-    View->>DB: Rutinitas Penarikan Katalog Tabel Sejarah Kalender
-    DB-->>View: Suguhkan Daftar Rujukan Kalender Berjalan
-    
-    %% Proses Tambah / Edit Kalender
-    opt Meregistrasikan Rilis Kalender Semester Terbaru
-        Admin->>View: Bubuhi Titel Tahun Akademik, Teks Ringkas, & Upload Grafis Kalender
-        Admin->>View: Pancangkan Eksekusi Penyimpanan Form (Update/Save Record)
-        View->>System: Kargo Titipan Pengiriman Melintas via Akses (HTTP POST MULTIPART)
+    Admin->>View: Buka halaman menu Kelola Kalender Akademik
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Analisa Uji Ekstensi Keamanan & Toleransi Gambar Visual Kalender
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Tahun Akademik, Deskripsi & Upload Gambar Kalender
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Filter Batasan File Mulus Dilewati
-            opt Apabila Terdapat Bongkahan Grafik File Foto Baru
-                System->>Server: Timpa Arsip Baru Penampakan Kalender Masuk ke Rak Repositori 
-                opt Rejuvenasi Tabel (Modus Edit Jadwal)
-                    System->>Server: Habisi Jejak Bayangan Gambar Kalender Akademik Lama (Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/kalender
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Luncurkan Eksekusi Tali Kueri (SQL INSERT / UPDATE) Merasuk ke Tabel
-            DB-->>System: Akuisi Penerimaan Catatan Kalender Memori MySQL
-            System-->>View: Kembalikan Kemudi Pentalan Layar Memakai Sinyal Sukses Hijau 
-        else Dimensi atau Ekstensi Siluman Terendus
-            System-->>View: Tampik Permintaan & Singkapkan Tirai Rilis Error Resolusi
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Kalender Terlewat
-    opt Menyortir Membuang Media Eksemplar Kalender Tenggelam
-        Admin->>View: Sentuh Opsi Perintah Aksi Hapus Permanen
-        View->>System: Lontarkan Permintaan Pelenyapan Item (HTTP GET Action Delete)
-        System->>DB: Telusuri Sandi Indeks Nama Rujukan File Terdahulu
-        System->>Server: Langsung Runtuhkan Penampakan Arsip Fisik Menuju Penghapusan (Unlink)
-        System->>DB: Lontarkan Perusak Entitas Baris Database (Kueri DELETE)
-        DB-->>System: Restui Kesetujuan Penebasan Rekam Jejak Sukses
-        System-->>View: Giring Pelayar Mundur Menyegarkan Tabel Teriring Kotak Kesuksesan
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/kalender
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

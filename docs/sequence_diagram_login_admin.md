@@ -1,44 +1,47 @@
-# Sequence Diagram: Halaman Login Admin
+# Sequence Diagram: Login Administrator (Web FIKOM)
 
-Diagram sekuensial ini memvisualisasikan alur sistem yang krusial pada saat seorang administrator melakukan autentikasi ke dalam tata kelola *backend* Web FIKOM.
+Diagram sekuensial ini menjelaskan secara praktis langkah-langkah yang dilalui ketika Admin akan masuk mengakses kendali (Login).
 
 ## Penjelasan Alur
 
-Alur keamanan pada diagram sekuensial ini merinci proses autentikasi tatkala seorang administrator mencoba melangkah masuk ke dalam panel kendali sistem. Langkah ini diawali dengan kunjungan admin ke antarmuka halaman penelusuran masuk (*login*). Lewat perambannya, ia akan dihadapkan pada sebuah formulir otorisasi pelindung tempat admin diwajibkan untuk mengisikan kombinasi nama pengguna (*username*) beserta sandi rahasianya (*password*). Begitu tombol pengajuan ditekan, antarmuka klien memaketkan kedua kredensial sensitif tersebut ke dalam bentuk lalu lintas serahan permintaan data (HTTP POST) yang selanjutnya dilontarkan secara aman menuju pos pemroses sistem skrip (PHP).
+Berikut rincian alur proses saat login admin dieksekusi:
 
-Sesampainya pada landasan peladen sistem, algoritma kendali (*backend*) segera merajut baris perintah (*query*) untuk menginterogasi tabel repositori *database* (MySQL). Tujuannya ialah untuk memverifikasi dan menelusuri apakah identitas *username* yang dikirimkan terdaftar di sistem. Apabila pangkalan data tidak berhasil menjumpai eksistensi *username* tersebut, maka sistem dengan sigap langsung mementalkan peramban agar kembali memuat halaman *login* terlepas dari apapun sandinya—kali ini disisipi dengan pemaparan pesan peringatan kegagalan akses.
+1. **Mengunjungi Halaman Pintu Masuk**: 
+   Awalnya, pengguna menapak pada `admin/login` untuk membuka formulir. Pintu panel sekadar menyediakan dua masukan: isian *Username* dan *Password*.
 
-Sebaliknya, perlakuan berbeda ditunjukkan manakala mesin berhasil menemukan kecocokan *username*. Alih-alih langsung membukakan celah gerbang, peladen justru akan menarik terlebih dahulu rekaman sandi tersandi (*password hash*) dari pangkalan data ke dalam memorinya. Sistem lantas menerapkan skema validasi bawaan kriptografis canggih (`password_verify`) demi menakar rasio kecocokan antara gembok di arsip tabel dengan kunci kata sandi yang diketik admin di awal tadi. Seandainya rasio itu meleset alias kata sandi keliru, pintu akses tetap tertutup rapat disusul rilis respons galat ke arah muka visual. Sebaliknya jika algoritma menjustifikasi validitas kata sandi itu dengan tuntas, administrator akan dianugerahi label legalitas dengan jalan menyematkan atribut hak penjelajahan (*session* `admin_logged_in`). Sebagai sentuhan pemungkas, peladen yang merampungkan tugas autentikasi ini memberikan pengarahan paksa otomatis (*redirect*) guna menjatuhkan posisi administrator melangkah masuk langsung ke dalam teras Dasbor pengelolaan web yang sesungguhnya.
+2. **Upaya Penyesuaian Sandi Layar**: 
+   - Admin melengkapi data isian kredensial akun (*Username* bersanding *Password*), lantas mengeksekusinya di atas bingkai persetujuan tombol **"Login"**.
+   - Input diserahkan mutlak pada skrip pos *backend*.
+   - Kueri pemeriksaan sinkron dibangkitkan sistem kepada lapis memori *Database* MySQL untuk mengecek apakah kata sandinya cocok dan username dikenali.
+
+3. **Deklarasi Penerimaan / Penolakan**:
+   - Jika kombinasi Username atau Password salah, secara instan gerbang memantulkan peramban ke halaman yang sama. Halaman login menyajikan gertakan status peringatan bahwa "Password atau Akun salah".
+   - Pengecualian telak didapat andai kata kecocokan sandi dibenarkan. Sistem membagikan identitas Kunci Sesi (*Session Key Login Aktif*) ke peramban. 
+   - Pemandu diubah (mengalami *redirect*) agar admin dapat mendaratkan langkah suksesnya melenggang ke ruangan kendali peladen *Dashboard Utama* situs.
 
 ## Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Administrator
-    participant View as Halaman Login
-    participant System as Sistem (PHP)
-    participant DB as Database (MySQL)
+    actor Admin as Pengurus Portal / Calon Admin
+    participant View as "Form Halaman Login"
+    participant System as "Sistem Pengawas Hak Akses (PHP Session)"
+    participant DB as "Pangkalan Data Inti (MySQL)"
 
-    Admin->>View: Akses URL /admin/login
-    View-->>Admin: Menampilkan Form Login
+    Admin->>View: Buka halaman antarmuka login Admin
+    View-->>Admin: Menampilkan form isian kredensial
     
-    Admin->>View: Input Username & Password
-    Admin->>View: Klik Tombol "Login"
-    View->>System: Mengirimkan Data Kredensial (POST)
-
-    System->>DB: Query Cek Keberadaan Username
-    DB-->>System: Return Hasil Pengecekan User
-
-    alt Username Terdaftar / Ditemukan
-        System->>System: Validasi Kecocokan (password_verify)
-        alt Password Valid & Cocok
-            System->>System: Aktifkan Session ($_SESSION['admin_logged_in'])
-            System-->>Admin: Autentikasi Sukses, Redirect ke Dashboard
-        else Password Salah
-            System-->>View: Kembalikan Tampilan + Pesan Error (Password Salah)
-        end
-    else Username Tidak Ditemukan
-        System-->>View: Kembalikan Tampilan + Pesan Error (Akun Tak Dikenal)
+    Admin->>View: Lengkapi ketikan *Username* & *Password*, Klik tombol "Login"
+    View->>System: Berangkatkan lalu lintas pengecekan data form (Metode HTTP POST)
+    
+    System->>DB: Cari dan cocokkan sandi beradasarkan pangkalan data tabel user
+    DB-->>System: Melaporkan bahwa sandi pelamar sah atau tidak sejalan
+    
+    alt Logika Sandi Diterima (100% Cocok) / Sukses
+        System->>System: Pasaukan sinyal Status Aktif (*Set Login User Session = True*)
+        System-->>View: Lemparkan layar pengelola meluncur bebas memasuki Ruang Kontrol Dashboard Utama Situs
+    else Kondisi Logika Sandi Gagal / Asal-asalan
+        System-->>View: Tolak masuk perlahan mengembalikan halaman form login lengkap berserat Peringatan "Sandi atau Akun Palsu/Salah"
     end
 ```

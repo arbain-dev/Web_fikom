@@ -1,14 +1,28 @@
-# Sequence Diagram: Kelola Slider (Admin Web FIKOM)
+# Sequence Diagram: Kelola Slider Beranda (Admin Web FIKOM)
 
-Diagram sekuensial ini merunut jalur interaksi teknis untuk keseluruhan skenario *Create, Read, Update,* dan *Delete* (CRUD) pada modul pengelola *slider* beranda.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data slider beranda.
 
 ## Penjelasan Alur
 
-Diagram sekuensial ini merunut alur operasional komprehensif dari modul Kelola Slider pada antarmuka administrator, yang menaungi proses manipulasi dinamis panel spanduk (sorotan bergerak) di beranda utama Web FIKOM. Pada fase inisiasi ketika skrip muatan muka pertama kali dibaca, sistem lekas menyusun dan membentangkan riwayat matriks tabel tata letak grafis *slider* yang isinya telah ditarik seketika dari ruang simpan tabel pangkalan data (MySQL). Rentang interaksi perombakan panel tersebut dikelompokkan ke dalam empat siklus fundamental; meliputi operasi Penambahan (Tambah Gambar), Penyesuaian Dokumen (Edit), Manipulasi Akses Status (Aktif/Tidak Aktif), serta perintah radikal Penghapusan.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Slider Beranda:
 
-Tatkala sang admin berniat mengunggah *slider* murni yang baru—ataupun memugar potret lama pada entitas yang sudah eksis—peramban web akan menghimpun serangkaian teks tajuk, uraian singkat, beserta pecahan ekstensi *file* gambar yang terpilih, lantas menumpangkannya di atas rel pengiriman lalu-lintas bersandi `HTTP POST`. Lapis kendali internal pemroses peladen kemudian menyeleksi pengajuan ini dengan melaksanakan validasi ketat, guna menjamin muatan tak melanggar ketentuan resolusi dan hanya memercayai jenis arsip grafis yang diizinkan sistem. Sekiranya jaring filter tersebut dilampaui mulus, sistem serentak mengarahkan mesin repositori penyimpanan (*storage server*) buat menginapkan berkas digital orisinal itu merasuk ke dalam relung *folder upload* web. Segaris dengan pencapaian presisi relokasi *file* itu, jembatan pengendali sejenak berkoordinasi secara asinkron dengan mesin MySQL guna membukukan rincian teks berserta alamat pemanggilan *file* anyar pada hamparan lajur tabel yang relevan (*Insert/Update Query*).
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Slider Beranda", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pola siklus bertolak belakang terjadi sewaktu administrator menekan tombol eliminasi (Hapus). Instruksi pencabutan tersebut diluncurkan instan memakai mode pemanggilan *request URL* (*HTTP GET*). Merespons hal itu, peladen lekas melenyapkan tapak *file* gambar fisik dari relung memori peladen (layaknya fungsi pisau bedah *unlink*), dikuti operasi amputasi langsung yang menggugurkan keabsahan sel *record* berkas identitasnya dari skema *database*. Begitu pula untuk *switch* status penampilan, sistem hanya menukar variabel visibilitasnya (*toggle activate*). Di paruh penghujung seluruh transisi keberhasilan tata letak ini, rutinitas algoritma bakal diakhiri lewat pengarahan paksa sirkulit visual halaman pendamping (*redirect*), menayangkan gelembung kilasan notifikasi sukses sembari secara bersamaan meregang perbarui ulang deretan tabel *slider* di hadapan layar administrator. 
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Teks Judul Utama, Subjudul Pendek dan mengunggah Foto Pemandangan Kampus (Slider).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/slider`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Pemandangan Kampus (Slider) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/slider`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,56 +30,47 @@ Pola siklus bertolak belakang terjadi sewaktu administrator menekan tombol elimi
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Kelola Slider"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Uploads/)"
+    participant View as "Halaman Manajemen Slider Beranda"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/slider)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Akses Antarmuka (/admin/kelola_slider)
-    View->>DB: Rutinitas Penarikan Riwayat Data Slider
-    DB-->>View: Sajikan Kumpulan Tabel Slider
+    Admin->>View: Buka halaman menu Kelola Slider Beranda
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-    %% Proses Penambahan Data atau Update
-    opt Menambah/Mengedit Slider
-        Admin->>View: Mengisi Form Teks + Mengunggah Potret Slider
-        Admin->>View: Mengirim Persetujuan Eksekusi "Simpan"
-        View->>System: Kompilasi Ekspedisi Data (HTTP POST Multiform)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Teks Judul Utama, Subjudul Pendek & Upload Foto Pemandangan Kampus (Slider)
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
 
-        System->>System: Uji Validasi Parameter Skala dan Tipe File
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Filter Keamanan File Valid Terpenuhi
-            opt Kondisi File Baru Hadir
-                System->>Server: Titipkan Gambar di Direktori Penampungan (Move_Upload)
-                opt Update Data (Skenario Edit)
-                    System->>Server: Musnahkan dan Bakar Artefak Potret Lama (Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/slider
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Rumusan Kueri INSERT / UPDATE (rekaman teks + path gambar)
-            DB-->>System: Labeli Kesuksesan Modifikasi
-            System-->>View: Pentalan Rute (Redirect) Berbalut Pesan Sukses  
-        else Pelanggaran Ekstensi / Resolusi
-            System-->>View: Tarik Kembali Serahan & Beri Pesan Penolakan
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Data
-    opt Penghapusan Slider Publik
-        Admin->>View: Sepakati Konfirmasi Penghapusan Item
-        View->>System: Kirim Arahan Singkat Hapus (HTTP GET Action Delete)
-        System->>DB: Ekstrak Lokasi Path File dari Database
-        System->>Server: Cabut File Potret Aktual Tersebut (Unlink File)
-        System->>DB: Tembakkan Kueri Amputasi Penghapusan(DELETE)
-        DB-->>System: Pemusnahan Telah Diakui
-        System-->>View: Tarikan Pengarah Ulang Beserta Rilis Pesan Notifikasi Sukses
-    end
-    
-    %% Proses Ganti Status Aktif/Tidak Aktif
-    opt Atur Kondisi Tampil/Sembunyi
-        Admin->>View: Ubah Status Terlihat (Tombol Aktif/Inaktif)
-        View->>System: Lempar Titik Kueri (GET status Update)
-        System->>DB: Kueri UPDATE Mengganti Variabel Bool_Status
-        DB-->>System: Laporan Selesai
-        System-->>View: Segarkan Ulang Tabel Secara Paripurna
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/slider
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

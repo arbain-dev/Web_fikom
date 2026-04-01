@@ -1,14 +1,28 @@
-# Sequence Diagram: Kelola Standar Operasional Prosedur / SOP (Admin Web FIKOM)
+# Sequence Diagram: Kelola Standar Operasional Prosedur (SOP) (Admin Web FIKOM)
 
-Diagram sekuensial ini dipersembahkan guna mendeskripsikan secara mendetail tata kelola mekanisme pengunggahan dokumen formal Standar Operasional Prosedur (SOP) di kanal pengurus aplikasi (administrator). 
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data standar operasional prosedur (sop).
 
 ## Penjelasan Alur
 
-Menyemarakkan kesarjanaan struktural dan tata kelola berorientasi akuntabilitas fakultas disandarkan mutlak pada akses penyaluran pustaka SOP berkualitas di bilik khusus "Kelola SOP". Proses serba dinamis ini diembuskan kencang begitu modulnya terpanggil menyambar kueri permintaan daftar dokumen eksisting dari jajaran memori *database MySQL*. Dari pijakan penyampaian inilah administrator didapuk sebagai hulu pertanggungjawaban buat mengeksekusi pemasukan instrumen aturan termutakhir, mencadangkan lembar revisi di atas dokumen regulasi konvensional, maupun menebas riwayat fail yang sudah membusuk ditarik wewenangnya. 
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Standar Operasional Prosedur (SOP):
 
-Sebagai wujud sirkulasi transisi rilis formal, pencatatan berkas SOP selalu mengharuskan perwujudan deskripsi pedoman, dikalibrasikan bersama tempelan orisinalitas dalam balutan berkas *document-basis* (berformat murni PDF atau DOCX). Terbukanya pintu keran unggul serangkaian data tersebut difasilitasi penuh melintasi parameter sinyal sandi komputasional berbalut identitas logis `HTTP POST`. Lapis gerbang pelindung internal sistem (PHP basis) mencegat sejenak kedatangan tamu lampiran berkas guna menghunjam filter deteksi uji tipe *mime format* serta menyensor batas kewajarannya melampaui ukuran ruang toleransi beban peladen maksimal. Begitu pindaian berkas membuktikan kesucian spesifikasinya, perwujudan file itu lantas dibawa rebah menyatu ke dalam asuhan *directory space records*. Menandakan sah diterimanya pedoman struktural SOP ke hadapan warga kampus ini, untaian SQL relasional dirapal buat melabel identitas nama aturan serentak memasang posisi lokasi rujukan filenya (`peta penyimpanan URL`) seirama ke rongga gudang *MySQL*. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Standar Operasional Prosedur (SOP)", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Prinsip perampingan memori eklektif tak kunjung luput diperhitungkan saat tombol Pemusnahan/Aksi Hapus diaktivasi secara masif. Berbalut tembakan memori peretas (*HTTP GET Delete*), pos peladen mengartikulasikan manuver tembakan dwiganda mematikan: sasaran perdana diluncurkan langsung kepada akar serabut nama fail yang direngkuh, menjarah dan membedahnya hancur menyublim dalam ketiadaan memori disk (`using unlink procedure`); pelampiasan target penutupan dititahkan di atas jembatan MySQL menggunakan rentetan sabda perusak tatanan lema `DELETE FROM`. Perjuangan sengit algoritma penyirnakan dokumen kelasa pengikat hukum prosedural itu diakhiri meriah lewati pengembalian kilat peramban admin (*redirect to table list*) berselimut warna gembira keberhasilan tanpa secuilpun komplikasi tersisa. 
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama SOP, Rincian Prosedur dan mengunggah Dokumen Pedoman SOP (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/sop`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Pedoman SOP (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/sop`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,51 +30,47 @@ Prinsip perampingan memori eklektif tak kunjung luput diperhitungkan saat tombol
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Antarmuka Modul Standar Operasional (SOP)"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Brankas Edaran Formal (Docs/PDF)"
+    participant View as "Halaman Manajemen Standar Operasional Prosedur (SOP)"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder docs/sop)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Menapak Penelusuran URL Prosedural SOP (/admin/kelola_sop)
-    View->>DB: Kueri Inventarisasi Fail Dokumen Pendataan Pengaturan
-    DB-->>View: Gelar Paparan Katalog Tabel Rekam Papan Aturan Terpusat
-    
-    %% Proses Tambah / Format Unggahan Dokumen
-    opt Mewadahi Rilis Laporan Ketetapan Edaran SOP Resmi Akademis
-        Admin->>View: Rincikan Parameter Penamaan SOP Penuh, Judul Pedoman, & Unggah Fail Fisik Format Murni (PDF/DOC)
-        Admin->>View: Setujui Konfirmasi Pembaptisan Penambatan Hak Akses ("Unggah")
-        View->>System: Kargo Titipan Serah-Rekam Dokumen Terekspedisi Lintasan Bebas (Penguncian Integrasi Rute HTTP POST)
+    Admin->>View: Buka halaman menu Kelola Standar Operasional Prosedur (SOP)
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Sinkronkan Toleransi Validasi Ketelitian Kesesuaian Batasan Ukuran Dokumen (Penakar Threshold Beban Sistem Server)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Nama SOP, Rincian Prosedur & Upload Dokumen Pedoman SOP (PDF/DOC)
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Restu Ketentuan Ekstensi Fail Absolut Menyandang Identifikasi Standar Resmi Peladen
-            opt Bilamana Hadir Tangkapan Sosok Eksistensial Rekaman Baru
-                System->>Server: Rebahkan Segenap Ragam Dokumentasi Resmi Prosedur Aturan di Kolong Ruang Katalog Situs Fakultas 
-                opt Manipulasi Mutasi Edit Lema (Revisi Pedoman SOP Hukum)
-                    System->>Server: Kuras Eksistensi Rekam Arsip Silam Menjadi Tiada Rupa (Eksekusi Kinerja Unlink Lenyap)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen docs/sop
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Lepaskan Tali Kueri (SQL INSERT / UPDATE) Demi Mencatat Transisi Pengunggahan Dokumen SOP
-            DB-->>System: Mematri Bukti Keberlangsungan Transisi Pangkalan Data Tabel Valid
-            System-->>View: Lintasan Kendali Dikendalikan Kembali Dihiasi Gemerlap Perasaan Lega (Pemantul Redirect Konfirmasi Menyempurnakan) 
-        else Spesifikasi Fail Menyalahi Limit Ambang / Batasan Tipe Ekstensi File Dilanggar Keji
-            System-->>View: Terbangkan Balik Kesibukan Pengurusan Perihal Error, Tolak Halus Pendudukan Resolusi Beban Pindaian
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Rekan
-    opt Pencabutan Mandat Pedoman Standar Operasi SOP Permanen 
-        Admin->>View: Sentuhan Perintah Resolusi Pemusnahan Hak Rekam Sistem (Titah Aksi "Hapus")
-        View->>System: Terbang Mengitari Pemancar Perintah Eliminasi Penayang Peran SOP Dokumen Eksisting (Titah Permintaan Singkat Berantai GET)
-        System->>DB: Menyusur Titik Sandi Jejak Eksistensial Penempatan Alamat Lokasi Fisik Rujukan Arsip Tersemat 
-        
-        alt Jurus Penahanan Aset Disk Server Host Ruang Penyimpanan Relasional Sistem Server
-            System->>Server: Penetrasi Akar Letak Dokumentasi Server (Penebasan Langsung Ekstraksi Akar Unlink Fisik Membasmi)
-            System->>DB: Ledakkan Kueri Penyirnakan Tautan Rekaman Registrasi Berkas Resmi Aturan SOP Terpusat (Binasakan TBL Baris Lewat Skrip DELETE)
-            DB-->>System: Absolut Persetujuan Amputasi Diserahkan Kembali
-        end
-        
-        System-->>View: Perintah Sinyal Kelegaan Menghempas Papan Pelayar Administrator Sepenuhnya Memandu Arah Sempurna Kesuksesan (Terima Perubahan Akhir Visual Dashboard)
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah docs/sop
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

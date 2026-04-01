@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Dokumen Fakultas (Admin Web FIKOM)
 
-Diagram sekuensial representatif berikut mendeskripsikan kerangka komputasional alur interaksi modul Kelola Dokumen Fakultas, tempat sirkulasi penarikan dan penempatan arsip legal publik berbasis berkas murni (*PDF / DOCX*) dikendalikan administrator.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data dokumen fakultas.
 
 ## Penjelasan Alur
 
-Di ruang pustaka digital "Kelola Dokumen Fakultas", skema eksekusi interaktif bermula tatkala skrip antarmuka menagih senarai deretan berkas pindaian publik. Penagih (*request handler*) menjangkau tabel pangkalan data (MySQL) sembari mengangkat ke permukaan indeks-indeks fail kebijakan formal, pedoman edukasi, maupun ragam edaran statis yang patut diketahui sivitas akademika. Perilaku operasional administrasi mencakup kuasa penuh menyebar berkas perdana (*Upload*), mendobrak masuk dengan dokumen perbaikan (*Update*), serta pelenyapan permanen lembar pedoman masa lalu (*Delete*).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dokumen Fakultas:
 
-Momen pendaftaran eksemplar arsip keilmuan yang baru diawali oleh pemasukan identitas judul dokumen berserta kelengkapan deskriptifnya. Beriringan, berkas lampiran asli direkatkan dalam wujud murni dokumen formal. Mengangkut muatan itu, perintah siber `HTTP POST payload` didaratkan ke pos keamanan skrip pemroses (PHP). Parameter keselamatan internal segera merentangkan tameng sensor tipe dokumen—hanya mensahihkan identitas format sah (berlaku batas rasional hingga 10MB per fail). Selama tidak meledakkan limit tersebut, peladen luluh merestui proses pindahan fail pindaian menuju palung peristirahatan direktori umum (`storage folders`). Kepindahan fail fisis itu seketika menstimulasi pemancangan perintah relasional untuk menandai tugu indeks pangkalan data (`SQL INSERT/UPDATE`); menautkan tautan lokasi dengan lema deskriptifnya agar siap diambil oleh penuai informasi publik.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dokumen Fakultas", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Tak pelak, mekanisme penjagaan disk dari residu file usang wajib dikembangkan ketat lewat prosedur pembasmian (*deletion trigger*). Manakala insting administrator memutuskan penarikan status peredaran dari sebuah rilis dokumen, tombol `Hapus` dilabuhkan memanggil rute kiamat bersandi `HTTP GET Delete`. Peladen segera mengekstrak koordinat nama berkas, mengasah pisau memori bedah (*unlink operator*), dan menetak hilang fisik fail dari memori penyimpanan mesin penampung sistem tanpa celah toleransi. Titik klimaks ini dituntaskan persamaannya oleh semburan taktis eksekusi letup `DELETE FROM table`, membakar sisa coretan kenangan sejarah berkas terkait dari dalam jeroan MySQL. Kesigapan runtutan logis ini lalu melepaskan kendali balik layaknya sirkuit pental (*redirect*), menyodorkan antarmuka teriluminasi peringatan lunas pekerjaan secara damai kepada admin.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul, Teks Deskriptif Panduan dan mengunggah Dokumen Publikasi (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/fakultas`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Publikasi (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/fakultas`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,51 +30,47 @@ Tak pelak, mekanisme penjagaan disk dari residu file usang wajib dikembangkan ke
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Antarmuka Modul Dokumen Fakultas"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Lumbung Pelestarian Arsip Dokumen Formal"
+    participant View as "Halaman Manajemen Dokumen Fakultas"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder docs/fakultas)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Titipkan Kunjungan Pintu Akses Kelola Dokumen
-    View->>DB: Eksekusi Tuntutan Pembedahan Inventarisasi Arsip Dokumen
-    DB-->>View: Bentangkan Tabel Sinkronisasi Riwayat Dokumen
-    
-    %% Proses Tambah / Format Unggahan Dokumen
-    opt Meresmikan Rilis Bukti Dokumen Baru & Jejal Lampiran Fisik Berkas
-        Admin->>View: Rincikan Parameter Penamaan Dokumen & Selipkan Format Murni Pindaian (PDF/DOC)
-        Admin->>View: Tegakkan Konfirmasi Pengunggahan Fail ("Simpan Dokumen")
-        View->>System: Muatan Ekspedisi Lampiran Berkendara Mengorbit Atas Perintah HTTP POST
+    Admin->>View: Buka halaman menu Kelola Dokumen Fakultas
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Bentangkan Tameng Proteksi Ekstensi dan Resolusi Quota Bobot Dokumen
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Judul, Teks Deskriptif Panduan & Upload Dokumen Publikasi (PDF/DOC)
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Standar Toleransi Parameter Resolusi Berada Pada Limit Sah
-            opt Verifikasi Kehadiran Transaksi Pemasukan Bukti File Lampiran
-                System->>Server: Kandangkan Wujud Fisis File Laporan Tembus Repositori Umum
-                opt Realisasi Pengeditan Modus Update Timpa (Revisi)
-                    System->>Server: Cukur Habis Jejak Laporan Dokumen Pengganti Peninggalan Silam (Skrip Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen docs/fakultas
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Semburkan Injeksi Lema Registrasi File ke Laci (Kueri INSERT / UPDATE)
-            DB-->>System: Labeli Kesuksesan Rantai Pemrosesan Pencatatan Laci 
-            System-->>View: Lontarkan Pentalan Balik Arah Bersama Payung Kilas Hijau Sukses Mutlak 
-        else Tercatat Pendobrakan Ambang Batas Ekstensi Liar Bertubuh Over-Sized
-            System-->>View: Tangkis Secara Disiplin Penawaran File Seraya Tampilkan Penolakan Berisiko
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Dan Perampingan Berkas
-    opt Rutinitas Pendisiplinan Perampingan Arsip Status Kadaluwarsa
-        Admin->>View: Ketuk Fitur Pemusnahan Instan Fail Publikasi
-        View->>System: Terjunkan Mandat Kebutuhan Lenyapkan Keberadaan Arsip (Mode HTTP GET Action Delete)
-        System->>DB: Cabut Lembar Koordinat Relasional Dokumen Penampaknya
-        
-        alt Rantai Perampingan Dobel Mesin Host Database
-            System->>Server: Libas Ganyang Ketersediaan Berkas Nyata Pada Rak Direktori (Amputasi Lewat Unlink)
-            System->>DB: Hujam Ranjau Penghapus Status Identifikasi Arsip Dokumen (Skrip Eksekusi DELETE)
-            DB-->>System: Pelaksanaan Penghapusan Tuntas Diakui Serangkaian Utuh
-        end
-        
-        System-->>View: Kemudi Pentalan Kembali Rapi Menyuguhkan Papan Peringatan Rampung (Redirect Konfirmasi)
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah docs/fakultas
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

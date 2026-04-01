@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Mitra Kerjasama (Admin Web FIKOM)
 
-Diagram sekuensial ini mengerucut pada alur komunikasi antarmuka sistem ketika administrator melakukan pengarsipan, perbaikan data, hingga pembatalan rekam jejak relasi institusional pada modul Kelola Mitra Kerjasama.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data mitra kerjasama.
 
 ## Penjelasan Alur
 
-Jalinan instansi dan rupa logo kemitraan yang silih berganti dipampang pada bentangan serambi utama website fakultas berhulu dari dalam laci modul manajemen admin ini. Begitu rute pengelola "Kelola Kerjasama" disentuh peramban, seruan tak kasat mata diutus dari peladen perantara (PHP) menuju jantung ruang tabel MySQL guna menyerok seluruh riwayat histori institusi relasi. Setibanya lembaran indeks mitra ini diantarkan kepada admin, mereka sewaktu-waktu dibebaskan mengendalikan instrumen tambah (*create*), tinjau mutasi spesifikasi (*update*), hingga likuidasi kontrak pajangan mitra (*delete*).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Mitra Kerjasama:
 
-Skema penanaman institusi pionir bermula dari kewajiban entri deskriptif. Admin bakal memahat sederet tajuk pengenal mitra (misal: "Universitas X", "Industri Y"), menguraikan deskripsi payung ikatan kolaborasinya, seraya tak terlewat memautkan selembar file grafis visual (lazimnya berformat *PNG/JPG*) sebagai repereksentasi wajah jalinan tersebut (logo). Seusai administrator menyegel pengajuannya, kereta paket dokumen HTTP POST bermanuver melintasi penjagaan rute web. Filter keamanan lekas dipasang guna menakar batas ukuran bobot serta kelayakan ekstensi fail pelacak (*image validation*) agar terhindar dari kargo penyusup bawaan yang dapat melumpuhkan pangkalan sistem fakultas. Apabila rupa fail berhak divalidasi, lapis disk terhamparkan menjemput fail itu untuk dikekang ke ranah lokasi `uploads/kerjasama`. Sebagai bentuk persetujuan komplit, panah pangkalan data `INSERT/UPDATE` melesat memahat identitas mitra menyilang indeks wujud letak gambarnya. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Mitra Kerjasama", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pola putaran bedah aset dan pemusanahannya pun menganut rutinitas seragam yang lugas. Andai kelak logo mitra diubah (*update file*), prosedur pemotongan otomatis menyayat leher eksistensi fail fisik kuno agar luruh ke jurang ketiadaan komputasi (*unlink system function*). Pembasmian hingga pucuk akar itu direplikasi tanpa tolerir setiap kali eksekutor penghapus menekan panel 'Hapus' pada daftar pajang. Bersandarkan utusan pemicu rute mematikan berlapis `HTTP GET`, gerbong mesin *server* sekonyong-konyong akan menyemburkan racun ke dua titik: luruh memusnahkan potret fisis logo dari bingkai *folder*, selaras mencerabut riwayat kemitraan dari lumbung rujukan pangkalan data selamanya. Prosesi perampingan aset ini digenapi dengan pelemparan paksa kembali laman tersebut (*redirect*) yang langsung terias senyuman sapaan kotak peringatan notifikasi penyelesaian eksekusi warna cemerlang.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Mitra, Deskripsi MoU dan mengunggah Logo Kemitraan.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/kerjasama`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Logo Kemitraan yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/kerjasama`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,47 +30,47 @@ Pola putaran bedah aset dan pemusanahannya pun menganut rutinitas seragam yang l
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Kelola Kerjasama"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Logo Mitra/Uploads)"
+    participant View as "Halaman Manajemen Mitra Kerjasama"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/kerjasama)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Buka Pelataran Modul Kerjasama (/admin/kelola_kerjasama)
-    View->>DB: Rutinitas Penarikan Histori Kolaborator
-    DB-->>View: Gelar Suguhan Etalase Indeks Tabel Kemitraan
-    
-    %% Proses Tambah / Format Unggahan Dokumen
-    opt Mewujudkan Kemitraan Anyar / Reparasi Atribut
-        Admin->>View: Tik Parameter Instansi Kerjasama, Detil Ringkas, serta Pasang Aset Logo
-        Admin->>View: Jatuhkan Pilihan Aksi Serah-Rekam ("Simpan")
-        View->>System: Kargo Meluncur pada Rel Kecepatan Sinkron Ekspedisi HTTP POST
+    Admin->>View: Buka halaman menu Kelola Mitra Kerjasama
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Bentangkan Jaring Penakar Torsi Resolusi Gambar Visual Logo Mitra
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Nama Mitra, Deskripsi MoU & Upload Logo Kemitraan
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Filter Batasan Uji Standarisasi Aset Mulus
-            opt Tertangkap Basah Keberadaan Injeksi File Gambar Fresh
-                System->>Server: Sematkan Berkas Fisis Representasi Logo Lurus Ke Arsip 
-                opt Manipulasi Mutasi Edit Lema
-                    System->>Server: Kuras Eksistensi Rupa Visual Logo Rekan Lawas (Unlink Delete)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/kerjasama
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Lepaskan Rentetan Tembakan Skema Tabel INSERT / UPDATE Relasional
-            DB-->>System: Tandai Konfirmasi Modifikasi Tercatat Nyata
-            System-->>View: Tolak Balik Kemudi Pengarah Laju (Redirect) Bercap Sukses  
-        else Ditolak Kriteria Tipe File
-            System-->>View: Tendang Suruhan & Munculkan Larik Tangkisan Error Resolusi
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Rekan
-    opt Pencabutan Tanda Penayang Hubungan Institusi Purna 
-        Admin->>View: Konfirmasi Sentuh Aksi "Hapus Kemitraan" Permanen
-        View->>System: Utus Perintah Delegasi Lenyapkan (Tali GET Action Delete)
-        System->>DB: Lacak Pelataran Letak Rujukan File Logo Termutakhir Milik Institusi
-        System->>Server: Langsung Pangkas Fisik Logo Peninggalan Relasi (Perintah Unlink)
-        System->>DB: Hujam Rangka Kueri Pembasmi Pendaftaran Garis Relasi MySQL (DELETE TBL)
-        DB-->>System: Persetujuan Pengguguran Memorie Tuntas
-        System-->>View: Pentalan Perihal Penyelesaian Bersama Sorak Pemberitahuan Keberhasilan
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/kerjasama
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

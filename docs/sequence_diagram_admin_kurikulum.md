@@ -1,14 +1,28 @@
-# Sequence Diagram: Kelola Kurikulum (Admin Web FIKOM)
+# Sequence Diagram: Kelola Dokumen Kurikulum (Admin Web FIKOM)
 
-Diagram sekuensial ini memetakan persimpangan garis interaksi antara administrator dan sistem peladen web, khususnya dalam pengembanan beban modul Kelola Kurikulum yang menaungi pendistribusian dokumen pengajaran berformat murni (*PDF / DOCX*).
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data dokumen kurikulum.
 
 ## Penjelasan Alur
 
-Sejatinya lalu-lintas pengumpulan rekap basis kurikulum dalam peladen antarmuka administrator berbeda tajam dibandingkan dengan modul grafis gambar statis terdahulunya. Fitur mutakhir "Kelola Kurikulum" disangga atas rancang bangun *database* MySQL guna mengurusi pertukaran dokumen akademis resmi bermodel pindaian PDF sampai naskah kerja formatan DOC. Begitu melompati ambang beranda kurikulum, peramban melempar jangkar penarikan kueri mengais pangkalan data merangkum tumpukan fail dan tajuk rekaman pedoman tahun pengajaran saat ini, menyediakan administrator akses instan untuk melampirkan *file*, membubuhkan deskriptif naskah pedoman, sampai dengan membersihkan fail dari brankas web.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dokumen Kurikulum:
 
-Tataran teknis bertambah pelik tiap kali sang juru pengawas (*operator web*) mendirikan ketetapan untuk mengatrol pindaian kurikuler (*Create Upload Document*). Lapis komunikasi mengirim wujud borang ke rel `HTTP POST` tempat skrip pengendali berspesifikasi PHP merapalnya dengan proteksi tingkat keamanan tertinggi (*Max File Limit 10 MB, strict extension MIME*). Bila resolusi ukuran fail PDF/DOC melampaui pagar pembatas peladen komputasi, ia lekas dimuntahkan balik menuju halaman asal sembari ditalikan tulisan insiden error peringatan batas volume berkas. Akan tetapi, kala beban lampiran berhasil dipanggul ringan dan diakui legal, skrip instruksional spontan mengatur jembatan ke laci rak *folder documents/docs* server memindah simpannya sebelum beranjak menjungkit rel relasional MySQL untuk dititipkan alamat letak repositorinya pada sekumpulan sel di lajur rujukan kurikulum (`INSERT/UPDATE file_url`). 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dokumen Kurikulum", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Alur sekuensial penarikan hak peredaran berkas kurikulum juga tercatat komprehensif. Demi mencegah berserakannya pecahan rekam dokumen siluman pada ruang muatan server fakultas yang berharga, instruksi pemicu tombol Hapus mengartikulasikan manuver tembakan langsung pada pengawas peladen (*delete handler*). Permohonan berkedok perintah parameter silang `HTTP GET` mengangkut identitas *file* berantai merobek ikatan memori disk `unlink()`. Tinta naskah pangkalan data membasmi jejak pencatatan baris namanya seturunnya. Rangkaian pergumulan komputasional perampingan itu otomatis terkunci tenang lewat sinyal putaran kemudi melingsirkan admin menuju tabel berkas termutakhir tanpa gores masalah sama sekali di layarnya. Dalam pada ini pula, para khalayak akademik disediakan fasilitas tombol ekstrak berkas kurikulum dari modul *database*.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul, Deskripsi Kurikulum dan mengunggah Dokumen Asli (Format PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/kurikulum`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Asli (Format PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/kurikulum`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,51 +30,47 @@ Alur sekuensial penarikan hak peredaran berkas kurikulum juga tercatat komprehen
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Arsip Kurikulum"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Dokumen Formal (Docs/Files)"
+    participant View as "Halaman Manajemen Dokumen Kurikulum"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder docs/kurikulum)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Menapak Penelusuran URL Kurikuler (/admin/kelola_kurikulum)
-    View->>DB: Kueri Inventarisasi Fail Dokumen Pendataan
-    DB-->>View: Gelar Paparan Katalog Tabel Rekam Kurikulum
-    
-    %% Proses Tambah / Format Unggahan Dokumen
-    opt Mengedarkan Berkas Dokumen Kurikulum Akademik Termutakhir
-        Admin->>View: Masukkan Penamaan Kurikuler, Rangkuman, & Unggah Dokumen Asli (PDF/DOC)
-        Admin->>View: Ketuk Validasi Penambatan ("Upload Dokumen")
-        View->>System: Kapalkan Integrasi Rumpun Lampiran di Rute HTTP POST Berkerah Rahasia
+    Admin->>View: Buka halaman menu Kelola Dokumen Kurikulum
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Eksekusi Deteksi Keamanan Format PDF/DOCX (Max: 10MB Threshold)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Judul, Deskripsi Kurikulum & Upload Dokumen Asli (Format PDF/DOC)
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Ambang Rasional & Kelegalan Tipe Pindaian Valid
-            opt Bila Terdapat Deteksi Penyusupan File Arsip Baru
-                System->>Server: Inapkan Dokumen Legal Kurikulum Memasuki Laci Publik Repositori 
-                opt Pengaduan Modifikasi Update (Menimpa Dokumen Induk Lawas)
-                    System->>Server: Kikis Keberadaan Dokumen Peraturan Silam Tak Bertuan (Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen docs/kurikulum
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Tembuskan Lembaran Skema Sinkronisasi (INSERT/UPDATE TBL Kueri)
-            DB-->>System: Nyatakan Pembaruan Basis Kepustakaan Web Mulus Disetujui
-            System-->>View: Seret Balik Tampilan Layar Memakai Simbol Notifikasi Sukses Emas 
-        else Tumpukan File Tersangkut Bobot Rakasa (Over-Sized/Invalid Type)
-            System-->>View: Lontarkan Tetesan Pesan Penolakan ke Hadapan Mimbar Admin
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Unduh (Download) & Hapus
-    opt Manajemen Ekstraksi dan Pemusnahan Naskah Kurikulum
-        Admin->>View: Seleksi Aksi Sentuh Pintu Lenyapan / Tautan "Hapus Dokumen"
-        View->>System: Kargo Titipan Suruhan Pemusnahan Bertolak (HTTP GET Action Delete)
-        System->>DB: Konfirmasi Tali Rujukan Titik Koordinat Naskah Formal File Eksisting
-        
-        alt Rantai Perampingan Disk Pemusnahan File
-            System->>Server: Bedah Titik Akar Ruang Folder Dokumentasi (Amputasi via Unlink)
-            System->>DB: Letupkan Ranjau Kueri Pemutihan Skema Lema Catatan (Skrip DELETE)
-            DB-->>System: Tundukkan Pendaftaran Akhir Pemusnahan Telah Berlalu
-        end
-        
-        System-->>View: Bentangkan Tirai Beranda Dihiasi Label Hijau Keberhasilan Pembersihan
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah docs/kurikulum
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

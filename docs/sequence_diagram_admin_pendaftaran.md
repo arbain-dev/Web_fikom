@@ -1,56 +1,59 @@
 # Sequence Diagram: Verifikasi Pendaftaran (Admin Web FIKOM)
 
-Diagram sekuensial ini mendokumentasikan serangkaian pergerakan alur teknis admin dalam melayani proses autentikasi penyaringan atau peresmian status calon pendaftar via modul Pendaftaran.
+Diagram sekuensial ini merunut alur ketika Administrator melayani atau mengelola pendaftar, terkhusus sewaktu petugas mensahkan berkas registrasi pengguna sivitas yang dititipkan mereka via daring.
 
 ## Penjelasan Alur
 
-Terbit dan tenggelamnya alur pendaftaran sivitas akademika bertumpu seutuhnya pada kesigapan administrator dalam mengemudikan instrumen "Kelola Pendaftaran". Ciri esensial yang membedakan perhelatan komputasi pada modul ini dibandingkan modul pangkalan data lainnya adalah ketiadaan pengunggahan borang inisiasi mandiri (*create*) dari sisi admin. Fiturnya justru dikhususkan guna merespons pendaftar yang membanjiri antrean (antarmuka berawal memanen tabel data sivitas calom pendaftar beserta rujukan kepemilikan laci sertifikat kelengkapan/ijazah milik mereka dari bilik *database MySQL*). Berdasarkan rekrutan tabel calon sivitas inilah administrator memulai titah verifikator menatap layar kompilasinya.
+Bedanya pada layar peladen Verifikasi di mana peranan Admin bukan membangun catatan formulir baru, namun utuh difokuskan **memproses antrean verifikasi** status orang:
 
-Penelusuran administrasi pengabsahan dikerahkan sembari sistem mengangkat detil pendaftaran dan memicu skrip untuk menarik representasi bukti dokumen pendaftar secara langsung (menampilkan *image preview / pdf window* layaknya KTP atau Ijazah dari ruang server peramban `uploads`). Dengan melintangnya rupa perbandingan pendaftaran ini, administrator secara legal menobatkan keputusannya atas status validasi pendaftar—apakah ditahbiskan dengan ganjaran penolakan atau penerimaan mutlak (`Diterima/Ditolak`). Sehelai status putusan pembaruan meluncur berbalut kendaraan permohonan `HTTP POST Update Status`. Lapis basis data lekas mengartikannya dengan mereformasi rekor kueri pembaruan (`UPDATE pendaftaran SET status=...`), lalu melecut peramban buat meregangkan napas kembali memajang posisi tabel yang baru terpoles hasil validasinya tanpa kealpaan.
+1. **Memantau Gerak Daftar Pendaftar**: 
+   Awal membuka rute menu status persetujuan Registrasi Pendaftar, rel pangkalan layar MySQL menjaminkan kemudahan menengok untaian memadat sederet profil pemohon siap dirombak untuk disetujui / dinonaktifkan.
 
-Skenario radikal tetap dimungkinkan manakala daftar riwayat registrasi telah sesak tak terbendung atau dianggap sekadar fail usil iseng. Kendali aksi saklar Hapus (*delete flow*) membukakan rute pelenyapan bersih permanen bagi tumpukan berkas yang menjamur. Sama brutalnya dengan metode lain, sinyal penghangusan menyeret mesin agar sigap membumihanguskan setiap sisa lampiran identitas foto/dokumen personal si pendaftar dari *directory memory server* (*mengais* `unlink` ekstirpasi), silih menyambung memberangus pendaftaran rekam jejak itu hingga tercabut tak bernisan dari liang baris sistem memori MySQL. Perombakan radikal ini segera digenapi pemantul rilis pemberitahuan (*redirect screen*), menjamin kejernihan halaman tersisa demi kenyamanan validasi penantian rilis berikutnya.
+2. **Titipan Ketetapan (Validasi Terima / Blokir Tolak)**:
+   - Pengelola dengan lapang mengecek kesesuaian lampiran arsip calon pemohon. Lewat pencetan *Detail Viewer* layar memperlihatkan berkas pindaian jaminan identitas KTP mereka dari muatan tabung server.
+   - Selesai pengawasan mata validnya dokumen, penegasan dilakukan melewati pertukaran klik aksi penyelesaian di tombol **Terima** maupun **Tolak**. Putusan itu ditiupkan menyebrangi pemungut jaringan server.
+   - Mesin lantas mengubah status lema data *table pendaftaran* sang pemilik pemohon di dalam bilik sel basis MySQL jadi sah tervalidasi. 
+   - Antarmuka mengayun layar menari kembali segar di titik pangkal tabel lengkap berpasang lencana penyelesaian kesuksesan status terpoles di peramban.
+
+3. **Gugurnya Pendaftaran Batal Tersandung Hapus**:
+   - Jika admin berniat mencerabut habis kotoran penumpukan antrean akun pendaftar yang tidak melintasi tenggat ketentuan maka pentalan menuntut pelemparan menu penghapusan total. Tombol pencabut **Hapus Status Pemohon** diartikulasikan ke antrian khusus baris profil mereka. 
+   - Modus operandi penggusur memori mengepal kendali menyerang memori internal *Folder Storage Situs* tuk menghancurkan luluh lantak presensi pembuangan sampah lampiran identifikasi / Buket Pendaftaran dokumen asal milik terdakwa, secara telak memberangus fail mereka di server (*Unlink Files*).
+   - Dihempas binasa tak terlacak sisa letikan teks keberadaannya pada susunan memori meja basis *Data Tabel MYSQL*. Laporan penutupan penyapuan lincah mengirim pentalan penyegaran *Refresh Window* mengabarkan ketuntasan proses pengosongan memori!   
 
 ## Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Administrator (Verifikator)
-    participant View as "Halaman Pusat Seleksi Pendapatan/Validasi"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Brankas Keamanan Dokumen Diri (Uploads)"
-    participant DB as "Database (MySQL)"
+    actor Admin as Panitia/Sekre Administrator (Verifikator Pendaftar)
+    participant View as "Lembar Tinjauan Validasi Seleksi Calon Pemohon"
+    participant System as "Sistem Pengawas Validasi (Kendali Parameter PHP)"
+    participant Server as "Direktori Brankas Laci Salinan Dokumentasi Peserta Pendaftaran Asli"
+    participant DB as "Lembayungan Skema Sinkronisasi Urutan Pendaftar Tertata di Database"
 
-    Admin->>View: Menembus Masuk Pemantau Modul Administrasi Pendaftaran (/admin/kelola_pendaftaran)
-    View->>DB: Rutinitas Pendobrakan Cek Ketersediaan Antrean Panjang Kalangan Pendaftar
-    DB-->>View: Sajikan Kepastian Berupa Lembar Tabel Lema Calon Tersortir
-    
-    %% Proses Update Status Verifikasi Penerimaan
-    opt Mengeksekusi Audit Pemeriksaan Detail Bukti Legalitas Pendaftaran
-        Admin->>View: Perintahkan Sinkronisasi Detail (Ketuk Ikon Detail Calon)
-        View->>DB: Raih Tuntutan Baris Status File Pendukung Tertempel (Rujukan Pindaian File KTP / Ijazah)
-        DB-->>View: Kembalikan Sandi Jalur Repositorinya Sebagai Rupa Visual Muka Jendela (Popup Details)
+    Admin->>View: Seret penelurusan klik di Menu Utama Pelataran Pengurusan Pendaftar
+    View->>DB: Rutinitas tuntutan pengkategorian urutan memadat di tabel calon antre
+    DB-->>View: Tuangkan saringan suguhan etalase peserta ke hadapan verifikator 
+
+    %% Putusan Penerimaan Hak Pemilik  
+    opt Pemeriksaan Keabsahan & Rekomendasi Terima Dokumen Calon Mutlak
+        Admin->>View: Pencet ikon tampilkan Detail, melihat bukti sinkron Dokumen Persyaratan
+        Admin->>View: Lemparkan hakim penyelesaian (Tekan Sentuh Putusan Valid Beralaskan Pilihan "Diterima / Ditolak Laporan")
+        View->>System: Kargo pesanan dituntut melintang pesat menuju parameter pembaruan penetapan pos peladen HTTP POST
         
-        Admin->>View: Jatuhkan Keputusan Penetapan Hakim Aksi Penetapan (Tombol "Diterima / Ditolak")
-        View->>System: Kargo Titipan Serah-Rekam Dokumen Keputusan Dikirimkan Rute Akses HTTP POST 
-        System->>DB: Tancapkan Suntikan Kueri Pembaharuan (UPDATE pendaftaran SET Status='...')
-        DB-->>System: Absolut Restu Keabsahan Laporan Status Memengaruhi Pangkalan Data Selesai Disetujui 
-        
-        System-->>View: Berlayar Kembali Menyusuri Rute Muat Ulang Pemantul Penyegaran Rilis Kategori Seleksi Terverifikasi Hijau Cemerlang Terkini
+        System->>DB: Rapalkan penetrap ketetapan skrip baris pengubahan Parameter Kepastian Status Konfirmasi Rekaman Asli 
+        DB-->>System: Labeli penegakan rilis peresmian validasi putusan peserta tertumpu absolut menyelesaikanya    
+        System-->>View: Putaran penyegaran menyapu rotasi rilis pemberitahuan berselimut sukses memperbarui kemajuan laporan validasi beriring Kotak Hijau 
     end
 
-    %% Proses Pembersihan Sisa Anantomi Calon Peserta Gugur/Spam
-    opt Melikuidasi Pertimbangan Kepusnahan Memori Registrasi Batal Permanen
-        Admin->>View: Setujui Konfirmasi Tombol Resolusi Penghapusan Calon Pendaftar Radikal
-        View->>System: Merobek Garis Instruksi Pemusnahan Instan Delegasi Pelintasan Pemutusan Sinyal Binasakan Total (GET Action Delete)
-        System->>DB: Selidiki Alamat Resolusi Perkara Bekas Bukti Titipan Fail Keberadaannya
-        
-        alt Jurus Penyisiran Menyeluruh Sapu Rata Mesin Tanpa Beban Host Disk
-            System->>Server: Ganyang Potongan Lampiran Unggahan Kertas Persyaratan Diri Pada Jantung Peladen Langsung Hilangkan Secara Fisis (Mutilasi Unlink)
-            System->>DB: Eksekusi Bedil Letupan Penarikan Hak Identifikasi Lema Registrasi Rekaman Pada Pangkalan Data Tabel Memori Utama (Amputasi Lewat Skrip DELETE)
-            DB-->>System: Pelaksanaan Sempurna Menabuhkan Deklarasi Ganyang Pendaftar Ditiadakan 
-        end
-        
-        System-->>View: Perintah Sinyal Kelegaan Menghempas Tampilan Pelayar Membawa Bendera Penghargaan Rona Kesuksesan Validasi Layak Tanpa Kutu Berlebih 
+    %% Membinasakan Calon Berserakan Berakhir Pembatalan
+    opt Lenyapkan Akar Bukti Registrasi Gagal Ekstirpasi Penghapusan Murni 
+        Admin->>View: Tititpkan sentuhan tolak mencabut pendaftaran secara merapat baris peserta batal (Sentuh Merah Panel Hapus Total) 
+        View->>System: Perintah lisan ditamburkan mendestruksi pengangkutan rute titipan singat pemicu peramban (Lajut Rombak HTTP GET Parameter Delete) 
+        System->>DB: Kumpulkan lacakan kumpulan jejak penamaan tumpuan rujukan alamat presisi serpihan fotocopy persyaratan milik pendaftar itu tersaji
+        System->>Server: Libas hancurkan kemurnian salinan dokumetansi tersebut dititipan bilik Server Folder Penyortiran (Esekusi Letup Titah Unlink Berbasis Direktori Menyapu Murni) 
+        System->>DB: Angin letupan mengejar tuntas ganyang keberangkatan eksistensi pendaftaran mencabut rekam namanya dilarik TBL Memori MySQL mematangkan Lema Terkhi  
+        DB-->>System: Balas konfirmasi kelegaan resolusi letupan gugur selesai menghabisis seluruh arsipnya
+        System-->>View: Kemudi Penuntun Berlayar Peramban Mulus Tampil Di Ujung Lurus Membawa Bendera Riang Konfirmasi Menyenangkan Penyingkiran Valid Dibasmikan Sempurna
     end
 ```

@@ -1,14 +1,28 @@
-# Sequence Diagram: Kelola Data Dosen (Admin Web FIKOM)
+# Sequence Diagram: Kelola Dosen (Admin Web FIKOM)
 
-Diagram sekuensial ini memetakan tahapan sirkulasi kelola data (CRUD) untuk mengatur rincian matriks profil staf pengajar (*Civitas*) pada modul Kelola Dosen oleh administrator sistem.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data dosen.
 
 ## Penjelasan Alur
 
-Skema interaktif berikut menyingkap tata susunan eksekusi proses yang melatarbelakangi pengarsipan identitas staf pendidik (*dosen*) Fakultas Ilmu Komputer. Sama halnya dengan pola pengelolaan arsip sentral yang lain, rutinitas ini dimulai dengan menyusuri beranda Kelola Dosen, di mana modul secara proaktif memanen tumpukan data rekam jejak dosen yang mendiami tabel basis operasi *database* MySQL untuk dipaparkan pada barisan antarmuka penelusuran administrator. Perputaran arus komputasional lantas berakar pada prosedur krusial, mulai dari pemasukan identitas (NIDN) dosen pendatang, pengubahan gelar serta kedudukan fungsional manakala staf pengajar naik tingkat, hingga prosedur memusnahkan riwayat portofolio entitas pengabdi yang tak lagi menduduki kursi fakultas.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dosen:
 
-Saat mengentaskan figur dosen yang baru merapat atapun memperbaiki data staf bersuara lawas, administrator dituntut untuk mengimpor muatan isian sensitif layaknya identitas nomor induk khusus (NIDN/NIP), rekam akademik/gelar pendidikan, status struktur posisi hierarki, menginklusi muatan foto pas berwajah presisi resolusi standar. Seluruh kumpulan lema portofolio ditambah bongkah data potret ditumpangkan penuh ke jalur pertukaran persinyalan bersandi `HTTP POST`. Unit penelaah pusat pada palung sistem pelaksana PHP langsung meraba wujud paket lampiran pasfoto. Andaikata ekstensi potret tidak mencelakai pelindungan filter, tumpukan berkas figur di relokasi masuk secara fisik (`move_uploaded_file`) menemui pangkal arsip penyimpanan memori sistem. Seusai file foto itu ditambatkan aman pada folder *uploads*, keran transaksi menuju lautan *database* diretas terbuka sejenak; sistem menyatukan deretan isian NIDN, nama lengkap, gelar, beserta nama kunci foto langsung ke relung tabel profilnya masing-masing.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dosen", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Modul skrip ini kian dipersenjatai daya bedah ketelitian pada waktu administrator meng-klik penyesuaian (meremajakan profil potret) atau perwujudan eksekusi pencabutan data pengajar murni (*Delete*). Andaikata file anyar diselundupkan di atas kolom foto eksisting, skrip dengan berani mendesak repositori disk server meleburkan pasfoto yang using (`unlink`) seketika saat berkas unggahan bersemayam menggesernya. Rentetan pemusnahan itu secara konsisten dijalankan manakala instruksi Hapus Dosen dimuntahkan melalui sinyal perampingan `HTTP GET`. Sistem peladen tak semata menjatuhkan data basis dosen dari *database*, namun juga menghantam ke akar-akarnya dengan menyensor permanen wujud media fisik fotonya. Alur siklus pembaruan portofolio berestafet ini diakhiri ketukan pengarahan halaman terpusat (*page redirect*), memberikan isyarat sinyal kesuksesan warna hijau seraya merampingkan papan data profil di layar sang admin.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama, NIDN, Jabatan Akademik dan mengunggah Foto Profil.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/dosen`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Profil yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/dosen`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,47 +30,47 @@ Modul skrip ini kian dipersenjatai daya bedah ketelitian pada waktu administrato
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Data Dosen"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Uploads/Dosen)"
+    participant View as "Halaman Manajemen Dosen"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/dosen)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Singgah di Antarmuka Utama (/admin/kelola_dosen)
-    View->>DB: Eksekusi Tuntutan Daftar Susunan Dosen
-    DB-->>View: Alirkan Tabel Rekam Jejak Civitas
+    Admin->>View: Buka halaman menu Kelola Dosen
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-    %% Proses Tambah / Edit Dosen
-    opt Menambah Baru/Meremajakan Profil Dosen
-        Admin->>View: Entri Nomor NIDN, Nama, Jabatan Akademik, dan File Pasfoto
-        Admin->>View: Menancapkan Persetujuan "Simpan Profil"
-        View->>System: Kompilasi Perjalanan Paket Data (HTTP POST)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Nama, NIDN, Jabatan Akademik & Upload Foto Profil
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
 
-        System->>System: Sidak Investigasi Format Berkas Pasfoto
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Filter Keamanan File Pasfoto Lolos
-            opt Apabila Terdapat Aktualisasi File Pasfoto Baru
-                System->>Server: Semayamkan Identitas Fisik Pasfoto di Folder 
-                opt Di Tengah Proses Update Data
-                    System->>Server: Bakar File Rupa Pasfoto Lawas (Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/dosen
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Luncurkan Eksekusi SQL INSERT / UPDATE ke Tabel
-            DB-->>System: Buktikan Restu Modifikasi Tabel Tertanam
-            System-->>View: Lontarkan Pergeseran Pengarah Rute (*Redirect*) Sukses  
-        else Gagal Uji Resolusi dan Ekstensi
-            System-->>View: Hambat Pengarsipan & Paparkan Pesan Kesalahan
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Dosen
-    opt Pemusnahan Daftar Rekam Staf Pengajar
-        Admin->>View: Berikan Verifikasi Penarikan Data (Hapus Dosen)
-        View->>System: Utus Instruksi Maut Perampingan (HTTP GET Action Delete)
-        System->>DB: Jemput Posisi Alamat Pasfoto dari Laci Tabel
-        System->>Server: Tindak Lanjut Pemusnahan Entitas Fisik Potret (Unlink)
-        System->>DB: Letupkan Tembakan Amputasi Basis Data (DELETE TBL)
-        DB-->>System: Akui Pemusnahan Sempurna
-        System-->>View: Kembalikan Tampilan bersama Pemberitahuan Konfirmasi
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/dosen
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

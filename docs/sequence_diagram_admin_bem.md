@@ -1,14 +1,28 @@
-# Sequence Diagram: Kelola Data BEM / Organisasi (Admin Web FIKOM)
+# Sequence Diagram: Kelola Data Organisasi BEM (Admin Web FIKOM)
 
-Diagram sekuensial ini merinci pemetaan alur komputasi di dalam modul administrasi laman "Kelola BEM" (Badan Eksekutif Mahasiswa) yang difungsikan guna memanipulasi etalase portofolio pergerakan organisasi kemahasiswaan.
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data data organisasi bem.
 
 ## Penjelasan Alur
 
-Sorotan apresiasi kegiatan sivitas mahasiswa tergambarkan di pelataran publik situs FIKOM melalui corong pengendali "Kelola BEM". Pola kerangka kerja antarmukanya beradaptasi sempurna dengan mekanisme master data profil lainnya. Pintu kedatangan rutinitas ini terbuka sewaktu administrator menjajaki tautannya. Sistem dengan cekatan meraup himpunan daftar nama pengurus, divisi, atau bahkan dokumentasi visual kegiatan dari lapis *database* MySQL untuk dibariskan ke papan etalase pandangan pengelola web.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Data Organisasi BEM:
 
-Dalam mengemban kewajiban memugar portofolio BEM, administrator dibekali kapasitas unggul layaknya arsitek ruang publik—berwewenang menyunting atau mendirikan organisasi/pengurus baru (*Create/Update*) serta leluasa membubarkan catatan organisasi terdahulu (*Delete*). Setiap deklarasi susunan keorganisasian mensyaratkan deskripsi naratif padat dan kerap disempurnakan sisipan unggahan logo departemen atau arsip rupa kegiatan (*image format*). Kumpulan informasi itu diberangkatkan lewati kargo tertutup `HTTP POST`. Unit pelindung server (*PHP handler*) mengambil peran eksekutor filter, senantiasa menepis paksa lampiran fail bila ketahuan melampaui ukuran ruang aman dan menyasar rasio format asing. Memenuhi takaran resolusi, pindaian wajah organisasi ini langsung ditanam dalam wadah *folder system public*. Pada ketukan waktu bersamaan, skrip `SQL (INSERT/UPDATE)` disuntikkan ke bilik memori agar data deskriptifnya menyilang padu bersama tautan lokasi rupa file eksak tersebut di tabel pangkalan MySQL. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Data Organisasi BEM", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pemotongan nafas catatan organisasi masa lampau tak dibiarkan mencederai kesehatan ruang diska memori. Seumpama admin mendelegasikan perintah tebang (*Action Hapus lewat perintah pemutus GET*), sepasukan mesin peretas akan menggeruduk direktori memori untuk mencongkel akar eksistensi file foto ormas (`unlink routine`), seketika menyalurkan ledakan penghancuran terakhir untuk menamatkan garis keberadaannya pada baris pangkalan (*DELETE* record pada MySQL). Proses sirkulasi perampingan catatan organisasi ini selalu menemukan titik kedamaian dengan memantulkan administrator balik pada gerbang antarmuka awal diselimuti lencana biru kesuksesan mutlak.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Departemen, Program Kerja dan mengunggah Logo atau Foto Profil BEM.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/bem`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Logo atau Foto Profil BEM yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/bem`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,51 +30,47 @@ Pemotongan nafas catatan organisasi masa lampau tak dibiarkan mencederai kesehat
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Organisasi BEM"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Brankas Visual Profil (Uploads)"
+    participant View as "Halaman Manajemen Data Organisasi BEM"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/bem)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Menapak Kunjungan URL Organisasi Kemahasiswaan (/admin/kelola_bem)
-    View->>DB: Eksekusi Tuntutan Penelusuran Tabel Rekaman Organisasi
-    DB-->>View: Sajikan Kompilasi Susunan Manajemen Berkas BEM
-    
-    %% Proses Tambah / Update Dokumentasi BEM
-    opt Mengarsip Rilis Pengukuhan Profil Oraganisasi Anyar / Rekontruksi Data Eksisting
-        Admin->>View: Pasak Borang Penamaan Teks Deskriptif Serta Pasang Resolusi Potret (Logo/Foto BEM)
-        Admin->>View: Setujui Eksekusi Rilis Penilaian Pangkalan ("Simpan")
-        View->>System: Kompilasi Ekspedisi Keorganisasian Lemparkan Diri (Sandiwara Kargo HTTP POST)
+    Admin->>View: Buka halaman menu Kelola Data Organisasi BEM
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Ekskavasi Pendalaman Uji Muatan Maksimal Skala Resolusi Beserta Tipe Gambar Fisis
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Nama Departemen, Program Kerja & Upload Logo atau Foto Profil BEM
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Tes Parameter Ekstensi Fisis Dokumen Lulus (Tidak Kadaluwarsa Resolusi)
-            opt Bilamana Hadir Tangkapan Sosok File Susupan Baru Mengisi Slot Lampiran
-                System->>Server: Semayamkan Kehadiran Format Visual Baru pada Brankas Folder 
-                opt Manipulasi Revisi Timpa Potret Dokumentasi Usang (Update Mode)
-                    System->>Server: Musnahkan dan Bakar Visual Lampiran Berkas Sejarah Terdahulu (Operasikan Skrip Unlink Serang)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/bem
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Luncurkan Tali Panah Skema INSERT / UPDATE Tabel Relasi Oragnisasi
-            DB-->>System: Labeli Integrasi Kemenangan Tersemat Nyata
-            System-->>View: Kemudi Pentalan Kembali Utuh Berbalas Label Cemerlang Kemenangan (Redirect Berhasil) 
-        else Dimensi Menahan Batas Kesempurnaan Hak Ukuran & Format Berkas Terlanggar
-            System-->>View: Pelintir Balik Ke Laman Usulan & Hamparkan Notifikasi Kekerasan Resolusi Merah
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Penghapusan Keanggotaan BEM Permanen
-    opt Mendisiplinkan Pengecilan Registrasi Ormas (Hapuskan Berkas BEM)
-        Admin->>View: Sentuh Aksi Penarikan Resolusi Pembatalan Jejak (Ikon Hapus)
-        View->>System: Pancangkan Delegasi Tembakan Aksi GET Action Membasmi Total 
-        System->>DB: Lacak Keberadaan Parameter Alamat Rujukan File Pada Bilik Relasional Tabel BEM Terkait
-        
-        alt Jurus Ganda Pembedahan Server Bebas Artefak
-            System->>Server: Pangkas Habisan Selongsong Bentuk Jasmaniah Fotografi Ormas Pada Bingkai Folder (Pemusnahan via Unlink PHP)
-            System->>DB: Eksekusi Suntikan Penghangusan Kueri Lema Tabel Pangkalan Identitas (Skrip Tembak Letupkan DELETE)
-            DB-->>System: Akui Pernyataan Sinyal Tembakan Gugur Sudah Lunas Berjalan
-        end
-        
-        System-->>View: Berlayar Kembali Menyusuri Antarmuka BEM Bebas Lema Menyuguhkan Rona Kebesaran Selesai Paripurna
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/bem
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

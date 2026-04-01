@@ -1,18 +1,41 @@
 ﻿# Kumpulan Penjelasan Alur Backend
 
-## Sequence Diagram: Halaman Login Admin
-Alur keamanan pada diagram sekuensial ini merinci proses autentikasi tatkala seorang administrator mencoba melangkah masuk ke dalam panel kendali sistem. Langkah ini diawali dengan kunjungan admin ke antarmuka halaman penelusuran masuk (*login*). Lewat perambannya, ia akan dihadapkan pada sebuah formulir otorisasi pelindung tempat admin diwajibkan untuk mengisikan kombinasi nama pengguna (*username*) beserta sandi rahasianya (*password*). Begitu tombol pengajuan ditekan, antarmuka klien memaketkan kedua kredensial sensitif tersebut ke dalam bentuk lalu lintas serahan permintaan data (HTTP POST) yang selanjutnya dilontarkan secara aman menuju pos pemroses sistem skrip (PHP).
+## Sequence Diagram: Login Administrator (Web FIKOM)
+Berikut rincian alur proses saat login admin dieksekusi:
 
-Sesampainya pada landasan peladen sistem, algoritma kendali (*backend*) segera merajut baris perintah (*query*) untuk menginterogasi tabel repositori *database* (MySQL). Tujuannya ialah untuk memverifikasi dan menelusuri apakah identitas *username* yang dikirimkan terdaftar di sistem. Apabila pangkalan data tidak berhasil menjumpai eksistensi *username* tersebut, maka sistem dengan sigap langsung mementalkan peramban agar kembali memuat halaman *login* terlepas dari apapun sandinyaâ€”kali ini disisipi dengan pemaparan pesan peringatan kegagalan akses.
+1. **Mengunjungi Halaman Pintu Masuk**: 
+   Awalnya, pengguna menapak pada `admin/login` untuk membuka formulir. Pintu panel sekadar menyediakan dua masukan: isian *Username* dan *Password*.
 
-Sebaliknya, perlakuan berbeda ditunjukkan manakala mesin berhasil menemukan kecocokan *username*. Alih-alih langsung membukakan celah gerbang, peladen justru akan menarik terlebih dahulu rekaman sandi tersandi (*password hash*) dari pangkalan data ke dalam memorinya. Sistem lantas menerapkan skema validasi bawaan kriptografis canggih (`password_verify`) demi menakar rasio kecocokan antara gembok di arsip tabel dengan kunci kata sandi yang diketik admin di awal tadi. Seandainya rasio itu meleset alias kata sandi keliru, pintu akses tetap tertutup rapat disusul rilis respons galat ke arah muka visual. Sebaliknya jika algoritma menjustifikasi validitas kata sandi itu dengan tuntas, administrator akan dianugerahi label legalitas dengan jalan menyematkan atribut hak penjelajahan (*session* `admin_logged_in`). Sebagai sentuhan pemungkas, peladen yang merampungkan tugas autentikasi ini memberikan pengarahan paksa otomatis (*redirect*) guna menjatuhkan posisi administrator melangkah masuk langsung ke dalam teras Dasbor pengelolaan web yang sesungguhnya.
+2. **Upaya Penyesuaian Sandi Layar**: 
+   - Admin melengkapi data isian kredensial akun (*Username* bersanding *Password*), lantas mengeksekusinya di atas bingkai persetujuan tombol **"Login"**.
+   - Input diserahkan mutlak pada skrip pos *backend*.
+   - Kueri pemeriksaan sinkron dibangkitkan sistem kepada lapis memori *Database* MySQL untuk mengecek apakah kata sandinya cocok dan username dikenali.
 
-## Sequence Diagram: Kelola Slider (Admin Web FIKOM)
-Diagram sekuensial ini merunut alur operasional komprehensif dari modul Kelola Slider pada antarmuka administrator, yang menaungi proses manipulasi dinamis panel spanduk (sorotan bergerak) di beranda utama Web FIKOM. Pada fase inisiasi ketika skrip muatan muka pertama kali dibaca, sistem lekas menyusun dan membentangkan riwayat matriks tabel tata letak grafis *slider* yang isinya telah ditarik seketika dari ruang simpan tabel pangkalan data (MySQL). Rentang interaksi perombakan panel tersebut dikelompokkan ke dalam empat siklus fundamental; meliputi operasi Penambahan (Tambah Gambar), Penyesuaian Dokumen (Edit), Manipulasi Akses Status (Aktif/Tidak Aktif), serta perintah radikal Penghapusan.
+3. **Deklarasi Penerimaan / Penolakan**:
+   - Jika kombinasi Username atau Password salah, secara instan gerbang memantulkan peramban ke halaman yang sama. Halaman login menyajikan gertakan status peringatan bahwa "Password atau Akun salah".
+   - Pengecualian telak didapat andai kata kecocokan sandi dibenarkan. Sistem membagikan identitas Kunci Sesi (*Session Key Login Aktif*) ke peramban. 
+   - Pemandu diubah (mengalami *redirect*) agar admin dapat mendaratkan langkah suksesnya melenggang ke ruangan kendali peladen *Dashboard Utama* situs.
 
-Tatkala sang admin berniat mengunggah *slider* murni yang baruâ€”ataupun memugar potret lama pada entitas yang sudah eksisâ€”peramban web akan menghimpun serangkaian teks tajuk, uraian singkat, beserta pecahan ekstensi *file* gambar yang terpilih, lantas menumpangkannya di atas rel pengiriman lalu-lintas bersandi `HTTP POST`. Lapis kendali internal pemroses peladen kemudian menyeleksi pengajuan ini dengan melaksanakan validasi ketat, guna menjamin muatan tak melanggar ketentuan resolusi dan hanya memercayai jenis arsip grafis yang diizinkan sistem. Sekiranya jaring filter tersebut dilampaui mulus, sistem serentak mengarahkan mesin repositori penyimpanan (*storage server*) buat menginapkan berkas digital orisinal itu merasuk ke dalam relung *folder upload* web. Segaris dengan pencapaian presisi relokasi *file* itu, jembatan pengendali sejenak berkoordinasi secara asinkron dengan mesin MySQL guna membukukan rincian teks berserta alamat pemanggilan *file* anyar pada hamparan lajur tabel yang relevan (*Insert/Update Query*).
+## Sequence Diagram: Kelola Slider Beranda (Admin Web FIKOM)
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Slider Beranda:
 
-Pola siklus bertolak belakang terjadi sewaktu administrator menekan tombol eliminasi (Hapus). Instruksi pencabutan tersebut diluncurkan instan memakai mode pemanggilan *request URL* (*HTTP GET*). Merespons hal itu, peladen lekas melenyapkan tapak *file* gambar fisik dari relung memori peladen (layaknya fungsi pisau bedah *unlink*), dikuti operasi amputasi langsung yang menggugurkan keabsahan sel *record* berkas identitasnya dari skema *database*. Begitu pula untuk *switch* status penampilan, sistem hanya menukar variabel visibilitasnya (*toggle activate*). Di paruh penghujung seluruh transisi keberhasilan tata letak ini, rutinitas algoritma bakal diakhiri lewat pengarahan paksa sirkulit visual halaman pendamping (*redirect*), menayangkan gelembung kilasan notifikasi sukses sembari secara bersamaan meregang perbarui ulang deretan tabel *slider* di hadapan layar administrator.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Slider Beranda", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Teks Judul Utama, Subjudul Pendek dan mengunggah Foto Pemandangan Kampus (Slider).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/slider`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Pemandangan Kampus (Slider) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/slider`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Berita (Admin Web FIKOM)
 Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Berita:
@@ -35,102 +58,286 @@ Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halam
    - Setelah fotonya lenyap, sistem lalu menghapus baris tulisan beritanya dari *Database*.
    - Tampilan akan ditutup dengan kembalinya admin ke layar tabel berita yang membawa pesan konfirmasi bahwa data sudah musnah.
 
-## Sequence Diagram: Kelola Data Dosen (Admin Web FIKOM)
-Skema interaktif berikut menyingkap tata susunan eksekusi proses yang melatarbelakangi pengarsipan identitas staf pendidik (*dosen*) Fakultas Ilmu Komputer. Sama halnya dengan pola pengelolaan arsip sentral yang lain, rutinitas ini dimulai dengan menyusuri beranda Kelola Dosen, di mana modul secara proaktif memanen tumpukan data rekam jejak dosen yang mendiami tabel basis operasi *database* MySQL untuk dipaparkan pada barisan antarmuka penelusuran administrator. Perputaran arus komputasional lantas berakar pada prosedur krusial, mulai dari pemasukan identitas (NIDN) dosen pendatang, pengubahan gelar serta kedudukan fungsional manakala staf pengajar naik tingkat, hingga prosedur memusnahkan riwayat portofolio entitas pengabdi yang tak lagi menduduki kursi fakultas.
+## Sequence Diagram: Kelola Dosen (Admin Web FIKOM)
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dosen:
 
-Saat mengentaskan figur dosen yang baru merapat atapun memperbaiki data staf bersuara lawas, administrator dituntut untuk mengimpor muatan isian sensitif layaknya identitas nomor induk khusus (NIDN/NIP), rekam akademik/gelar pendidikan, status struktur posisi hierarki, menginklusi muatan foto pas berwajah presisi resolusi standar. Seluruh kumpulan lema portofolio ditambah bongkah data potret ditumpangkan penuh ke jalur pertukaran persinyalan bersandi `HTTP POST`. Unit penelaah pusat pada palung sistem pelaksana PHP langsung meraba wujud paket lampiran pasfoto. Andaikata ekstensi potret tidak mencelakai pelindungan filter, tumpukan berkas figur di relokasi masuk secara fisik (`move_uploaded_file`) menemui pangkal arsip penyimpanan memori sistem. Seusai file foto itu ditambatkan aman pada folder *uploads*, keran transaksi menuju lautan *database* diretas terbuka sejenak; sistem menyatukan deretan isian NIDN, nama lengkap, gelar, beserta nama kunci foto langsung ke relung tabel profilnya masing-masing.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dosen", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Modul skrip ini kian dipersenjatai daya bedah ketelitian pada waktu administrator meng-klik penyesuaian (meremajakan profil potret) atau perwujudan eksekusi pencabutan data pengajar murni (*Delete*). Andaikata file anyar diselundupkan di atas kolom foto eksisting, skrip dengan berani mendesak repositori disk server meleburkan pasfoto yang using (`unlink`) seketika saat berkas unggahan bersemayam menggesernya. Rentetan pemusnahan itu secara konsisten dijalankan manakala instruksi Hapus Dosen dimuntahkan melalui sinyal perampingan `HTTP GET`. Sistem peladen tak semata menjatuhkan data basis dosen dari *database*, namun juga menghantam ke akar-akarnya dengan menyensor permanen wujud media fisik fotonya. Alur siklus pembaruan portofolio berestafet ini diakhiri ketukan pengarahan halaman terpusat (*page redirect*), memberikan isyarat sinyal kesuksesan warna hijau seraya merampingkan papan data profil di layar sang admin.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama, NIDN, Jabatan Akademik dan mengunggah Foto Profil.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/dosen`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Profil yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/dosen`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Fasilitas Ruangan (Admin Web FIKOM)
-Runtutan prosesual dalam narasi ini mendasar atas arsitektur pergerakan data modul Kelola Ruangan (dan/atau Laboratorium). Modul antarmuka ini didedikasikan agar fungsionaris kampus/administrator secara presisi dapat mencatatkan ketersediaan tempat bernaung akademik beserat inventaris di dalamnya. Kala pertama penelusuran masuk halaman, skrip internal langsung menarik rentetan deret tabel yang merangkum ketersediaan wujud fasilitas ruang belajar/lab dari lorong pangkalan data (*database* MySQL). Pengelolaan lantas bertumpu kepada rangkaian pembaruan fana: pendaftaran bangsal ruangan baru, rekontruksi parameter kapabilitas eksisting, hingga perombakan yang diinisiasi pemusnahan aset ruang tak terpakai dari memori sistem.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Fasilitas Ruangan:
 
-Di persimpangan tata operasional, tatkala seorang administrator beriktikad meresmikan suatu letak ruang kampus untuk dipampang di etalase masyarakat, skema pengisian form pun dilemparkan. Pada ruas borang itu, admin mematri parameter identitas ruangâ€”seperti singkatan Kode Ruangan, Nama Ruang representatif, kuantitas batasan kapasitas, serta rentetan sarana (*facilities*). Selembar berkas lampung potret penampakan visual ruang pun disematkan bersamaan. Kompilasi nilai masukan dirapat lalu dikapalkan menuju skrip ujung palung peladen (*backend controller*) bernavigasi lintasan `HTTP POST`. Unit sistem utama tersebut lalu mencegat keberadaan kepingan foto untuk mengevaluasi batasan kelayakannya: menyaring dimensi ekstrem serta ekstensi siluman yang tak kompatibel. Terpenuhinya tes ambang minimal itu akan membukakan karpet merah agar peladen fisik menyimpan rupa foto masuk mengisi lumbung gambar (*upload array directory*). Beriringan mulus dengan kepastian repositori file, unit pusat menggaungkan bahasa pemrograman *query base* (sekelas `INSERT/UPDATE`) agar mesin penabung MySQL tak terlewat mencatatkan sandi teks dan indeks rujukan nama rupa foto ke baris susunan tabel fasilitas tersebut.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Fasilitas Ruangan", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Mekanisme bongkar-pasang (Update mutasi file) beserta keabsahan eksekusi bedah tuntas (*Delete record*) tidak luput berjalan beruntun dengan tertib. Skrip penata ini menjanjikan operasi bahwa pengakuan hadirnya lampiran citra baru (*upload ganti foto ruangan*) otomatis mewajibkan mesin komputasi untuk mengebiri rupa foto ruangan purba dan membunuh eksistensinya (*unlink function*). Perlakuan identik diulang saat fitur hapus permanen ditarik menggunakan tombol penghancur eksekusi URL (`GET action Delete`). Seluruh keberadaan entitas saksi yang mendiami pangkalan data dicabut dan artefak filenya dibabat bersih tanpa ampun dari lapis ruang mesin instalasi peladen. Paragraf alur transisi ini selalu diselipi kelegaan tatkala fungsional mengantarkan isyarat keberhasilanâ€”meredirect admin menuju susunan indeks anyar ditandai munculnya pop-up notifikasi tuntas warna kesuksesan di latar depannya.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Ruang, Kapasitas, Fasilitas dan mengunggah Foto Kelas/Ruangan.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/ruangan`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Kelas/Ruangan yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/ruangan`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Fasilitas Laboratorium (Admin Web FIKOM)
-Rangkaian interaksi skematik dari operasi Kelola Laboratorium dikhususkan demi mengakomodasi kelengkapan dokumentasi fasilitas belajar fungsional milik Fakultas Ilmu Komputer. Ketika administrator mulai melangkahkan kursornya masuk ke beranda sistem kendali lab, sirkuit kode secara lincah membongkar tabel penyimpanan MySQL untuk merangkum daftar seluruh laboratorium riset atau komputer yang disajikan sejajar di muka layar. Pada area ini, admin ditugaskan menahkodai pencatatan aset inventaris dengan metode rekam tambah (*create*), peremajaan spesifikasi fungsional (*update*), hingga likuidasi ketersediaan aset ruangan yang usang (*delete*).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Fasilitas Laboratorium:
 
-Saat formulir penyusunan lab baru dihamparkan, administrator akan dibimbing untuk meletakkan rincian identitas esensial. Susunan parameter itu wajarnya meliputi kode lab, penamaan ruang representatif, daftar spesifikasi komputer, jumlah kursi, beserta kewajiban menambatkan selembar potret gambar penampakan fisik fasilitas tersebut. Bersamaan dengan diusulkannya borang itu, bingkisan lalu-lintas bersandi `HTTP POST` melempar seluruh paku parameter identitas serta wujud potretnya ke peladen PHP. Mesin validasi gambar akan mengendus muatan format lampiran sebelum kemudian menyepakati untuk menanamkan citra foto di dalam pangkalan file (`direktori uploads/laboratorium`). Begitu posisi foto berlabuh dengan presisi, giliran seruan kueri SQL berbaris untuk memerintahkan *database* mengukir nilai deskriptif berserta penunjuk direktori foto tersebut secara permanen ke tubuh tabel fasilitas laboratorium. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Fasilitas Laboratorium", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Serangkaian protokol pemusnahan (*Unlink*) dan penggantian (*Replace*) juga otomatis tereksekusi ketika rute pembaharuan fasilitas dikalkulasikan atau jika tombol pencabutan ruang lab diketuk. Seandainya di hari depan foto aset usang ingin dikubur guna diganti pajangan fasilitas anyar, pisau bedah mesin tanpa basa-basi akan menyayat file lawas dan melenyapkannya dari sisi *storage server*. Begitu juga saat perampingan penghapusan laboratorium mutlak dieksekusi melalui pancingan sinyal alamat `HTTP GET Delete`. Peladen mengekstrak nama berkas lampirannya, menghanguskannya, lalu berbalik kepada tabel saksi untuk membabat (*drop/delete*) lema rekaman lab selamanya. Penyatuan proses penyesuaian aset ini acapkali ditutup secara elok lewat pentalan arah layar komputasi (*redirect*) yang mendemontrasikan status kesuksesan pencapaian mutasi data di papan tampilan admin.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Lab, Daftar Inventaris Peralatan dan mengunggah Foto Laboratorium.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/laboratorium`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Laboratorium yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/laboratorium`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Kalender Akademik (Admin Web FIKOM)
-Dalam kerangka lalu-lintas web Fakultas Ilmu Komputer, modul "Kelola Kalender Akademik" disusun ringkas untuk menghandel rilis pementasan media visual atau grafik lembar penunjuk waktu pendaftaran, ujian, hingga operasional edukatif tahunan. Mengingat kalender ini merupakan tongsi krusial yang perlu senantiasa diremajakan di setiap pergantian semesta perkuliahan, administrator cukup menjajaki alamat pengelola untuk meninjau kepingan potret penanggalan yang disuguhkan mesin *database* di papan penelusuran. Melalui antarmuka visual sederhana tersebut, tugas administrator ditekankan pada dua pokok fundamental: mengunggah susunan baru piktogram kalender yang dikemas dalam gambar, serta melakukan penyortiran pencabutan arsip dokumentasi tahun pengajaran yang kadaluwarsa.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Kalender Akademik:
 
-Selayaknya modul pemuat aset berwujud visual lainnya, siklus administrasi dipacu kala admin menetapkan judul semester penanggalan terkini dan mulai menyelundupkan hasil cetak biru file gambar kalender tersebut di borang pengisian. Menekan tombol pasak eksekusi segera mengirim formulasi *multipart HTTP POST* ini mengarungi lorong aplikasi (*PHP backend*). Sistem akan menyeleksi resolusi dan kualitas *jpg/png* agar proporsi bentangan grafis tersebut tetap cemerlang tanpa menekan ketersediaan penyimpanan peladen fisik utama. Menyadari keabsahannya, barisan perintah peladen menempatkan gambar pada rak arsip web `/uploads` atau keranjang publik yang ditugaskan. Tak lama kelang penyerahan mandat keamanan fisik berkas, kueri skrip memproyeksikan lintasan tautan URL (*path string*) dan judul periode perkuliahan ke kerangka struktur rekam jejak lajur kalender (*insert/update*) ke pangkalan *MySQL*. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Kalender Akademik", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Demi terhindarnya tumpukan boros gambar visual pedoman pengajaran tahunan, admin disediakan juga dengan fitur amputasi aset (Hapus Kalender Eksisting). Saat ekuitas data ditabrak perintah `Delete Action Get Request`, mekanisme perampingan server berjalan cepat menyerang nama tabel kalender terkait. Lapis operasional peladen tanpa ampun membakar presensi bayangan jejak potret kalender kuno (*unlink command*) sebelum perusak basis data berlanjut memberantas rekaman isian lajur kalender pada MySQL. Pertarungan komputasi ini lekas diakhiri dengan peredaman konflik (*redirect*) untuk mendapuk kembali administrasi web menampilkan status bersih sukses terangkut kepada hadapan layar peramban.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Tahun Akademik, Deskripsi dan mengunggah Gambar Kalender.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/kalender`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
 
-## Sequence Diagram: Kelola Kurikulum (Admin Web FIKOM)
-Sejatinya lalu-lintas pengumpulan rekap basis kurikulum dalam peladen antarmuka administrator berbeda tajam dibandingkan dengan modul grafis gambar statis terdahulunya. Fitur mutakhir "Kelola Kurikulum" disangga atas rancang bangun *database* MySQL guna mengurusi pertukaran dokumen akademis resmi bermodel pindaian PDF sampai naskah kerja formatan DOC. Begitu melompati ambang beranda kurikulum, peramban melempar jangkar penarikan kueri mengais pangkalan data merangkum tumpukan fail dan tajuk rekaman pedoman tahun pengajaran saat ini, menyediakan administrator akses instan untuk melampirkan *file*, membubuhkan deskriptif naskah pedoman, sampai dengan membersihkan fail dari brankas web.
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Gambar Kalender yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/kalender`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
-Tataran teknis bertambah pelik tiap kali sang juru pengawas (*operator web*) mendirikan ketetapan untuk mengatrol pindaian kurikuler (*Create Upload Document*). Lapis komunikasi mengirim wujud borang ke rel `HTTP POST` tempat skrip pengendali berspesifikasi PHP merapalnya dengan proteksi tingkat keamanan tertinggi (*Max File Limit 10 MB, strict extension MIME*). Bila resolusi ukuran fail PDF/DOC melampaui pagar pembatas peladen komputasi, ia lekas dimuntahkan balik menuju halaman asal sembari ditalikan tulisan insiden error peringatan batas volume berkas. Akan tetapi, kala beban lampiran berhasil dipanggul ringan dan diakui legal, skrip instruksional spontan mengatur jembatan ke laci rak *folder documents/docs* server memindah simpannya sebelum beranjak menjungkit rel relasional MySQL untuk dititipkan alamat letak repositorinya pada sekumpulan sel di lajur rujukan kurikulum (`INSERT/UPDATE file_url`). 
+## Sequence Diagram: Kelola Dokumen Kurikulum (Admin Web FIKOM)
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dokumen Kurikulum:
 
-Alur sekuensial penarikan hak peredaran berkas kurikulum juga tercatat komprehensif. Demi mencegah berserakannya pecahan rekam dokumen siluman pada ruang muatan server fakultas yang berharga, instruksi pemicu tombol Hapus mengartikulasikan manuver tembakan langsung pada pengawas peladen (*delete handler*). Permohonan berkedok perintah parameter silang `HTTP GET` mengangkut identitas *file* berantai merobek ikatan memori disk `unlink()`. Tinta naskah pangkalan data membasmi jejak pencatatan baris namanya seturunnya. Rangkaian pergumulan komputasional perampingan itu otomatis terkunci tenang lewat sinyal putaran kemudi melingsirkan admin menuju tabel berkas termutakhir tanpa gores masalah sama sekali di layarnya. Dalam pada ini pula, para khalayak akademik disediakan fasilitas tombol ekstrak berkas kurikulum dari modul *database*.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dokumen Kurikulum", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul, Deskripsi Kurikulum dan mengunggah Dokumen Asli (Format PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/kurikulum`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Asli (Format PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/kurikulum`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Mitra Kerjasama (Admin Web FIKOM)
-Jalinan instansi dan rupa logo kemitraan yang silih berganti dipampang pada bentangan serambi utama website fakultas berhulu dari dalam laci modul manajemen admin ini. Begitu rute pengelola "Kelola Kerjasama" disentuh peramban, seruan tak kasat mata diutus dari peladen perantara (PHP) menuju jantung ruang tabel MySQL guna menyerok seluruh riwayat histori institusi relasi. Setibanya lembaran indeks mitra ini diantarkan kepada admin, mereka sewaktu-waktu dibebaskan mengendalikan instrumen tambah (*create*), tinjau mutasi spesifikasi (*update*), hingga likuidasi kontrak pajangan mitra (*delete*).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Mitra Kerjasama:
 
-Skema penanaman institusi pionir bermula dari kewajiban entri deskriptif. Admin bakal memahat sederet tajuk pengenal mitra (misal: "Universitas X", "Industri Y"), menguraikan deskripsi payung ikatan kolaborasinya, seraya tak terlewat memautkan selembar file grafis visual (lazimnya berformat *PNG/JPG*) sebagai repereksentasi wajah jalinan tersebut (logo). Seusai administrator menyegel pengajuannya, kereta paket dokumen HTTP POST bermanuver melintasi penjagaan rute web. Filter keamanan lekas dipasang guna menakar batas ukuran bobot serta kelayakan ekstensi fail pelacak (*image validation*) agar terhindar dari kargo penyusup bawaan yang dapat melumpuhkan pangkalan sistem fakultas. Apabila rupa fail berhak divalidasi, lapis disk terhamparkan menjemput fail itu untuk dikekang ke ranah lokasi `uploads/kerjasama`. Sebagai bentuk persetujuan komplit, panah pangkalan data `INSERT/UPDATE` melesat memahat identitas mitra menyilang indeks wujud letak gambarnya. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Mitra Kerjasama", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pola putaran bedah aset dan pemusanahannya pun menganut rutinitas seragam yang lugas. Andai kelak logo mitra diubah (*update file*), prosedur pemotongan otomatis menyayat leher eksistensi fail fisik kuno agar luruh ke jurang ketiadaan komputasi (*unlink system function*). Pembasmian hingga pucuk akar itu direplikasi tanpa tolerir setiap kali eksekutor penghapus menekan panel 'Hapus' pada daftar pajang. Bersandarkan utusan pemicu rute mematikan berlapis `HTTP GET`, gerbong mesin *server* sekonyong-konyong akan menyemburkan racun ke dua titik: luruh memusnahkan potret fisis logo dari bingkai *folder*, selaras mencerabut riwayat kemitraan dari lumbung rujukan pangkalan data selamanya. Prosesi perampingan aset ini digenapi dengan pelemparan paksa kembali laman tersebut (*redirect*) yang langsung terias senyuman sapaan kotak peringatan notifikasi penyelesaian eksekusi warna cemerlang.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Mitra, Deskripsi MoU dan mengunggah Logo Kemitraan.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/kerjasama`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Logo Kemitraan yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/kerjasama`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Data Penelitian (Admin Web FIKOM)
-Manajemen perpustakaan riset jurnal pendidik berdiri sebagai pilar pertinggal riwayat keilmuan yang secara teknis mengusung alih wahana operasional pertukaran rupa fail berekstensi pelestarian utuh semacam pindaian *Portable Document Format* (PDF) maupun teks kompilasi (*DOC/DOCX*). Siklus pergerakan dimulai sederhana layaknya beranda administrator lain: sebuah ketukan pemanggilan sistem langsung memicu rentetan pembedahan arsip *database* demi menuai serapan tajuk, tanggal publikasi, beserta cantuman alamat dokumentasi hasil riset pengkaji terdahulu. Hadapan palka kontrol ini tak sekadar dijadikan etalase statis belaka melainkan juga ladang administratif menyusun dokumen yang mendesak untuk dibaptis, dipugar, atau sama sekali dikosongkan.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Data Penelitian:
 
-Bila kehendak penempatan tulisan baru mencuat, sistem memaksa si pangkal pengirim (admin) mengisikan sekelumit biografi riset seperti tajuk karangan ilmiah dan ikhtisar singkat abstrak, tidak luput menempatkan salinan aslinya di slot pemuatan lekat berkas (*upload panel*). Sepaket porsi informasi riset tersebut menunggangi roket perpindahan logis `HTTP POST`. Unit pos lalu mencegat dokumen. Lapis pemindai (*security filter checker*) menginterogasi keabsahan struktur muatannyaâ€”menakar pakem batas gundukan bobot (*limit quota size*) seraya menghalau muatan tipe yang bukan ditakdirkan selaku pedoman keilmuan sah (meloloskan fail kualifikasi dokumen murni saja). Andainya dokumen riset tersebut sah direngkuh, muatan peladen dengan sukarela membuka ruang kamar penyimpanan bagi fail bersangkutan demi mendiami area rak lumbung perpustakaan file statis web `/docs/penelitian`. Diiringi pendaratan aman tersebut, ikatan asinkron berlarut mengaitkan deskripsi abstrak dan rantai URL tujuannya selaku rekaman pertinggal baru menyongsong *database* relasional. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Data Penelitian", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Di simpang kebalikan, pemotongan eksistensi fail yang telah membusuk tak kalah krusial. Sistem dititahkan secara lisan (Lewat paramuka sirkuit pengawal berkode `Hapus`) membawa titah pencabutan berani. Tatkala alamat pemusnahan HTTP diketuk, pangkalan *server backend* mendelegasikan tugas dua cabang sekaligus: unit peladen mesin secara fisis menyerang wujud naskah dokumen lama guna diluluhlantakkan tak berbekas dari disk, silih berganti disusul tusukan kueri SQL dari *database* demi membabat bersih tapaknya dari tabel kepustakaan fakultas. Keampuhan alur penghapusan serempak nan brutal ini menghindarkan kepulauan wadah hosting aplikasi dari onggokan file usang misterius. Proses log komputasi dirangkai penyimpul statusâ€”layar ditolak mundur balik dan peramban mencuatkan bendera notifikasi yang menjamin ketenangan tugas penyunting. Administrator bahkan disediakan privilese opsional mencantum akses fitur ekstraksi (Unduh Dokumen) buat membedah dokumen pangkalan selayaknya pengunjung perpustakaan sungguhan.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul Riset, Abstrak Singkat dan mengunggah Dokumen / Laporan Publikasi (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/penelitian`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen / Laporan Publikasi (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/penelitian`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Data Pengabdian (Admin Web FIKOM)
-Menyemai ladang rekaman histori civitas yang menjamah lapisan masyarakat merupakan urat nadi pengayom "Kelola Pengabdian". Secara teknikal, perwujudan diagram beralur (*sequence*) pada entitas operasi administrator ini berjalan setali tiga uang dengan sistem pustaka pengelolaan dokumen riset. Pada tahap persapaan pertama peladen, rute panggil bakal membongkar secara acak lalu merangkum baris rekam catatan pengabdian bermutu di pangkalan data yang memuat tak hanya entri tajuk pelaksanaan maupun pengurusnya, namun merangkum jejak tuju simpanan (*storage path*) salinan lampiran bukti sahnya pada sistem (layaknya dokumen PDF/DOC).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Data Pengabdian:
 
-Fase menghembuskan nafas nyawa entitas pelaporan abdi masyarakt dikonstruksikan sedemikian rupa sewaktu admin merangkai ringkasan abstraksi berserta sisipan lampiran beban pindaian laporan di atas bidang pendaftaran isian. Komponen muatan ditenggelamkan menyusuri lalu-lintas ekspedisi permohonan siber `HTTP POST` tempat filter perisai pelindung beroperasi tangkas. Menyadari besarnya risiko penyerangan siber beralas arsip kotor, sistem mensyaratkan bobot file wajar seraya menghalang paksa segala jenis formatan ekstensil liar, semata meloloskan *MIME Type DOC* dan sejenisnya. Lolosnya kargo dokumen di muka gerbang penyaringan ini spontan menstimulus pemindah fail ke rahim penyimpanan publik *folder system*/lokasi khusus pendata. Tidak berlalu lama, titah pangkalan logik peladen beralih membaptis sandi tajuk isian ringkasan terintegrasikan bersama alamat sandi fail orisinil menuju laci *database* MySQL.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Data Pengabdian", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Perspektif keluwesan (*control flexibility*) pun dijahitkan apik saat admin memerintahkan titah pemusnahan rute (*action delete*) terhadap riwayat lapuk tanpa masa berlaku. Momen eksekutor mendelegasikan perintah pencabutan seketika dikanalisasi pangkalan *server backend* demi memecah skrip tugas menyasar dua sasaran beda: peladen mengkalkulasi koordinat lokasi naskah pengabdian kuno di rongga gudang sistem agar segera dibinasakan wujud *byte* failnya tanpa kompromi (*unlink manipulation*), kemudian menginstruksikan peladen penampung *database* mencoret habis baris keberadaannya. Kesisteman serba selaras dan brutal ini menggaransi kelestarian bobot *memory disk space host* peladen tetap lengang. Siklus serajin perampingan komputasi ini dengan rutin melingsirkan admin menatap layar segar paripurna berisi letupan notifikasi lunas sebagai perwujudan kepastian fungsional kerjanya yang terselesaikan absolut mumpuni.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul Kegiatan Pengabdian, Ringkasan dan mengunggah Laporan Dokumentasi (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/pengabdian`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Laporan Dokumentasi (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/pengabdian`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Dokumen Fakultas (Admin Web FIKOM)
-Di ruang pustaka digital "Kelola Dokumen Fakultas", skema eksekusi interaktif bermula tatkala skrip antarmuka menagih senarai deretan berkas pindaian publik. Penagih (*request handler*) menjangkau tabel pangkalan data (MySQL) sembari mengangkat ke permukaan indeks-indeks fail kebijakan formal, pedoman edukasi, maupun ragam edaran statis yang patut diketahui sivitas akademika. Perilaku operasional administrasi mencakup kuasa penuh menyebar berkas perdana (*Upload*), mendobrak masuk dengan dokumen perbaikan (*Update*), serta pelenyapan permanen lembar pedoman masa lalu (*Delete*).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dokumen Fakultas:
 
-Momen pendaftaran eksemplar arsip keilmuan yang baru diawali oleh pemasukan identitas judul dokumen berserta kelengkapan deskriptifnya. Beriringan, berkas lampiran asli direkatkan dalam wujud murni dokumen formal. Mengangkut muatan itu, perintah siber `HTTP POST payload` didaratkan ke pos keamanan skrip pemroses (PHP). Parameter keselamatan internal segera merentangkan tameng sensor tipe dokumenâ€”hanya mensahihkan identitas format sah (berlaku batas rasional hingga 10MB per fail). Selama tidak meledakkan limit tersebut, peladen luluh merestui proses pindahan fail pindaian menuju palung peristirahatan direktori umum (`storage folders`). Kepindahan fail fisis itu seketika menstimulasi pemancangan perintah relasional untuk menandai tugu indeks pangkalan data (`SQL INSERT/UPDATE`); menautkan tautan lokasi dengan lema deskriptifnya agar siap diambil oleh penuai informasi publik.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Dokumen Fakultas", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Tak pelak, mekanisme penjagaan disk dari residu file usang wajib dikembangkan ketat lewat prosedur pembasmian (*deletion trigger*). Manakala insting administrator memutuskan penarikan status peredaran dari sebuah rilis dokumen, tombol `Hapus` dilabuhkan memanggil rute kiamat bersandi `HTTP GET Delete`. Peladen segera mengekstrak koordinat nama berkas, mengasah pisau memori bedah (*unlink operator*), dan menetak hilang fisik fail dari memori penyimpanan mesin penampung sistem tanpa celah toleransi. Titik klimaks ini dituntaskan persamaannya oleh semburan taktis eksekusi letup `DELETE FROM table`, membakar sisa coretan kenangan sejarah berkas terkait dari dalam jeroan MySQL. Kesigapan runtutan logis ini lalu melepaskan kendali balik layaknya sirkuit pental (*redirect*), menyodorkan antarmuka teriluminasi peringatan lunas pekerjaan secara damai kepada admin.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul, Teks Deskriptif Panduan dan mengunggah Dokumen Publikasi (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/fakultas`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Publikasi (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/fakultas`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Kelola Rencana Strategis (Admin Web FIKOM)
-Lapis tatanan Rencana Strategis (Renstra) fakultas dipilah dan direkam dengan presisi ke dalam etalase publik melalui kompartemen administrasi khusus "Kelola Renstra". Ketika modul dokumenter kepengurusan fakultas ini dipanggil dari tidur lelap pangkalan data, antarmuka segera melaporkan sajian indeks berkas pedoman Renstra tahun-tahun periode pengabdian akademis yang berhasil digali MySQL. Di papan pergerakan arus komputasi inilah administrator berkuasa menarik penambahan berkas baru (eksemplar resolusi rancangan baru di tahun ajaran berikutnya), memperbaiki cetakan revisi minor, atau melucuti eksistensi naskah kadaluwarsa. 
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Rencana Strategis:
 
-Setiap peluncuran rencana kemajuan periode yang mengudara senantiasa menaiki moda rute siber aman (`HTTP POST`). Sang administrator perlu menyematkan atribut perihal dokumen panduan strateginya dengan cermat, diikuti pendaratan salinan naskah asli PDF yang mengikat di dalam kolom panel pendaftar borang. Skrip penerjemah PHP lantas tidak serta merta membukakan brankas fasilitas *hosting*; muatan itu dihakimi demi kewajaran memori, lolosnya ekstensi tak diundang yang bisa berujung fatal, lalu menurunkannya mulus sesudah validasi tipe (*mime type*) terpenuhi. Ketika potret dokumen Renstra ini mendarat seutuhnya di pangkuan rak khusus direktori `/docs`, mesin peladen seketika meracik pelumas kueri basis data untuk merutekan (*insert relational query*) alamat tautan file tersebut bersanding erat ke lembar pendaftaran deskripsinya di relung tabel MySQL. 
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Rencana Strategis", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pemotongan wujud rilis tahunan pun menganut siklus bersih sempurna tanpa peninggalan artefak berkarat. Administrasi yang menginstruksikan pelemparan pembasmian (`action_delete` di pucuk URL `HTTP GET`), tidak hanya melepaskan letupan pemusnahan basis pengarsipan lajur (*table log data*). Melampaui hal tersebut, rute letusan menyelaraskan koordinat pembedah arsip server guna memberangus paksa eksistensi pindaian fail Renstra masa lampau (`unlink procedure`) menyatu binasa. Kesinambungan sirkulasi logis tersebut kemudian berbalik tenang menayangkan penyumbangan *redirect* menuju ruang indeks mutakhir seraya membawa konfirmasi visual perombakan pangkalan data berhasil terkonsolidasi rapi.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Tahun Periode, Visi Renstra dan mengunggah Naskah Renstra (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/renstra`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
 
-## Sequence Diagram: Kelola Standar Operasional Prosedur / SOP (Admin Web FIKOM)
-Menyemarakkan kesarjanaan struktural dan tata kelola berorientasi akuntabilitas fakultas disandarkan mutlak pada akses penyaluran pustaka SOP berkualitas di bilik khusus "Kelola SOP". Proses serba dinamis ini diembuskan kencang begitu modulnya terpanggil menyambar kueri permintaan daftar dokumen eksisting dari jajaran memori *database MySQL*. Dari pijakan penyampaian inilah administrator didapuk sebagai hulu pertanggungjawaban buat mengeksekusi pemasukan instrumen aturan termutakhir, mencadangkan lembar revisi di atas dokumen regulasi konvensional, maupun menebas riwayat fail yang sudah membusuk ditarik wewenangnya. 
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Naskah Renstra (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/renstra`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
-Sebagai wujud sirkulasi transisi rilis formal, pencatatan berkas SOP selalu mengharuskan perwujudan deskripsi pedoman, dikalibrasikan bersama tempelan orisinalitas dalam balutan berkas *document-basis* (berformat murni PDF atau DOCX). Terbukanya pintu keran unggul serangkaian data tersebut difasilitasi penuh melintasi parameter sinyal sandi komputasional berbalut identitas logis `HTTP POST`. Lapis gerbang pelindung internal sistem (PHP basis) mencegat sejenak kedatangan tamu lampiran berkas guna menghunjam filter deteksi uji tipe *mime format* serta menyensor batas kewajarannya melampaui ukuran ruang toleransi beban peladen maksimal. Begitu pindaian berkas membuktikan kesucian spesifikasinya, perwujudan file itu lantas dibawa rebah menyatu ke dalam asuhan *directory space records*. Menandakan sah diterimanya pedoman struktural SOP ke hadapan warga kampus ini, untaian SQL relasional dirapal buat melabel identitas nama aturan serentak memasang posisi lokasi rujukan filenya (`peta penyimpanan URL`) seirama ke rongga gudang *MySQL*. 
+## Sequence Diagram: Kelola Standar Operasional Prosedur (SOP) (Admin Web FIKOM)
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Standar Operasional Prosedur (SOP):
 
-Prinsip perampingan memori eklektif tak kunjung luput diperhitungkan saat tombol Pemusnahan/Aksi Hapus diaktivasi secara masif. Berbalut tembakan memori peretas (*HTTP GET Delete*), pos peladen mengartikulasikan manuver tembakan dwiganda mematikan: sasaran perdana diluncurkan langsung kepada akar serabut nama fail yang direngkuh, menjarah dan membedahnya hancur menyublim dalam ketiadaan memori disk (`using unlink procedure`); pelampiasan target penutupan dititahkan di atas jembatan MySQL menggunakan rentetan sabda perusak tatanan lema `DELETE FROM`. Perjuangan sengit algoritma penyirnakan dokumen kelasa pengikat hukum prosedural itu diakhiri meriah lewati pengembalian kilat peramban admin (*redirect to table list*) berselimut warna gembira keberhasilan tanpa secuilpun komplikasi tersisa.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Standar Operasional Prosedur (SOP)", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-## Sequence Diagram: Kelola Data BEM / Organisasi (Admin Web FIKOM)
-Sorotan apresiasi kegiatan sivitas mahasiswa tergambarkan di pelataran publik situs FIKOM melalui corong pengendali "Kelola BEM". Pola kerangka kerja antarmukanya beradaptasi sempurna dengan mekanisme master data profil lainnya. Pintu kedatangan rutinitas ini terbuka sewaktu administrator menjajaki tautannya. Sistem dengan cekatan meraup himpunan daftar nama pengurus, divisi, atau bahkan dokumentasi visual kegiatan dari lapis *database* MySQL untuk dibariskan ke papan etalase pandangan pengelola web.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama SOP, Rincian Prosedur dan mengunggah Dokumen Pedoman SOP (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/sop`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
 
-Dalam mengemban kewajiban memugar portofolio BEM, administrator dibekali kapasitas unggul layaknya arsitek ruang publikâ€”berwewenang menyunting atau mendirikan organisasi/pengurus baru (*Create/Update*) serta leluasa membubarkan catatan organisasi terdahulu (*Delete*). Setiap deklarasi susunan keorganisasian mensyaratkan deskripsi naratif padat dan kerap disempurnakan sisipan unggahan logo departemen atau arsip rupa kegiatan (*image format*). Kumpulan informasi itu diberangkatkan lewati kargo tertutup `HTTP POST`. Unit pelindung server (*PHP handler*) mengambil peran eksekutor filter, senantiasa menepis paksa lampiran fail bila ketahuan melampaui ukuran ruang aman dan menyasar rasio format asing. Memenuhi takaran resolusi, pindaian wajah organisasi ini langsung ditanam dalam wadah *folder system public*. Pada ketukan waktu bersamaan, skrip `SQL (INSERT/UPDATE)` disuntikkan ke bilik memori agar data deskriptifnya menyilang padu bersama tautan lokasi rupa file eksak tersebut di tabel pangkalan MySQL. 
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Pedoman SOP (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/sop`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
-Pemotongan nafas catatan organisasi masa lampau tak dibiarkan mencederai kesehatan ruang diska memori. Seumpama admin mendelegasikan perintah tebang (*Action Hapus lewat perintah pemutus GET*), sepasukan mesin peretas akan menggeruduk direktori memori untuk mencongkel akar eksistensi file foto ormas (`unlink routine`), seketika menyalurkan ledakan penghancuran terakhir untuk menamatkan garis keberadaannya pada baris pangkalan (*DELETE* record pada MySQL). Proses sirkulasi perampingan catatan organisasi ini selalu menemukan titik kedamaian dengan memantulkan administrator balik pada gerbang antarmuka awal diselimuti lencana biru kesuksesan mutlak.
+## Sequence Diagram: Kelola Data Organisasi BEM (Admin Web FIKOM)
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Data Organisasi BEM:
+
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Data Organisasi BEM", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Departemen, Program Kerja dan mengunggah Logo atau Foto Profil BEM.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/bem`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Logo atau Foto Profil BEM yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/bem`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Sequence Diagram: Verifikasi Pendaftaran (Admin Web FIKOM)
-Terbit dan tenggelamnya alur pendaftaran sivitas akademika bertumpu seutuhnya pada kesigapan administrator dalam mengemudikan instrumen "Kelola Pendaftaran". Ciri esensial yang membedakan perhelatan komputasi pada modul ini dibandingkan modul pangkalan data lainnya adalah ketiadaan pengunggahan borang inisiasi mandiri (*create*) dari sisi admin. Fiturnya justru dikhususkan guna merespons pendaftar yang membanjiri antrean (antarmuka berawal memanen tabel data sivitas calom pendaftar beserta rujukan kepemilikan laci sertifikat kelengkapan/ijazah milik mereka dari bilik *database MySQL*). Berdasarkan rekrutan tabel calon sivitas inilah administrator memulai titah verifikator menatap layar kompilasinya.
+Bedanya pada layar peladen Verifikasi di mana peranan Admin bukan membangun catatan formulir baru, namun utuh difokuskan **memproses antrean verifikasi** status orang:
 
-Penelusuran administrasi pengabsahan dikerahkan sembari sistem mengangkat detil pendaftaran dan memicu skrip untuk menarik representasi bukti dokumen pendaftar secara langsung (menampilkan *image preview / pdf window* layaknya KTP atau Ijazah dari ruang server peramban `uploads`). Dengan melintangnya rupa perbandingan pendaftaran ini, administrator secara legal menobatkan keputusannya atas status validasi pendaftarâ€”apakah ditahbiskan dengan ganjaran penolakan atau penerimaan mutlak (`Diterima/Ditolak`). Sehelai status putusan pembaruan meluncur berbalut kendaraan permohonan `HTTP POST Update Status`. Lapis basis data lekas mengartikannya dengan mereformasi rekor kueri pembaruan (`UPDATE pendaftaran SET status=...`), lalu melecut peramban buat meregangkan napas kembali memajang posisi tabel yang baru terpoles hasil validasinya tanpa kealpaan.
+1. **Memantau Gerak Daftar Pendaftar**: 
+   Awal membuka rute menu status persetujuan Registrasi Pendaftar, rel pangkalan layar MySQL menjaminkan kemudahan menengok untaian memadat sederet profil pemohon siap dirombak untuk disetujui / dinonaktifkan.
 
-Skenario radikal tetap dimungkinkan manakala daftar riwayat registrasi telah sesak tak terbendung atau dianggap sekadar fail usil iseng. Kendali aksi saklar Hapus (*delete flow*) membukakan rute pelenyapan bersih permanen bagi tumpukan berkas yang menjamur. Sama brutalnya dengan metode lain, sinyal penghangusan menyeret mesin agar sigap membumihanguskan setiap sisa lampiran identitas foto/dokumen personal si pendaftar dari *directory memory server* (*mengais* `unlink` ekstirpasi), silih menyambung memberangus pendaftaran rekam jejak itu hingga tercabut tak bernisan dari liang baris sistem memori MySQL. Perombakan radikal ini segera digenapi pemantul rilis pemberitahuan (*redirect screen*), menjamin kejernihan halaman tersisa demi kenyamanan validasi penantian rilis berikutnya.
+2. **Titipan Ketetapan (Validasi Terima / Blokir Tolak)**:
+   - Pengelola dengan lapang mengecek kesesuaian lampiran arsip calon pemohon. Lewat pencetan *Detail Viewer* layar memperlihatkan berkas pindaian jaminan identitas KTP mereka dari muatan tabung server.
+   - Selesai pengawasan mata validnya dokumen, penegasan dilakukan melewati pertukaran klik aksi penyelesaian di tombol **Terima** maupun **Tolak**. Putusan itu ditiupkan menyebrangi pemungut jaringan server.
+   - Mesin lantas mengubah status lema data *table pendaftaran* sang pemilik pemohon di dalam bilik sel basis MySQL jadi sah tervalidasi. 
+   - Antarmuka mengayun layar menari kembali segar di titik pangkal tabel lengkap berpasang lencana penyelesaian kesuksesan status terpoles di peramban.
+
+3. **Gugurnya Pendaftaran Batal Tersandung Hapus**:
+   - Jika admin berniat mencerabut habis kotoran penumpukan antrean akun pendaftar yang tidak melintasi tenggat ketentuan maka pentalan menuntut pelemparan menu penghapusan total. Tombol pencabut **Hapus Status Pemohon** diartikulasikan ke antrian khusus baris profil mereka. 
+   - Modus operandi penggusur memori mengepal kendali menyerang memori internal *Folder Storage Situs* tuk menghancurkan luluh lantak presensi pembuangan sampah lampiran identifikasi / Buket Pendaftaran dokumen asal milik terdakwa, secara telak memberangus fail mereka di server (*Unlink Files*).
+   - Dihempas binasa tak terlacak sisa letikan teks keberadaannya pada susunan memori meja basis *Data Tabel MYSQL*. Laporan penutupan penyapuan lincah mengirim pentalan penyegaran *Refresh Window* mengabarkan ketuntasan proses pengosongan memori!
 
 ## Sequence Diagram: Pengaturan Sistem (Admin Web FIKOM)
-Dalam arsitektur *backend*, modul antarmuka Pengaturan lazimnya tak dirancang sebagai relasi penyekat data berjejaring panjang layaknya tabel *CRUD multi-record*; melainkan dikategorikan dalam trah sirkuit *Single Page Update* eksklusif. Bilamana pos perombakan tatanan laman (`kelola_pengaturan` atau padanan sistem *settings* laman) ditekan penelusuran administrator, peladen memanen langsung baris data rekam jejak identifikasi statis terpusat milik web itu sembari mendaratkannya di segenap bumbung kerangka kolom formulir administrator yang membentang (`input values`). Parameter bawaan itu merangkum narasi profil judul laman situs, alamat presisi gedung representasi letak geografis, susunan identitas pelaporan keluhan ke pos surel dan telepon, tak ayal mencadangkan keping pindaian ikon (*favicon*) atau logo kampus perlembagaan.
+Hal yang mengkhususkan fungsionalitas laman ini ketimbang tabel rekam jejak lain; pencatatan setingannya berada di *database* hanya diwakili sebaris rekam informasi inti (*Single configuration record*):
 
-Pengabdian atas peremajaan identitas itu dituntaskan usai tangan admin meracik tulisan terbaru maupun menjajal mendirikan format baru lambang ikon portal yang tertaut di pengisian *upload attachment*. Persinyalan ganda pengekspresian sandi (*HTTPS POST config*) ditugaskan meretas batas gerbang memori PHP melampirkan titipan pembaharuan data pangkalan dan fail keping lampiran sekaligus. Seketika itulah mesin pengawas mendobrak masuk mendeteksi keberadaan galian fail fisis. Manakala penuangan lambang logo web diikutsertakan melawati seleksi limitasi beban proporsional berketentuan ketat, pos pergudangan berkas sistem menerima berkas suci itu beririsan mendelegasikan pemecahan bayangan identitas bekas logo lawas agar binasa tak merambah akar muatan disk peladen berlama-lama (`replace and unlink the old identity image`). 
+1. **Pemanggilan Laman Pengaturan**: 
+   Sesaat admin mengetuk panel "Pengaturan Sistem", kueri sistem mengangkat satu *record* identitas pokok situs di pangkalan data. Pengisian tersebut akan merangkai formulir bawaan meliputi *Judul Situs*, Nomor Telpon Humas, sampai Email dan tersaji langsung menempati kolom isian layar.
 
-Sirkus pelaksana transisi pengaturan usai ketika skrip mendesak *SQL Engine* menyelenggarakan injeksi perombakan lajur tunggal pada tabel sistem inti web (`UPDATE single Configuration Row Table`). Transaksi basis memori itu segera diikrarkan usai tanpa rintangan bermakna. Sirkulasi logika antarmuka melesat lewati rute pantulan kembali di area peramban memandu langkah admin meyakini rona logo terbaru pun tak lama mencetak kemegahan estetikanya selaras bertali kelengkapan notifikasi validasi berwarna segar hijau memukau pangkalan laman terpusat.
+2. **Perubahan & Klik Pembaruan Sinkron**:
+   - Jika admin berniat memugar isian teks tersebut maupun mengganti lambang visual portal *Logo Favicon Web*, Admin bebas menghapus kolom isiannya lalu dikokohkan bersamaan ketukan simpan **Perbarui**.
+   - Kiriman form ini dilimpahkan merapat menuju pos skrip pengaman pangkalan sistem (PHP).
+   - Diandaikan pergantian simbol grafis/gambar dimanfaatkan melintasi toleransi ukuran batas memori berwewenang (*Batas megabyte max*). Mesin PHP secara halus memboyong logo anyar dan membanting posisi ke dalam saku penyimpanan lokasi file aset publik (*uploads atau img source*).
+   - Bersamaan itu, rutinitas pengakhir menghanguskan dan menyapu foto logo pendahulunya ke arah tiada tersisa demi meringankan penumpukan data teronggok di sela penyimpanan *Server*.
+   - Rangka logik kemudian menembuskan keping baris kueri bertingkat memutakhiran *SET UPDATE config* pada lapis saksi mata tabel pengaturan. Kesempurnaan putaran diakhiri memuat ulang laman admin di mana pemberitahuan segar ditimpakan ke sisi kanan atas layar: Sukses modifikasi!
 
 

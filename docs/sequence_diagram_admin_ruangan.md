@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Fasilitas Ruangan (Admin Web FIKOM)
 
-Diagram sekuensial ini menerangkan rangkaian prosedur penanganan alur interaksi (*CRUD*) pada antarmuka administrator dalam manajemen tata letak sarana fasilitas dan ruang sivitas pada kawasan kampus (Kelola Ruangan).
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data fasilitas ruangan.
 
 ## Penjelasan Alur
 
-Runtutan prosesual dalam narasi ini mendasar atas arsitektur pergerakan data modul Kelola Ruangan (dan/atau Laboratorium). Modul antarmuka ini didedikasikan agar fungsionaris kampus/administrator secara presisi dapat mencatatkan ketersediaan tempat bernaung akademik beserat inventaris di dalamnya. Kala pertama penelusuran masuk halaman, skrip internal langsung menarik rentetan deret tabel yang merangkum ketersediaan wujud fasilitas ruang belajar/lab dari lorong pangkalan data (*database* MySQL). Pengelolaan lantas bertumpu kepada rangkaian pembaruan fana: pendaftaran bangsal ruangan baru, rekontruksi parameter kapabilitas eksisting, hingga perombakan yang diinisiasi pemusnahan aset ruang tak terpakai dari memori sistem.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Fasilitas Ruangan:
 
-Di persimpangan tata operasional, tatkala seorang administrator beriktikad meresmikan suatu letak ruang kampus untuk dipampang di etalase masyarakat, skema pengisian form pun dilemparkan. Pada ruas borang itu, admin mematri parameter identitas ruang—seperti singkatan Kode Ruangan, Nama Ruang representatif, kuantitas batasan kapasitas, serta rentetan sarana (*facilities*). Selembar berkas lampung potret penampakan visual ruang pun disematkan bersamaan. Kompilasi nilai masukan dirapat lalu dikapalkan menuju skrip ujung palung peladen (*backend controller*) bernavigasi lintasan `HTTP POST`. Unit sistem utama tersebut lalu mencegat keberadaan kepingan foto untuk mengevaluasi batasan kelayakannya: menyaring dimensi ekstrem serta ekstensi siluman yang tak kompatibel. Terpenuhinya tes ambang minimal itu akan membukakan karpet merah agar peladen fisik menyimpan rupa foto masuk mengisi lumbung gambar (*upload array directory*). Beriringan mulus dengan kepastian repositori file, unit pusat menggaungkan bahasa pemrograman *query base* (sekelas `INSERT/UPDATE`) agar mesin penabung MySQL tak terlewat mencatatkan sandi teks dan indeks rujukan nama rupa foto ke baris susunan tabel fasilitas tersebut.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Fasilitas Ruangan", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Mekanisme bongkar-pasang (Update mutasi file) beserta keabsahan eksekusi bedah tuntas (*Delete record*) tidak luput berjalan beruntun dengan tertib. Skrip penata ini menjanjikan operasi bahwa pengakuan hadirnya lampiran citra baru (*upload ganti foto ruangan*) otomatis mewajibkan mesin komputasi untuk mengebiri rupa foto ruangan purba dan membunuh eksistensinya (*unlink function*). Perlakuan identik diulang saat fitur hapus permanen ditarik menggunakan tombol penghancur eksekusi URL (`GET action Delete`). Seluruh keberadaan entitas saksi yang mendiami pangkalan data dicabut dan artefak filenya dibabat bersih tanpa ampun dari lapis ruang mesin instalasi peladen. Paragraf alur transisi ini selalu diselipi kelegaan tatkala fungsional mengantarkan isyarat keberhasilan—meredirect admin menuju susunan indeks anyar ditandai munculnya pop-up notifikasi tuntas warna kesuksesan di latar depannya.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Nama Ruang, Kapasitas, Fasilitas dan mengunggah Foto Kelas/Ruangan.
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/ruangan`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Kelas/Ruangan yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/ruangan`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,47 +30,47 @@ Mekanisme bongkar-pasang (Update mutasi file) beserta keabsahan eksekusi bedah t
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Kelola Ruangan"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Uploads/Fasilitas)"
+    participant View as "Halaman Manajemen Fasilitas Ruangan"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder uploads/ruangan)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Sambangi Pintu Akses Pengelolaan (/admin/kelola_ruangan)
-    View->>DB: Eksekusi Tuntutan Daftar Ketersediaan Fasilitas Ruang
-    DB-->>View: Distribusikan Tabel Susunan Aset Fasilitas Kampus
+    Admin->>View: Buka halaman menu Kelola Fasilitas Ruangan
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-    %% Proses Tambah / Edit Ruangan
-    opt Mencatat Ruang Baru/Merombak Fasilitas Lokasi
-        Admin->>View: Bubuhkan Teks Kode Ruang, Nama, Kapasitas Fasilitas, & Foto Ruangan
-        Admin->>View: Setujui Eksekusi Pengusulan Aset ("Simpan")
-        View->>System: Gulirkan Pelayaran Paket Identitas (HTTP POST MULTIPART)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Nama Ruang, Kapasitas, Fasilitas & Upload Foto Kelas/Ruangan
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
 
-        System->>System: Uji Kelayakan Standarisasi Gambar Fisik
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Cek Filter Uji Tipe File Valid Menghijau
-            opt Terdeteksi Pintu Unggahan Foto Penampakan Anyar
-                System->>Server: Kandangkan Wujud Fisis Foto ke Lingkar Repositori
-                opt Update (Realisasi Edit Aset Lawas)
-                    System->>Server: Enyahkan Tapak Visual Potret Ruangan Terdahulu (Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/ruangan
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Luncurkan Panah Kueri SQL INSERT / UPDATE Pada Laci Fasilitas
-            DB-->>System: Yakinkan Interogasi Mutasi Tabel Telah Terekam
-            System-->>View: Kembalikan Rute Pemantul (Redirect) & Restui Pesan Sukses  
-        else Terpeleset Uji Spek Resolusi & Ekstensi
-            System-->>View: Hambat Pengayaan Data & Peringatkan Melalui Layar
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Ruangan
-    opt Mengakhiri Status Kepemilikan (Penghapusan Data Fasilitas)
-        Admin->>View: Menarik Ketetapan Pembersihan Ruang (Tombol Hapus)
-        View->>System: Terbangkan Instruksi Pembabatan Data (HTTP GET Delete)
-        System->>DB: Seret Identitas Nama File Berdasarkan Sel Rujukan Ruang
-        System->>Server: Tindak Tegas Enyahkan Fisik File Penampakan (Unlink Function)
-        System->>DB: Eksekusi Suntikan Penghangusan Kueri Tabel (DELETE)
-        DB-->>System: Respon Deklarasi Pemusnahan Usai
-        System-->>View: Lintasi Ulang Rute dengan Rilis Kilat Label Konfirmasi Tuntas
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah uploads/ruangan
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

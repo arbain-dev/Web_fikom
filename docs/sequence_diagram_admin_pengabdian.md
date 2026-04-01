@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Data Pengabdian (Admin Web FIKOM)
 
-Diagram sekuensial representatif ini membedah rancang arsitektur interaksi antarmuka administrasi di dalam peladen fakultas bilamana modul Pengabdian Kepada Masyarakat dikelolakan untuk sirkulasi pertukaran fail eksemplar laporannya (*PDF/DOCX*).
+Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data data pengabdian.
 
 ## Penjelasan Alur
 
-Menyemai ladang rekaman histori civitas yang menjamah lapisan masyarakat merupakan urat nadi pengayom "Kelola Pengabdian". Secara teknikal, perwujudan diagram beralur (*sequence*) pada entitas operasi administrator ini berjalan setali tiga uang dengan sistem pustaka pengelolaan dokumen riset. Pada tahap persapaan pertama peladen, rute panggil bakal membongkar secara acak lalu merangkum baris rekam catatan pengabdian bermutu di pangkalan data yang memuat tak hanya entri tajuk pelaksanaan maupun pengurusnya, namun merangkum jejak tuju simpanan (*storage path*) salinan lampiran bukti sahnya pada sistem (layaknya dokumen PDF/DOC).
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Data Pengabdian:
 
-Fase menghembuskan nafas nyawa entitas pelaporan abdi masyarakt dikonstruksikan sedemikian rupa sewaktu admin merangkai ringkasan abstraksi berserta sisipan lampiran beban pindaian laporan di atas bidang pendaftaran isian. Komponen muatan ditenggelamkan menyusuri lalu-lintas ekspedisi permohonan siber `HTTP POST` tempat filter perisai pelindung beroperasi tangkas. Menyadari besarnya risiko penyerangan siber beralas arsip kotor, sistem mensyaratkan bobot file wajar seraya menghalang paksa segala jenis formatan ekstensil liar, semata meloloskan *MIME Type DOC* dan sejenisnya. Lolosnya kargo dokumen di muka gerbang penyaringan ini spontan menstimulus pemindah fail ke rahim penyimpanan publik *folder system*/lokasi khusus pendata. Tidak berlalu lama, titah pangkalan logik peladen beralih membaptis sandi tajuk isian ringkasan terintegrasikan bersama alamat sandi fail orisinil menuju laci *database* MySQL.
+1. **Melihat Daftar Data**:
+   Saat admin membuka menu "Kelola Data Pengabdian", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Perspektif keluwesan (*control flexibility*) pun dijahitkan apik saat admin memerintahkan titah pemusnahan rute (*action delete*) terhadap riwayat lapuk tanpa masa berlaku. Momen eksekutor mendelegasikan perintah pencabutan seketika dikanalisasi pangkalan *server backend* demi memecah skrip tugas menyasar dua sasaran beda: peladen mengkalkulasi koordinat lokasi naskah pengabdian kuno di rongga gudang sistem agar segera dibinasakan wujud *byte* failnya tanpa kompromi (*unlink manipulation*), kemudian menginstruksikan peladen penampung *database* mencoret habis baris keberadaannya. Kesisteman serba selaras dan brutal ini menggaransi kelestarian bobot *memory disk space host* peladen tetap lengang. Siklus serajin perampingan komputasi ini dengan rutin melingsirkan admin menatap layar segar paripurna berisi letupan notifikasi lunas sebagai perwujudan kepastian fungsional kerjanya yang terselesaikan absolut mumpuni.
+2. **Proses Tambah / Edit Data**:
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul Kegiatan Pengabdian, Ringkasan dan mengunggah Laporan Dokumentasi (PDF/DOC).
+   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
+   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
+   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/pengabdian`).
+   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
+   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
+   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
+
+3. **Proses Hapus Data**:
+   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Laporan Dokumentasi (PDF/DOC) yang dimilikinya.
+   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/pengabdian`).
+   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
+   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
 
 ## Diagram
 
@@ -16,51 +30,47 @@ Perspektif keluwesan (*control flexibility*) pun dijahitkan apik saat admin meme
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Laporan Data Pengabdian"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Lumbung Pelestarian Arsip Dokumen Formal"
+    participant View as "Halaman Manajemen Data Pengabdian"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder docs/pengabdian)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Titipkan Langkah Kunjungan Antarmuka (/admin/kelola_pengabdian)
-    View->>DB: Rutinitas Membedah Inventarisasi Sejarah Panjang Dokumentasi Terdata PKM
-    DB-->>View: Gelar Suguhan Etalase Indeks Tabel Perjalanan Pengabdian 
-    
-    %% Proses Tambah / Format Unggahan Dokumen
-    opt Mewadahi Rilis Laporan Baru & Menjejalkan Berkas Dokumentasi Praktik Lapangan
-        Admin->>View: Rincikan Parameter Tajuk Abstrak, Serta Selipkan Pindaian Murni Format Paten (PDF/DOC)
-        Admin->>View: Anggukkan Persetujuan Penyerahan Serah-Rekam "Upload Tuntas"
-        View->>System: Kargo Titipan Laporan Mengorbit via Jembatan HTTP POST
+    Admin->>View: Buka halaman menu Kelola Data Pengabdian
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
-        System->>System: Terjunkan Jembatan Penilaian Skala Batas Resolusi Beban & Izin Perlintasan Hak Ekstensi Berkas
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Isi kelengkapan Judul Kegiatan Pengabdian, Ringkasan & Upload Laporan Dokumentasi (PDF/DOC)
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Verifikasi Toleransi Ekstensi Batas File Berjabat Tangan Mulus
-            opt Singkap Kehadiran Pertukaran/Sumbangan Beban Berkas File Laporan Segar
-                System->>Server: Rebahkan Sosok Fisik Dokumen Masuk Tepat ke Gudang Kepustakaan Publik Peladen 
-                opt Manipulasi Mutasi Edit Timpa Lembaran Lawas
-                    System->>Server: Berangus Memori Presensi Naskah Aturan Silam Agar Sirna (Instruksi Bedah Unlink)
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika terdapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen docs/pengabdian
+                opt Jika sedang menimpa data lama waktu pengeditan (Update)
+                    System->>Server: Hapus permanen file usang yang tergantikan
                 end
             end
             
-            System->>DB: Panah Langsung Tembus Memahat Skema Tabel SQL (Kueri INSERT / UPDATE Data Sosok Pengabdi)
-            DB-->>System: Nyatakan Penerimaan Pembaruan Bukti Telah Diakui Mesin Abstrak
-            System-->>View: Tendang Ulang Kemudi Arah Bersatu Gelembung Riang Sukses Perihal Resolusi Transaksi 
-        else Dimensi atau Spesifikasi Fail Liar Diblokir Melampaui Syarat Ketetapan Tipe
-            System-->>View: Lontarkan Tetesan Pesan Penolakan Berbalut Ketegasan Keamanan Laman
+            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
+            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
+            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
+            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
         end
     end
 
-    %% Proses Hapus Rekan
-    opt Pembersihan Status Penyelenggaraan Lapuk (Cabut Daftar Arsip)
-        Admin->>View: Lontarkan Perintah Cabut Registrasi Laporan Abdi Permanen (Titah Hapus)
-        View->>System: Kirim Keputusan Final Permintaan Ekstirpasi Berjejak HTTP GET (Action Delete)
-        System->>DB: Intai Presisi Kumpulan Koordinat Relasi File Salinan Fisik Milik Entitas Sasaran
-        
-        alt Kombinasi Pukulan Serang Habis Aset Jejak Disk Memori Host Server
-            System->>Server: Mutilasi Deteksi Sisi Sisa Kehidupan Kehadiran File Di Lapis Gudang Arsip Peladen (Unlink Sistem)
-            System->>DB: Lumat Tubuh Susunan Identifikasi Dokumen Lewat Tembakan Eksekutor Database MySQL (DELETE Query)
-            DB-->>System: Pelunasan Kesepakatan Lapor Gugur Memori Tersertifikasi Absolut
-        end
-        
-        System-->>View: Singkap Pentalan Resolusi Pemutar Tampilan (Redirect Beriring Indikator Hijau Menyenangkan Hati)
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh ikon penghapusan data baris terkait
+        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
+        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
+        System->>Server: Hapus secara fisis fail dari memori wadah docs/pengabdian
+        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
+        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
+        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
     end
 ```

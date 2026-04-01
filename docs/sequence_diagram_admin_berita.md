@@ -1,14 +1,28 @@
 # Sequence Diagram: Kelola Berita (Admin Web FIKOM)
 
-Diagram sekuensial ini merunut jalur interaksi komprehensif bagi modul Kelola Berita, tempat administrator membuat, mengedit, dan menghapus rilis publikasi artikel berserta gambar sampul utamanya.
+Diagram sekuensial ini menjelaskan langkah-langkah yang terjadi pada sistem ketika Admin mengelola data berita (menambah, mengubah, atau menghapus berita).
 
 ## Penjelasan Alur
 
-Rangkaian operasional pada diagram sekuensial ini menjabarkan tatanan eksekusi internal (*backend*) ketika seorang administrator merilis atau memperbarui warta informasi massa melalui modul Kelola Berita. Sejak halaman awal tabel berita diakses, sistem secara berkala melempar kueri pengangkatan data dari skema MySQL agar daftar pemberitaan sebelumnya terpapar merata di layar admin. Alur utama modul ini dapat terpecah menjadi tiga fase krusial: penciptaan artikel perdana, revisi teks maupun sampul (*cover*), dan pencabutan berita.
+Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Berita:
 
-Dalam skenario perumusan rilis pemberitaan perdana, administrator dipersyaratkan untuk mengetikkan detail komponen tulisan—seperti tajuk berita, isi konten artikel, kategori, hingga melampirkan berkas resolusi tinggi yang akan dijadikan sampul tajuk. Peramban web merajut serangkaian masukan teks dan kepingan berkas foto tersebut ke dalam kendaraan protokol `HTTP POST`. Tepat ketika paket ini tiba di peladen pelaksana (skrip PHP), gerbang validasi akan mencekal file gambar untuk pertama kali; menilik keseuaian tipe format sekaligus memastikan spesifikasi ukurannya tetap rasional bagi beban peladen. Andaikata parameter sensor keamanan tak mendeteksi pelanggaran file, instruksi dilanjutkan pada perintah operasional pemindahan berkas (*move_uploaded_file*), yang merelokasi gambar sampul ke panggung direktori statis `/uploads` pada mesim. Segaris dengan keberhasilan itu, jalinan asinkron mesin *database* diaktifkan guna merampas dan mengunci teks konten rilis ke dalam *database* (`INSERT INTO tb_berita`).
+1. **Melihat Daftar Berita**: 
+   Saat admin membuka menu "Kelola Berita", sistem akan langsung mengambil semua data berita yang tersimpan di dalam *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
 
-Pola kehati-hatian ganda berlaku tatkala fungsi ganti gambar (*update*) atau fitur pencabutan artikel (*delete*) ditekan. Seandainya di momen pengeditan itu halaman menerima sampul kabar terbaru, peladen tak sekadar mencatatnya di basis data, melainkan menyalakan pisau bedah mesin lokal untuk menemukan gambar tajuk yang kadaluwarsa dari folder repositori dan menghanguskannya (*unlink*) secara permanen. Ekstirpasi serupa juga secara harfiah dititahkan setiap kali tombol Hapus Berita dipicu (lewat pemicu rute `HTTP GET ?action=delete`), memusnahkan potret sampul fisik menyongsong dihapusnya *record* tulisan pada tabel basis informasi web. Rentetan kemenangan manipulasi arus *database* itu kelak membangkitkan pentalan pengalihan rute (*redirect*) pamungkas, memajang bendera notifikasi pengerjaan sukses di dahi peramban administrator.
+2. **Proses Tambah / Edit Berita**: 
+   - Ketika admin menekan tombol **Tambah** atau **Edit**, formulir isian akan muncul. Admin memasukkan Judul, Isi Berita, dan mengunggah Foto Sampul (*Cover*).
+   - Setelah admin menekan tombol **Simpan**, data tersebut dikirimkan ke sistem (*Controller / PHP*).
+   - Sistem akan mengecek apakah foto yang diunggah memiliki format yang benar (misalnya `.jpg` atau `.png`) dan ukurannya tidak terlalu besar.
+   - Jika foto valid, sistem akan memindahkan file foto tersebut ke dalam folder penyimpanan server (`/uploads`).
+   - Khusus untuk proses **Edit**, sistem akan otomatis mencari file foto berita yang lama di dalam server dan menghapusnya agar memori tidak penuh.
+   - Setelah foto tersimpan, judul dan isi berita berserta nama file fotonya akan dimasukkan dan dirangkum secara permanen ke dalam *Database*.
+   - Terakhir, sistem akan mengembalikan (*redirect*) tampilan layar ke tabel berita dengan memunculkan pesan pop-up sukses.
+
+3. **Proses Hapus Berita**:
+   - Jika admin menekan tombol **Hapus** pada salah satu berita, sistem akan mencari tahu letak penyimpanan file foto sampul berita tersebut.
+   - Sistem segera menghapus file fisik foto tersebut secara langsung dari folder server.
+   - Setelah fotonya lenyap, sistem lalu menghapus baris tulisan beritanya dari *Database*.
+   - Tampilan akan ditutup dengan kembalinya admin ke layar tabel berita yang membawa pesan konfirmasi bahwa data sudah musnah.
 
 ## Diagram
 
@@ -16,47 +30,47 @@ Pola kehati-hatian ganda berlaku tatkala fungsi ganti gambar (*update*) atau fit
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Berita"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Uploads/)"
+    participant View as "Halaman Kelola Berita"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder Uploads)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Akses Antarmuka Utama (/admin/kelola_berita)
-    View->>DB: Kueri Penarikan Rekam Jejak Berita
-    DB-->>View: Sajikan Kompilasi Tabel Artikel Berita
+    Admin->>View: Buka halaman Kelola Berita
+    View->>DB: Tarik semua data riwayat berita
+    DB-->>View: Tampilkan daftar tabel berita ke layar
 
-    %% Proses Tambah / Edit Berita
-    opt Pembuatan Rilis/Pengeditan Berita
-        Admin->>View: Input Judul, Konten Teks, dan File Foto Sampul
-        Admin->>View: Konfirmasi Aksi Publikasi "Simpan"
-        View->>System: Kompilasi Ekspedisi Data (HTTP POST)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Berita
+        Admin->>View: Isi Judul, Konten Berita, & Upload Foto
+        Admin->>View: Klik menu tombol "Simpan"
+        View->>System: Kirim inputan form ke sistem (HTTP POST)
 
-        System->>System: Pemeriksaan Standar Validasi Ekstensi dan Resolusi File
+        System->>System: Cek kesesuaian parameter format dan ukuran foto
         
-        alt Validasi Ekstensi Gambar Mulus
-            opt Terdapat File Gambar yang Baru Diunggah
-                System->>Server: Titipkan Gambar Sampul di Direktori (Move_Upload)
-                opt Pengeditan (Update) Bukan Data Baru
-                    System->>Server: Lenyapkan Artefak Gambar Sampul Lama (Unlink)
+        alt Jika parameter foto Valid / Benar
+            opt Jika tedapat file foto baru yang diunggah
+                System->>Server: Simpan fisik foto ke dalam folder uploads/
+                opt Jika sedang menimpa data berita lama (Edit)
+                    System->>Server: Hapus permanen file foto berita yang usang
                 end
             end
             
-            System->>DB: Eksekusi Kueri INSERT / UPDATE (teks narasi + alamat gambar)
-            DB-->>System: Labeli Kesuksesan Modifikasi Data
-            System-->>View: Pentalan Rute (Redirect) Berbalut Pesan Sukses  
-        else Terdeteksi Pelanggaran Format File
-            System-->>View: Tolak Penyimpanan dan Rilis Notifikasi Penolakan
+            System->>DB: Masukkan data tulisan berita & rujukan foto ke Database
+            DB-->>System: Status data telah berhasil tersimpan
+            System-->>View: Kembali ke halaman tabel sambil Menampilkan pesan Sukses
+        else Format foto Salah / Resolusi Terlalu Besar
+            System-->>View: Tampilkan peringatan pesan Error (Gagal Menyimpan)
         end
     end
 
-    %% Proses Hapus Berita
-    opt Penghapusan Artikel Berita
-        Admin->>View: Setujui Konfirmasi Penghapusan Artikel
-        View->>System: Luncurkan Permintaan Hapus (HTTP GET Action Delete)
-        System->>DB: Ekstrak Alamat Lokasi File Sampul
-        System->>Server: Eksekusi Pencabutan File Fisik Sampul Berita (Unlink)
-        System->>DB: Tembakkan Kueri Musnahkan Record Berita (DELETE)
-        DB-->>System: Laporan Pemusnahan Diterima
-        System-->>View: Kembalikan Rute dengan Notifikasi Penghapusan Tuntas
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus Berita
+        Admin->>View: Klik status ikon "Hapus" pada salah satu berita
+        View->>System: Kirim parameter hapus data pada sistem
+        System->>DB: Cari referensi letak nama file foto terkait berita tersebut
+        System->>Server: Hapus paksa fisik foto dari folder uploads/
+        System->>DB: Musnahkan baris data berita dari Database
+        DB-->>System: Konfirmasi data tuntas terhapus
+        System-->>View: Kembali ke halaman tabel membawa pesan Sukses dihapus
     end
 ```

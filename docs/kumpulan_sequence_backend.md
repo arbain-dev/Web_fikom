@@ -96,48 +96,48 @@ sequenceDiagram
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Manajemen Berita"
-    participant System as "Sistem/Controller (PHP)"
-    participant Server as "Direktori Storage (Uploads/)"
+    participant View as "Halaman Kelola Berita"
+    participant System as "Sistem / PHP"
+    participant Server as "Storage (Folder Uploads)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Akses Antarmuka Utama (/admin/kelola_berita)
-    View->>DB: Kueri Penarikan Rekam Jejak Berita
-    DB-->>View: Sajikan Kompilasi Tabel Artikel Berita
+    Admin->>View: Buka halaman Kelola Berita
+    View->>DB: Tarik semua data riwayat berita
+    DB-->>View: Tampilkan daftar tabel berita ke layar
 
-    %% Proses Tambah / Edit Berita
-    opt Pembuatan Rilis/Pengeditan Berita
-        Admin->>View: Input Judul, Konten Teks, dan File Foto Sampul
-        Admin->>View: Konfirmasi Aksi Publikasi "Simpan"
-        View->>System: Kompilasi Ekspedisi Data (HTTP POST)
+    %% Proses Tambah / Edit
+    opt Klik Tombol Tambah / Edit Berita
+        Admin->>View: Isi Judul, Konten Berita, & Upload Foto
+        Admin->>View: Klik menu tombol "Simpan"
+        View->>System: Kirim inputan form ke sistem (HTTP POST)
 
-        System->>System: Pemeriksaan Standar Validasi Ekstensi dan Resolusi File
+        System->>System: Cek kesesuaian parameter format dan ukuran foto
         
-        alt Validasi Ekstensi Gambar Mulus
-            opt Terdapat File Gambar yang Baru Diunggah
-                System->>Server: Titipkan Gambar Sampul di Direktori (Move_Upload)
-                opt Pengeditan (Update) Bukan Data Baru
-                    System->>Server: Lenyapkan Artefak Gambar Sampul Lama (Unlink)
+        alt Jika parameter foto Valid / Benar
+            opt Jika tedapat file foto baru yang diunggah
+                System->>Server: Simpan fisik foto ke dalam folder uploads/
+                opt Jika sedang menimpa data berita lama (Edit)
+                    System->>Server: Hapus permanen file foto berita yang usang
                 end
             end
             
-            System->>DB: Eksekusi Kueri INSERT / UPDATE (teks narasi + alamat gambar)
-            DB-->>System: Labeli Kesuksesan Modifikasi Data
-            System-->>View: Pentalan Rute (Redirect) Berbalut Pesan Sukses  
-        else Terdeteksi Pelanggaran Format File
-            System-->>View: Tolak Penyimpanan dan Rilis Notifikasi Penolakan
+            System->>DB: Masukkan data tulisan berita & rujukan foto ke Database
+            DB-->>System: Status data telah berhasil tersimpan
+            System-->>View: Kembali ke halaman tabel sambil Menampilkan pesan Sukses
+        else Format foto Salah / Resolusi Terlalu Besar
+            System-->>View: Tampilkan peringatan pesan Error (Gagal Menyimpan)
         end
     end
 
-    %% Proses Hapus Berita
-    opt Penghapusan Artikel Berita
-        Admin->>View: Setujui Konfirmasi Penghapusan Artikel
-        View->>System: Luncurkan Permintaan Hapus (HTTP GET Action Delete)
-        System->>DB: Ekstrak Alamat Lokasi File Sampul
-        System->>Server: Eksekusi Pencabutan File Fisik Sampul Berita (Unlink)
-        System->>DB: Tembakkan Kueri Musnahkan Record Berita (DELETE)
-        DB-->>System: Laporan Pemusnahan Diterima
-        System-->>View: Kembalikan Rute dengan Notifikasi Penghapusan Tuntas
+    %% Proses Hapus
+    opt Klik Ikon / Tombol Hapus Berita
+        Admin->>View: Klik status ikon "Hapus" pada salah satu berita
+        View->>System: Kirim parameter hapus data pada sistem
+        System->>DB: Cari referensi letak nama file foto terkait berita tersebut
+        System->>Server: Hapus paksa fisik foto dari folder uploads/
+        System->>DB: Musnahkan baris data berita dari Database
+        DB-->>System: Konfirmasi data tuntas terhapus
+        System-->>View: Kembali ke halaman tabel membawa pesan Sukses dihapus
     end
 ```
 

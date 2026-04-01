@@ -379,3 +379,59 @@ sequenceDiagram
     Backend-->>Frontend: Serahkan Data HTML/JSON Organisasi Mahasiswa
     Frontend-->>User: Paparkan Layar Elok Susunan Pengurus BEM Mahasiswa
 ```
+## Sequence Diagram: Halaman Unit Kegiatan Mahasiswa (UKM)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Klik menu penelusuran ekstrakurikuler (UKM)
+    Frontend->>Backend: Pelaporan *Request* galeri data UKM
+    
+    Backend->>DB: Tarik koleksi atribut tabel UKM Fakultas
+    DB-->>Backend: Kembalikan tajuk profil UKM, Bidang, & Fail Logo
+    
+    Backend-->>Frontend: Berikan paduan *Render HTML* Kartu UKM
+    Frontend-->>User: Suguhkan daftar visual Unit Kegiatan Mahasiswa
+```
+
+## Sequence Diagram: Halaman Himpunan Mahasiswa
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Mengeksplorasi jajaran wewenang Himpunan
+    Frontend->>Backend: Memanggil rilis daftar organisasi keprodi-an
+    
+    Backend->>DB: Kueri relasi tabel struktural Himpunan 
+    DB-->>Backend: Restorasi struktur kader & Program Kerja Utama
+    
+    Backend-->>Frontend: Lipatgandakan wujud pemformatan susunan Himpunan
+    Frontend-->>User: Paparkan Profil Megah Himpunan Mahasiswa
+```
+
+## Sequence Diagram: Halaman Profil & Tracer Alumni
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Singgah merunut penelusuran lulusan (Alumni)
+    Frontend->>Backend: Pengajuan senarai Direktori Alumni Kampus
+    
+    Backend->>DB: Sisir riwayat kesuksesan di tabel purna studi
+    DB-->>Backend: Tarik data karir, tahun purna, & kiprah lulusan
+    
+    Backend-->>Frontend: Gabungkan kerangka HTML Tabel Lulusan solid
+    Frontend-->>User: Tampilkan Lembar Kebanggaan Profil Lulusan / Alumni
+```

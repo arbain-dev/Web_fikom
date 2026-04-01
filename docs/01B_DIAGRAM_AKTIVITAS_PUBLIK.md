@@ -88,12 +88,12 @@ Halaman ini bersifat mutlak pembacaan statis dan memiliki pola pergerakan vertik
 flowchart TD
     Start(( )) --> A[Membuka Halaman Sambutan]
     
-    A --> B[Sistem Menata Layout Teks Bersisian dengan Gambar]
+    A --> B[Tampilkan Halaman Teks dan Foto Pimpinan]
     B --> C{Pengunjung\nMenggulir Layar?}
     
     C -- Tidak --> End((( )))
     
-    C -- Iya --> D[Membaca Narasi Utama Sambutan Dekan di Sisi Kiri]
+    C -- Iya --> D[Membaca Teks Sambutan Dekan]
     D --> E[Memperhatikan Kontak Profil dan Pesan Singkat Dekan di Sisi Kanan]
     E --> End
     
@@ -119,12 +119,12 @@ flowchart TD
     C --> D{Pilih Interaksi\nKlik Kartu Dosen?}
     D -- Tidak --> End((( )))
     
-    D -- Iya --> E[Sistem Melapisi Layar Memunculkan Popup Detail Dosen]
+    D -- Iya --> E[Tampilkan Jendela Detail Data Dosen]
     
     E --> F{Ingin Menghubungi\nDosen Tersebut?}
     
     F -- Iya --> G[Ketuk Tombol Opsi Kirim Email]
-    G --> H[Otomatis Dialihkan Penulisannya ke Klien Email Perangkat Pribadi]
+    G --> H[Buka Aplikasi Email di Perangkat]
     H --> End
     
     F -- Tidak --> I[Ketuk Tombol Silang atau Tutup Area Popup]
@@ -150,7 +150,7 @@ flowchart TD
     B --> C[Menggeser Tampilan Menuju Gambar Pusat Bagan Struktur]
     
     C --> D{Validasi Lanjut\nCek Posisi Pimpinan?}
-    D -- Iya --> E[Menelusuri Diagram Garis Komando Bagan dari Skala Atas ke Bawah]
+    D -- Iya --> E[Melihat Garis Jabatan dari Atas ke Bawah]
     E --> End((( )))
     
     D -- Tidak --> End
@@ -182,7 +182,7 @@ flowchart TD
     F -- Iya --> G[Tampilkan Peringatan Wajib Isi dan Kembalikan Fokus ke Kotak Form Perbaikan]
     G --> C
     
-    F -- Tidak --> H[Proses Enkripsi dan Simpan Data Pelamar Menjurus ke Pangkalan Database]
+    F -- Tidak --> H[Simpan Data Pendaftaran secara Otomatis]
     H --> I[Membuat dan Menampilkan Desain Kotak Pesan Sukses Mendaftar]
     I --> End((( )))
     
@@ -193,3 +193,163 @@ flowchart TD
 
 **Penjelasan:**  
 Memperagakan salah satu transaksi fungsional paling sibuk di panggung terdepan (*Frontend*), borang *Pendaftaran Mahasiswa Baru* meminta jaminan kepastian. *Flowchart* merekam kebebasan pembaca bersiap siaga mencocokkan wejangan pendaftaran sebelum akhirnya menceburkan data kependudukannya semisal NIK dan berkas PDF berlampir ke bilah kosongnya. Titik berat kehandalan sistem dipertontonkan kala tombol registrasi digenjrot. Bila kejanggalan format menaungi *(seperti sel pengisian masih rumpang atau terdeteksi cacat CSRF)*, siklus merendahkan putarannya menolak simpanan serta menandai blok eror guna direkayasa ulang partisipan (*Validasi*). Keluwesan lolos saringan meyakinkan pangkalan mematri identitas terpusat seiring munculnya sapaan selamat sukses berwujud plakat kecil di baris layarnya.
+
+---
+
+### 4.3.7 Activity Diagram Prodi TI (Informatika)
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Prodi Informatika]
+    
+    A --> B[Membaca Profil dan Visi Misi Prodi]
+    B --> C[Menggulir Layar ke Bawah]
+    
+    C --> D{Ingin Melihat\nFasilitas Belajar?}
+    D -- Iya --> E[Melihat Daftar Fasilitas Prodi]
+    E --> F{Cek Kompetensi\nLulusan?}
+    
+    D -- Tidak --> F
+    
+    F -- Iya --> G[Membaca Daftar Keahlian Lulusan]
+    G --> End((( )))
+    
+    F -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.28** Activity Diagram Prodi TI (Informatika)*
+
+**Penjelasan:**  
+Halaman ini menampilkan profil lengkap dari lingkup studi Teknik Informatika. Pengalaman pengujung dimulai dengan menyerap informasi inti seperti Visi dan Misi. Melalui mekanisme *scroll* ke bawah berulang kali, pengguna dihadapkan pada persimpangan opsi sederhana, yaitu memutuskan mengeksplorasi gambar fasilitas pembelajaran, sampai di ujungnya mempertimbangkan untuk menyerap target prospek kelulusannya.
+
+---
+
+### 4.3.8 Activity Diagram Prodi Pendidikan Teknologi Informasi (PTI)
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Prodi Pend. TI]
+    
+    A --> B[Membaca Tujuan dan Arah Lulusan]
+    B --> C[Menggulir Layar ke Bawah]
+    
+    C --> D{Melihat Mata\nKuliah Unggulan?}
+    D -- Iya --> E[Membaca Daftar Mata Kuliah Spesifik]
+    E --> F{Mencari Peluang\nKerja?}
+    
+    D -- Tidak --> F
+    
+    F -- Iya --> G[Membaca Daftar Peluang Karir Guru/Praktisi]
+    G --> End((( )))
+    
+    F -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.29** Activity Diagram Prodi Pend. TI*
+
+**Penjelasan:**  
+Serupa dengan alur program studi sebelumnya, halaman PTI dikemas memaparkan profil kompetensi sarjana pendidikan. Interaksi difokuskan pada pembacaan linier terhadap daftar mata kuliah khusus pendidikan teknologi yang ditawarkan, diakhiri dengan evaluasi pengguna untuk memindai prospek penyerapan kerja alumni.
+
+---
+
+### 4.3.9 Activity Diagram Menu Ruangan Kelas
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Ruangan Kuliah]
+    
+    A --> B[Melihat Gambar dan Daftar Ruangan]
+    B --> C{Mencari Ruangan\nTertentu?}
+    
+    C -- Iya --> D[Memperhatikan Detail dan Fasilitas di Tiap Kelas]
+    D --> End((( )))
+    
+    C -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.30** Activity Diagram Menu Ruangan Kelas*
+
+**Penjelasan:**  
+Aktivitas pencarian ruangan dirancang sangat ringkas. Begitu pengunjung memasuki halaman, rangkaian gambar dan nama kelas disajikan dalam deretan kartu. Pengguna yang memiliki inisiatif lebih dapat memfokuskan bacaannya pada komponen infrastruktur fisik yang melekat di tiap daftar ruangannya.
+
+---
+
+### 4.3.10 Activity Diagram Menu Laboratorium
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Laboratorium]
+    
+    A --> B[Melihat Daftar Laboratorium Tersedia]
+    B --> C[Menggulir Layar ke Bawah]
+    
+    C --> D{Ingin Mengetahui\nSpesifikasi Komputer?}
+    
+    D -- Iya --> E[Membaca Daftar Alat dan Kapasitas Lab]
+    E --> End((( )))
+    
+    D -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.31** Activity Diagram Menu Laboratorium*
+
+**Penjelasan:**  
+Pengenalan ruang praktek (*Laboratorium*) menekankan penayangan jenis-jenis lab. Jalur pengguna (*User Flow*) mensyaratkan keputusan spesifik bilamana pengunjung berkehendak mengecek spesifikasi piranti alat pendukung yang disediakan untuk praktikum mahasiswa, seperti komputer atau komponen jaringan.
+
+---
+
+### 4.3.11 Activity Diagram Menu Kurikulum
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Kurikulum Akademik]
+    
+    A --> B[Menampilkan Tabel Distribusi Mata Kuliah]
+    B --> C{Mencari Jadwal\nSemester Tertentu?}
+    
+    C -- Iya --> D[Memilih Tabel Semester Pilihan]
+    D --> E[Cek Jumlah SKS dan Prasyarat Mata Kuliah]
+    E --> End((( )))
+    
+    C -- Tidak --> F[Hanya Menggulir Tampilan Tabel]
+    F --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.32** Activity Diagram Menu Kurikulum*
+
+**Penjelasan:**  
+Halaman ini melayani kebutuhan pemetaan studi. Interaksi mendasar diawali terbukanya susunan besar tabel SKS per semester. Rute pengambilan keputusan mensyaratkan pembaca menukik memperhatikan satu seksi semester agar bisa memilah beban sks apa saja yang akan diambilnya.
+
+---
+
+### 4.3.12 Activity Diagram Menu Kalender Akademik
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Kalender]
+    
+    A --> B[Menampilkan Tabel Tanggal Kegiatan Kampus]
+    B --> C{Cari Tanggal\nUjian Atau KRS?}
+    
+    C -- Iya --> D[Membaca dan Mencatat Waktu Penting]
+    D --> End((( )))
+    
+    C -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.33** Activity Diagram Menu Kalender Akademik*
+
+**Penjelasan:**  
+Di muara informasi birokrasional kalender penanggalan, *flowchart* ditutup dengan rutinitas penjelajahan yang paling ringkas. Pengunjung sekadar dihadapkan pada tabel rentetan jadwal, di mana interaksi utamanya adalah membaca datar tabel dan menetapkan batas waktu kritis administrasi pendaftaran secara mandiri.

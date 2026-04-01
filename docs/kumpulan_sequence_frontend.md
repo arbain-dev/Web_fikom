@@ -104,3 +104,109 @@ sequenceDiagram
 ```
 
 
+
+## Sequence Diagram: Halaman Profil Dosen
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Klik menu Profil Dosen
+    Frontend->>Backend: Request direktori data Dosen
+    
+    Backend->>DB: Query relasi tabel daftar Dosen
+    DB-->>Backend: Return profil nama, NIDN, jabatan, foto pangkalan
+    
+    Backend-->>Frontend: Berikan data utuh HTML / JSON Profil
+    Frontend-->>User: Tampilkan Grid Kartu Profil Para Dosen
+```
+
+## Sequence Diagram: Halaman Pendaftaran Mahasiswa Baru
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Calon Pendaftar
+    participant Frontend
+    participant Backend as Backend (control)
+    participant Server as Storage (Brankas File)
+    participant DB as Database
+
+    User->>Frontend: Isi Form Pendaftaran & Lampirkan File (KTP/Ijazah)
+    User->>Frontend: Klik "Kirim Pendaftaran"
+    Frontend->>Backend: Post Data Form + Lampiran File Berkas
+
+    Backend->>Backend: Verifikasi ekstensi file & standar keamanan
+    
+    alt Berkas Pengajuan Valid Sesuai Ketentuan
+        Backend->>Server: Simpan fisik file pendaftar selamat ke piringan Server
+        Backend->>DB: Injeksi rekaman isian form ke Database (Status: Pending)
+        DB-->>Backend: Rekam berstatus tereksekusi tersimpan
+        Backend-->>Frontend: Arahkan layar kembali dibubuhi Notifikasi Sukses Daftar
+        Frontend-->>User: Tampilan pendaftaran terselesaikan / Menanti Konfirmasi Admin
+    else Syarat Berkas Dianggap Ilegal Tak Sesuai
+        Backend-->>Frontend: Tolak Post, sampaikan Pesan Error
+        Frontend-->>User: Peringatkan Pengguna Perbaiki Muatan File atau Form
+    end
+```
+
+## Sequence Diagram: Halaman Program Studi TI (Teknik Informatika)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Mengeksplorasi Profil Prodi TI
+    Frontend->>Backend: Request paket kelengkapan data Prodi TI
+    
+    Backend->>DB: Ambil spesifik Visi-Misi Teknik Informatika
+    Backend->>DB: Ambil spesifik jajaran Dosen TI
+    Backend->>DB: Ambil daftar Kurikulum resmi TI
+    
+    Backend-->>Frontend: Kumpul & Restorasi perpaduan Data TI (Render Output)
+    Frontend-->>User: Tampilkan Halaman Antarmuka Keilmuan Prodi TI
+```
+
+## Sequence Diagram: Halaman Program Studi PTI (Pendidikan Teknologi Informasi)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Masuk menyurvei Profil Prodi PTI
+    Frontend->>Backend: Request bongkahan spesifikasi data Prodi PTI
+    
+    Backend->>DB: Ekstrak tunggal Visi-Misi entri wilayah PTI
+    Backend->>DB: Ekstrak senarai pengurus & Dosen afiliasi PTI
+    Backend->>DB: Ekstrak barisan Kurikulum spesifik PTI
+    
+    Backend-->>Frontend: Konstruksi penyatuan Data PTI solid (Render Tampilan Web)
+    Frontend-->>User: Sajikan Pesona Layar Profil Prodi PTI secara utuh
+```
+
+## Sequence Diagram: Halaman Fasilitas Ruangan
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Ingin melihat-lihat Sarana Fasilitas Ruangan
+    Frontend->>Backend: Tuntutan muat ulang data inventaris Ruangan
+    
+    Backend->>DB: Query tabel nama ruang, letak, detail kapasitas
+    DB-->>Backend: Serahkan susunan rekaman prasarana fisik
+    
+    Backend-->>Frontend: Menyelaraskan daftar HTML/JSON Ruangan
+    Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruangan ke Pandangan
+```

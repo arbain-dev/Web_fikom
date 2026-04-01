@@ -210,3 +210,78 @@ sequenceDiagram
     Backend-->>Frontend: Menyelaraskan daftar HTML/JSON Ruangan
     Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruangan ke Pandangan
 ```
+## Sequence Diagram: Halaman Fasilitas Laboratorium
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Mengunjungi Halaman Laboratorium
+    Frontend->>Backend: Request info fasilitas Laboratorium
+    
+    Backend->>DB: Query daftar lengkap ruang Lab beserta perlengkapan
+    DB-->>Backend: Return profil Lab, inventaris alat, dan foto prasarana
+    
+    Backend-->>Frontend: Limpahkan seluruh paket Data (Format Terender)
+    Frontend-->>User: Tampilkan Galeri Pesona Fasilitas Laboratorium ke layar
+```
+
+## Sequence Diagram: Halaman Kalender Akademik
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Mengeksplorasi laman Kalender Akademik
+    Frontend->>Backend: Memanggil rilis Data Kalender Terkini
+    
+    Backend->>DB: Tarik spesifik kalender tahun ajaran aktif
+    DB-->>Backend: Return teks deskripsi dan aset visual Gambar Kalender
+    
+    Backend-->>Frontend: Berikan kompilasi kemasan output dokumen Kalender
+    Frontend-->>User: Sajikan Tampilan utuh Kalender Akademik Fakultas
+```
+
+## Sequence Diagram: Halaman Dokumen Kurikulum
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Buka direktori akses Dokumen Kurikulum
+    Frontend->>Backend: Request sajian materi kurikulum standar
+    
+    Backend->>DB: Ekstrak catatan profil Kurikulum Fakultas Universal
+    DB-->>Backend: Kembalikan deskripsi singkat teks & Link Berkas PDF/DOC
+    
+    Backend-->>Frontend: Restorasi wujud rilis tabel Kurikulum siap muat
+    Frontend-->>User: Suguhkan Antarmuka Dokumen Kurikulum ke khalayak
+```
+
+## Sequence Diagram: Halaman Dokumen Fakultas
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Lintasi indeks halaman Dokumen Fakultas
+    Frontend->>Backend: Tuntunan muat ulang daftar indeks Dokumen Publik
+    
+    Backend->>DB: Kueri pelacakan relasi tabel deret Dokumen Fakultas
+    DB-->>Backend: Serahkan susunan judul dan jalur Letak Fail fisis unduhan
+    
+    Backend-->>Frontend: Ikat tatanan rilis struktur Dokumen Fakultas rilis web
+    Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Dokumen Publik secara anggun
+```

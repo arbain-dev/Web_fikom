@@ -12,21 +12,38 @@
 ```mermaid
 flowchart TD
     Start(( )) --> A[Membuka Halaman Utama Beranda]
-    A --> B{Pilih Aksi / Navigasi Interaksi}
     
-    B -- Klik Navigasi Atas --> C1[Pindah ke Menu Navbar Profil/Akademik]
-    B -- Klik Tombol Slider --> C2[Lihat Program / Berita Lain]
-    B -- Pilih Daftar Berita --> C3[Lihat Detail Berita Pilihan]
-    B -- Klik Tentang Fakultas --> C4[Dialihkan ke Halaman Visi Misi]
-    B -- Cek Info Akademik --> C5[Ke Kurikulum, Dosen, atau Lab]
-    B -- Abaikan Semua --> C6[Gulir Bebas Hingga Footer Mitra Kerja]
+    A --> B{Buka Menu\nNavigasi Atas?}
+    B -- Iya --> C[Pindah ke Halaman\nProfile/Akademik]
+    C --> End((( )))
     
-    C1 --> End((( )))
-    C2 --> End
-    C3 --> End
-    C4 --> End
-    C5 --> End
-    C6 --> End
+    B -- Tidak/Scroll --> D[Melihat Bagian\nSlider Banner Utama]
+    
+    D --> E{Klik Tombol Prodi\nAtau Berita?}
+    E -- Iya --> F[Pindah ke Halaman\nInformatika/Berita]
+    F --> End
+    
+    E -- Tidak --> G[Memperhatikan Animasi\nFakta Fakultas]
+    G --> H[Melihat Daftar\nBerita Terbaru]
+    
+    H --> I{Pilih Baca\nArtikel Berita?}
+    I -- Iya --> J[Dialihkan ke Halaman\nDetail Berita Pilihan]
+    J --> End
+    
+    I -- Tidak --> K[Membaca Deskripsi Singkat\nTentang Fakultas]
+    K --> L{Klik Tombol\nSelengkapnya?}
+    L -- Iya --> M[Dialihkan ke Halaman\nVisi Misi Fakultas]
+    M --> End
+    
+    L -- Tidak --> N[Melihat Pilihan Program Studi\nInformatika dan Pendidikan TI]
+    N --> O[Melihat Fitur Kelompok\nInformasi Akademik]
+    
+    O --> P{Akses Info\nAkademik?}
+    P -- Iya --> Q[Dialihkan ke Kalender, Kurikulum,\nDosen, atau Lab]
+    Q --> End
+    
+    P -- Tidak --> R[Memperhatikan Rentetan Logo\nMitra Kerja Sama Institusi]
+    R --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
@@ -34,7 +51,7 @@ flowchart TD
 ***Gambar 4.22** Activity Diagram Interaksi Halaman Beranda (Home)*
 
 **Penjelasan:**  
-Bagan mendatar (*fan-out*) di atas merunut jejak pilihan pengguna di Beranda. Karena sistem menampung banyak porsi, alur interaksi tidak berjalan menukik ke bawah, melainkan disebar berjajar menyamping. Pengguna dihadapkan seketika pada berbagai pintu cabang: menu atas, *slider*, berita, info akademik, hingga sekadar menggulir ke bawah tanpa hambatan. Tiap pintu berdiri sejajar mengarah penyelesaian yang bersangkutan.
+Bagan di atas merunut jejak interaksi pengguna yang menggulir layar ke bawah secara bertahap murni (*waterfall*). Sesuai urutan penampang di *file* pemrograman, pengunjung yang tidak mengeklik menu atas akan melewati serangkaian penawaran secara berurutan: mengamati *Slider* Utama, melewati penghitung angka Statistik, melihat daftar Berita, profil awal Fakultas, kotak Program Studi, dan blok Informasi Akademik, lalu berujung pada logo mitra yang berputar. Setiap blok menawarkan persimpangan, yang bila diabaikan, akan terus merambat ke kotak berikutnya hingga paling bawah.
 
 ---
 

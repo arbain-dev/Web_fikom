@@ -496,3 +496,49 @@ flowchart TD
 
 **Penjelasan:**  
 Bagian administrasi organisasi intra-kampus ini ditutup lewat rutinitas navigasional kaku murni ke bawah *(waterfall)*. Kerangka dirajut menguntai selaras tata letak struktur berjenjang kemahasiswaan. Tapak penjelajahan cukup dipetakan mengikut seretan usapan layar meluncur dari puncak kepemimpinan presidium berangsur sampai lapis anggota-anggota akar kepengurusannya.
+
+---
+
+### 4.3.19 Activity Diagram Menu Kegiatan UKM
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Berkas UKM]
+    
+    A --> B[Menatap Daftar Kartu Berita Kegiatan Mahasiswa]
+    B --> C{Terpikat Membaca\nSatu Berita UKM?}
+    
+    C -- Iya --> D[Menekan Judul atau Tombol Baca Selengkapnya]
+    D --> E[Sistem Membawa Pergi ke Halaman Rincian Berita]
+    E --> End((( )))
+    
+    C -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.40** Activity Diagram Menu Kegiatan UKM*
+
+**Penjelasan:**  
+Jejak aktivitas mengintai kabar Unit Kegiatan Mahasiswa (UKM) ditarik mengarah ke bawah. Ketika peserta mendapati tumpukan majalah beritanya, persilangan muncul bilamana ada topik spesifik yang menggoda mereka. Memecet tautan beritanya lantas akan memindahkan tubuh situs menuju rute baru untuk penjabaran cerita selengkapnya.
+
+---
+
+### 4.3.20 Activity Diagram Menu Himpunan Mahasiswa
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Himpunan Mahasiswa]
+    
+    A --> B[Membaca Teks Sambutan Pengenalan Himpunan]
+    B --> C[Menggigit Fokus pada Kotak Himpunan HMTI]
+    C --> D[Berpindah Menyaksikan Kotak Himpunan HMPTI]
+    D --> End((( )))
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.41** Activity Diagram Menu Himpunan Mahasiswa*
+
+**Penjelasan:**  
+Peta alir wawasan pilar kelembagaan mahasiswa prodi ini bersifat mengalir lurus (*waterfall*). Rancangan menuntun audiens sebatas menggerakkan layar gulir membaca petunjuk muka organisasi. Tatapannya diarahkan menyantap pamflet identitas himpunan per prodi satu-persatu lalu berujung menyudahi perantauan tanpa benturan kerumitan layar lanjutan.

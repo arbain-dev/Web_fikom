@@ -1,31 +1,16 @@
 # Sequence Diagram: Kelola Slider Beranda (Admin Web FIKOM)
 
-Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data slider beranda.
+Diagram sekuensial ini memvisualisasikan langkah-langkah praktis pada sistem ketika Admin mengelola data slider beranda.
 
 ## Penjelasan Alur
 
-Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Slider Beranda:
+Proses dimulai ketika admin membuka menu Kelola Slider Beranda. Begitu halaman diakses, sistem secara otomatis menarik seluruh riwayat data slider yang tersimpan di dalam *Database* MySQL untuk langsung disajikan ke layar admin dalam wujud tabel yang rapi. Tampilan awal ini berfungsi sebagai pantauan sebelum admin memutuskan tindakan selanjutnya.
 
-1. **Melihat Daftar Data**:
-   Saat admin membuka menu "Kelola Slider Beranda", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+Apabila admin membutuhkan penambahan data baru atau perbaikan data lama, mereka dapat menekan tombol **Tambah** atau **Edit**. Tindakan ini akan memunculkan sebuah formulir tempat admin bisa mengetikkan kemasan visual Teks Judul Utama dan Subjudul Pendek serta melampirkan Foto Pemandangan Kampus (Slider). Usai admin menekan tombol **Simpan**, peramban akan memaketkan data-data tersebut dan mengirimkannya ke sistem pengendali (PHP). Secara sigap, sistem lalu memeriksa apakah ukuran file dan format ekstensinya memenuhi standar keamanan. Jika wujud berkas tersebut difilter valid, mesin akan seketika menyimpan fisik file tersebut di dalam keranjang penyimpanan server (`/uploads/slider`). Khusus pada skenario **Edit**, pangkalan sistem akan langsung memberangus file foto lawas bawaan data tersebut agar memori penyimpanan tidak terbebani. Tepat saat fisik berkas dikamarkan dengan aman, teks ketikan admin beserta rujukan penamaan file tadi akan dijahit secara permanen ke dalam *Database*. Pengguna lantas digiring kembali menatap tabel utama lewat muatan ulang halaman (*refresh*) disuguhi pemberitahuan berwarna penanda keberhasilan proses simpan.
 
-2. **Proses Tambah / Edit Data**:
-   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Teks Judul Utama, Subjudul Pendek dan mengunggah Foto Pemandangan Kampus (Slider).
-   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
-   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
-   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/uploads/slider`).
-   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
-   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
-   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
-
-3. **Proses Hapus Data**:
-   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Foto Pemandangan Kampus (Slider) yang dimilikinya.
-   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/uploads/slider`).
-   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
-   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
+Di sisi lain, mekanisme kebersihan lingkungan data dijaga dengan ketersediaan tombol **Hapus**. Bilamana admin memutus letikan ikon hapus pada salah satu baris, sistem segera memusatkan pelacakan ke arah rujukan fisik nama file tipipannya. Fail fisis tersebut dicongkel keluar dan dimusnahkan dari server (`/uploads/slider`). Setelah meyakini ketiadaan fail, rentetan aksi perusak di *Database* bergerak melenyapkan barisan rekaman jejak catatan itu seutuhnya. Rangkaian perampingan usai seturut kembalinya putaran rotasi layar antarmuka memaparkan tabel yang telah terbebas dari baris data buangan tersebut diiringi pesan konfirmasi sukses terhapusnya data.
 
 ## Diagram
-
 ```mermaid
 sequenceDiagram
     autonumber
@@ -41,36 +26,36 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Teks Judul Utama, Subjudul Pendek & Upload Foto Pemandangan Kampus (Slider)
+        Admin->>View: Lengkapi isian form & Upload Foto Pemandangan Kampus (Slider)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/slider
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/slider
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/slider
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```

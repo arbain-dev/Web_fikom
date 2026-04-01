@@ -1,28 +1,14 @@
 # Sequence Diagram: Kelola Berita (Admin Web FIKOM)
 
-Diagram sekuensial ini menjelaskan langkah-langkah yang terjadi pada sistem ketika Admin mengelola data berita (menambah, mengubah, atau menghapus berita).
+Diagram sekuensial ini merunut alur operasional komprehensif bagi modul administrator ketika mereka menyelenggarakan perbaikan basis data secara praktis seputar pengelolaan berita.
 
 ## Penjelasan Alur
 
-Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Berita:
+Proses dimulai ketika admin membuka menu Kelola Berita. Begitu halaman diakses, sistem secara otomatis menarik seluruh riwayat data berita yang tersimpan di dalam *Database* MySQL untuk langsung disajikan ke layar admin dalam wujud susunan tabel yang rapi. Muka tampilan awal ini berfungsi sebagai pusat pantauan beranda sebelum admin memutuskan tindakan kontrol selanjutnya terhadap himpunan pangkalan data.
 
-1. **Melihat Daftar Berita**: 
-   Saat admin membuka menu "Kelola Berita", sistem akan langsung mengambil semua data berita yang tersimpan di dalam *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+Apabila admin membutuhkan penambahan data baru atau perbaikan data masa lalu, mereka dapat beralih menekan tombol ikonis **Tambah** atau **Edit**. Tindakan dorongan ini akan memunculkan sebuah bentangan formulir tempat admin bisa mengetikkan kandungan narasi Judul Berita dan teks Konten, serta dipersilakan melampirkan berkas fisik berupa Foto Sampul. Usai admin menekan tombol **Simpan**, peramban web akan memaketkan susunan input data tersebut dan mengirimkannya ke lintasan sistem pengendali di sisi mesin (PHP). Secara sigap, sistem peladen lalu mendeteksi apakah ukuran file dan format ekstensinya memenuhi takaran standar persyaratan aman. Jika muatan berkas tersebut difilter valid melewati ambang toleransi sistem, mesin seketika akan menyandarkan fisik file yang tervalidasi tersebut ke dalam laci penyimpanan wadah server (`/uploads/`). Terkhusus pada rutinitas skenario **Edit**, pangkalan sistem dibekali kepintaran untuk langsung mengeruk dan menenggelamkan file rekaman lawas bawaan lama milik data tersebut ke jurang pemusnahan (`unlink action`), mendisiplinkan agar sumur memori penyimpanan peladen tidak gampang tumpah. Sesaat sehabis menuntaskan titipan berkas barunya di dalam perut memori penyimpanan, susunan kerangka input ketikan tulisan admin tadi diintegrasikan mengikat pada jalinan jejak rujukan file, disuntik menembus *Database* secara terekam permanen. Akhir dari pergumulan antarmuka data tersebut membawa pengguna bergulir kembali menatap rilis tabel utuh lewat muatan rotasi ulang halaman (tehnik pentalan *redirect*), lazimnya disuguhi dengan manis berupa pemberitahuan lencana warna-warni tanda keberhasilan proses perekaman baru.
 
-2. **Proses Tambah / Edit Berita**: 
-   - Ketika admin menekan tombol **Tambah** atau **Edit**, formulir isian akan muncul. Admin memasukkan Judul, Isi Berita, dan mengunggah Foto Sampul (*Cover*).
-   - Setelah admin menekan tombol **Simpan**, data tersebut dikirimkan ke sistem (*Controller / PHP*).
-   - Sistem akan mengecek apakah foto yang diunggah memiliki format yang benar (misalnya `.jpg` atau `.png`) dan ukurannya tidak terlalu besar.
-   - Jika foto valid, sistem akan memindahkan file foto tersebut ke dalam folder penyimpanan server (`/uploads`).
-   - Khusus untuk proses **Edit**, sistem akan otomatis mencari file foto berita yang lama di dalam server dan menghapusnya agar memori tidak penuh.
-   - Setelah foto tersimpan, judul dan isi berita berserta nama file fotonya akan dimasukkan dan dirangkum secara permanen ke dalam *Database*.
-   - Terakhir, sistem akan mengembalikan (*redirect*) tampilan layar ke tabel berita dengan memunculkan pesan pop-up sukses.
-
-3. **Proses Hapus Berita**:
-   - Jika admin menekan tombol **Hapus** pada salah satu berita, sistem akan mencari tahu letak penyimpanan file foto sampul berita tersebut.
-   - Sistem segera menghapus file fisik foto tersebut secara langsung dari folder server.
-   - Setelah fotonya lenyap, sistem lalu menghapus baris tulisan beritanya dari *Database*.
-   - Tampilan akan ditutup dengan kembalinya admin ke layar tabel berita yang membawa pesan konfirmasi bahwa data sudah musnah.
+Di sisi kebalikannya, mekanisme ketertiban kebersihan lingkungan rekaman riwayat tetap dijaga setajam kilat dengan kehadiran tombol menu **Hapus**. Bilamana admin menyepakati tekanan tuas tombol hapus di atas letak salah satu baris pendaftaran tertentu, sistem tak menunda sedetikpun memusatkan komputasi lacakannya pada pencarian rujukan nama sandi Foto Sampul dari file titipannya. Begitu presisi namanya terkuak, fail salinan fisik tersebut murni dicongkel lepas dan dieksekutor musnah seratus persen dari ruang penampung server penyimpanan (`/uploads/`). Selepas komputasi meyakini tidak berwujudnya sisa-sisa jejak fail kotor di *server storage*, runtutan penyerbuan perusak menerpa barisan data relasinya di dalam *Database*, membinasakan bersih memori deret angka dan urutan yang memuat catatan rekaman itu tanpa ampunan (terbakar baris *query delete* tiada jejak). Rangkaian skema operasi perampingan diakhiri mutlak menyertakan kembalinya rotasi layar antarmuka yang menghempaskan administrator memandang tatanan kelola tabel yang telah diubah menjadi ringkas tanpa mengusung jejak baris usang tersingkirkan tadi, tidak absen sembari mengantar konfirmasi seruan lapor sukses yang terselesaikan secara mulia.
 
 ## Diagram
 
@@ -30,47 +16,47 @@ Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halam
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Kelola Berita"
+    participant View as "Halaman Manajemen Berita"
     participant System as "Sistem / PHP"
-    participant Server as "Storage (Folder Uploads)"
+    participant Server as "Storage (Folder uploads/)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Buka halaman Kelola Berita
-    View->>DB: Tarik semua data riwayat berita
-    DB-->>View: Tampilkan daftar tabel berita ke layar
+    Admin->>View: Buka halaman menu Kelola Berita
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
     %% Proses Tambah / Edit
-    opt Klik Tombol Tambah / Edit Berita
-        Admin->>View: Isi Judul, Konten Berita, & Upload Foto
-        Admin->>View: Klik menu tombol "Simpan"
-        View->>System: Kirim inputan form ke sistem (HTTP POST)
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Lengkapi isian form & Upload Foto Sampul
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
-        System->>System: Cek kesesuaian parameter format dan ukuran foto
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Jika parameter foto Valid / Benar
-            opt Jika tedapat file foto baru yang diunggah
-                System->>Server: Simpan fisik foto ke dalam folder uploads/
-                opt Jika sedang menimpa data berita lama (Edit)
-                    System->>Server: Hapus permanen file foto berita yang usang
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika tedapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data tulisan berita & rujukan foto ke Database
-            DB-->>System: Status data telah berhasil tersimpan
-            System-->>View: Kembali ke halaman tabel sambil Menampilkan pesan Sukses
-        else Format foto Salah / Resolusi Terlalu Besar
-            System-->>View: Tampilkan peringatan pesan Error (Gagal Menyimpan)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
-    opt Klik Ikon / Tombol Hapus Berita
-        Admin->>View: Klik status ikon "Hapus" pada salah satu berita
-        View->>System: Kirim parameter hapus data pada sistem
-        System->>DB: Cari referensi letak nama file foto terkait berita tersebut
-        System->>Server: Hapus paksa fisik foto dari folder uploads/
-        System->>DB: Musnahkan baris data berita dari Database
-        DB-->>System: Konfirmasi data tuntas terhapus
-        System-->>View: Kembali ke halaman tabel membawa pesan Sukses dihapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```

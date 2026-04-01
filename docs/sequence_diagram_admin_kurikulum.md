@@ -1,28 +1,14 @@
 # Sequence Diagram: Kelola Dokumen Kurikulum (Admin Web FIKOM)
 
-Diagram sekuensial ini menjelaskan langkah-langkah praktis pada sistem ketika Admin mengelola data dokumen kurikulum.
+Diagram sekuensial ini merunut alur operasional komprehensif bagi modul administrator ketika mereka menyelenggarakan perbaikan basis data secara praktis seputar pengelolaan dokumen kurikulum.
 
 ## Penjelasan Alur
 
-Berikut adalah urutan proses yang terjadi ketika admin berinteraksi dengan halaman Kelola Dokumen Kurikulum:
+Proses dimulai ketika admin membuka menu Kelola Dokumen Kurikulum. Begitu halaman diakses, sistem secara otomatis menarik seluruh riwayat data dokumen kurikulum yang tersimpan di dalam *Database* MySQL untuk langsung disajikan ke layar admin dalam wujud susunan tabel yang rapi. Muka tampilan awal ini berfungsi sebagai pusat pantauan beranda sebelum admin memutuskan tindakan kontrol selanjutnya terhadap himpunan pangkalan data.
 
-1. **Melihat Daftar Data**:
-   Saat admin membuka menu "Kelola Dokumen Kurikulum", sistem akan langsung mengambil semua data yang tersimpan di *Database* (MySQL) dan menampilkannya ke layar dalam bentuk tabel.
+Apabila admin membutuhkan penambahan data baru atau perbaikan data masa lalu, mereka dapat beralih menekan tombol ikonis **Tambah** atau **Edit**. Tindakan dorongan ini akan memunculkan sebuah bentangan formulir tempat admin bisa mengetikkan parameter Judul dan Deskripsi Kurikulum, serta dipersilakan melampirkan berkas fisik berupa Dokumen Asli (Format PDF/DOC). Usai admin menekan tombol **Simpan**, peramban web akan memaketkan susunan input data tersebut dan mengirimkannya ke lintasan sistem pengendali di sisi mesin (PHP). Secara sigap, sistem peladen lalu mendeteksi apakah ukuran file dan format ekstensinya memenuhi takaran standar persyaratan aman. Jika muatan berkas tersebut difilter valid melewati ambang toleransi sistem, mesin seketika akan menyandarkan fisik file yang tervalidasi tersebut ke dalam laci penyimpanan wadah server (`/docs/kurikulum`). Terkhusus pada rutinitas skenario **Edit**, pangkalan sistem dibekali kepintaran untuk langsung mengeruk dan menenggelamkan file rekaman lawas bawaan lama milik data tersebut ke jurang pemusnahan (`unlink action`), mendisiplinkan agar sumur memori penyimpanan peladen tidak gampang tumpah. Sesaat sehabis menuntaskan titipan berkas barunya di dalam perut memori penyimpanan, susunan kerangka input ketikan tulisan admin tadi diintegrasikan mengikat pada jalinan jejak rujukan file, disuntik menembus *Database* secara terekam permanen. Akhir dari pergumulan antarmuka data tersebut membawa pengguna bergulir kembali menatap rilis tabel utuh lewat muatan rotasi ulang halaman (tehnik pentalan *redirect*), lazimnya disuguhi dengan manis berupa pemberitahuan lencana warna-warni tanda keberhasilan proses perekaman baru.
 
-2. **Proses Tambah / Edit Data**:
-   - Ketika admin menekan tombol **Tambah** atau **Edit**, muncul formulir isian. Admin memasukkan Judul, Deskripsi Kurikulum dan mengunggah Dokumen Asli (Format PDF/DOC).
-   - Setelah menekan tombol **Simpan**, data dikirimkan ke sistem pengendali (PHP).
-   - Sistem akan mengecek apakah format file benar dan ukurannya tidak terlalu besar.
-   - Jika valid, sistem menyimpan file fisik tersebut ke dalam folder penyimpanan server (`/docs/kurikulum`).
-   - Khusus untuk **Edit**, sistem akan mendeteksi keberadaan file lama milik data tersebut dan otomatis menghapusnya agar memori (*storage*) tidak penuh.
-   - Setelah file tersimpan, sistem menyisipkan (menyimpan) rincian dari form teks admin beserta rujukan penamaan file tadi secara permanen ke dalam *Database*.
-   - Terakhir, halaman memuat ulang (di-*refresh*) dan tabel tampil dengan memunculkan pesan Sukses kepada sang Admin.
-
-3. **Proses Hapus Data**:
-   - Jika tombol / ikon **Hapus** diklik pada salah satu baris, sistem akan mendedah referensi nama Dokumen Asli (Format PDF/DOC) yang dimilikinya.
-   - Sistem lalu menghapus file fisik tersebut langsung dari folder server (`/docs/kurikulum`).
-   - Setelah fisik fail dihapus bersih, sistem menghapus seutuhnya jejak baris rekam data tersebut dari *Database*.
-   - Tabel dimuat ulang tanpa memunculkan baris data yang dihapus tadi, disertai pesan notifikasi keberhasilan operasional.
+Di sisi kebalikannya, mekanisme ketertiban kebersihan lingkungan rekaman riwayat tetap dijaga setajam kilat dengan kehadiran tombol menu **Hapus**. Bilamana admin menyepakati tekanan tuas tombol hapus di atas letak salah satu baris pendaftaran tertentu, sistem tak menunda sedetikpun memusatkan komputasi lacakannya pada pencarian rujukan nama sandi Dokumen Asli (Format PDF/DOC) dari file titipannya. Begitu presisi namanya terkuak, fail salinan fisik tersebut murni dicongkel lepas dan dieksekutor musnah seratus persen dari ruang penampung server penyimpanan (`/docs/kurikulum`). Selepas komputasi meyakini tidak berwujudnya sisa-sisa jejak fail kotor di *server storage*, runtutan penyerbuan perusak menerpa barisan data relasinya di dalam *Database*, membinasakan bersih memori deret angka dan urutan yang memuat catatan rekaman itu tanpa ampunan (terbakar baris *query delete* tiada jejak). Rangkaian skema operasi perampingan diakhiri mutlak menyertakan kembalinya rotasi layar antarmuka yang menghempaskan administrator memandang tatanan kelola tabel yang telah diubah menjadi ringkas tanpa mengusung jejak baris usang tersingkirkan tadi, tidak absen sembari mengantar konfirmasi seruan lapor sukses yang terselesaikan secara mulia.
 
 ## Diagram
 
@@ -41,36 +27,36 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Judul, Deskripsi Kurikulum & Upload Dokumen Asli (Format PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Dokumen Asli (Format PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/kurikulum
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/kurikulum
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/kurikulum
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```

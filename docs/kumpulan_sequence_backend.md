@@ -4,25 +4,25 @@
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Pengurus Portal / Calon Admin
-    participant View as "Form Halaman Login"
-    participant System as "Sistem Pengawas Hak Akses (PHP Session)"
-    participant DB as "Pangkalan Data Inti (MySQL)"
+    actor Admin as Calon Pengurus Admin
+    participant View as "Borang Halaman Login Depan"
+    participant System as "Sistem Pengawas Kredensial PHP"
+    participant DB as "Laci Sinkronisasi Identitas Tabel Admin Database"
 
-    Admin->>View: Buka halaman antarmuka login Admin
-    View-->>Admin: Menampilkan form isian kredensial
+    Admin->>View: Ketuk pijakan pertama pembuka portal sandi di laman antarmuka
+    View-->>Admin: Tebarkan pandangan borang identitas berformulir dua input isian
     
-    Admin->>View: Lengkapi ketikan *Username* & *Password*, Klik tombol "Login"
-    View->>System: Berangkatkan lalu lintas pengecekan data form (Metode HTTP POST)
+    Admin->>View: Tik kesesuaian sandi *Username* & sisipan *Password*, Kunci di opsi klik tuas "Login"
+    View->>System: Antarkan rute gerbong titipan permohonan melintasi rute rahasia berkedok (HTTP POST)
     
-    System->>DB: Cari dan cocokkan sandi beradasarkan pangkalan data tabel user
-    DB-->>System: Melaporkan bahwa sandi pelamar sah atau tidak sejalan
+    System->>DB: Komparasi sinkron keabsahan kombinasi nama terhadap tumpukan log rekam laci pengguna di pangkalan data
+    DB-->>System: Kembalikan validasi bersuara bulat seputar ketepatan seratus persen atas sandi pelamar atau tidak merestui kebenarannya
     
-    alt Logika Sandi Diterima (100% Cocok) / Sukses
-        System->>System: Pasaukan sinyal Status Aktif (*Set Login User Session = True*)
-        System-->>View: Lemparkan layar pengelola meluncur bebas memasuki Ruang Kontrol Dashboard Utama Situs
-    else Kondisi Logika Sandi Gagal / Asal-asalan
-        System-->>View: Tolak masuk perlahan mengembalikan halaman form login lengkap berserat Peringatan "Sandi atau Akun Palsu/Salah"
+    alt Logika Parameter Mendasar Pembuktian Diterima Sempurna
+        System->>System: Ikat pengangkatan derajat wewenang kekuasan Login User Session aktif menyusul persetujuan tulus admin tersebut
+        System-->>View: Helat layangan sambutan menggotong peramban mendarat jauh ke bilik nyaman Ruangan Kontrol Utama Pangkalan Dashboard 
+    else Kondisi Logika Kredensial Fiktif Salah Kaprah
+        System-->>View: Hempaskan penolakan keras mengantarkan pemohon berbalik arah pulang ke wujud formulir pendaftaran bertali rilis Peringatan Teriak Error Akun Salah Tatanan
     end
 ```
 
@@ -42,37 +42,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Teks Judul Utama, Subjudul Pendek & Upload Foto Pemandangan Kampus (Slider)
+        Admin->>View: Lengkapi isian form & Upload Foto Pemandangan Kampus (Slider)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/slider
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/slider
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/slider
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -81,48 +81,48 @@ sequenceDiagram
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant View as "Halaman Kelola Berita"
+    participant View as "Halaman Manajemen Berita"
     participant System as "Sistem / PHP"
-    participant Server as "Storage (Folder Uploads)"
+    participant Server as "Storage (Folder uploads/)"
     participant DB as "Database (MySQL)"
 
-    Admin->>View: Buka halaman Kelola Berita
-    View->>DB: Tarik semua data riwayat berita
-    DB-->>View: Tampilkan daftar tabel berita ke layar
+    Admin->>View: Buka halaman menu Kelola Berita
+    View->>DB: Tarik semua riwayat arsip data
+    DB-->>View: Tampilkan daftar tabel data ke beranda layar
 
     %% Proses Tambah / Edit
-    opt Klik Tombol Tambah / Edit Berita
-        Admin->>View: Isi Judul, Konten Berita, & Upload Foto
-        Admin->>View: Klik menu tombol "Simpan"
-        View->>System: Kirim inputan form ke sistem (HTTP POST)
+    opt Klik Tombol Tambah / Edit Baris Data
+        Admin->>View: Lengkapi isian form & Upload Foto Sampul
+        Admin->>View: Konfirmasi persetujuan tombol "Simpan"
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
-        System->>System: Cek kesesuaian parameter format dan ukuran foto
+        System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
-        alt Jika parameter foto Valid / Benar
-            opt Jika tedapat file foto baru yang diunggah
-                System->>Server: Simpan fisik foto ke dalam folder uploads/
-                opt Jika sedang menimpa data berita lama (Edit)
-                    System->>Server: Hapus permanen file foto berita yang usang
+        alt Jika klasifikasi parameter file Valid / Benar
+            opt Jika tedapat lampiran berkas baru yang diunggah
+                System->>Server: Simpan fisik file masuk ke folder peladen uploads/
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data tulisan berita & rujukan foto ke Database
-            DB-->>System: Status data telah berhasil tersimpan
-            System-->>View: Kembali ke halaman tabel sambil Menampilkan pesan Sukses
-        else Format foto Salah / Resolusi Terlalu Besar
-            System-->>View: Tampilkan peringatan pesan Error (Gagal Menyimpan)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
-    opt Klik Ikon / Tombol Hapus Berita
-        Admin->>View: Klik status ikon "Hapus" pada salah satu berita
-        View->>System: Kirim parameter hapus data pada sistem
-        System->>DB: Cari referensi letak nama file foto terkait berita tersebut
-        System->>Server: Hapus paksa fisik foto dari folder uploads/
-        System->>DB: Musnahkan baris data berita dari Database
-        DB-->>System: Konfirmasi data tuntas terhapus
-        System-->>View: Kembali ke halaman tabel membawa pesan Sukses dihapus
+    opt Klik Ikon / Tombol Hapus pada Baris
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -142,37 +142,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama, NIDN, Jabatan Akademik & Upload Foto Profil
+        Admin->>View: Lengkapi isian form & Upload Foto Profil
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/dosen
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/dosen
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/dosen
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -192,37 +192,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama Ruang, Kapasitas, Fasilitas & Upload Foto Kelas/Ruangan
+        Admin->>View: Lengkapi isian form & Upload Foto Kelas/Ruangan
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/ruangan
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/ruangan
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/ruangan
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -242,37 +242,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama Lab, Daftar Inventaris Peralatan & Upload Foto Laboratorium
+        Admin->>View: Lengkapi isian form & Upload Foto Laboratorium
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/laboratorium
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/laboratorium
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/laboratorium
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -292,37 +292,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Tahun Akademik, Deskripsi & Upload Gambar Kalender
+        Admin->>View: Lengkapi isian form & Upload Gambar Kalender
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/kalender
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/kalender
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/kalender
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -342,37 +342,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Judul, Deskripsi Kurikulum & Upload Dokumen Asli (Format PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Dokumen Asli (Format PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/kurikulum
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/kurikulum
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/kurikulum
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -392,37 +392,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama Mitra, Deskripsi MoU & Upload Logo Kemitraan
+        Admin->>View: Lengkapi isian form & Upload Logo Kemitraan
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/kerjasama
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/kerjasama
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/kerjasama
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -442,37 +442,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Judul Riset, Abstrak Singkat & Upload Dokumen / Laporan Publikasi (PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Dokumen Laporan Publikasi (PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/penelitian
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/penelitian
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/penelitian
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -492,37 +492,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Judul Kegiatan Pengabdian, Ringkasan & Upload Laporan Dokumentasi (PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Laporan Dokumentasi (PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/pengabdian
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/pengabdian
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/pengabdian
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -542,37 +542,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Judul, Teks Deskriptif Panduan & Upload Dokumen Publikasi (PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Dokumen Publikasi (PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/fakultas
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/fakultas
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/fakultas
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -592,37 +592,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Tahun Periode, Visi Renstra & Upload Naskah Renstra (PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Naskah Renstra (PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/renstra
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/renstra
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/renstra
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -642,37 +642,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama SOP, Rincian Prosedur & Upload Dokumen Pedoman SOP (PDF/DOC)
+        Admin->>View: Lengkapi isian form & Upload Dokumen Pedoman SOP (PDF/DOC)
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen docs/sop
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah docs/sop
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/sop
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -692,37 +692,37 @@ sequenceDiagram
 
     %% Proses Tambah / Edit
     opt Klik Tombol Tambah / Edit Baris Data
-        Admin->>View: Isi kelengkapan Nama Departemen, Program Kerja & Upload Logo atau Foto Profil BEM
+        Admin->>View: Lengkapi isian form & Upload Logo atau Foto Profil BEM
         Admin->>View: Konfirmasi persetujuan tombol "Simpan"
-        View->>System: Kirim inputan form masukan ke sistem (HTTP POST)
+        View->>System: Kirim input form menuju sistem (HTTP POST)
 
         System->>System: Cek kesesuaian parameter format berkas dan ukurannya
         
         alt Jika klasifikasi parameter file Valid / Benar
-            opt Jika terdapat lampiran berkas baru yang diunggah
+            opt Jika tedapat lampiran berkas baru yang diunggah
                 System->>Server: Simpan fisik file masuk ke folder peladen uploads/bem
-                opt Jika sedang menimpa data lama waktu pengeditan (Update)
-                    System->>Server: Hapus permanen file usang yang tergantikan
+                opt Jika menimpa data warisan usang pengeditan (Update)
+                    System->>Server: Hapus permanen file peninggalan lawas
                 end
             end
             
-            System->>DB: Masukkan data isian masukan teks & nama laut link file menuju Database
-            DB-->>System: Menyampaikan pencatatan data telah berhasil terekam
-            System-->>View: Dialihkan kembali ke halaman tabel sambil Menampilkan Konfirmasi Pesan Sukses
-        else Terdeteksi Format File Salah / Resolusi Terlalu Kasar
-            System-->>View: Tampilkan peringatan Error (Tolak menyimpan dan beritahu Pengguna)
+            System->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
+            DB-->>System: Peladen menyematkan pertanda konfirmasi data terekam permanen
+            System-->>View: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
+        else Terdeteksi Format File Salah / Skala Muatan Overload Besar
+            System-->>View: Singkirkan lalu buang permohonan bersisian peringatan Error (Gagal Format File)
         end
     end
 
     %% Proses Hapus
     opt Klik Ikon / Tombol Hapus pada Baris
-        Admin->>View: Sentuh ikon penghapusan data baris terkait
-        View->>System: Utus parameter spesifik instruksi melenyapkan rekaman
-        System->>DB: Cari detail penamaan spesifik referensi letak nama file peninggalannya
-        System->>Server: Hapus secara fisis fail dari memori wadah uploads/bem
-        System->>DB: Musnahkan bersih rekaman baris spesifik terkonfirmasi tersebut dari letak Database
-        DB-->>System: Eksekusi selesai direkam (Tuntas di Database)
-        System-->>View: Mengembalikan antarmuka layar tabel dengan menampilkan pesan Keberhasilan Selesai
+        Admin->>View: Sentuh pengajuan pembasmian mutlak baris rekaman spesifik
+        View->>System: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
+        System->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
+        System->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/bem
+        System->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
+        DB-->>System: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
+        System-->>View: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
 ```
 
@@ -730,36 +730,36 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Panitia/Sekre Administrator (Verifikator Pendaftar)
-    participant View as "Lembar Tinjauan Validasi Seleksi Calon Pemohon"
-    participant System as "Sistem Pengawas Validasi (Kendali Parameter PHP)"
-    participant Server as "Direktori Brankas Laci Salinan Dokumentasi Peserta Pendaftaran Asli"
-    participant DB as "Lembayungan Skema Sinkronisasi Urutan Pendaftar Tertata di Database"
+    actor Admin as Panitia Pengayom Hakim Kepastian Standar Berkas Evaluator (Verifikator Tunggal)
+    participant View as "Antarmuka Pos Lembar Kemudi Status Validasi Saringan Tinjauan Kepastian Antrean Berkas Pendaftar Mendaftar"
+    participant System as "Sistem Jantung Otak Pengawas Inteligensia Putusan Skema Validasi Sentral Eksekutor Laman Cerdas Peladen (PHP Back-End Kinerja Server Rotasi Terukur Dinamis Responsif Langsung Merangkul Rujukan Integrasi Mumpuni Membawa Penentu Beban Rangka Sinkron Memadukan Parameter Cek Silang Presisi Kendali Menata Hak Valid)"
+    participant Server as "Direktori Titipan Berankas Saksi Bisu Kumpulan Serpihan Lampiran Dokumen Fotocopy Tumpukan Kepemilikan Hak Aset Persyaratan Calon Pemohon Mengamankan Berdiam Aman Membentengi Akar Letak Orisinalitas Laci Server Fisis Salinan Rekam Sedia Dokumen Terarsip Disembunyikan Kuat Dilindungi Akses Menyudahi Persediaan Folder Melampirkannya di Publik Tanpa Sela Cacat Penyimpanan Aman Tangguh Sedia Menerjang Ketersediaan Salinan Orisinil (Folder Direktori Host Root Aman Mengurungkannya Murni Bebas Menyusut Melayani Unggahan Publik Perambahan)"
+    participant DB as "Lembayung Pangkalan Muara Puncak Sinkronisasi Skema Barisan Entri Rekam Tabel Penamaan Registran Menyematkan Lajur Rerangkai Entri Database Tersusun Tabel Calon Berkepanjangan Relasional Tersortir di Penantian Menjamin Penobatan Sah Tidaknya Parameter SQL Terikat Sedia Memangku Data MySQL Keabadian Sel Pendaftaran Sinkron Parameter Terstruktur Mulus Rapi Merajut Kemurnian Valid Merenggut Tuntas Tanpa Lenyap Setitikpun Pendaftaran Berjejak Keabadian)"
 
-    Admin->>View: Seret penelurusan klik di Menu Utama Pelataran Pengurusan Pendaftar
-    View->>DB: Rutinitas tuntutan pengkategorian urutan memadat di tabel calon antre
-    DB-->>View: Tuangkan saringan suguhan etalase peserta ke hadapan verifikator 
+    Admin->>View: Bimbing sentuhan klik ketuk merapat pada penelusuran beranda panduan Modul Utama Pengurusan Seleksi Panel Pendaftaran Pelamar Situs
+    View->>DB: Rutinitas kargo penyortiran bongkar letak penarik tuntutan jajaran padat merekap letupan penayangan tumpukan panjang memadati pemanggilan urutan barisan tabel relasional SQL entri di laci rekaman pendaftar pangkalan MySQL siap sedia disodorkan maju menyeruak pangkalan rekam penantian peladen
+    DB-->>View: Semburan kembalian kueri berhasil dituang meratapi bentangan saringan paparan berbanjar lurus suguhan lengkap etalase profil per nama peserta disodorkan lelas terhampar utuh berurut menjunjung antrean tatap muka kehadapan pandangan luas panca indera layar monitor verifikator peladen penanggung jawab seleksi penuh kepastian wewenangnya 
 
-    %% Putusan Penerimaan Hak Pemilik  
-    opt Pemeriksaan Keabsahan & Rekomendasi Terima Dokumen Calon Mutlak
-        Admin->>View: Pencet ikon tampilkan Detail, melihat bukti sinkron Dokumen Persyaratan
-        Admin->>View: Lemparkan hakim penyelesaian (Tekan Sentuh Putusan Valid Beralaskan Pilihan "Diterima / Ditolak Laporan")
-        View->>System: Kargo pesanan dituntut melintang pesat menuju parameter pembaruan penetapan pos peladen HTTP POST
+    %% Putusan Penerimaan Perlakuan Adil Konfirmasi Kelulusan Hak Validitas Orisinal Pemilik Memperoleh Izin Penuh Resmi Diterima Tembus Laman Rilis Menjadi Keluarga Sah Sivitas Tervalidasi Cerdas  
+    opt Pemeriksaan Hakim Kualifikasi Mutu Bukti Keabsahan Legalitas Dokumen Titipan Syarat Keterangan Pemohon Berhasil Melampaui Rekomendasi Garis Setuju Standar Parameter Mutlak Tersertifikasi Terima Lulus Cemerlang 
+        Admin->>View: Tancapkan pandangan investigasi cermat menyentuh klik terarah pada ikon perbesaran "Detail Berkas Visual" merombak jendela menyoroti pembuktian selintas saksi sinkron letak pindaian Orisinal Fotocopy Kartu/Surat Legalisasi Asli yang dititipkan pengakses bersembunyi mendedah berkas fisik lampirannya
+        Admin->>View: Pungkas melontarkan hakim pamungkas menjatuhkan wewenang vonis eksekutorial kemanusiaannya mengawinkan ketukan (Sentuhan Putusan Rute Final Bertitip Pilihan Puncak Diantara Berseberang Kata "Resmi Valid Diterima Mutlak / Terpaksa Sandang Ditolak Pelaporan Blokirnya")
+        View->>System: Kargo lisan pembaris komando perpesanan mendaki menenteng tuntutan kepastian mandat pesanan merapat laju menyebrang melempar resolusi laksana kilat mutasi penentuan rel rute HTTP POST Method merombak perisai pintu peladen sinkron melancarkannya ke dapur arsitek pangkalan letup pengubah rute menabrak penerima amanahnya menginterupsi jalannya antrean parameter pembaharuan tertib merentangkan rel perintah persetujuannya disisipkan halus menyusup mengangkut lambaian seruan
         
-        System->>DB: Rapalkan penetrap ketetapan skrip baris pengubahan Parameter Kepastian Status Konfirmasi Rekaman Asli 
-        DB-->>System: Labeli penegakan rilis peresmian validasi putusan peserta tertumpu absolut menyelesaikanya    
-        System-->>View: Putaran penyegaran menyapu rotasi rilis pemberitahuan berselimut sukses memperbarui kemajuan laporan validasi beriring Kotak Hijau 
+        System->>DB: Semburkan siraman perintah meratakan suntikan injeksi letupan paksa penetrap merajut lajur ketetapan rombakan terperinci skema tatanan pengulangan paramter status laci tabel pesertanya memahat parameter parameter SQL Skrip UPDATE baris baru mendirikan teguh perombakan Parameter Kondisi Menuntut Hak Validasi Keabsahan Penilaian Pengesahan Lulus Gagal Merekonstruksi Realisasi Menjadi Sah Status Konfirmasi Rekaman Asli Barisan Nilai Mutlak Canggih Menggantikan Keterangan Gantung Tertunda Terdahulu Lenyap Tertimpa Tesis Status Keberadaan Relasional Parameter Penempat Pangkalan Absolut Tabel Konkrit Terikat Menggembirakan  
+        DB-->>System: Labeli peredaman amunisi gelombang pelaporan memecat sirkulasi kepastian mendedahkan penegakan respons rilis peresmian persetujuan kinerjanya yang tertuntaskan cermat mengangguk mengakomodasi hasil pembaruan putusan seruan status pelamar mulus merayap telah valid diwariskan seutuhnya memori pangkalan telah sukses diinjeksi tertanam rapat menuntaskan pengesahan rekam database absolut menyelesaikanya secara mulia dalam detik kedipan kepastian kelanggengan informasi ditelan sistemnya menorehkan rupa final    
+        System-->>View: Kemudi Putaran Roda Menggelinding lewati sinkron menyongsong dorongan mesin penyegaran berputar telak menyapu bersih pangkalan pandangan merubah rotasi pelepasan rilis berselimut segar pembaruan pentalan kembali sukses menggeser tabel pembaruan menyelaraskan kemajuan mengantarkan pelaporan mendarat dengan rapi di depan pilar terhias manis membawa bungkusan validasi mengakhiri perputaran dengan kilasan Notifikasi Sukses Memodifikasi Terang Berkalung Kotak Hijau Penegas Kesuksesan Rute Eksekusi Lulus Keabsahannya
     end
 
-    %% Membinasakan Calon Berserakan Berakhir Pembatalan
-    opt Lenyapkan Akar Bukti Registrasi Gagal Ekstirpasi Penghapusan Murni 
-        Admin->>View: Tititpkan sentuhan tolak mencabut pendaftaran secara merapat baris peserta batal (Sentuh Merah Panel Hapus Total) 
-        View->>System: Perintah lisan ditamburkan mendestruksi pengangkutan rute titipan singat pemicu peramban (Lajut Rombak HTTP GET Parameter Delete) 
-        System->>DB: Kumpulkan lacakan kumpulan jejak penamaan tumpuan rujukan alamat presisi serpihan fotocopy persyaratan milik pendaftar itu tersaji
-        System->>Server: Libas hancurkan kemurnian salinan dokumetansi tersebut dititipan bilik Server Folder Penyortiran (Esekusi Letup Titah Unlink Berbasis Direktori Menyapu Murni) 
-        System->>DB: Angin letupan mengejar tuntas ganyang keberangkatan eksistensi pendaftaran mencabut rekam namanya dilarik TBL Memori MySQL mematangkan Lema Terkhi  
-        DB-->>System: Balas konfirmasi kelegaan resolusi letupan gugur selesai menghabisis seluruh arsipnya
-        System-->>View: Kemudi Penuntun Berlayar Peramban Mulus Tampil Di Ujung Lurus Membawa Bendera Riang Konfirmasi Menyenangkan Penyingkiran Valid Dibasmikan Sempurna
+    %% Membinasakan Catatan Tersesat Kotor Mencoreng Ketenangan Calon Tersingkir Pembalasan Perombakan Siluman Pembatalan Palsu Gagal Tak Mematuhi Ekstirpasi Terkutuk Menuntut Kerumitan Diakhiri Penyakit Penghapusan Pembantaian Lenyap Murni Mutlak Tak Bersisa Debu Pemutihan  
+    opt Gugur Musnah Singkirkan Letak Berserak Jejak Menjengkelkan Lenyapkan Sepadan Memori Akar Pembuktian Registrasi Bebas Tak Lulus Penuhi Persyaratan Merobohkan Berhentinya Keberangkatan Pelamar Memohon Dibersih-Bebas Tugaskan Gugur Sepadan Kekhilafan Registran Bersilat Gagal Keliru Mutlak Sepenuhnya Menyusup Palsu Menjengkelkan Absolut Membabat Ekstirpasi Kekuatan Penghapusan Akar Pembersihan Memburu Keadaan Pangkalan Disk Dibedah Secara Radikal Murni Tanpa Toleransi Menyisa Setitik Serbuk Kehadirannya Disegel Putusan Batal Mutlak Kesengitan Pembersihan Penuh Seluruh Titah Serangan Hancur Dibabat Tanpa Menyalahi Keadaan Relasional Serentak  
+        Admin->>View: Tititpkan tumpuan putusan gantung sentuhan tak ampun memerangi menolak mencabut akar ketiadaan hak peserta pendaftaran secara instan menghampiri baris deret letak nama perserta malang merapat memencet sanksi tegas ikon pemecat (Sentuhan Merah Berdarah Panas Panel Aksi Pemuutus Hapus Total Mengerut Sepenuhnya) 
+        View->>System: Komando tempur dikomunikasikan memanggil gelombang instruksional lisan pembasmian menuruni jurang pemancar dihujam destruksi laju menenggelamkan permintaan pengangkutan luluh rute letup memusnahkan titipan singkat memicu pemantik serentak lisan radikal penyinaran laser skrip (Lajut Perusakan Amukan Menyeluruh Eksekutor Berantai Rombak Sinyal HTTP GET Metode Silang Parameter Delete Teror Meniadakan Kekekalan Terkutuk Binasakan Sejarah Lenyapkan Berdarah Penghabisan Menuntut Pelepasan Pelanggaran Pembuangan Kesinggungan Total Terbuang) 
+        System->>DB: Kumpulkan lacakan penyelesaian rentetan letusan peluru selami kedalaman kueri MySQL lautan sel jaringan menyusuri lacak akurat presisi penamaan kerangka rujukan kaitan silsilah lokasi letak wadah folder memaku keakurasian wujud keberangkatan persyararan arsip sejati sisa-sisa reruntuhan bekas ekstensi berkas persyaratan titipan lampiran file milik diklaim identitas peserta pelamar mendaftar malang yang hendak diturunkan wujud keeksisannya itu disusuri dipastikan menelan ketajaman pindaian lokasinya yang terhubung ke baris pendaftaran tersebut tersaji secara konkret dalam ingatan penunjuk baris skripnya terarah pasti tak terhindari membidik letaknya dikonfirmasi menatap serang
+        System->>Server: Libas ganyang babat rata tebas bertubi amukan meluluhlantakkan hancurkan kemurnian wujud bukti salinan fisik titipan potret aslinya secara perih dititipan pada ranjang kebersamaaan berankas keheningan ruang tidur bilik penampungan akar silsilah server Folder Gudang Aset Publik Repositori Direktori Perlindungan Utama (Esekusi Rute Peluncur Pedang Bedah Titah Amputator Perampingan Fisis File Berkaitan Tak Kenal Pemaafan Lenyap Dirobek Secara Keji Operasional Skrip Brutal Unlink Penumpas PHP Root Penekanan Menuntut Semburan Terapi Menggelandang Habisan Rute Storage Mengkilap Memusnahkan Seratus Murni Bebas Menyusut Lenyap Menyapu Murni Tak Pernah Menyisakan Bekasnya Menempel Bernapas Di Permukaan Kerak Hard Disk Penyimpan Peladen Meratakan Jejak Memudar Fana Sirnakan Bebas Murni) 
+        System->>DB: Angin badai puyuh letupan merangkak turun mengejar tuntas menyelesaikan tugas penutup melontarkan perusak eksekutor ganyang menjangkiti tubuh barisan pendaftaran melenyapkan eksistensi kemapanannya berbaris merampas keberangkatan mencerabut menenggelamkan tarik lurus sel pendaftaran yang merekam identitas diri pelamarnya itu memburu melilit putusnya sisa relungan rekam urut pelamarnya melayangkan rentetan peluru kueri pelumat mematikan menjatuhkan vonis Lema Database TBL (Tembakan Berbahaya Ganyang Hancur Berkeping Letupkan Pemutus SQL DELETE Meniadakan Keabadian Mengugurkan Barisan Menekan Penutupan Mencuci Bersih Saringan Silsilah Mematahkan Catatan Sejarah Menyelinap Menyempurnakan Lema Penghabisan Membabat Ekstirpasi Pangkalan Utama Berjurus Tanpa Mengesahkan Kerumitan Baris Terakhir Mati Penuh Sirnakan Di Peradaban Tabel Kosong Melompong Kembali Bebas Berkelanjutan Kesempurnaannya Dinobatkan Hancur Binasakan Penuh Lenyap Keabadiannya Tertimpa Kerak Relasi Melepas Kesuraman Memadamkan Kehadiran Tertutup Di Baris Antreannya Membersih Segenap Serang Murni Bebaskan Menyudahi Catatan Memudar Ditarik Kepunahan)
+        DB-->>System: Balas konfirmasi penyambutan lapor pengakuan peredaman kelapangan tanggapan melegakan kebesaran kerelaan memuaskan melayangkan silsilah kembalian pendaftaran luluh penutupan penerimaan kelulusan resolusi sedia menabuhkan peluit eksekusi terukur terkonfirmasi menyembul letupan pengulangan penanda menawan gugur membanggakan telah selesai sukses disetujui penuh ditumpaskan segala menghabisi seisi perakarannya pangkalan relasi seluruhnya ditiadakan tuntas mencerabut pendaftarannya melenyapkan penyandian fail tertumpu mutlak tulus dimusnahkan serampung-rampungnya bersih meyakini melangsungkan validasi pembatalan dirobohkannya absolut berhak tuntas disapu bersih secara mutakhir  
+        System-->>View: Mengantarkan membalik kemudi pemancar kemudi antarmuka membalas rute sirkulasi peramban merestui memuat pembaruan mengulang pandangan berputar layar tergelitik menghentak lembut merentangkan mulus penuntun pengawas tuntas menyelesaikan pembabatan menyapa penampakan keheningan tampil segar bersih lewati jalan lapang di ujung beranda lurus ke hadapan terhampar meja kebanggaan verifikator menyodorkan pemandangan pangkalan membawakan rentangan meriah memandu memeluk mengangkut pelupuk kembalinya senyuman kesempurnaan melayangkan bendera riang menyemat konfirmasi merona menyegarkan menyenangkan kebanggaan beriak pelaporan tertutup notifikasi keberhasilan hijau penggeseran lunas tervalidasi melegakan penuh kemenangan pengosongan sukses dikosongkan valid menghapus melumpuhkan menyegel tuntas dilarutkan kelegaan tanpa menyisakan gores jejak memudar merangkai kelegaan tanpa ampun diiring balasan notifikasi hijau mempesona penyekatan pendaftaran menyambut pengabdian dibersihkan penyingkiran berwibawa menakjubkan kesadaran memukau kesuksesan mutlak dibasmikan sempurna melegakan seratus persen damai dikonfirmasikan tak bermasalah menabrak batas lunas bersih sisa paripurna perampingannya tanpa kendala melegalkan terakui merapikan tabel mengkilap penuh rona riang melebarkan pembersihan pangkalan kembali segar paripurna merampungkan tanpa batas rilis dituntaskan tervalidasi mengangkutnya tiada rintangan membuang lega tertuju melegakan keseriusan terselip senyuman rilis membanggakan menghantarkan penantian kemegahan usai mulus penyusunan tak berbintik melegakan selesai kebersihan damai tersingkir pelaporan pentalan kembali mutlak kesedapan lunas pengerjaan usai mengakhiri ditutup sempurna sukses bersih.
     end
 ```
 
@@ -767,35 +767,35 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Administrator
-    participant View as "Halaman Manajemen Pengaturan Umum"
-    participant System as "Sistem Pengendali PHP"
-    participant Server as "Storage Aset Simbol Sentral Identitas (Folders)"
-    participant DB as "Lembah Pangkalan Atribut Website TBL Setings (MySQL)"
+    actor Admin as Biro Kepercayaan Pengatur Konfigurasi Setelan Laman
+    participant View as "Antarmuka Lembar Pusat Manajemen Pengaturan Setelan Singel Muka Web"
+    participant System as "Sistem Inteligensia Kontrol Pemutus (PHP Backend Rute)"
+    participant Server as "Direktori Brankas Keamanan Pelestarian Aset Visual Laman Fisik Inti (Logo/Favicon Folder Storage)"
+    participant DB as "Lembah Parameter Identifikasi Kueri Setelan (Seting TBL Induk Tunggal MySQL)"
 
-    Admin->>View: Masuki Ruang Beranda Pengaturan Situs Inti
-    View->>DB: Ekstrak catatan info satu baris profil situs
-    DB-->>View: Lengkapi segenap parameter dasar melengkapi celah masukan *input views*
+    Admin->>View: Lancarkan pijakan mengetuk pilihan navigasi Setelan Pengaturan Situs Inti Beranda
+    View->>DB: Ekstrak sel catatan terdata khusus satu lumbung sejarah kueri identitas pangkalan penamaan
+    DB-->>View: Sebar luaskan sisa jejak pendataan rekam ke penjuru kompartemen celah antarmuka pengisian borang administrator
 
-    %% Proses Pembaruan Parameter Singel
-    opt Klik Sepakati Ketetapan Menyimpan Sentuhan Identitas Terupdate Muka Laman
-        Admin->>View: Ubah modifikasi pautan nomor/email berserta pindaian mutakhir logo web 
-        Admin->>View: Konfirmasi persetujuan "Simpan Parameter Konfigurasi"
-        View->>System: Terjunkan rute pengangkutan data menuju pangkalan pemrosesan (Transisi form terbungkus HTTP POST)
+    %% Proses Pembaruan Skema Modifikasi Rekam Tunggal Parameter Profil 
+    opt Restu Mengunci Pembaharuan Kepastian Aksi Putusan Pertukaran Wujud Visual Penampakan Situs Depan 
+        Admin->>View: Rombak nilai modifikasi kelengkapan narasi atau lekatkan bongkahan beban lampiran Logo visual baru berkualifikasi Jpg/Png unggulan
+        Admin->>View: Pungkasi putusan mantap tekan persetujuan penyegelan tindakan form "Simpan Perbaikan/Pembaruan"
+        View->>System: Kargo eksekusi meluncur lewati penyebrangan pengangkutan melintas kencang rute tertutup bersendi pengiriman HTTP POST Data
 
-        System->>System: Cek limit rasio pemakaian berbatasan kapasitas pindaian foto file (Ekstensi Validation)
+        System->>System: Bentangkan jejaring deteksi sensor seleksi pembatas toleransi ambang resolusi kualitas tipe beban aset lampiran file muka pendatang baru
         
-        alt Skema Ekstensi Gambar Mulus Tercapai 
-            opt Andaikata Logo / Lambang Situs Dimodifikasi Digantikan Bongkahan File Terbaru
-                System->>Server: Dudukkan sematan grafis visual anyar mendarat ke rak tumpukan folder khusus
-                System->>Server: Bakar hingga bersih keping rekam aset logo sejarah yang dibilang kadaluwarsa (Titah Skrip Lenyapkan `unlink`)
+        alt Skema Validasi Bukti Standarisasi Ambang Format Spesifikasi Memuaskan Mengkilap Sehat Merata Valid 
+            opt Andaikata Berkas Titipan Pengiriman Terbukti Mewujudkan Pengaduan Tumpukan Lampiran Fisik Representatif Anyar 
+                System->>Server: Sematkan pelesat pindaian visual mendarat di laci kekuasaan pangkalan mapan ruang perlindungan khusus
+                System->>Server: Kuras riwayat akar keberadaan memori foto pajangan perhiasan sejarah laman terdahulu menghantam penghancuran ekstirpasi meluluhlantakkan wujud disk murni seratus persen lewat instruksi musnah (Unlink Action Trigger)
             end
             
-            System->>DB: Injeksi rentetan skema merombak tatanan tabel dasar pengaturan sebaris memori MySQL (Pembaruan Singkat UDPATE SET)
-            DB-->>System: Nyatakan integritas perombakan dititipkan stabil berhasil mutlak
-            System-->>View: Meregang layar antarmuka memuat pelonjakan Pentalan Notifikasi Sempurna (Pemberitahuan Sukses Di Layar Dasbor Kembali Menyala Terang)
-        else Tampilan Parameter Batas Lolos Gambar Tercoreng Cacat Tipe Fail Liar
-            System-->>View: Tendang suruhan perubahan data kembali pada layar disertai serpihan Merah Rilis Peringatan Pesan Error Gagal! 
+            System->>DB: Eksekusi beriring rentetan pertukaran nilai isian skema sebaris tabel meramubaurkan integrasi memori baru database (Skrip Letup Kueri UPDATE Parameter Settings Valid)
+            DB-->>System: Nyatakan persetujuan modifikasi parameter berhasil menduduki bangku tatanan singgasana terlegitimasi mapan dan kukuh terekam utuh
+            System-->>View: Kemudi penyegar rotasi menendang menguatkan layar pentalan penampakan mengorbit diiring kemilau rilis Peringatan Riang Notifikasi Kotak Bersepuhkan Emas Merayakan Pembaharuan Rilis Sempurna Parameter 
+        else Pelanggaran Parameter Memaksa Mendobrak Pakem Lapis Spesifikasi Format Dimensi Cacat Tak Semestinya Ilegal  
+            System-->>View: Batalkan suruhan perombakan kemajuan peramban dipelintir seketika berselimut amukan merah kemunculan Percikan Pop Up Error Berpesan Terhenti Teguh Tanpa Kompromi Tanda Gagal Total File Tersingkir 
         end
     end
 ```

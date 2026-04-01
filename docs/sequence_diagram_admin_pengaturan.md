@@ -1,55 +1,49 @@
 # Sequence Diagram: Pengaturan Sistem (Admin Web FIKOM)
 
-Diagram sekuensial ini menjelaskan tahapan yang memandu pengoperasian ringkas halaman "Pengaturan", yang berfungsi mengurus rincian logo sampai judul fundamental Web FIKOM.
+Diagram sekuensial ini mendeskripsikan kerangka tahapan operasional secara praktis pada laman Pengaturan yang menaungi sentralisasi rincian logo sampai fundamental judul Web FIKOM.
 
 ## Penjelasan Alur
 
-Hal yang mengkhususkan fungsionalitas laman ini ketimbang tabel rekam jejak lain; pencatatan setingannya berada di *database* hanya diwakili sebaris rekam informasi inti (*Single configuration record*):
+Keunikan dan kesederhanaan laman setelan terpusat dibanding tata kelola perekaman lazim lainnya mendiami prinsip pendaftarannya; rilis identitas institusi cuma diawetkan menempati singgasana sebaris lema konfigurasi inti tunggal di pangkalan data yang dilarang membentuk tumpukan riwayat. Prosesnya bermula manakala jari telunjuk admin diayunkan melibas tuas beranda instrumen opsi pengaturan rute utama web. Sistem peramban beranjak mengait seutas tembakan kueri pencarian MySQL yang segera mengangkut letak persembunyian catatan absolut satu setel parameter basis profil intitusi tersebut (meliputi Nama Situs Resmi Kampus, Nomor Pengaduan Induk Humas, kaitan e-mail sentral dan muatan sisa atribut lainnya). Tanpa ada tunda waktu, segala keping rekam parameter nilai riwayat termutakhir ditancapkan dan disebarkan seutuhnya menduduk paksa seluruh luasan isian kerangka form pendaftaran yang terpampangkan di bilik muka kontrol admin.
 
-1. **Pemanggilan Laman Pengaturan**: 
-   Sesaat admin mengetuk panel "Pengaturan Sistem", kueri sistem mengangkat satu *record* identitas pokok situs di pangkalan data. Pengisian tersebut akan merangkai formulir bawaan meliputi *Judul Situs*, Nomor Telpon Humas, sampai Email dan tersaji langsung menempati kolom isian layar.
+Transisi perombakan tatanannya direstuhi seketika admin mengubah sekelumit tulisan deskripsi ringkasnya atau menuntut penukaran wajah pelengkap portal secara fundamental dengan menyeret unggahan serpihan grafik Lambang Favicon atau aset Gambar Logo Utama situs ke rahang borang unggahan lampiran. Peresmian kepastian modifikasi lalu dilakukan dengan sentuhan jari menyenggol panel tindakan penukaran berkas mutlak **Perbarui dan Simpan**. Untaian pertukaran tatanan rincian konfigurasi peramban diluncurkan berselimut paket *HTTP POST* menabrak rintangan tembok jagaan pertama mesin filter pemeriksa *backend* pangkalan skrip pelindung server komputasi. 
 
-2. **Perubahan & Klik Pembaruan Sinkron**:
-   - Jika admin berniat memugar isian teks tersebut maupun mengganti lambang visual portal *Logo Favicon Web*, Admin bebas menghapus kolom isiannya lalu dikokohkan bersamaan ketukan simpan **Perbarui**.
-   - Kiriman form ini dilimpahkan merapat menuju pos skrip pengaman pangkalan sistem (PHP).
-   - Diandaikan pergantian simbol grafis/gambar dimanfaatkan melintasi toleransi ukuran batas memori berwewenang (*Batas megabyte max*). Mesin PHP secara halus memboyong logo anyar dan membanting posisi ke dalam saku penyimpanan lokasi file aset publik (*uploads atau img source*).
-   - Bersamaan itu, rutinitas pengakhir menghanguskan dan menyapu foto logo pendahulunya ke arah tiada tersisa demi meringankan penumpukan data teronggok di sela penyimpanan *Server*.
-   - Rangka logik kemudian menembuskan keping baris kueri bertingkat memutakhiran *SET UPDATE config* pada lapis saksi mata tabel pengaturan. Kesempurnaan putaran diakhiri memuat ulang laman admin di mana pemberitahuan segar ditimpakan ke sisi kanan atas layar: Sukses modifikasi!
+Pada skenario khusus perbaikan diiringi pertukaran panji logo institusi situs, PHP bertugas menerawang kejujuran ekstensi dimensi spesifikasi limit penampungnya dengan seksama. Bersaman beranjaknya lolosan pengecekan valid format visual murni, mesin pengatur letak tak segan-segan menjebloskan tatanan logo anyar menyeret masuk mendirikan tempat bersemayam permanen ke ruang brankas aset gambar umum di peladen penyimpanan fisis internal. Di sisi pertukaran penggusuran letak, baris logik perampas mengambil kuasa untuk melenyapkan foto aset panji sejarah situs silam membedah letaknya dengan instrumen amuk pemusnahan (*Unlink Physical Object*), merelakan kebersihannya lenyap disapu debu dari piringan ruang *server disk memory* supaya sisa bebannya tak memperlambat operasional pangkalan hosting di masa depan. Selaras tergelarnya pembaharuan rupa logo aslinya, lajur kueri pemutakhiran mesin peladen di baris skema setelan terpusat disulut ledakannya (*Injeksi pembaruan UDPATE Parameter Table Settings*) agar mengubah memori MySQL berpadu. Akhir eksekusinya dipercantik kepastian menguatkan rotasi arah komputasi pemutar muat-ulang antarmuka laman admin yang dikelir warnai peringatan gemerlap berbunyi kebahagiaan Notifikasi Rampung Modifikasi Tersertifikasi Sukses Disimpan.
 
 ## Diagram
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Administrator
-    participant View as "Halaman Manajemen Pengaturan Umum"
-    participant System as "Sistem Pengendali PHP"
-    participant Server as "Storage Aset Simbol Sentral Identitas (Folders)"
-    participant DB as "Lembah Pangkalan Atribut Website TBL Setings (MySQL)"
+    actor Admin as Biro Kepercayaan Pengatur Konfigurasi Setelan Laman
+    participant View as "Antarmuka Lembar Pusat Manajemen Pengaturan Setelan Singel Muka Web"
+    participant System as "Sistem Inteligensia Kontrol Pemutus (PHP Backend Rute)"
+    participant Server as "Direktori Brankas Keamanan Pelestarian Aset Visual Laman Fisik Inti (Logo/Favicon Folder Storage)"
+    participant DB as "Lembah Parameter Identifikasi Kueri Setelan (Seting TBL Induk Tunggal MySQL)"
 
-    Admin->>View: Masuki Ruang Beranda Pengaturan Situs Inti
-    View->>DB: Ekstrak catatan info satu baris profil situs
-    DB-->>View: Lengkapi segenap parameter dasar melengkapi celah masukan *input views*
+    Admin->>View: Lancarkan pijakan mengetuk pilihan navigasi Setelan Pengaturan Situs Inti Beranda
+    View->>DB: Ekstrak sel catatan terdata khusus satu lumbung sejarah kueri identitas pangkalan penamaan
+    DB-->>View: Sebar luaskan sisa jejak pendataan rekam ke penjuru kompartemen celah antarmuka pengisian borang administrator
 
-    %% Proses Pembaruan Parameter Singel
-    opt Klik Sepakati Ketetapan Menyimpan Sentuhan Identitas Terupdate Muka Laman
-        Admin->>View: Ubah modifikasi pautan nomor/email berserta pindaian mutakhir logo web 
-        Admin->>View: Konfirmasi persetujuan "Simpan Parameter Konfigurasi"
-        View->>System: Terjunkan rute pengangkutan data menuju pangkalan pemrosesan (Transisi form terbungkus HTTP POST)
+    %% Proses Pembaruan Skema Modifikasi Rekam Tunggal Parameter Profil 
+    opt Restu Mengunci Pembaharuan Kepastian Aksi Putusan Pertukaran Wujud Visual Penampakan Situs Depan 
+        Admin->>View: Rombak nilai modifikasi kelengkapan narasi atau lekatkan bongkahan beban lampiran Logo visual baru berkualifikasi Jpg/Png unggulan
+        Admin->>View: Pungkasi putusan mantap tekan persetujuan penyegelan tindakan form "Simpan Perbaikan/Pembaruan"
+        View->>System: Kargo eksekusi meluncur lewati penyebrangan pengangkutan melintas kencang rute tertutup bersendi pengiriman HTTP POST Data
 
-        System->>System: Cek limit rasio pemakaian berbatasan kapasitas pindaian foto file (Ekstensi Validation)
+        System->>System: Bentangkan jejaring deteksi sensor seleksi pembatas toleransi ambang resolusi kualitas tipe beban aset lampiran file muka pendatang baru
         
-        alt Skema Ekstensi Gambar Mulus Tercapai 
-            opt Andaikata Logo / Lambang Situs Dimodifikasi Digantikan Bongkahan File Terbaru
-                System->>Server: Dudukkan sematan grafis visual anyar mendarat ke rak tumpukan folder khusus
-                System->>Server: Bakar hingga bersih keping rekam aset logo sejarah yang dibilang kadaluwarsa (Titah Skrip Lenyapkan `unlink`)
+        alt Skema Validasi Bukti Standarisasi Ambang Format Spesifikasi Memuaskan Mengkilap Sehat Merata Valid 
+            opt Andaikata Berkas Titipan Pengiriman Terbukti Mewujudkan Pengaduan Tumpukan Lampiran Fisik Representatif Anyar 
+                System->>Server: Sematkan pelesat pindaian visual mendarat di laci kekuasaan pangkalan mapan ruang perlindungan khusus
+                System->>Server: Kuras riwayat akar keberadaan memori foto pajangan perhiasan sejarah laman terdahulu menghantam penghancuran ekstirpasi meluluhlantakkan wujud disk murni seratus persen lewat instruksi musnah (Unlink Action Trigger)
             end
             
-            System->>DB: Injeksi rentetan skema merombak tatanan tabel dasar pengaturan sebaris memori MySQL (Pembaruan Singkat UDPATE SET)
-            DB-->>System: Nyatakan integritas perombakan dititipkan stabil berhasil mutlak
-            System-->>View: Meregang layar antarmuka memuat pelonjakan Pentalan Notifikasi Sempurna (Pemberitahuan Sukses Di Layar Dasbor Kembali Menyala Terang)
-        else Tampilan Parameter Batas Lolos Gambar Tercoreng Cacat Tipe Fail Liar
-            System-->>View: Tendang suruhan perubahan data kembali pada layar disertai serpihan Merah Rilis Peringatan Pesan Error Gagal! 
+            System->>DB: Eksekusi beriring rentetan pertukaran nilai isian skema sebaris tabel meramubaurkan integrasi memori baru database (Skrip Letup Kueri UPDATE Parameter Settings Valid)
+            DB-->>System: Nyatakan persetujuan modifikasi parameter berhasil menduduki bangku tatanan singgasana terlegitimasi mapan dan kukuh terekam utuh
+            System-->>View: Kemudi penyegar rotasi menendang menguatkan layar pentalan penampakan mengorbit diiring kemilau rilis Peringatan Riang Notifikasi Kotak Bersepuhkan Emas Merayakan Pembaharuan Rilis Sempurna Parameter 
+        else Pelanggaran Parameter Memaksa Mendobrak Pakem Lapis Spesifikasi Format Dimensi Cacat Tak Semestinya Ilegal  
+            System-->>View: Batalkan suruhan perombakan kemajuan peramban dipelintir seketika berselimut amukan merah kemunculan Percikan Pop Up Error Berpesan Terhenti Teguh Tanpa Kompromi Tanda Gagal Total File Tersingkir 
         end
     end
 ```

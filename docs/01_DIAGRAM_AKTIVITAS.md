@@ -1,133 +1,173 @@
-# BAB IV — PERANCANGAN SISTEM: 4.1 Activity Diagram
+# BAB IV — PERANCANGAN SISTEM: 4.1 Activity Diagram (Administrator)
 
-## 4.1.1 Pengertian *Activity Diagram* dan *Swimlane*
-*Activity Diagram* adalah salah satu diagram perilaku (*behavioral diagram*) dalam *Unified Modeling Language* (UML) yang digunakan untuk mengilustrasikan alur kerja atau aktivitas dari sebuah sistem maupun proses bisnis. Diagram ini memodelkan langkah-langkah prosedural, percabangan keputusan (*decision*), hingga proses paralel. Penggunaan *Swimlane* (jalur renang) bertujuan untuk mempartisi atau membagi aktivitas berdasarkan aktor atau komponen yang bertanggung jawab atas setiap proses, sehingga memberikan kejelasan mengenai siapa yang mengeksekusi tindakan tertentu dan bagaimana interaksinya dengan sistem.
-
-## 4.1.2 Aktor yang Terlibat
-Pada sistem *Web* Fakultas Ilmu Komputer, aktor-aktor yang berinteraksi dalam modul profil publik ini direpresentasikan dalam tabel berikut:
-
-| Aktor | Emoji | Keterangan |
-|:---|:---:|:---|
-| Pengunjung / Mahasiswa | 👤 | Pengguna publik yang mengakses halaman sistem untuk mencari informasi profil fakultas tanpa memerlukan autentikasi (*login*). |
+## 4.1.1 Pengertian *Activity Diagram* 
+*Activity Diagram* (Diagram Aktivitas) digunakan untuk menggambarkan alur aktivitas suatu proses pada sistem. Pada dokumen ini, diagram difokuskan pada pengelolaan konten yang dilakukan melalui antarmuka pihak **Administrator**, di mana bahasanya telah disederhanakan agar mudah dipahami alurnya. Komponen bulat penuh menunjukkan titik awal (mulai), dan komponen bulat bergaris ganda menunjukkan titik akhir (selesai).
 
 ---
 
-## 4.2 Alur Aktivitas Sistem
+## 4.2 Alur Aktivitas Administrator
 
-### 4.2.1 Activity Diagram Visi dan Misi
+### 4.2.1 Activity Diagram Login Admin
 
 ```mermaid
 flowchart TD
-    subgraph Pengunjung[👤 Pengunjung Publik]
-        A[Mengakses menu Visi Misi]
-        E[Membaca Teks Visi Misi di layar]
-        F[Melihat Pesan 'Data Belum Tersedia']
-    end
+    Start(( )) --> A[Akses halaman Login]
+    A --> B{Sudah login?}
     
-    subgraph Sistem[💻 Sistem Web FIKOM]
-        B[Menerima permintaan rute Visi Misi]
-        C{Memeriksa ketersediaan arsip teks?}
-        D[Mengembalikan *render* halaman lengkap]
-        G[Mengembalikan pesan peringatan kosong]
-    end
-
-    A --> B
-    B --> C
-    C -- Data Ditemukan --> D
-    D --> E
-    C -- Data Kosong --> G
-    G --> F
+    B -- YA --> C[Redirect dashboard]
+    C --> End((( )))
+    
+    B -- TIDAK --> D[Tampilkan form Login]
+    D --> E[Masukkan username dan\npassword]
+    E --> F[submit]
+    F --> G{Input Valid?}
+    
+    G -- TIDAK --> H[Error]
+    H --> D
+    
+    G -- YA --> I[Query DB]
+    I --> J{Admin valid?}
+    
+    J -- TIDAK --> K[Error]
+    K --> D
+    
+    J -- YA --> L[Set session]
+    L --> M[Update Login]
+    M --> C
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.1** Activity Diagram Visi dan Misi*
+***Gambar 4.1** Activity Diagram Login Administrator*
 
-Diagram di atas mengilustrasikan alur proses ketika seorang pengunjung mencoba mengakses informasi **Visi dan Misi** fakultas. Proses diawali dengan interaksi pengguna pada antarmuka navigasi yang kemudian ditransmisikan menuju ke sisi peladen (*server*). Sistem selanjutnya mengeksekusi protokol pencarian pada pangkalan basis data untuk menentukan keberadaan entitas data visi dan misi. Apabila kueri dinilai valid dan rekaman tersedia, sistem akan mengimplementasikan proses *rendering* sehingga dokumen tekstual tersebut direpresentasikan pada halaman publik secara utuh. Sebaliknya, apabila pengembalian parameter mendeteksi nilai nihil, sistem akan secara otomatis merespons melalui percabangan kondisi yang memunculkan peringatan bahwa informasi belum tersedia.
+**Penjelasan:**  
+Alur ini mengilustrasikan proses otentikasi admin. Ketika admin masuk ke halaman login, sistem terlebih dahulu memeriksa apakah admin tersebut sudah dalam status *login* sebelumnya. Jika sudah, maka ia langsung dialihkan ke *dashboard*. Bila belum, ia akan melihat *form login*. Setelah mengisikan kata sandi dan menekan tombol *submit*, sistem mengevaluasi kekosongan/validitas masukan, kemudian mencocokkannya ke *database*. Jika kredensial terbukti valid, sistem akan mengatur (*set*) memori *session* untuk pengguna tersebut lalu mengarahkannya ke dalam *dashboard*.
 
 ---
 
-### 4.2.2 Activity Diagram Struktur Organisasi
+### 4.2.2 Activity Diagram Menu Visi dan Misi
 
 ```mermaid
 flowchart TD
-    subgraph Pengunjung[👤 Pengunjung Publik]
-        A[Mengakses menu Struktur Organisasi]
-        E[Menganalisis Visual Bagan Jabatan]
-        F[Melihat Pesan 'Bagan Belum Dibuat']
-    end
+    Start(( )) --> A[Akses halaman Kelola Visi Misi]
     
-    subgraph Sistem[💻 Sistem Web FIKOM]
-        B[Menerima permintaan rute Struktur Organisasi]
-        C{Memeriksa data pimpinan & jabatan?}
-        D[Menampilkan komponen visual bagan]
-        G[Mengembalikan pesan *null state*]
-    end
-
-    A --> B
-    B --> C
-    C -- Data Lengkap --> D
-    D --> E
-    C -- Data Kosong --> G
-    G --> F
+    A --> B{Pilih Tambah\natau Edit?}
+    
+    B -- YA --> C[Tampilkan form Visi Misi]
+    B -- TIDAK --> End((( )))
+    
+    C --> D[Masukkan teks Visi Misi]
+    D --> E[Klik Submit]
+    E --> F{Input Valid?}
+    
+    F -- TIDAK --> G[Error]
+    G --> C
+    
+    F -- YA --> H[Query DB / Simpan Data]
+    H --> I[Redirect ke tabel kelola]
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.2** Activity Diagram Struktur Organisasi*
+***Gambar 4.2** Activity Diagram Menu Kelola Visi Misi*
 
-Diagram ini menggambarkan interaksi struktural manakala pengunjung bermaksud meninjau hierarki pemangku jabatan melalui menu **Struktur Organisasi**. Proses diinisiasi saat permintaan pengaksesan rute diantarkan ke lapisan logika backend. Sistem mengeksekusi evaluasi terhadap sekumpulan baris data yang menyimpan parameter relasional mengenai posisi pimpinan fakultas. Konfirmasi bahwa data pimpinan berhasil diurai akan mendorong sistem untuk merangkainya ke dalam format elemen antarmuka hierarkis yang tertata secara simetris ke hadapan pengguna. Namun, jika basis data mengonfirmasi kekosongan daftar pejabat, percabangan penolakan akan aktif untuk merepresentasikan *null state* sebagai informasi transisional.
+**Penjelasan:**  
+Setelah admin tiba di *dashboard*, ia dapat membuka halaman Kelola Visi Misi. Dari sana, admin memilih untuk menambah rekaman baru atau mengubah isi yang lama (edit). Sesudah pengisian formulir teks Visi Misi beres dan *submit* ditekankan, sistem secara cepat menyeleksi kebenaran format (*Input Valid*). Apabila lolos kriteria aman, sistem akan menyimpan riwayat teks tersebut ke *database* dan segera menyegarkan tabel Visi Misi kembali.
 
 ---
 
-### 4.2.3 Activity Diagram Fakta Fakultas
+### 4.2.3 Activity Diagram Menu Struktur Organisasi
 
 ```mermaid
 flowchart TD
-    subgraph Pengunjung[👤 Pengunjung Publik]
-        A[Membuka halaman Fakta Fakultas]
-        E[Melihat Visual *Counter* Angka Statistik]
-        F[Menghadapi Peringatan 'Data Nol/Kosong']
-    end
+    Start(( )) --> A[Akses halaman Kelola Struktur]
     
-    subgraph Sistem[💻 Sistem Web FIKOM]
-        B[Menerima parameter permintaan Fakta]
-        C{Mengalkulasi statistik riwayat sistem?}
-        D[Memformat Angka menjadi elemen Blok Visual]
-        G[Kalkulasi Gagal & Mengatur Elemen Nol]
-    end
-
-    A --> B
-    B --> C
-    C -- Sukses Terhitung --> D
-    D --> E
-    C -- Kalkulasi Gagal / Null --> G
-    G --> F
+    A --> B{Aksi: Tambah/Edit\nPejabat?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Query Hapus DB & File]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Redirect ke tabel kelola]
+    
+    B -- YA --> C[Tampilkan form Tambah]
+    C --> D[Pilih Foto & ketik Nama/Jabatan]
+    D --> E[Klik Submit]
+    E --> F{Gambar Valid?}
+    
+    F -- TIDAK --> G[Pesan Error]
+    G --> C
+    
+    F -- YA --> H[Query DB & Simpan Foto]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.3** Activity Diagram Fakta Fakultas*
+***Gambar 4.3** Activity Diagram Menu Kelola Struktur Organisasi*
 
-Interaksi konseptual pada diagram di atas mengilustrasikan mekanisme kalkulasi komputasional saat pengunjung menjelajahi menu **Fakta Fakultas**. Fase mula dipicu ketika akses navigasi diarahkan untuk memanggil rangkuman angka pendataan (*counter*). Sistem lantas menelusuri secara rekursif agregasi hitungan dari entri rekaman (contohnya angka total mahasiswa dan jumlah dosen) guna menghasilkan parameter kuantitas absolut. Sekiranya kalkulasi logika memicu konfirmasi nilai yang wajar, sistem kemudian mengonversi digit matriks tersebut menjadi komponen grafis numerik (*counter*) elegan. Walau demikian, seandainya komputasi tersebut menghadapi anomali ketidaktersediaan referensi logis, sistem diwajibkan menjerat pengecualian (*exception*) tersebut menjadi representasi konvensional bernilai empiris nol (0).
+**Penjelasan:**  
+Halaman struktur organisasi membutuhkan *file* fisik tambahan yaitu unggahan *Foto Pejabat*. Karena itu, diagram ini meperjelas bahwa sesaat setelah *submit* ditekankan, fokus sistem adalah mengeksekusi validasi gambar (*apakah itu benar berformat JPG/PNG?*). Bila sesuai, gambar foto tersebut langsung diunggah (*upload*) ke kandar penyimpan arsip seraya memperbarui letaknya secara bersamaan pada *database*. Alur ini juga menampilkan jalur kilat ke kiri bagi admin yang hanya ingin menghapus satu profil pimpinan dari sistem.
 
 ---
 
-### 4.2.4 Activity Diagram Tentang Fakultas
+### 4.2.4 Activity Diagram Menu Fakta Fakultas
 
 ```mermaid
 flowchart TD
-    subgraph Pengunjung[👤 Pengunjung Publik]
-        A[Mengakses halaman Tentang Fakultas]
-        E[Membaca Latar Belakang & Sejarah Profil]
-        F[Melihat Teks 'Profil Belum Dilengkapi']
-    end
+    Start(( )) --> A[Akses halaman Fakta Fakultas]
     
-    subgraph Sistem[💻 Sistem Web FIKOM]
-        B[Menerima permintaan akses profil web]
-        C{Melacak eksistensi entitas arsip Sejarah?}
-        D[Mengembalikan Dokumen Lengkap Sejarah]
-        G[Memproses Pengembalian *Fallback Text*]
-    end
-
-    A --> B
-    B --> C
-    C -- Entitas Ada --> D
-    D --> E
-    C -- Entitas Kosong --> G
-    G --> F
+    A --> B{Pilih Tambah\natau Edit?}
+    B -- TIDAK --> End((( )))
+    
+    B -- YA --> C[Tampilkan Form Fakta]
+    C --> D[Ketik Judul dan Input Angka]
+    D --> E[Klik Submit]
+    
+    E --> F{Format\nAngka Valid?}
+    F -- TIDAK --> G[Error]
+    G --> C
+    
+    F -- YA --> H[Query DB]
+    H --> I[Redirect halaman tabel]
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.4** Activity Diagram Tentang Fakultas*
+***Gambar 4.4** Activity Diagram Menu Kelola Fakta Fakultas*
 
-Dokumen visual pamungkas di atas mensimulasikan protokol sistematis ketika pengunjung menjelajahi rekam jejak retrospeksi pada antarmuka **Tentang Fakultas**. Bersamaan dengan datangnya kueri pada arsitektur web tersebut, modul logika diperintahkan melacak dan membongkar entitas wacana panjang (*long-form text*) yang mendeskripsikan secara utuh riwayat histori fakultas. Apabila parameter respons menjustifikasi eksistensi narasi tersebut, blok *rendering* layar seketika difungsikan guna menghidangkan representasi naskah utuh yang menemanai pengalaman membaca audiens (*readability*). Pada skenario limitasi di mana tidak terdapat *string* karakter yang dimuat atau belum diedit oleh admin, fungsionalitas dialihkan paksa untuk menyalurkan *fallback text* moderat sebagai bentuk toleransi pembatasan konten sementara.
+**Penjelasan:**  
+Pada halaman fakta (statistik capaian angka kampus), *field* pengisian dititikberatkan pada numerik/teks. Sistem akan bereaksi memblokir input jika di dalam isian angka ditaruh huruf, sehingga menelurkan reaksi penolakan kembali (*Error*). Andaikata form tersebut wajar dan diisi dengan benar, eksekusi berjalan tanpa halangan dengan mengubah wujud angka secara dinamis ke pada *database*.
+
+---
+
+### 4.2.5 Activity Diagram Menu Tentang Fakultas
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses menu Tentang Fakultas]
+    
+    A --> B{Pilih Edit Profil\nSejarah?}
+    B -- TIDAK --> End((( )))
+    
+    B -- YA --> C[Tampilkan Text Editor Profil]
+    C --> D[Ketik Latar Belakang / Sejarah]
+    D --> E[Klik Submit]
+    E --> F{Teks Tidak\nKosong?}
+    
+    F -- TIDAK --> G[Error Teks Kosong]
+    G --> C
+    
+    F -- YA --> H[Query DB & Update]
+    H --> I[Redirect ke halaman Profil]
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.5** Activity Diagram Menu Kelola Tentang Fakultas*
+
+**Penjelasan:**  
+Profil sejarah (*Tentang Fakultas*) lazimnya diakomodasi melalui modul *Text Editor* karena teksnya yang panjang dan terformat tebal/miring. Setelah admin merasa sudah cukup mengutarakan sejarah, tombol simpan ditekan. Apresiasi validasi dari program semata-mata memeriksa *apakah bidang isian luput dari keterisian kosong?* Jika tidak kosong (yaitu, memiliki konten memadai), maka jejak sejarah direkam menuju *database* dan segera diekspos sebagai laporan mutakhir web kampus.

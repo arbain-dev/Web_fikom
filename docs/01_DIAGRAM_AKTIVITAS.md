@@ -346,3 +346,178 @@ flowchart TD
 
 **Penjelasan:**  
 Ruang laboratorium memegang hierarki penempatan setaraf menu ruangan umum yang mengikutsertakan manajemen perlengkapan (*inventaris*) inventaris penelitian praktiknya. Kegiatan pencatatan fasilitas ini menuntun administrator menggubah narasi deskriptif fasilitas alat praktek bersama perwakilan foto interiornya. Interaksi form terkonfirmasi mengemban pemeriksaan kesesuaian potret foto yang dipersangkakan melampaui aturan kompresi, bila itu terwujud larangan berbalut panel peringatan *Error* beraksi menyelamatkan ekosistem penampungannya dengan menahan *editing*. Namun jika kondisi gambar bersesuaian dengan deskriptif fasilitasnya, potret lab di*upload* sempurna menempatkan letaknya selaras bersama keterangan penunjangnya dalam daftar *database* sistem. Kelancaran aktivitas merelokasi kembali layar fungsional administrator mengarahkan pemunculan penampang tabel Laboratorium dengan kelengkapan data hasil olah teranyarnya.
+
+---
+
+### 4.2.11 Activity Diagram Menu Kelola Kalender Akademik
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Kalender]
+    
+    A --> B{Pilih Tambah\n/Edit Agenda?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Jadwal Akademik]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Kalender]
+    
+    B -- YA --> C[Tampilkan form Kalender]
+    C --> D[Input Kegiatan, Tanggal, & SMT]
+    D --> E[Klik Submit]
+    
+    E --> F{Tanggal &\nTeks Valid?}
+    F -- TIDAK --> G[Pesan Error Validasi]
+    G --> C
+    
+    F -- YA --> H[Simpan Data]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.11** Activity Diagram Menu Kelola Kalender Akademik*
+
+**Penjelasan:**  
+Pengelolaan parameter jadwal akademik dirancang untuk disesuaikan secara rutin oleh administrator pengelola. Tatkala administrator memutuskan menambahkan butir agenda terbaru, antarmuka layar mengarahkan ke formulir pencatatan tanggal beserta rincian nama acara. Kewajiban saat eksekusi form disimpan adalah memvalidasi kelogisan parameter input format tanggal dan teks agar berpadanan dengan syarat kalender. Ketidakcocokan format berimbas melontarkan layar *error* pencegahan, yang mendesak pengguna menelaah isiannya lagi. Andaikata seluruh kolom masukan sahih memenuhi syarat, kalender pendataan tercatat di sistem tatanan memori untuk bisa dibaca masyarakat umum dan disusul kepulangan antarmuka ke halaman daftar agendanya.
+
+---
+
+### 4.2.12 Activity Diagram Menu Kelola Kurikulum
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Kurikulum]
+    
+    A --> B{Aksi: Tambah/Edit\nMata Kuliah?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Data & File MK]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Kurikulum]
+    
+    B -- YA --> C[Tampilkan form Kurikulum]
+    C --> D[Ketik Mata Kuliah, SKS, Semester]
+    D --> E[Klik Submit]
+    
+    E --> F{Input\nSKS Valid?}
+    F -- TIDAK --> G[Tampilkan Pesan Error]
+    G --> C
+    
+    F -- YA --> H[Simpan Data Kurikulum]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.12** Activity Diagram Menu Kelola Kurikulum*
+
+**Penjelasan:**  
+Tahap manajemen dokumen kurikulum akademik diampu sepenuhnya dalam rute administrator ini. Dari form interaksi yang disodorkan seusai pemilihan menu, penyusunan matakuliah berserta beban bobot SKS-nya mesti ditugaskan tanpa luput terisi. Mengantisipasi anomali *input* berupa pengetikan di luar angka pada kolom jumlah SKS, arsitektur validasi sigap menilai dan memeriksa parameter (*Decision Node: Input SKS Valid?*). Manakala keteledoran memasukkan input karakter bukan angka terjadi, maka pergeseran data direm untuk memberitahukan perbaikan kepada penggunanya (*Error*). Kelancaran konfirmasi dan evaluasi inputan yang sepenuhnya akurat mendorong berjalannya penanaman lajur rekaman data ke basis sistem secara permanen.
+
+---
+
+### 4.2.13 Activity Diagram Menu Kelola Kerjasama
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Kerjasama]
+    
+    A --> B{Pilih Tambah\n/Edit Partner?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Info & Logo]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Kerjasama]
+    
+    B -- YA --> C[Tampilkan form Kerjasama]
+    C --> D[Input Instansi, Keterangan, Logo]
+    D --> E[Klik Submit]
+    
+    E --> F{Logo & Teks\nValid?}
+    F -- TIDAK --> G[Pesan Error Validasi]
+    G --> C
+    
+    F -- YA --> H[Simpan Data & Foto]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.13** Activity Diagram Menu Kelola Kerjasama*
+
+**Penjelasan:**  
+Pengelolaan informasi identitas kemitraan kerja (*Partnership*) direkam dengan memasukkan bukti visual logo instansi terpadu. Serupa dengan operasi gambar pendahulu, pembaharuan entri memerlukan pelampiran ekstensi visual ke kotak *form*. Pelaksanaan *submit* segera menghantarkan dokumen media ke pemeriksaan ekstensi foto legal (.JPG/.PNG). Pelanggaran di tahapan *upload* logo itu secara otomatis memberhentikan eksekusi peremajaan *database* selagi menahan pengguna di tempat asalnya berhias teks teguran keliru ekstensi media (*Error*). Pada kondisi form media diterima wajar, operasi selanjutnya menjamin kelancaran unggahan foto instansi partner ke simpanan peladennya sekalian mengukir informasi kerja samanya di laci pencatatan basis data, dituntaskan kepulangan ke menu awal kelolanya.
+
+---
+
+### 4.2.14 Activity Diagram Menu Kelola Pengabdian
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Pengabdian]
+    
+    A --> B{Pilih Tambah\n/Edit Pengabdian?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Dokumen Pengabdian]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Pengabdian]
+    
+    B -- YA --> C[Tampilkan form Pengabdian]
+    C --> D[Input Judul, Pelaksana, Tanggal]
+    D --> E[Klik Submit]
+    
+    E --> F{Input Teks\n& File Valid?}
+    F -- TIDAK --> G[Pesan Error Kelengkapan]
+    G --> C
+    
+    F -- YA --> H[Simpan Data]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.14** Activity Diagram Menu Kelola Pengabdian*
+
+**Penjelasan:**  
+Aktivitas pencatatan daftar rekam jejak Pengabdian Masyarakat oleh civitas akademika dikelola menurut runtunan diagram ke-14 ini. Modul mendayagunakan administrator mencatatkan rincian entri baru semisal keterangan judul penugasan abdi masyarakat juga tanggal pengayaannya. Mekanisme fungsional menjaga kekompakan kelengkapan teks ini agar rincian nama pelaksananya tak terkecualikan untuk dibiarkan rumpang kosong. Mengalihkan proses pendaftaran manakala menjumpai kealpaan pengisian *form*, modul menyanggah transaksi di tahap *Error*. Bila data perihal pengabdiannya sungguh absah dikerjakan, jejak kegiatannya diarsip rapi ke dalam tabel direktori data demi menghibur profil sivitas akademika sembari menyelesaikan siklus ini melalui halaman *redirect* beranda utamanya.
+
+---
+
+### 4.2.15 Activity Diagram Menu Kelola Penelitian
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Penelitian]
+    
+    A --> B{Pilih Tambah\n/Edit Penelitian?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Arsip Penelitian]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Penelitian]
+    
+    B -- YA --> C[Tampilkan form Penelitian]
+    C --> D[Input Judul, Peneliti, & Abstrak]
+    D --> E[Klik Submit]
+    
+    E --> F{Input Tulisan\nValid?}
+    F -- TIDAK --> G[Tampilkan Pesan Error]
+    G --> C
+    
+    F -- YA --> H[Simpan Data]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.15** Activity Diagram Menu Kelola Penelitian*
+
+**Penjelasan:**  
+Kegiatan pembaharuan jurnal keilmuan dan kajian reset direkam di instrumen pengolahan Penelitian ini. Sesaat *form* antarmukanya beroperasi, administrator difasilitasi rincian parameter bagi masukan deskripsi hasil risetnya secara teliti (Judul Jurnal, Abstrak). Evaluasi yang dibebankan terhadap transaksi pengirimannya melingkupi pendeteksian apakah form berwacana teks panjang tersebut sungguh murni tak kehilangan perannya dari kekosongan masukan. Bilamana penceritaannya dirasakan kurang bobot minimalnya atau justru tertinggal blanko bersih nilainya, arsitektur otomatis membantah perintah pelaporan selagi mewujudkan pemunculan wujud kendala (*Error*). Menanggapi terlewatinya pengujian standar ini akibat sempurnanya wacana risetnya, aktivitas lantas tertutup memberkati perpindahan data penelitian ini menjealajah barisan *Database* peladennya yang mengabari rute penyelesaiannya di relokasi muatan antarmuka tabelnya.

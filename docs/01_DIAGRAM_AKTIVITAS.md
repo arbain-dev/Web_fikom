@@ -521,3 +521,206 @@ flowchart TD
 
 **Penjelasan:**  
 Kegiatan pembaharuan jurnal keilmuan dan kajian reset direkam di instrumen pengolahan Penelitian ini. Sesaat *form* antarmukanya beroperasi, administrator difasilitasi rincian parameter bagi masukan deskripsi hasil risetnya secara teliti (Judul Jurnal, Abstrak). Evaluasi yang dibebankan terhadap transaksi pengirimannya melingkupi pendeteksian apakah form berwacana teks panjang tersebut sungguh murni tak kehilangan perannya dari kekosongan masukan. Bilamana penceritaannya dirasakan kurang bobot minimalnya atau justru tertinggal blanko bersih nilainya, arsitektur otomatis membantah perintah pelaporan selagi mewujudkan pemunculan wujud kendala (*Error*). Menanggapi terlewatinya pengujian standar ini akibat sempurnanya wacana risetnya, aktivitas lantas tertutup memberkati perpindahan data penelitian ini menjealajah barisan *Database* peladennya yang mengabari rute penyelesaiannya di relokasi muatan antarmuka tabelnya.
+
+---
+
+### 4.2.16 Activity Diagram Menu Kelola Dokumen Fakultas
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Dokumen]
+    
+    A --> B{Pilih Tambah\n/Edit Dokumen?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Arsip Dokumen]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Dokumen]
+    
+    B -- YA --> C[Tampilkan form Dokumen]
+    C --> D[Input Judul Info & Unggah File PDF]
+    D --> E[Klik Submit]
+    
+    E --> F{File PDF\n& Input Valid?}
+    F -- TIDAK --> G[Pesan Error Validasi]
+    G --> C
+    
+    F -- YA --> H[Simpan Data & File]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.16** Activity Diagram Menu Kelola Dokumen Fakultas*
+
+**Penjelasan:**  
+Pengarsipan digital untuk dokumen legalitas dan akademik kampus dilakukan melalui modul Kelola Dokumen Fakultas. Oleh karena peruntukannya mewadahi berkas surat menyurat atau kepenulisan resmi, administrator diatur untuk melampirkan berkas fisik *hard-soft copy* menggunakan ekstensi spesifik (.PDF) pada kotak *form* isiannya. Validasi penyerahan dokumen (*submit*) mendeteksi kewajaran *file* agar format selain PDF (semisal dokumen bervirus atau *Word*) dirintangi dengan munculnya penundaan pemberitahuan perbaikan isi *form* (*Error*). Bilamana administrator mengunggah format mutlak PDF yang akurat, sistem selanjutnya meneruskan siklus mengunggah dan mendokumentasikan dokumen fisik itu menetap ke *server* sambil menata informasinya pada barisan rekam *database*.
+
+---
+
+### 4.2.17 Activity Diagram Menu Kelola Renstra
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola Renstra]
+    
+    A --> B{Pilih Tambah\n/Edit Renstra?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus File & Data Renstra]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel Renstra]
+    
+    B -- YA --> C[Tampilkan form Renstra]
+    C --> D[Input Judul Renstra & PDF]
+    D --> E[Klik Submit]
+    
+    E --> F{Dokumen PDF\nValid?}
+    F -- TIDAK --> G[Tampilkan Pesan Error]
+    G --> C
+    
+    F -- YA --> H[Simpan Data & File]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.17** Activity Diagram Menu Kelola Renstra*
+
+**Penjelasan:**  
+Kebutuhan mendistribusikan berkas Rencana Strategis (Renstra) kepada sasaran umum memiliki rancangan pengoperasian yang linier dengan tata kelola dokumen elektronik. Administrator mengawali proses peremajaan data dengan menyerahkan masukan judul keterangan Renstra yang didampingi arsip dokumentasi PDF pada area form. Di tahap pembuktian kelayakan (*Gambar Valid?*), perlindungan program memeriksa keandalan ukuran *file* muatan serta ekstensinya (PDF) dari kemungkinan malfungsi. Apabila terendus perlakuan menyisipkan format *file* cacat, pangkalan menepis penyimpanan dan mempertahankan layar perbaikan (*Error*). Sedemikian hingga apabila parameter format disetujui, Renstra diunggah dan ditanam menyatu ke penyimpan arsip relasional peladen secepat milidetik, dan layar bergeser mengantarkan administrator meninjau kembali tabel daftarnya.
+
+---
+
+### 4.2.18 Activity Diagram Menu Kelola SOP
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola SOP]
+    
+    A --> B{Pilih Tambah\n/Edit SOP?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus File SOP]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Tabel SOP]
+    
+    B -- YA --> C[Tampilkan form SOP]
+    C --> D[Input Nama SOP & Berkas PDF]
+    D --> E[Klik Submit]
+    
+    E --> F{Format File\nValid?}
+    F -- TIDAK --> G[Pesan Kesalahan Format]
+    G --> C
+    
+    F -- YA --> H[Simpan Data & Berkas]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.18** Activity Diagram Menu Kelola SOP*
+
+**Penjelasan:**  
+Pengelolaan prosedur standar operasional (SOP) fakultas menghadirkan aktivitas integrasi *upload* berkas dari pihak admin. Seiring tindakan menyunting, barisan rincian mencakup deskripsi teks SOP dan *softcopy* SOP yang dirangkum menjadi PDF dikontrol masukannya dari antarmuka tambah data. Di fase penyerahan pengetikan, keleluasaan fungsi simpan bertugas memastikan apakah unggahan dokumen taat tata letak (.PDF). Menanggapi unggahan ekstensi yang ditolak sistem, instruksi transaksi langsung dibekukan sistem bersama pengumuman perintah ralat *Error*. Andaikata pengiriman diresmikan memenuhi format valid PDF yang tertib, dokumen SOP diamankan pindah menempati lumbung peladen beserta modifikasi entri tabel *database* utamanya, seraya diputuskan beralih pada rekap pelaporan tabel menu kelola SOP kembali.
+
+---
+
+### 4.2.19 Activity Diagram Menu Kelola BEM
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Kelola BEM]
+    
+    A --> B{Aksi: Tambah/Edit\nAnggota BEM?}
+    
+    B -- TIDAK --> Hapus{Aksi Hapus?}
+    Hapus -- YA --> HC[Hapus Biodata & Foto]
+    Hapus -- TIDAK --> End((( )))
+    HC --> I[Kembali ke Info BEM]
+    
+    B -- YA --> C[Tampilkan form Anggota BEM]
+    C --> D[Input Nama, Jabatan, & Foto]
+    D --> E[Klik Submit]
+    
+    E --> F{Foto & Input\nValid?}
+    F -- TIDAK --> G[Tampilkan Error Form]
+    G --> C
+    
+    F -- YA --> H[Simpan Data & Foto]
+    H --> I
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.19** Activity Diagram Menu Kelola BEM*
+
+**Penjelasan:**  
+Pemenuhan daftar identifikasi keanggotaan Badan Eksekutif Mahasiswa (BEM) mengimplementasikan prosedur pengolahan figur portofolio visual layaknya modul struktural sivitas dekanat. Sehabis antarmuka kelola ditekan administrator untuk memacu *form* pengisian, kewajiban memberikan profil tercantum mewajibkan integrasi antara foto mahasiswa (ketua/anggota) dan data teks kepengurusannya. Validitas perampingan informasi mendeteksi kualitas input di antaranya kepatuhan pada kelengkapan isian serta rasio dukungan gambar berformat normal penulisan (.JPG/.PNG). Kegagalan mencalonkan format foto benar membenturkan administrator dengan pemunculan *Error* sehingga pengisian ditolak. Pembenaran bahwa semua identitas teks masukan dan gambarnya mulus lolos ujian kebenaran, memastikan penyematan foto itu tersimpan rapi selaras dengan tatanan daftar struktur di *database*.
+
+---
+
+### 4.2.20 Activity Diagram Verifikasi Pendaftaran
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Pendaftaran]
+    
+    A --> B{Pilih Cek\nData Pendaftar?}
+    B -- TIDAK --> End((( )))
+    
+    B -- YA --> C[Tampilkan Rincian Calon Mahasiswa]
+    C --> D{Apakah Data\nMemenuhi Syarat?}
+    
+    D -- TIDAK --> E[Terbitkan Status DITOLAK]
+    E --> G
+    
+    D -- YA --> F[Terbitkan Status DITERIMA]
+    F --> G
+    
+    G[Konfirmasi Pembaruan Status] --> H[Simpan Keputusan Data]
+    H --> I[Kembali ke Tabel Pendaftar]
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.20** Activity Diagram Verifikasi Pendaftaran*
+
+**Penjelasan:**  
+Berbeda dari modul unggah konten, layanan urusan modul Pendaftaran meliput langkah penilaian (verifikasi kualifikasi calon pelajar). Setelah *dashboard* antrean peserta terekspos, administrator dapat menekan rincian pelamar satu persatu guna meriset visual kelengkapan persyaratan mereka. Posisi sentral percabangan (syarat) meminta kebijakan manual pengguna untuk menggolongkan keputusan. Keputusan mengklik validasi lulus menerbitkan informasi label *DITERIMA*, sedang penilaian pelamar tak kapabel memaparkan cap informasi *DITOLAK*. Setelah putusan verifikasi status dipastikan ketuk palu (*submit*), sistem memproses pergantian penanda status pesertanya pada sel-sel sistem *database*, selanjutnya me-*redirect* memori visual peninjauan bergeser memeriksa rekaman pendaftar urutan lainnya pada antrean tabel.
+
+---
+
+### 4.2.21 Activity Diagram Pengaturan Sistem (Setelan)
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Akses halaman Pengaturan Sistem]
+    
+    A --> B{Aksi: Ubah\nNama/Logo?}
+    B -- TIDAK --> End((( )))
+    
+    B -- YA --> C[Tampilkan form Pengaturan Utama]
+    C --> D[Ketik Nama Situs, Kontak, Logo]
+    D --> E[Klik Submit]
+    
+    E --> F{Gambar Logo\nValid?}
+    F -- TIDAK --> G[Tampilkan Kesalahan Logo]
+    G --> C
+    
+    F -- YA --> H[Simpan Pengaturan & Ganti Logo]
+    H --> I[Sistem Memuat Ulang Pengaturan]
+    I --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.21** Activity Diagram Pengaturan Sistem (Setelan)*
+
+**Penjelasan:**  
+Pengontrolan aspek grafis identitas universal kampus (*brading*) diselesaikan pada alur kegiatan Pengaturan Sistem. Rute diawali saat modul disoroti, pengelola bisa mencantumkan dan menimpa perubahan informasi semisal memanipulasi teks identitas lembaga maupun mengunggah kembali bentuk konfigurasi media logo kampus (*upload image*). Selagi persetujuan aksi diangkat mendelegasikan perintah simpan (*submit*), batasan pertahanan memusatkan evaluasi menyaring muatan berkas logonya (*Validasi Logo*). Semisal *file* yang tersalurkan diprediksi korup atau bukan esensi gambar seutuhnya, alur simpan direm mengungkit tampilan peringatan *Error* yang sigaga. Berlawanan bila ekstensinya benar dan wacana isian wajar, pembaharuan konfigurasi *database* diteken sehingga aset logo baru menimpa cadangan lama guna mengendalikan tampilan grafis seketika pasca layar memuat ulang perambannya (*refresh/redirect*).

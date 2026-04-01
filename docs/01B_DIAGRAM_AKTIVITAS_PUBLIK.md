@@ -214,6 +214,27 @@ flowchart TD
     F -- Iya --> G[Membaca Daftar Keahlian Lulusan]
     G --> End((( )))
     
+
+---
+
+### 4.3.7 Activity Diagram Prodi TI (Informatika)
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Prodi Informatika]
+    
+    A --> B[Membaca Teks Pendahuluan]
+    B --> C[Menggulir ke Bagian Tentang Prodi]
+    C --> D{Lanjut Lihat\nVisi Misi?}
+    
+    D -- Iya --> E[Membaca Urutan Visi dan Misi]
+    E --> F{Lanjut Lihat\nDaftar Dosen?}
+    
+    D -- Tidak --> End((( )))
+    
+    F -- Iya --> G[Melihat Grid Daftar Dosen Informatika]
+    G --> End
+    
     F -- Tidak --> End
     
     style Start fill:#000,stroke:#000,color:#000
@@ -222,7 +243,7 @@ flowchart TD
 ***Gambar 4.28** Activity Diagram Prodi TI (Informatika)*
 
 **Penjelasan:**  
-Halaman ini menampilkan profil lengkap dari lingkup studi Teknik Informatika. Pengalaman pengujung dimulai dengan menyerap informasi inti seperti Visi dan Misi. Melalui mekanisme *scroll* ke bawah berulang kali, pengguna dihadapkan pada persimpangan opsi sederhana, yaitu memutuskan mengeksplorasi gambar fasilitas pembelajaran, sampai di ujungnya mempertimbangkan untuk menyerap target prospek kelulusannya.
+Berdasarkan susunan program halaman (*Informatika*), alur menavigasikan pengunjung mulai dari mengamati panel sambutan, membaca riwayat prodi, hingga dihadapkan pada persimpangan untuk menghentikan guliran atau berlanjut menyelami teks Visi-Misi. Puncak aktivitas halamannya bermuara pada keputusan mengamati susunan daftar dosen pengajar khusus Informatika di bagian terbawah.
 
 ---
 
@@ -232,17 +253,17 @@ Halaman ini menampilkan profil lengkap dari lingkup studi Teknik Informatika. Pe
 flowchart TD
     Start(( )) --> A[Membuka Halaman Prodi Pend. TI]
     
-    A --> B[Membaca Tujuan dan Arah Lulusan]
-    B --> C[Menggulir Layar ke Bawah]
+    A --> B[Membaca Teks Pendahuluan]
+    B --> C[Menggulir ke Bagian Tentang Prodi]
+    C --> D{Lanjut Lihat\nVisi Misi?}
     
-    C --> D{Melihat Mata\nKuliah Unggulan?}
-    D -- Iya --> E[Membaca Daftar Mata Kuliah Spesifik]
-    E --> F{Mencari Peluang\nKerja?}
+    D -- Iya --> E[Membaca Urutan Visi dan Misi]
+    E --> F{Lanjut Lihat\nDaftar Dosen?}
     
-    D -- Tidak --> F
+    D -- Tidak --> End((( )))
     
-    F -- Iya --> G[Membaca Daftar Peluang Karir Guru/Praktisi]
-    G --> End((( )))
+    F -- Iya --> G[Melihat Grid Daftar Dosen Pend. TI]
+    G --> End
     
     F -- Tidak --> End
     
@@ -252,7 +273,7 @@ flowchart TD
 ***Gambar 4.29** Activity Diagram Prodi Pend. TI*
 
 **Penjelasan:**  
-Serupa dengan alur program studi sebelumnya, halaman PTI dikemas memaparkan profil kompetensi sarjana pendidikan. Interaksi difokuskan pada pembacaan linier terhadap daftar mata kuliah khusus pendidikan teknologi yang ditawarkan, diakhiri dengan evaluasi pengguna untuk memindai prospek penyerapan kerja alumni.
+Pola navigasi halaman PTI seirama persis dengan halaman informatika. Aktivitas difokuskan pada guliran layar linier menelusuri susunan *header*, profil jurusan, penjabaran Visi-Misi kependidikan, hingga ditutup secara fungsional bila pengunjung mendalami daftar petak (*grid*) penampang wajah dan nama dosen prodi PTI.
 
 ---
 
@@ -260,13 +281,14 @@ Serupa dengan alur program studi sebelumnya, halaman PTI dikemas memaparkan prof
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Membuka Halaman Ruangan Kuliah]
+    Start(( )) --> A[Membuka Halaman Ruangan Kelas]
     
-    A --> B[Melihat Gambar dan Daftar Ruangan]
-    B --> C{Mencari Ruangan\nTertentu?}
+    A --> B[Melihat Daftar dan Gambar Kartu Ruangan]
+    B --> C{Pilih dan Klik\nGambar Ruangan?}
     
-    C -- Iya --> D[Memperhatikan Detail dan Fasilitas di Tiap Kelas]
-    D --> End((( )))
+    C -- Iya --> D[Sistem Memunculkan Jendela Popup Gambar Lebar]
+    D --> E[Mengeklik Tombol Tutup Jendela]
+    E --> End((( )))
     
     C -- Tidak --> End
     
@@ -276,7 +298,7 @@ flowchart TD
 ***Gambar 4.30** Activity Diagram Menu Ruangan Kelas*
 
 **Penjelasan:**  
-Aktivitas pencarian ruangan dirancang sangat ringkas. Begitu pengunjung memasuki halaman, rangkaian gambar dan nama kelas disajikan dalam deretan kartu. Pengguna yang memiliki inisiatif lebih dapat memfokuskan bacaannya pada komponen infrastruktur fisik yang melekat di tiap daftar ruangannya.
+Halaman ini dirancang mendongkrak pengalaman visual. Saat dibuka, sistem menggelar daftar ruangan kelas berwujud kartu galeri. Navigasi paling krusial dicapai bila pengguna menekan (*klik*) salah satu foto; sistem lantas merespons dengan menerbitkan *lightbox* (*popup*) pembesaran gambar di tengah layar, yang mana mewajibkan pengguna menekan tombol "Tutup" untuk menyudahi observasinya.
 
 ---
 
@@ -284,17 +306,16 @@ Aktivitas pencarian ruangan dirancang sangat ringkas. Begitu pengunjung memasuki
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Membuka Halaman Laboratorium]
+    Start(( )) --> A[Membuka Halaman Laboratorium Komputer]
     
-    A --> B[Melihat Daftar Laboratorium Tersedia]
-    B --> C[Menggulir Layar ke Bawah]
+    A --> B[Melihat Daftar dan Gambar Kartu Lab]
+    B --> C{Pilih dan Klik\nGambar Laboratorium?}
     
-    C --> D{Ingin Mengetahui\nSpesifikasi Komputer?}
-    
-    D -- Iya --> E[Membaca Daftar Alat dan Kapasitas Lab]
+    C -- Iya --> D[Sistem Memunculkan Jendela Popup Gambar Lebar]
+    D --> E[Mengeklik Tombol Tutup Jendela]
     E --> End((( )))
     
-    D -- Tidak --> End
+    C -- Tidak --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
@@ -302,7 +323,7 @@ flowchart TD
 ***Gambar 4.31** Activity Diagram Menu Laboratorium*
 
 **Penjelasan:**  
-Pengenalan ruang praktek (*Laboratorium*) menekankan penayangan jenis-jenis lab. Jalur pengguna (*User Flow*) mensyaratkan keputusan spesifik bilamana pengunjung berkehendak mengecek spesifikasi piranti alat pendukung yang disediakan untuk praktikum mahasiswa, seperti komputer atau komponen jaringan.
+Skema pada etalase Laboratorium mencerminkan arsitektur kode *gallery* milik ruangan kelas. Jalur pengguna direkam mulai dari pengamatan kartu daftar laboratorium hingga inisiatif menekan gambar agar sistem memanggil fitur jendela potret resolusi tinggi (*lightbox/popup*) melayang di antarmuka.
 
 ---
 
@@ -310,17 +331,16 @@ Pengenalan ruang praktek (*Laboratorium*) menekankan penayangan jenis-jenis lab.
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Membuka Halaman Kurikulum Akademik]
+    Start(( )) --> A[Membuka Halaman Kurikulum Fakultas]
     
-    A --> B[Menampilkan Tabel Distribusi Mata Kuliah]
-    B --> C{Mencari Jadwal\nSemester Tertentu?}
+    A --> B[Melihat Susunan Kotak Info Kurikulum]
+    B --> C{Klik Tombol\nLihat PDF?}
     
-    C -- Iya --> D[Memilih Tabel Semester Pilihan]
-    D --> E[Cek Jumlah SKS dan Prasyarat Mata Kuliah]
+    C -- Iya --> D[Sistem Memanggil Jendela Pratinjau Dokumen PDF]
+    D --> E[Mengeklik Tombol Batal Keluar Pratinjau]
     E --> End((( )))
     
-    C -- Tidak --> F[Hanya Menggulir Tampilan Tabel]
-    F --> End
+    C -- Tidak --> End
     
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
@@ -328,7 +348,7 @@ flowchart TD
 ***Gambar 4.32** Activity Diagram Menu Kurikulum*
 
 **Penjelasan:**  
-Halaman ini melayani kebutuhan pemetaan studi. Interaksi mendasar diawali terbukanya susunan besar tabel SKS per semester. Rute pengambilan keputusan mensyaratkan pembaca menukik memperhatikan satu seksi semester agar bisa memilah beban sks apa saja yang akan diambilnya.
+Alur interaksi direktori kurikulum merangkul fitur baca dokumen berkas lekat. Begitu koleksi modul tampil, pemicu fungsional ditekankan pada tombol "Lihat PDF". Seandainya di-klik, sistem seketika membangkitkan jendela *modal box* membungkus pratinjau halaman PDF kurikulum bersangkutan tanpa menendang pengunjung ke *tab* peramban baru.
 
 ---
 
@@ -336,13 +356,14 @@ Halaman ini melayani kebutuhan pemetaan studi. Interaksi mendasar diawali terbuk
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Membuka Halaman Kalender]
+    Start(( )) --> A[Membuka Halaman Kalender Akademik]
     
-    A --> B[Menampilkan Tabel Tanggal Kegiatan Kampus]
-    B --> C{Cari Tanggal\nUjian Atau KRS?}
+    A --> B[Melihat Daftar Kegiatan dan Kartu Kalender]
+    B --> C{Klik Kartu\nBidang Kalender?}
     
-    C -- Iya --> D[Membaca dan Mencatat Waktu Penting]
-    D --> End((( )))
+    C -- Iya --> D[Sistem Menampilkan Jendela Popup Poster Kalender Utuh]
+    D --> E[Mengeklik Tombol Tutup Kalender]
+    E --> End((( )))
     
     C -- Tidak --> End
     
@@ -352,4 +373,4 @@ flowchart TD
 ***Gambar 4.33** Activity Diagram Menu Kalender Akademik*
 
 **Penjelasan:**  
-Di muara informasi birokrasional kalender penanggalan, *flowchart* ditutup dengan rutinitas penjelajahan yang paling ringkas. Pengunjung sekadar dihadapkan pada tabel rentetan jadwal, di mana interaksi utamanya adalah membaca datar tabel dan menetapkan batas waktu kritis administrasi pendaftaran secara mandiri.
+*Flowchart* meruntut navigasi pembaca di pelataran Kalender Akademik berlandaskan interaksi poster. Pengunjung dihamparkan pilihan kalender per-tahun. Menyetuh bidang kalender mana pun akan mengomandoi layar menciptakan *popup* berukuran makro memampangkan gambar poster penanggalan, di mana pengguna diharuskan memencet tombol silang untuk keluar dari fokus tersebut.

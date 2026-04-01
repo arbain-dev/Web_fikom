@@ -285,3 +285,97 @@ sequenceDiagram
     Backend-->>Frontend: Ikat tatanan rilis struktur Dokumen Fakultas rilis web
     Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Dokumen Publik secara anggun
 ```
+## Sequence Diagram: Halaman Rencana Strategis (Renstra)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Klik menu Rencana Strategis
+    Frontend->>Backend: Memanggil rilis isi Renstra Fakultas
+    
+    Backend->>DB: Kueri catatan spesifik naskah Renstra
+    DB-->>Backend: Serahkan deskripsi visi & tautan Unduhan Dokumen
+    
+    Backend-->>Frontend: Limpahkan hasil kompilasi wujud HTML
+    Frontend-->>User: Tampilkan Antarmuka utuh Rencana Strategis
+```
+
+## Sequence Diagram: Halaman Standar Operasional Prosedur (SOP)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Menengok direktori penelusuran SOP
+    Frontend->>Backend: Request sajian urutan rilis dokumen SOP
+    
+    Backend->>DB: Tarik deret sel relasional rujukan Dokumen SOP
+    DB-->>Backend: Return profil nama prosedur dan rujukan tautan File
+    
+    Backend-->>Frontend: Ikatan output render tabel SOP siap pakai
+    Frontend-->>User: Suguhkan Layar Tabel Unduhan Arsip SOP
+```
+
+## Sequence Diagram: Halaman Data Penelitian
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Akses Laman Jurnal Web / Data Penelitian
+    Frontend->>Backend: Request rekam jejak riset & jurnal akademisi
+    
+    Backend->>DB: Sisir kolektivitas seluruh riwayat publikasi Penelitian
+    DB-->>Backend: Kembalikan tajuk riset, abstrak, serta berkas naskah PDF
+    
+    Backend-->>Frontend: Berikan dokumen format gabungan Data Riset
+    Frontend-->>User: Sajikan Daftar Artikel Penelitian Civitas ke Publik
+```
+
+## Sequence Diagram: Halaman Data Pengabdian Masyarakat
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Menyelami Katalog Data Pengabdian
+    Frontend->>Backend: Pengajuan muatan daftar kegiatan pelayanan
+    
+    Backend->>DB: Query koleksi rilis aktivitas Pengabdian pada masyarakat
+    DB-->>Backend: Ekstrak judul, deskripsi tempat sasar, & laporannya
+    
+    Backend-->>Frontend: Menyelaraskan output data Pengabdian solid
+    Frontend-->>User: Munculkan tampilan rekam Histori Pengabdian
+```
+
+## Sequence Diagram: Halaman Profil Organisasi (BEM)
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
+
+    User->>Frontend: Mengeklik menu Organisasi / BEM
+    Frontend->>Backend: Request info kepengurusan BEM terkini
+    
+    Backend->>DB: Ambil spesifik detail departemen, proker, & Foto Logo BEM
+    DB-->>Backend: Return wujud relasional profil organisasi Mahasiswa
+    
+    Backend-->>Frontend: Serahkan Data HTML/JSON Organisasi Mahasiswa
+    Frontend-->>User: Paparkan Layar Elok Susunan Pengurus BEM Mahasiswa
+```

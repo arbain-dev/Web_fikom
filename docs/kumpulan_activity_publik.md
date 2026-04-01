@@ -16,7 +16,7 @@ flowchart TD
     B --> C{Sistem cek data Visi Misi?}
     
     C -- Data Ada --> D[Tampilkan utuh teks Visi Misi di layar]
-    C -- Data Kosong --> E[Tampilkan pesan "Data Belum Tersedia"]
+    C -- Data Kosong --> E[Tampilkan pesan Data Belum Tersedia]
     
     D --> F([Selesai])
     E --> F
@@ -36,7 +36,7 @@ flowchart TD
     B --> C{Sistem mencari data pimpinan?}
     
     C -- Ditemukan --> D[Tampilkan visual Bagan Jabatan secara rapi]
-    C -- Tidak Ditemukan --> E[Tampilkan pesan "Struktur Belum Dibuat"]
+    C -- Tidak Ditemukan --> E[Tampilkan pesan Struktur Belum Dibuat]
     
     D --> F([Selesai])
     E --> F
@@ -76,7 +76,7 @@ flowchart TD
     B --> C{Sistem mencari arsip sejarah?}
     
     C -- Arsip Ada --> D[Tampilkan dokumen Sejarah & Profil Fakultas]
-    C -- Arsip Kosong --> E[Tampilkan teks "Profil Belum Dilengkapi"]
+    C -- Arsip Kosong --> E[Tampilkan teks Profil Belum Dilengkapi]
     
     D --> F([Selesai])
     E --> F

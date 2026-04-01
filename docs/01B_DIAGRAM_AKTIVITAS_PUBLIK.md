@@ -20,7 +20,7 @@ flowchart TD
     D -- TIDAK --> E[Tampilkan Beranda\nTanpa Data Tambahan]
     E --> G
     
-    D -- YA --> F[Tampilkan Beranda Lengkap\nSlider, Berita, dan Fakta]
+    D -- YA --> F[Tampilkan Beranda Lengkap\nSlider, Fakta, Berita, Profil, Prodi, Info Akademik, Mitra]
     F --> G
     
     G[Pengunjung Membaca Informasi] --> End((( )))
@@ -31,4 +31,4 @@ flowchart TD
 ***Gambar 4.22** Activity Diagram Akses Halaman Beranda (Home)*
 
 **Penjelasan:**  
-Sebagai antarmuka penyambutan pertama, halaman *Home* (Beranda) menawarkan informasi sekilas dengan muatan lengkap namun padat. Proses ini diawali dari kunjungan alamat web (URL) fakultas oleh masyarakat umum. Untuk memunculkannya, mesin sistem utama akan segera menghubungi pangkalan data (*database*) untuk mencari ketersediaan komponen gambar gulir promosi (*Slider*), cuplikan warta terkini (*Berita*), dan parameter pencapaian (*Fakta Fakultas*). Di titik pemeriksaan ini (*Decision Node*), peramban mempertegas ketersediaan konten tersebut. Andai koneksi ke basis datanya tidak ditemukan maupun data sungguh kosong, sistem menyederhanakan pelaporannya melalui tayangan profil beranda standar tanpa pelengkap data. Berlawanan jika pengambilan data sistem dipastikan tersedia komplit sepenuhnya, penampang halaman utama dimuat sempurna bersama sajian grafis *Slider* dan artikel cuplikan *Berita* untuk dikonsumsi serta dibaca sepuasnya oleh para pengunjung di layar mereka.
+Sebagai antarmuka penyambutan pertama, halaman *Home* (Beranda) menawarkan informasi sekilas dengan muatan melimpah namun padat. Proses ini diawali dari kunjungan alamat web (URL) fakultas oleh pengunjung publik. Untuk memunculkannya, mesin sistem utama seketika menghubungi *database* untuk mengambil sekumpulan data penting yang mencakup: gambar promosi gulir (*Slider*), data bilangan statistik (*Fakta Fakultas*), cuplikan warta terkini (*Berita*), ringkasan sejarah (*Tentang Fakultas*), hingga aset logo relasi (*Mitra Kerja Sama*). Di titik pemeriksaan ini, program mengevaluasi apakah seluruh informasi tersebut kosong atau eksis. Andai koleksi data basis utamanya benar-benar rumpang, sistem memotong pelaporannya ke wujud tampilan beranda polosan tanpa elemen data dinamis. Akan tetapi di skenario sempurnanya tatkala data sukses dibawa keluar, penampang halaman utama dimuat sempurna menjembrengkan semua komponen kebesaran fakultas (mulai dari *Slider*, *Fakta*, *Berita*, *Tentang*, *Program Studi*, tautan *Informasi Akademik*, dan selasar *Mitra*) untuk ditelusuri pengunjung dengan keleluasaan penuh.

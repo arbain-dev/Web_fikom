@@ -14,7 +14,7 @@ flowchart TD
     Start(( )) --> A[Akses halaman Login]
     A --> B{Sudah login?}
     
-    B -- YA --> C[Redirect dashboard]
+    B -- YA --> C[Buka halaman Dashboard]
     C --> End((( )))
     
     B -- TIDAK --> D[Tampilkan form Login]
@@ -64,7 +64,7 @@ flowchart TD
     G --> C
     
     F -- YA --> H[Simpan Data]
-    H --> I[Redirect ke tabel kelola]
+    H --> I[Kembali ke Tabel Kelola]
     I --> End
     
     style Start fill:#000,stroke:#000,color:#000
@@ -88,7 +88,7 @@ flowchart TD
     B -- TIDAK --> Hapus{Aksi Hapus?}
     Hapus -- YA --> HC[Hapus Data & File]
     Hapus -- TIDAK --> End((( )))
-    HC --> I[Redirect ke tabel kelola]
+    HC --> I[Kembali ke Tabel Data]
     
     B -- YA --> C[Tampilkan form Tambah]
     C --> D[Pilih Foto & ketik Nama/Jabatan]
@@ -130,7 +130,7 @@ flowchart TD
     G --> C
     
     F -- YA --> H[Simpan Data]
-    H --> I[Redirect halaman tabel]
+    H --> I[Kembali ke Halaman Tabel]
     I --> End
     
     style Start fill:#000,stroke:#000,color:#000
@@ -161,7 +161,7 @@ flowchart TD
     G --> C
     
     F -- YA --> H[Simpan Teks Baru]
-    H --> I[Redirect ke halaman Profil]
+    H --> I[Kembali ke Halaman Profil]
     I --> End
     
     style Start fill:#000,stroke:#000,color:#000

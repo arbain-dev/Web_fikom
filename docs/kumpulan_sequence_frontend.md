@@ -1,55 +1,26 @@
-﻿# Kumpulan Diagram Frontend
+# Kumpulan Diagram Frontend
 
 ## Sequence Diagram: Halaman Utama (Home)
 ```mermaid
 sequenceDiagram
     autonumber
     
-    actor User as Pengunjung/User
-    participant Browser
-    participant Index as index.php
-    participant Home as pages/home.php
-    participant DB as Database (MySQL)
-    participant Header as includes/header.php
-    participant Footer as includes/footer.php
+    actor User as Pengunjung
+    participant Frontend
+    participant Backend as Backend (control)
+    participant DB as Database
 
-    User->>Browser: Mengakses halaman utama (/)
-    Browser->>Index: HTTP GET Request (/)
+    User->>Frontend: Buka Halaman Home
+    Frontend->>Backend: Request semua data utama
     
-    Index->>Index: Inisialisasi konfigurasi & routing
-    Index->>Home: Include pages/home.php
+    Backend->>DB: Ambil data Slider
+    Backend->>DB: Ambil data Berita Terbaru
+    Backend->>DB: Ambil data Fakta Fakultas
+    Backend->>DB: Ambil data Tentang Fakultas
+    Backend->>DB: Ambil data Mitra Kerja Sama
     
-    Home->>Home: Include config/database.php, constants.php, functions.php
-    
-    rect rgb(240, 248, 255)
-        Note over Home, DB: Proses Pengambilan Data
-        Home->>DB: Query 6 Berita Terbaru
-        DB-->>Home: Return Data Berita
-        
-        Home->>DB: Query Data Fakta Fakultas
-        DB-->>Home: Return Data Fakta
-        
-        Home->>DB: Query Slider Aktif
-        DB-->>Home: Return Data Slider
-        
-        Home->>DB: Query Tentang Fakultas (Limit 1)
-        DB-->>Home: Return Data Tentang Fakultas
-        
-        Home->>DB: Query Mitra Kerja Sama
-        DB-->>Home: Return Data Kerja Sama
-    end
-    
-    Home->>Header: Include includes/header.php
-    Header-->>Home: Render komponen Header (Navbar, CSS)
-    
-    Note over Home: Proses Render ke HTML:<br/>1. Hero Slider<br/>2. Bagian Statistik<br/>3. Grid Berita Terbaru<br/>4. Section Tentang Fakultas<br/>5. Grid Program Studi<br/>6. Grid Informasi Akademik<br/>7. Carousel Mitra
-    
-    Home->>Footer: Include includes/footer.php
-    Footer-->>Home: Render komponen Footer (Scripts, Hak Cipta)
-    
-    Home-->>Index: Proses Render Halaman Selesai
-    Index-->>Browser: HTTP Response (HTML)
-    Browser-->>User: Halaman Utama (Home) Ditampilkan secara utuh
+    Backend-->>Frontend: Kirim Semua data gabungan (Web Render HTML)
+    Frontend-->>User: Tampilkan Data Di Halaman Home
 ```
 
 ## Sequence Diagram: Halaman Data Civitas Akademika

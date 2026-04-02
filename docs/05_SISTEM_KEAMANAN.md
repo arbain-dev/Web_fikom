@@ -1,42 +1,41 @@
 # BAB VII — SISTEM KEAMANAN WEB FIKOM
 
 ## 7.1 Filosofi Keamanan Dasar
-Layaknya sebuah keraton atau markas yang melindungi data pendaftaran jiwa calon mahasiswa dan puluhan surat keputusan kampus, **Web FIKOM** dibangun dengan benteng pengamanan berlapis. Hebatnya, pengamanan ini ditanamkan langsung tanpa meminjam alat pertahanan pihak ketiga penambah beban. Segala celah yang sering dimanfaatkan oleh peretas (*Hacker*) tingkat pemula maupun menengah telah disumbat lewat kecerdasan baris kode bawaan (*Native PHP Security*).
+Sistem Informasi **Web FIKOM** diterapkan dengan model pertahanan siber preventif ganda. Mengingat aplikasi web merangkum dan mengelola fungsionalitas pengisian masukan data krusial—termasuk di dalamnya riwayat dokumen pendaftaran identitas calon mahasiswa, pendataan kegiatan jurnal staf pengajar, serta integrasi persuratan struktural—maka penerapan proteksi berlapis untuk menangkis celah eksploitasi dari sisi lapis aplikasi (*Application Level Layer*) menggunakan spesifikasi bawaan kerangka bahasa (*Native Language Security*) adalah syarat fundamental prasyarat keutuhan aplikasi.
 
-Berikut ini adalah lima perisai utama yang membentengi situs secara gaib dari balik layar:
-
----
-
-### 1. Pelindung Rute Navigasi (Pencegah Terobosan Folder Utama)
-Banyak penjahat siber amatir gemar meraba-raba kelemahan web dengan mengetik paksa jalur-jalur ganjil di bilik alamat *Link Browser* (seperti mengetik `.../pages/../config/database.php` demi mencuri nyawa sistem). 
-
-Di Web FIKOM, aksi pengelabuan yang secara teknis disebut ancaman ***Directory Traversal*** ini dihancurkan langsung di gerbang masuk `index.php`. Sistem dengan tegas akan **melucuti dan membersihkan setiap simbol titik (.) dan garis miring (/)** pada ketikan pemohon, sehingga penjelajah gelap akan terlempar buntu dan ditertawakan oleh halaman "404 Penelusuran Tidak Ditemukan" pada porsi publiknya.
+Berikut merupakan rincian lima teknik terminologi logis pencegahan peretasan struktural eksploitasi dominan yang ditanamkan secara aktif di balik lapisan kerangka sistem aplikasi Web FIKOM:
 
 ---
 
-### 2. Penyamar Sandi Otomatis (*Password Hashing*)
-Seluruh kata sandi para pimpinan dan operator staf tidak pernah disimpan mentah-mentah (*Plaintext*) ke dalam mesin brankas MySQL. 
-Sebaliknya, sistem menerapkan ilmu sandi berputar otomatis *(Cryptographic Hash)*. Tiap sandi yang diinput saat pendaftaran akan **digiling hancur menjadi rentetan huruf acak tak bermakna** yang tidak bisa dikembalikan lagi ke wujud aslinya (contoh: kata sandi "admin123" hancur menjadi "*$2y$10$wT/Yy..*.").
+### 1. Pelacakan Traversal Direktori Eksternal (Pencegahan Directory Traversal)
+Kelemahan *Directory Traversal* merupakan metode perintasan direktori di mana pihak asing (*hacker*) mengeksploitasi cacat sistem sistem file untuk menyisipkan manipulasi pembacaan alamat URL lokasi situs, acapkali menggunakan parameter `.` atau simbol `../` demi menyelidiki letak spesifik *script* konfigurasi basis penyimpanan (*Database Configuration Files*) di luar kontrol izin layanan antarmuka.
 
-Berkat ini, seandai peretas berhasil menjebol brankas dan mencuri kertas sandi sekali pun, mereka tetap kebingungan lantaran kodenya sama sekali tak bisa dibaca mulut manusia.
-
----
-
-### 3. Pembersih Racun Tulisan Palsu (Penangkal *XSS / Cross-Site Scripting*)
-Ada kalanya orang tak bertanggung jawab mengisi formulir isian (seperti alamat atau pendaftaran) dengan memalsukannya menggunakan kode penipu yang memancing layarnya melompat *(Scripting Injection)*.
-
-Sistem Web FIKOM memberlakukan protokol kebersihan steril yang memaksa semua teks dari lumbung sebelum ditayangkan ke mata publik, harus disaring lewat gerbang *"Kode Filter Penghalus"* (*Fungsi `htmlspecialchars`*). Fungsi ajaib ini akan membuang taring dari simbol-simbol berbahaya seperti tanda kurung sudut `<` menjadi sekadar teks bodoh ketikan `&lt;`.  Walhasil, racun penipu gagal teraktivasi menjadi perintah membangkang pada komputer korban.
+Pada implementasi arsitektur Web FIKOM, pengetatan terhadap akses ini dicegah langsung pada level penerimaan perutean pintu depan layanan (`index.php`). Metode proteksinya memproses tiap lema *query parameter* kueri peramban melalui pilar proses pembersihan *String Filter* (penghapusan titik dan pembuangan *slash*). Prosedur rute tersebut mengeksklusi setiap perintah anomali eksekusi URL dan menolak akses fiktif langsung menampilkan respons pelemparan "404 Not Found", mematikan pemantulan akses rahasianya seketika.
 
 ---
 
-### 4. Pelucut Senjata Pertanyaan Siluman (Pencegahan *SQL Injection*)
-Ini adalah jenis sihir peretas tertua sekaligus terparah di dataran internet di mana penipu mendaratkan perintah modifikasi paksa saat berkedok mencari (*Querying*) atau masuk sistem.
+### 2. Formulasi Kriptografi Kredensial Akses (Password Hashing)
+Prosedur pengokoh integritas informasi tidak pernah mengizinkan peletakan penyusunan persandian operasional administrasi pada entri basis data dalam format teks mentah yang lumrah terbaca (*Plaintext*).
 
-Sistem arsitektur Web FIKOM mengatasinya dengan memakai taktik formulir kedap udara *(Prepared Statements dari MySQLi)*. Teknik pertahanan murni ini memisahkan kerangka baja gerbang sistem dengan serahan ketikan data milik pengguna sesungguhnya. Akibatnya, perintah gaib SQL jahat milik peretas selalu diperlakukan sekadar sebagai *"Teks Jawaban Biasa"* tanpa pernah diizinkan campur tangan dalam setir komando mesin.
+Penerapan keamanan memproses hal tersebut menuju *Cryptographic Hashing* fungsional (memanfaatkan implementasi algoritma persandian standar termutakhir *Bcrypt / password_hash* di server PHP), dengan tujuan melebur setiap struktur inputan kredensial sang administrator pengelola ke dalam wujud deret komputasi acak berkuantisasi ekstrem (*Contoh enkripsi string: $2y$10$wT/Yy...*). Modus ini krusial menangkal metode rekayasa *reverse engineering*, sekaligus memastikan ekspektasi validasi kata sandinya terkunci permanen walaupun skema pangkalan data sewaktu-waktu dibajak oknum luar (*Data Breach Leak*).
 
 ---
 
-### 5. Jimat Identitas Rahasia Ruang Kendali (*Session Security*)
-Bilik belakang / Dasbor Administrator sangat tertutup rapat. Begitu ada pengguna memaksa akses langsung ke tautan rahasia (*Misalnya diam-diam mengetik `/admin/dashboard.php` langsung*), penjaga lapis gerbang akan otomatis memindai kantong mereka untuk mencari kartu idetitas gaib yang dinamakan bilik *Session*. 
+### 3. Sterilisasi Lapisan Tampilan Injeksi Jaringan (Cross-Site Scripting / XSS Prevention)
+Tipikal invasi *Cross-Site Scripting* (XSS) mendelegasikan perintah sintaks bahaya semacam skrip *JavaScript* gelap yang dikuburkan melalui masukan form isian halaman web. Eksekusi ilegal pada fungsi skrip tersebut aktif setibanya kueri dibaca pemantau komputer pengguna.
 
-Tanpa jimat riwayat absensi Login (*Login Token*) di tangannya, layar otomatis menggelapkan diri dan menendang pelancong liar tersebut balik ke pekarangan depan. Modul ini menjadi jaminan tidur nyenyak pengelola meski markas ditinggalkan begitu saja di ujung lorong virtual.
+Taktik kebersihan antarmuka dari ancaman injeksi pelengkap tampilan web dieksekusi menuruti protokol pensterilan *Native PHP*. Implementasinya mengatur output *rendering* agar tidak terelakkan dan termanipulasi dari rujukan data, dikontrol total via restriksi bawaan fungsi fungsi peredam `htmlspecialchars()`. Fungsi preventif ini merekonstruksi *simbol inisisasi render tag* operasional HTML (*misal komando pelatuk kurung siku khusus seperti lambang ekssekusi `<` didegradasi merubah struktur pembacanya secara lugas mendapatinya layaknya tanda literal murni `&lt;`*) sehingganya mencegah sintaks siluman dibaca peladen browser di klien. 
+
+---
+
+### 4. Parameterisasi Evaluasi Basis Kueri (Pencegahan SQL Injection)
+Konsepsi pembobolan struktur SQL memfasilitasi campur tangan kelemahan terburuk skema sistem karena perintah sintaks manipulasi pangkalan data disisipkan melalui modifikasi pemalsuan entri transaksi layanan form eksternal, yang merusak struktur pembacaan tabel dan mengambil alih tata kendali *database*.
+
+Keseluruhan integrasi konektivitas relasi data MySQL pada arsitektur Web FIKOM mendasari transaksinya pada prinsip pembungkusan *Prepared Statements* (*Parameter Binding* fungsional melalui kover MySQLi). Melalui pengikatan variabel terpisah berlapis di sisi server peladen ini, prosedur pemisah mengevaluasi komando perintah deklarasi logika kueri sebelum rincian nilai parameternya mengintervensi program *query statement*. Oleh hal demikian, ancaman sintaks perintah nakal dibaca semata-mata sebagai rentetan parameter masukan alfanumerik biasa tanpa kapabilitas perombakan struktur basis tabel utamanya.
+
+---
+
+### 5. Validasi Pertukaran Token Data Rahasia (Session Security Authentication)
+Integrasi kerahasiaan kepemerintahan kendali internal aplikasi (*Dashboard / Admin Level*) diperumit skema proteksi pelacakan lalu-lintas izin berbasis pengelolaan siklus riwayat masuk (*Session Data Authentication*), di mana persinggungan level administrator hanya aktif semasa konfirmasi tiket verifikasi terawasi per tautan.
+
+Misalkan intervensi *path* paksa diaplikasikan menuju panel kendali URL (contohnya peramban diarahkan menyasar laman kontrol rahasia admin langsung `admin/index.php`), maka fungsi sekuritas terpusat *controller* pengawal pelacak akan memberlakukan verifikasi prasyarat status nilai *array SESSION login*. Nihilnya identitas pemegang kapabilitas penanda sesi tersebut, memicu otoritas mesin aplikasi menyita pendaftaran *browser session* seraya melabuhkannya dengan pemutusan paksa releransi dan mengalihkannya kembali menuju perutean beranda antarmuka publik *(URL Redirect)*.

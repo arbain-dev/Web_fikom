@@ -1,4 +1,4 @@
-# BAB V — SKEMA DATABASE & KAMUS DATA
+﻿# BAB V — SKEMA DATABASE & KAMUS DATA
 
 ## 5.1 Pengantar Relasi Antar Tabel
 Basis data (*database*) pada sub-sistem **Web FIKOM** menggunakan MySQL dan dikonfigurasi melalui pendekatan *loose-coupling*. Hal ini berimplikasi pada pertimbangan meminimalkan penegakan *Foreign Key constraint* fungsional di tingkat instansi basis data agar sistem bersifat lebih fleksibel. Pengelolaan relasi antar sub-entitas (sebagai contoh, relasi penyebutan identitas pelaksana pada jurnal penelitian merujuk pada referensi data sivitas instruktur dosen) diseimbangkan langsung secara manajerial di tingkat logika integrasi aplikasi PHP. Kebijakan skalabilitas ini mencegah terjadinya kegagalan berantai (*cascading anomalies*) jika salah satu entitas dikonfigurasi ulang secara independen.
@@ -158,7 +158,7 @@ Bagian ini mendedahkan taksonomi atau spesifikasi Kamus Data keseluruhan tabel (
 
 ### 1. Tabel: `bem_struktur` (Hierarki Badan Eksekutif Mahasiswa)
 Entitas ini menampung relasional informasi hierarki kelembagaan kemahasiswaan intra kampus.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Konfigurasi angka kunci utama pengindeks mesin otomatis. |
 | `nama` | Varchar | Menyimpan entri nama pengurus organisasi. |
@@ -170,7 +170,7 @@ Entitas ini menampung relasional informasi hierarki kelembagaan kemahasiswaan in
 
 ### 2. Tabel: `berita` (Lumbung Publikasi Informasi Laman)
 Tabel ini bertindak sebagai basis manajemen dokumen jurnalistik pada pelataran Web utama maupun UKM.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Indeks pendaftaran unik *Primary Key* berita mandiri. |
 | `judul` | Varchar | Judul/Tajuk utama dari pemberitaan yang didistribusikan sistem. |
@@ -184,7 +184,7 @@ Tabel ini bertindak sebagai basis manajemen dokumen jurnalistik pada pelataran W
 
 ### 3. Tabel: `dosen` (Pustaka Referensi Profil Pengajar)
 Pangkalan riwayat profil akademisi untuk elemen pendistribusian di ranah informasi direktori instruktur universitas.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Identifier unik sistem mesin. |
 | `nidn` | Varchar | Kredensial absensi Nomor Induk Dosen Nasional terpusat yang dijamin relasinya bersifat mutlak tak mereplika (*Unique*). |
@@ -199,7 +199,7 @@ Pangkalan riwayat profil akademisi untuk elemen pendistribusian di ranah informa
 
 ### 4. Tabel: `halaman_statis` (Repositori Laman Modifikasi *Custom HTML*)
 Mekanisme injeksi rute konten terisolasi guna memberikan utilitas kapabilitas perakitan layar mandiri khusus admin (*Custom Page Generator*).
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Modifikasi indeks komando halaman unik (*Primary Identifier*). |
 | `nama_halaman` | Varchar | Rujukan parameter tautan label identifikasi *endpoint* url tunggal statisnya. |
@@ -208,7 +208,7 @@ Mekanisme injeksi rute konten terisolasi guna memberikan utilitas kapabilitas pe
 
 ### 5. Tabel: `hero_slider` (Modul Presentasi *Carousel Banner*)
 Bilik pengaturan penyimpanan visual lebar pada pelataran promosi halaman utama (*Index UI*).
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Inisialisasi basis parameter susunan gerak rotasi putaran beranda mandiri. |
 | `gambar` | Varchar | Relasi direktori penyimpanan hasil pelampiran berkas wujud panorama ekstensinya. |
@@ -217,7 +217,7 @@ Bilik pengaturan penyimpanan visual lebar pada pelataran promosi halaman utama (
 
 ### 6. Tabel: `kalender_akademik` (Basis Rujukan Penjadwalan Institusi)
 Direktori pendataan rilis agenda ketatapan tahunan pengaderan kalender universitas.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Indeks alokasi identifikasi numerik (*Auto Increment*). |
 | `nama_kalender` | Varchar | Registrasi spesifikasi nama fungsional periodesasi rilis kalendernya. |
@@ -228,7 +228,7 @@ Direktori pendataan rilis agenda ketatapan tahunan pengaderan kalender universit
 
 ### 7. Tabel: `kerjasama` (Direktori Afiliasi Logo Mitra Industri)
 Tabel integrasi yang bertanggung jawab merekam representasi *badge* afiliasi pada segmen korsel (*Carousel Footer*) halaman depan aplikasi.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Parameter *Primary Key* susunan pendaftaran *array*. |
 | `nama_instansi` | Varchar | Penandaan eksak nama persekutuan/lembaga swasta *corporate* bersangkutan. |
@@ -239,7 +239,7 @@ Tabel integrasi yang bertanggung jawab merekam representasi *badge* afiliasi pad
 
 ### 8. Tabel: `kurikulum` (Dokumentasi Referensi Muatan Pengajaran)
 Entitas berkas rujukan penampung struktur *Course Delivery* akademis untuk diekspor bebas oleh mahasiswa.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Inisiasi penamaan unik dokumen referensi di database secara absolut otomatis. |
 | `nama_kurikulum` | Varchar | Label formal referensi rilis perundangan panduan spesifikasi muatan studinya. |
@@ -248,7 +248,7 @@ Entitas berkas rujukan penampung struktur *Course Delivery* akademis untuk dieks
 
 ### 9. Tabel: `laboratorium` (Katalogisasi Infrastruktur Praktikum)
 Tabel rekaman status manajemen penyajian daftar profil fasilitas inventaris ruangan sentra penunjang komputasi.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Kunci pendataan unik primer tata ruang. |
 | `nama_lab` | Varchar | Penanda lema identifikasi papan referensi laboratorium komputasi yang direpresentasikannya. |
@@ -257,7 +257,7 @@ Tabel rekaman status manajemen penyajian daftar profil fasilitas inventaris ruan
 
 ### 10. Tabel: `mahasiswa` (Kredensial Rekam Peserta Didik)
 Identifikasi keikutsertaan parameter pengguna dari latar entitas mahasiswa kampus.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Nomor kuadrat pendaftaran utilitas rekam basis primernya otomatis. |
 | `nama` | Varchar | Penyimpanan ejaan deklarasi absolut pembakuan wujud nyata identitas mahasiswanya. |
@@ -267,7 +267,7 @@ Identifikasi keikutsertaan parameter pengguna dari latar entitas mahasiswa kampu
 
 ### 11. Tabel: `pendaftaran` (Administrasi Penyelenggaraan Resepsi Peserta Mahasiswa Baru)
 Kompleks skema penyimpanan formularium pendataan masuk dan komputasi seleksi *input record* calon pendaftar yang mentransmisikan kredensial luar sistem ke internal layanan kontrol admin.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Identifikasi penempatan pemrosesan *queue* unik primer formulir kompilasi. |
 | `nama` | Varchar | Deklarasi entitas nama mutlak pengaju form persetujuan calon partisipator mahasiswa (*User String Input*). |
@@ -288,7 +288,7 @@ Kompleks skema penyimpanan formularium pendataan masuk dan komputasi seleksi *in
 
 ### 12. Tabel: `penelitian` (Database Integrasi Temuan Jurnal Akademik)
 Sentral fusi inventaris pengkatalogan rekam publikasi rilis ilmiah temuan kinerja departemen per rumpun.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Konstruksi basis inisiasi *Unique Auto Increment Identity*. |
 | `judul` | Varchar | Sintesis pokok tajuk karya manuskripsinya tercantum valid ke sistem. |
@@ -309,7 +309,7 @@ Sentral fusi inventaris pengkatalogan rekam publikasi rilis ilmiah temuan kinerj
 
 ### 13. Tabel: `pengabdian` (Arsip Validasi Kinerja Tanggungjawab Sosial Masyarakat Terpadu)
 Konfigurasi skema pengarsipan padanan turunan dokumentasi penggerakan bakti pengabdian fasilitator struktural civitas kepada lingkungan sipil non institusional.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Basis nomor indeks unik pengenal pencatatan fail. |
 | `judul` | Varchar | Tajuk program komando pemaparan kegiatannya terdaftar valid. |
@@ -320,7 +320,7 @@ Konfigurasi skema pengarsipan padanan turunan dokumentasi penggerakan bakti peng
 
 ### 14. Tabel: `rencana_operasional` (Katalogisasi Dokumentasi Renop Institusional Fakultas)
 Basis pangkalan registrasi pendistribusian manual ketatapan rancangan pedoman arah laju operasional administrasi fakultatif murni rujukan *Public Read-Only Format*.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Registrasi indikator hitungan komputasi mesin identitas susunannya berurut mutlak sekuensial tabel murni tak statis. |
 | `nama_dokumen` | Varchar | Pelabelan subjek berkas terekam spesifik identitas fungsional judul acuan ketetapannya. |
@@ -330,7 +330,7 @@ Basis pangkalan registrasi pendistribusian manual ketatapan rancangan pedoman ar
 
 ### 15. Tabel: `rencana_strategis` (Lumbung Rekam Fail Dokumentasi Klasifikasi Rancangan Pedoman Strategis Arah Visi Institusional - Renstra Jangka Panjang Terpadu)
 Rancang bangun struktur komputasi tabel skema berdasar identik arsitekturnya berkesinambungan mengadopsi tabel Renop, berfungsi spesifik melampirkan berkas perundangan Renstra fakultatif.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Konstruksi fondasi numerik pelabelan absensi mesin otomatis. |
 | `nama_dokumen` | Varchar | Pernyataan formal referensi klasifikasi dokumen pedoman Renstranya. |
@@ -340,7 +340,7 @@ Rancang bangun struktur komputasi tabel skema berdasar identik arsitekturnya ber
 
 ### 16. Tabel: `ruangan` (Manajemen Pengarsipan Visual Profil Sentra Inventaris Fasilitas Kelas Pembelajaran Fungsional Fisik Edukator)
 Modul utilitas pencantuman pemetaan tata gedung fasilitas dan daya dukung sarana operasional unit pembelajaran klasikal biasa ruangan berfokus paparan referensi presentasi UI Grid Foto.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Titik indeks baris primer penyusunan fail. |
 | `nama_ruangan` | Varchar | Identifikasi stempel parameter label penataan ruang fisik (*misal: R. Vicon 01, Kelas Lab Lt.1 dsb*). |
@@ -349,7 +349,7 @@ Modul utilitas pencantuman pemetaan tata gedung fasilitas dan daya dukung sarana
 
 ### 17. Tabel: `sop` (Lumbung Pengarsipan Koleksi Susunan Pedoman *Soft Copy* Aturan Formal Baku Fungsional Keamanan Prosedural Institusi Fakultas)
 Tabel *library depository* yang menterminasi penyimpanan basis data pangkalan khusus mengurai pedoman layanan Standardisasi Prosedur Operasional murni.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Pengendali *Increment Sequence* penataan nomor basis referensinya. |
 | `nama_sop` | Varchar | Deskripsi rujukan judul absolut muatan nama SOP tertulis resmi. |
@@ -359,7 +359,7 @@ Tabel *library depository* yang menterminasi penyimpanan basis data pangkalan kh
 
 ### 18. Tabel: `tabel_dosen` (Formulasi Komputasi Replika Penyederhanaan Modul Profil Sivitas untuk Efisiensi Penayangan Grid Antarmuka Dosen - *Simplified Cache Array Form*)
 Tabel tiruan penunjang arsitektur antarmuka guna pemangkasan pembebanan ukuran *bandwidth memory query transaksional* utama di peladen; didesain menyusutkan representasi komponen identitas krusial semata untuk render tampilan kartu matriks yang sangat ringkas meminimalisir intervensi akses kolom ekstensif tebal.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Pengindeks pengurutan baris *Secondary Mirror Render Model Array* pendataan utuh ini beroperasi fungsional mesin uniknya. |
 | `nidn` | Varchar | Pencantuman perakitan pengenal formal absensi kebangsaan akademis lektor (*Kredensial Absolut Mutlak Ter-Set sebagai Restriksi Unique Filter*) untuk rujukan identitas otentik dosen ybs diverifikasi. |
@@ -369,7 +369,7 @@ Tabel tiruan penunjang arsitektur antarmuka guna pemangkasan pembebanan ukuran *
 
 ### 19. Tabel: `tb_fakta` (Indikator Konfigurasi Komputasi Modul Generator Animasi Data Numerik Fakta Ketercapaian Fakltas Terpadu Dinamis pada Beranda UI *Front-End Counter Visualizer Element Engine Array*)
 Tabel operasional logis semata guna pangkalan injeksi konfigurasi setelan penamaan variabel angka untuk animasi perhitungan (*animated CSS/JS visual numerical loop counter*) penaksiran jumlah statistik murni sivitas/kampus terekstrak berpeluang diekstrak UI klien beranda utamanya persis mutlak.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Identifikasi modul deretan penempatan statistik. |
 | `judul` | Varchar | Takarir label nomenklatur pengkategorian subjek klaimnya (semisal *Dosen Pengajar Aktif*, *Sistem Lab Riset Terkini*, atau dsb wawasan subjek faktanya spesifik dikonfirmasi fungsionalitas nilainya). |
@@ -378,7 +378,7 @@ Tabel operasional logis semata guna pangkalan injeksi konfigurasi setelan penama
 
 ### 20. Tabel: `tentang_fikom` (Narasi Penjabaran Filosofis Kesejarahan & Pengukuhan Profil Peradaban Awal Mula Modul Berdirinya Institusional Kampus di Tampilan Presentasi Depan & Khusus Murni)
 Wadah entitas lumbung yang difungsikan menangkap pelaporan deskriptif manuskrip sejarah asal muasal dan deskripsi umum komponen identitas institusional fakultas terintegrasi teks fungsional naratif utuh dokumentasi logis.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Pencatatan rekam urut absensi blok penomeran unik tabel transaksinya. |
 | `judul` | Varchar | Deklarasi lema judul peruntukan spesifikasi konten bab (*Header Parameter String Variable Textual*). |
@@ -387,7 +387,7 @@ Wadah entitas lumbung yang difungsikan menangkap pelaporan deskriptif manuskrip 
 
 ### 21. Tabel: `users` (Hierarki Manajemen Pangkalan Otentikasi Administrator Pemegang Tampuk Akses Kendali Tertinggi Pengawalan Privilese Terotorisasi Kredensial *Dashboard Admin Pannel Backend Security Checkpoint Protocol Control Center System Level Root Base*)
 Sub-Sistem paling kritikal. Ini merupakan repositori absolut gerbang keamanan penjagaan pemrosesan sinkronasi otentikasi konfirmasi hak persetujuan *User Login Sessions* dan pemeriksaan kredensial sandi kriptografis valid murni sebelum fungsi perombakan sistem pada *Dashboard Admin* berhak dibebaskan restriksinya tereksekusi paripurna mutlak tertutup sistem privasi lokal.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Restriksi pangkalan indeks primer utama pengenal registrasi akun operasional pengendalinya. |
 | `username` | Varchar | Deklarasi kunci gembok verifikasi masukan identitas panggilan sapaan (*Unique Input Credential Name Constraint Rule Required*). |
@@ -401,7 +401,7 @@ Sub-Sistem paling kritikal. Ini merupakan repositori absolut gerbang keamanan pe
 
 ### 22. Tabel: `visi_misi` (Sentra Kompilasi Dokumentasi Ikrar Deklarasi Pedoman Cita-Cita Landasan Nilai Etis Strategis Kelembangan Pengembangan Operasional Tatanan Institusional Tujuan Fakultas Terstruktur pada Elemen Susur Layar)
 Modul utilitas pencantuman wadah integrasi khusus kompilasi pernyataan pilar nilai tujuan esensial visi dan spesifikasi rincian arahan pelaksana misi institusional dirangkum tabel mutlak direpresentasikan presentasi berjenjang berurutan tata urut logis pangkalan layar publik klien.
-| Nama Atribut Kolom | Jenis Variabel | Fungsionalitas Deskriptif |
+| Nama Atribut Kolom | Jenis Variabel | Keterangan |
 |---|---|---|
 | `id` | Integer | Penomeran presisi pendataan otomatis tabel relasinya dikonfirmasi mutlak absah urutan sekuensial primernya mesin lumbung statis ini murni bekerja utuh sempurna absolut presisi tanpa hambatan validator sistem. |
 | `kategori` | Varchar | Restriksi parameter pemisahan segmentasi muatan *section separator constraint parameter* yang ditujukan murni penampungan klasterisasi (*Pengakuan Visi Primer / Sub-Point Misi Strategis*). |

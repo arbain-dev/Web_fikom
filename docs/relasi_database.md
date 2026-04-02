@@ -14,26 +14,35 @@ erDiagram
         varchar password
         varchar email
         varchar role
+        varchar foto
+        datetime token_expiry
     }
 
     dosen {
         int id PK
-        varchar nidn "Unik"
+        varchar nidn
         varchar nama
         varchar program_studi
+        varchar keahlian
+        varchar pendidikan
+        varchar jabatan
+        varchar email
     }
 
     penelitian {
         int id PK
         varchar judul
-        varchar peneliti "Ref: Dosen"
+        varchar peneliti FK
         int tahun
+        varchar sumber_dana
+        varchar status
     }
 
     pengabdian {
         int id PK
         varchar judul
-        varchar pelaksana "Ref: Dosen"
+        varchar pelaksana FK
+        text deskripsi
         date tanggal_kegiatan
     }
 
@@ -42,35 +51,48 @@ erDiagram
         varchar nik
         varchar nama
         varchar prodi
-        enum status "Pending/Diterima/Ditolak"
+        varchar jalur
+        enum status
+        timestamp created_at
     }
 
     berita {
         int id PK
         varchar judul
         varchar kategori
+        text konten
+        varchar foto
         datetime tanggal_publish
     }
 
     mahasiswa {
         int id PK
-        varchar nim "Unik"
+        varchar nim
         varchar nama
         varchar prodi
+        int angkatan
     }
 
     bem_struktur {
         int id PK
-        varchar nama "Ref: Mahasiswa"
+        varchar nama FK
         varchar jabatan
         varchar prodi
+        enum kategori
     }
 
-    %% Relasi Logis Berdasarkan Kolom Data
-    dosen ||--o{ penelitian : "melaksanakan (via peneliti)"
-    dosen ||--o{ pengabdian : "melaksanakan (via pelaksana)"
+    %% Relasi Logis Berpusat Pada Admin Mensimulasikan Manajemen Sistem
+    users ||--o{ berita : "mengelola"
+    users ||--o{ dosen : "mengelola"
+    users ||--o{ mahasiswa : "mengelola"
+    users ||--o{ pendaftaran : "memverifikasi"
+    users ||--o{ penelitian : "memantau"
+    users ||--o{ pengabdian : "mendata"
+
+    dosen ||--o{ penelitian : "melaksanakan"
+    dosen ||--o{ pengabdian : "melaksanakan"
     
-    mahasiswa ||--o{ bem_struktur : "menjabat di (via nama)"
+    mahasiswa ||--o{ bem_struktur : "menjabat_di"
 ```
 
 ## 2. Penjelasan Per Modul

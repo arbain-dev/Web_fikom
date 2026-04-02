@@ -3,49 +3,95 @@
 ## 5.1 Pengantar Relasi Antar Tabel
 Basis data (*database*) pada sub-sistem **Web FIKOM** menggunakan MySQL dan dikonfigurasi melalui pendekatan *loose-coupling*. Hal ini berimplikasi pada pertimbangan meminimalkan penegakan *Foreign Key constraint* fungsional di tingkat instansi basis data agar sistem bersifat lebih fleksibel. Pengelolaan relasi antar sub-entitas (sebagai contoh, relasi penyebutan identitas pelaksana pada jurnal penelitian merujuk pada referensi data sivitas instruktur dosen) diseimbangkan langsung secara manajerial di tingkat logika integrasi aplikasi PHP. Kebijakan skalabilitas ini mencegah terjadinya kegagalan berantai (*cascading anomalies*) jika salah satu entitas dikonfigurasi ulang secara independen.
 
-Berikut merupakan pemodelan logis bentuk *Entity Relationship Diagram* (ERD) yang merepresentasikan relasi konseptual aktual antar entitas di dalam rancangan basis datanya (pola konektivitas bertumpu pada rujukan kolom data referensial).
+Berikut merupakan pemodelan logis bentuk *Entity Relationship Diagram* (ERD) yang memetakan pola struktur relasional. Menyesuaikan dengan standar desain sistem, peran administrator (tabel `users`) memegang kendali atas manajemen operasional tabel pendukung lainnya.
 
 ```mermaid
 erDiagram
     users {
-        int id PK "Identifikasi Utama"
-        varchar username "Kredensial Username"
-        varchar role "Kapasitas Hak Akses"
+        int id PK
+        varchar username
+        varchar password
+        varchar email
+        varchar role
+        varchar foto
+        datetime token_expiry
     }
 
     dosen {
-        int id PK "Identifikasi Unik"
-        varchar nidn "NIDN Registrasi"
-        varchar nama "Identitas Riil"
+        int id PK
+        varchar nidn
+        varchar nama
+        varchar program_studi
+        varchar keahlian
+        varchar pendidikan
+        varchar jabatan
+        varchar email
     }
 
     penelitian {
         int id PK
-        varchar judul "Tajuk Kajian Observasi"
-        varchar peneliti "FK Logis: Dosen"
+        varchar judul
+        varchar peneliti FK
+        int tahun
+        varchar sumber_dana
+        varchar status
     }
 
     pengabdian {
         int id PK
-        varchar judul "Program Aktualisasi"
-        varchar pelaksana "FK Logis: Dosen"
+        varchar judul
+        varchar pelaksana FK
+        text deskripsi
+        date tanggal_kegiatan
     }
 
     pendaftaran {
         int id PK
-        varchar nama "Nama Pendaftar"
-        enum status "Status Seleksi"
+        varchar nik
+        varchar nama
+        varchar prodi
+        varchar jalur
+        enum status
+        timestamp created_at
     }
 
     berita {
         int id PK
-        varchar judul "Label Informasi"
-        datetime tanggal_publish "Waktu Publikasi"
+        varchar judul
+        varchar kategori
+        text konten
+        varchar foto
+        datetime tanggal_publish
     }
 
-    %% Relasi Aktual Berdasarkan Kolom Database
-    dosen ||--o{ penelitian : "Terlibat (via peneliti)"
-    dosen ||--o{ pengabdian : "Terlibat (via pelaksana)"
+    mahasiswa {
+        int id PK
+        varchar nim
+        varchar nama
+        varchar prodi
+        int angkatan
+    }
+
+    bem_struktur {
+        int id PK
+        varchar nama FK
+        varchar jabatan
+        varchar prodi
+        enum kategori
+    }
+
+    %% Relasi Logis 
+    users ||--o{ berita : "mengelola"
+    users ||--o{ dosen : "mengelola"
+    users ||--o{ mahasiswa : "mengelola"
+    users ||--o{ pendaftaran : "memverifikasi"
+    users ||--o{ penelitian : "memantau"
+    users ||--o{ pengabdian : "mendata"
+
+    dosen ||--o{ penelitian : "melaksanakan"
+    dosen ||--o{ pengabdian : "melaksanakan"
+    
+    mahasiswa ||--o{ bem_struktur : "menjabat_di"
 ```
 
 ---

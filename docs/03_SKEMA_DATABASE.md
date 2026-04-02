@@ -3,14 +3,13 @@
 ## 5.1 Pengantar Relasi Antar Tabel
 Basis data (*database*) pada sub-sistem **Web FIKOM** menggunakan MySQL dan dikonfigurasi melalui pendekatan *loose-coupling*. Hal ini berimplikasi pada pertimbangan meminimalkan penegakan *Foreign Key constraint* fungsional di tingkat instansi basis data agar sistem bersifat lebih fleksibel. Pengelolaan relasi antar sub-entitas (sebagai contoh, relasi penyebutan identitas pelaksana pada jurnal penelitian merujuk pada referensi data sivitas instruktur dosen) diseimbangkan langsung secara manajerial di tingkat logika integrasi aplikasi PHP. Kebijakan skalabilitas ini mencegah terjadinya kegagalan berantai (*cascading anomalies*) jika salah satu entitas dikonfigurasi ulang secara independen.
 
-Berikut merupakan pemodelan logis bentuk *Entity Relationship Diagram* (ERD) yang menginterpretasikan pola konektivitas administrator sistem `users` mengelola manipulasi tabel fungsionaris maupun operasional.
+Berikut merupakan pemodelan logis bentuk *Entity Relationship Diagram* (ERD) yang merepresentasikan relasi konseptual aktual antar entitas di dalam rancangan basis datanya (pola konektivitas bertumpu pada rujukan kolom data referensial).
 
 ```mermaid
 erDiagram
     users {
         int id PK "Identifikasi Utama"
         varchar username "Kredensial Username"
-        varchar password "Deret Hash Sandi"
         varchar role "Kapasitas Hak Akses"
     }
 
@@ -23,36 +22,30 @@ erDiagram
     penelitian {
         int id PK
         varchar judul "Tajuk Kajian Observasi"
-        varchar peneliti "Delegasi Akademik"
+        varchar peneliti "FK Logis: Dosen"
     }
 
     pengabdian {
         int id PK
         varchar judul "Program Aktualisasi"
-        varchar pelaksana "Aktor Delegasi"
+        varchar pelaksana "FK Logis: Dosen"
     }
 
     pendaftaran {
         int id PK
-        varchar nama "Parameter Pendaftar"
+        varchar nama "Nama Pendaftar"
         enum status "Status Seleksi"
     }
 
     berita {
         int id PK
         varchar judul "Label Informasi"
-        datetime tanggal "Ketetapan Waktu Riwayat"
+        datetime tanggal_publish "Waktu Publikasi"
     }
 
-    %% Relasi Sinkronisasi Logis
-    users ||--o{ berita : Manajemen Konten
-    users ||--o{ dosen : Administrasi Arsip Fungsional
-    users ||--o{ penelitian : Pemantauan Evaluasi Riset
-    users ||--o{ pengabdian : Dokumentasi Laporan Kinerja
-    users ||--o{ pendaftaran : Otorisasi Seleksi Validasi
-    
-    dosen ||--o{ penelitian : Rujukan Ekstensif Pelaksana
-    dosen ||--o{ pengabdian : Rujukan Representasi Aktor
+    %% Relasi Aktual Berdasarkan Kolom Database
+    dosen ||--o{ penelitian : "Terlibat (via peneliti)"
+    dosen ||--o{ pengabdian : "Terlibat (via pelaksana)"
 ```
 
 ---

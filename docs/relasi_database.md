@@ -66,18 +66,11 @@ erDiagram
         varchar prodi
     }
 
-    %% Relasi Logis
-    users ||--o{ berita : "mengelola"
-    users ||--o{ dosen : "mengelola"
-    users ||--o{ penelitian : "mengelola"
-    users ||--o{ pengabdian : "mengelola"
-    users ||--o{ pendaftaran : "verifikasi"
-    users ||--o{ mahasiswa : "mengelola"
+    %% Relasi Logis Berdasarkan Kolom Data
+    dosen ||--o{ penelitian : "melaksanakan (via peneliti)"
+    dosen ||--o{ pengabdian : "melaksanakan (via pelaksana)"
     
-    dosen ||--o{ penelitian : "melaksanakan"
-    dosen ||--o{ pengabdian : "melaksanakan"
-    
-    mahasiswa ||--o{ bem_struktur : "menjabat di"
+    mahasiswa ||--o{ bem_struktur : "menjabat di (via nama)"
 ```
 
 ## 2. Penjelasan Per Modul

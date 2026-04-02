@@ -149,10 +149,15 @@ erDiagram
     users ||--o{ tb_fakta : "mengelola"
     users ||--o{ tentang_fikom : "mengelola"
     users ||--o{ visi_misi : "mengelola"
+    users ||--o{ bem_struktur : "mengelola"
 
+    %% Relasi Antar Sub-Entitas
     dosen ||--o{ penelitian : "melaksanakan"
     dosen ||--o{ pengabdian : "melaksanakan"
+    dosen ||--o| tabel_dosen : "replikasi_data"
     mahasiswa ||--o{ bem_struktur : "menjabat_di"
+    pendaftaran ||--o| mahasiswa : "ditetapkan_menjadi"
+    ruangan ||--o| laboratorium : "dikategorikan_sbg"
 ```
 
 ## 2. Penjelasan Per Modul

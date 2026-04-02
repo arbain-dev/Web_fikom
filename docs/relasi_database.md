@@ -12,86 +12,146 @@ erDiagram
         int id PK
         varchar username
         varchar password
-        varchar email
         varchar role
-        varchar foto
-        datetime token_expiry
     }
-
     dosen {
         int id PK
         varchar nidn
         varchar nama
         varchar program_studi
-        varchar keahlian
-        varchar pendidikan
-        varchar jabatan
-        varchar email
     }
-
     penelitian {
         int id PK
         varchar judul
         varchar peneliti FK
         int tahun
-        varchar sumber_dana
-        varchar status
     }
-
     pengabdian {
         int id PK
         varchar judul
         varchar pelaksana FK
-        text deskripsi
         date tanggal_kegiatan
     }
-
     pendaftaran {
         int id PK
         varchar nik
         varchar nama
         varchar prodi
-        varchar jalur
         enum status
-        timestamp created_at
     }
-
     berita {
         int id PK
         varchar judul
         varchar kategori
-        text konten
-        varchar foto
         datetime tanggal_publish
     }
-
     mahasiswa {
         int id PK
         varchar nim
         varchar nama
         varchar prodi
-        int angkatan
     }
-
     bem_struktur {
         int id PK
         varchar nama FK
         varchar jabatan
-        varchar prodi
         enum kategori
     }
+    halaman_statis {
+        int id PK
+        varchar nama_halaman
+        varchar gambar_path
+    }
+    hero_slider {
+        int id PK
+        varchar gambar
+        tinyint is_active
+    }
+    kalender_akademik {
+        int id PK
+        varchar nama_kalender
+        varchar tahun_akademik
+    }
+    kerjasama {
+        int id PK
+        varchar nama_instansi
+        varchar link_website
+    }
+    kurikulum {
+        int id PK
+        varchar nama_kurikulum
+        varchar file_pdf
+    }
+    laboratorium {
+        int id PK
+        varchar nama_lab
+        varchar foto
+    }
+    rencana_operasional {
+        int id PK
+        varchar nama_dokumen
+        varchar file_pdf
+    }
+    rencana_strategis {
+        int id PK
+        varchar nama_dokumen
+        varchar file_pdf
+    }
+    ruangan {
+        int id PK
+        varchar nama_ruangan
+        varchar foto
+    }
+    sop {
+        int id PK
+        varchar nama_sop
+        varchar file_pdf
+    }
+    tabel_dosen {
+        int id PK
+        varchar nidn
+        varchar nama_dosen
+    }
+    tb_fakta {
+        int id PK
+        varchar judul
+        int angka
+    }
+    tentang_fikom {
+        int id PK
+        varchar judul
+        varchar gambar
+    }
+    visi_misi {
+        int id PK
+        varchar kategori
+        text konten
+    }
 
-    %% Relasi Logis Berpusat Pada Admin Mensimulasikan Manajemen Sistem
+    %% Relasi Logis Berpusat (Admin-Centric Connectivity)
     users ||--o{ berita : "mengelola"
     users ||--o{ dosen : "mengelola"
     users ||--o{ mahasiswa : "mengelola"
     users ||--o{ pendaftaran : "memverifikasi"
     users ||--o{ penelitian : "memantau"
     users ||--o{ pengabdian : "mendata"
+    users ||--o{ halaman_statis : "mengelola"
+    users ||--o{ hero_slider : "mengatur"
+    users ||--o{ kalender_akademik : "mengelola"
+    users ||--o{ kerjasama : "mengelola"
+    users ||--o{ kurikulum : "mengelola"
+    users ||--o{ laboratorium : "mengelola"
+    users ||--o{ rencana_operasional : "mengelola"
+    users ||--o{ rencana_strategis : "mengelola"
+    users ||--o{ ruangan : "mengelola"
+    users ||--o{ sop : "mengelola"
+    users ||--o{ tabel_dosen : "sinkronisasi"
+    users ||--o{ tb_fakta : "mengelola"
+    users ||--o{ tentang_fikom : "mengelola"
+    users ||--o{ visi_misi : "mengelola"
 
     dosen ||--o{ penelitian : "melaksanakan"
     dosen ||--o{ pengabdian : "melaksanakan"
-    
     mahasiswa ||--o{ bem_struktur : "menjabat_di"
 ```
 

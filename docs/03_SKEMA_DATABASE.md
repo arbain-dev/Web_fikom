@@ -44,12 +44,6 @@ erDiagram
         varchar kategori
         datetime tanggal_publish
     }
-    mahasiswa {
-        int id PK
-        varchar nim
-        varchar nama
-        varchar prodi
-    }
     bem_struktur {
         int id PK
         varchar nama FK
@@ -130,7 +124,6 @@ erDiagram
     %% Relasi Logis Berpusat (Admin-Centric Connectivity)
     users ||--o{ berita : "mengelola"
     users ||--o{ dosen : "mengelola"
-    users ||--o{ mahasiswa : "mengelola"
     users ||--o{ pendaftaran : "memverifikasi"
     users ||--o{ penelitian : "memantau"
     users ||--o{ pengabdian : "mendata"
@@ -154,8 +147,6 @@ erDiagram
     dosen ||--o{ penelitian : "melaksanakan"
     dosen ||--o{ pengabdian : "melaksanakan"
     dosen ||--o| tabel_dosen : "replikasi_data"
-    mahasiswa ||--o{ bem_struktur : "menjabat_di"
-    pendaftaran ||--o| mahasiswa : "ditetapkan_menjadi"
     ruangan ||--o| laboratorium : "dikategorikan_sbg"
 ```
 

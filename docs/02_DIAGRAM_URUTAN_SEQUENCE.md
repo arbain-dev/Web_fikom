@@ -6,7 +6,6 @@ Bagian ini mendeskripsikan secara teknis dan formal urutan pengiriman pesan anta
 Bagian ini memvisualisasikan interaksi yang terjadi saat antarmuka publik atau pengunjung berinteraksi dengan sistem peladen.
 
 ### 2.1.1 Sequence Diagram: Halaman Utama
-Proses pada Halaman Utama dimulai ketika pengguna membuka halaman beranda melalui peramban web. Antarmuka Layar menerima permintaan tersebut dan meneruskannya ke Sistem Pengendali. Sistem Pengendali kemudian mengirimkan beberapa permintaan data sekaligus ke Pangkalan Data, yaitu meminta data *Slider* banner, data berita terbaru, data fakta fakultas, deskripsi tentang fakultas, serta data mitra kerja sama. Pangkalan Data memberikan seluruh data yang diminta kembali ke Sistem Pengendali. Setelah semua data terkumpul, Sistem Pengendali menggabungkan dan menyusun data-data tersebut menjadi satu tampilan halaman web yang utuh, lalu mengirimkannya ke Antarmuka Layar untuk ditampilkan kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -30,10 +29,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Data Di Halaman Home
 ```
 
+Gambar 2.1.1 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Utama. Sistem melakukan query ke database untuk mendapatkan semua data utama, slider, berita terbaru. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.2 Sequence Diagram: Halaman Data Civitas Akademika
-Proses dimulai ketika pengguna mengklik menu atau mengakses langsung halaman Data Civitas Akademika. Antarmuka Layar menerima permintaan tersebut dan meneruskannya ke Sistem Pengendali dengan meminta susunan data civitas. Sistem Pengendali kemudian mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan himpunan rekaman data civitas yang mencakup informasi dosen dan staf kependidikan. Setelah data diterima, Sistem Pengendali menggabungkan dan menyusun data tersebut menjadi tampilan web yang utuh, kemudian mengirimkannya ke Antarmuka Layar untuk ditampilkan secara lengkap kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -54,10 +54,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Data Civitas utuh
 ```
 
+Gambar 2.1.2 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Civitas Akademika. Sistem melakukan query ke database untuk mendapatkan data civitas, database-->>backend: mengembalikan himpunan rekaman data civitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.3 Sequence Diagram: Halaman Struktur Organisasi
-Proses dimulai ketika pengguna mengklik menu atau mengakses halaman Struktur Organisasi. Antarmuka Layar meneruskan permintaan tersebut ke Sistem Pengendali untuk meminta bagan struktur organisasi. Sistem Pengendali kemudian mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data teks struktur organisasi, termasuk susunan hierarki jabatan dan nama-nama pimpinan yang terdaftar. Setelah data diterima, Sistem Pengendali menggabungkan dan menyusunnya menjadi tampilan halaman web yang siap ditampilkan, lalu Antarmuka Layar menayangkan halaman Struktur Organisasi tersebut kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -78,10 +79,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Struktur Organisasi
 ```
 
+Gambar 2.1.3 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Struktur Organisasi. Sistem melakukan query ke database untuk mendapatkan bagan struktur organisasi, database-->>backend: mengembalikan teks data struktur organisasi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.4 Sequence Diagram: Halaman Tentang Fakultas
-Proses dimulai ketika pengguna mengklik menu atau mengakses halaman Tentang Fakultas. Antarmuka Layar meneruskan permintaan tersebut ke Sistem Pengendali untuk meminta rincian narasi profil fakultas. Sistem Pengendali kemudian mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan teks deskripsi fakultas yang mencakup sejarah singkat, gambaran umum, dan informasi profil yang relevan. Setelah data diterima, Sistem Pengendali menyusun data tersebut menjadi tampilan web yang siap saji, kemudian Antarmuka Layar menampilkan halaman Tentang Fakultas secara lengkap kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -102,10 +104,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Tentang Fakultas
 ```
 
+Gambar 2.1.4 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Tentang Fakultas. Sistem melakukan query ke database untuk mendapatkan narasi profil fakultas, database-->>backend: mengembalikan teks deskripsi fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.5 Sequence Diagram: Halaman Visi dan Misi
-Proses dimulai ketika pengguna mengklik menu atau mengakses halaman Visi dan Misi. Antarmuka Layar meneruskan permintaan tersebut ke Sistem Pengendali untuk meminta susunan teks visi dan misi. Sistem Pengendali kemudian mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan naskah penjabaran visi dan misi yang tersimpan, mencakup pernyataan visi serta butir-butir misi yang berlaku. Setelah menerima data tersebut, Sistem Pengendali menyusunnya menjadi tampilan halaman web yang siap ditampilkan, dan Antarmuka Layar kemudian menayangkan halaman Visi dan Misi secara lengkap kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -126,10 +129,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Visi & Misi
 ```
 
+Gambar 2.1.5 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Visi dan Misi. Sistem melakukan query ke database untuk mendapatkan teks visi misi, database-->>backend: mengembalikan naskah penjabaran visi misi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.6 Sequence Diagram: Halaman Profil Dosen
-Proses dimulai ketika pengguna mengklik menu Profil Dosen. Antarmuka Layar meneruskan permintaan tersebut ke Sistem Pengendali untuk meminta rincian direktori riwayat dosen. Sistem Pengendali kemudian mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data profil setiap dosen yang meliputi nama, NIDN, jabatan fungsional, serta referensi foto profil. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan web yang siap ditampilkan, kemudian Antarmuka Layar menayangkan halaman Profil Dosen dalam tampilan kartu grid yang rapi kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -149,10 +153,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Grid Kartu Profil Para Dosen
 ```
 
+Gambar 2.1.6 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Dosen. Sistem melakukan query ke database untuk mendapatkan direktori riwayat dosen, database-->>backend: mengembalikan profil nama, nidn, jabatan, foto internal. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.7 Sequence Diagram: Halaman Pendaftaran Mahasiswa Baru
-Proses dimulai ketika calon pendaftar mengisi formulir pendaftaran dan melampirkan berkas seperti KTP atau ijazah, kemudian menekan tombol "Kirim Pendaftaran". Antarmuka Layar meneruskan seluruh data formulir dan berkas lampiran tersebut ke Sistem Pengendali. Sistem Pengendali kemudian memeriksa dan menyimpan berkas fisik secara lokal di server. Apabila berkas yang diunggah valid sesuai syarat sistem, Sistem Pengendali mengirimkan perintah penyimpanan data pendaftar ke Pangkalan Data. Pangkalan Data mengkonfirmasi bahwa data berhasil tersimpan, dan Sistem Pengendali mengarahkan tampilan kembali ke notifikasi sukses yang memberitahukan pengguna bahwa pendaftaran sedang menunggu verifikasi admin. Sebaliknya, apabila sistem mendeteksi berkas yang tidak valid atau tipe file yang tidak sesuai, Sistem Pengendali menolak proses dan mengirimkan pesan peringatan kepada pengguna agar memperbaiki dokumen yang diunggah.
 
 ```mermaid
 sequenceDiagram
@@ -178,10 +183,11 @@ sequenceDiagram
     end
 ```
 
+Gambar 2.1.7 di atas menjelaskan alur interaksi saat Calon Pendaftar mendaftar melalui Halaman Pendaftaran Mahasiswa Baru. Sistem memproses formulir pendaftaran dan validasi berkas fisik, menyimpannya secara aman di server, dan mencatat rekamannya ke dalam database. Informasi balasan status kemudian dikirimkan kembali ke tampilan (View) sebagai notifikasi informatif bagi Calon Pendaftar.
+
 ---
 
 ### 2.1.8 Sequence Diagram: Halaman Program Studi TI (Teknik Informatika)
-Proses dimulai ketika pengguna mengakses halaman profil Program Studi Teknik Informatika. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta perincian data keilmuan Prodi TI. Sistem Pengendali kemudian mengirimkan tiga permintaan data secara spesifik ke Pangkalan Data, yaitu meminta ringkasan profil Teknik Informatika, daftar kepengurusan atau perwakilan prodi TI, dan daftar kurikulum yang berlaku. Setelah seluruh data diterima, Sistem Pengendali menggabungkan dan menyusunnya menjadi tampilan halaman Prodi TI yang lengkap, kemudian Antarmuka Layar menampilkan halaman tersebut secara utuh kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -202,10 +208,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Antarmuka Penjabaran Prodi TI utuh
 ```
 
+Gambar 2.1.8 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Program Studi TI (Teknik Informatika). Sistem melakukan query ke database untuk mendapatkan perincian paket data keilmuan prodi ti, ringkasan profil teknik informatika, perwakilan jajaran kepengurusan ti. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.9 Sequence Diagram: Halaman Program Studi PTI (Pendidikan Teknologi Informasi)
-Proses ini berjalan dengan pola yang sama seperti halaman Prodi TI, namun dengan data yang spesifik untuk Program Studi Pendidikan Teknologi Informasi (PTI). Alur dimulai ketika pengguna mengakses halaman profil Prodi PTI. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta data keilmuan Prodi PTI. Sistem Pengendali mengirimkan tiga permintaan ke Pangkalan Data secara terpisah, yaitu meminta ringkasan profil PTI, daftar pengurus PTI, dan daftar kurikulum silabus PTI. Setelah semua data diterima, Sistem Pengendali menyusunnya menjadi tampilan halaman Prodi PTI yang lengkap dan mengirimkannya ke Antarmuka Layar untuk ditampilkan kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -226,10 +233,11 @@ sequenceDiagram
     Frontend-->>User: Sajikan Pesona Layar Profil utuh Prodi Pend. Teknologi Informasi
 ```
 
+Gambar 2.1.9 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Program Studi PTI (Pendidikan Teknologi Informasi). Sistem melakukan query ke database untuk mendapatkan perincian paket data keilmuan prodi pti, tunggal ringkasan profil entri wilayah pti, senarai pengurus eksklusif afiliasi pti. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.10 Sequence Diagram: Halaman Fasilitas Ruangan
-Proses dimulai ketika pengguna ingin melihat sarana fasilitas ruangan yang tersedia di kampus. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta rincian inventaris daftar ruangan. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data semua ruangan yang mencakup nama ruangan, deskripsi, kapasitas, dan referensi foto. Setelah data diterima, Sistem Pengendali menyusun data tersebut menjadi tampilan web yang informatif, kemudian Antarmuka Layar menampilkan galeri fasilitas ruangan kelas kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -249,10 +257,11 @@ sequenceDiagram
     Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruang Kelas ke Pandangan
 ```
 
+Gambar 2.1.10 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Ruangan. Sistem melakukan query ke database untuk mendapatkan inventaris aset daftar ruangan, database-->>backend: serahkan susunan rekaman prasarana fisik kampus. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.11 Sequence Diagram: Halaman Fasilitas Laboratorium
-Proses dimulai ketika pengguna mengunjungi halaman Laboratorium. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta informasi fasilitas laboratorium. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data laboratorium yang mencakup nama setiap lab, daftar inventaris peralatan, serta koleksi foto fasilitas. Setelah menerima data tersebut, Sistem Pengendali menyusunnya menjadi tampilan web fasilitas laboratorium yang lengkap, lalu Antarmuka Layar menampilkan etalase galeri mesin dan fasilitas Laboratorium Komputer kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -272,10 +281,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Etalase Galeri Mesin Laboratorium Komputer Terpadu
 ```
 
+Gambar 2.1.11 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Laboratorium. Sistem melakukan query ke database untuk mendapatkan fasilitas mesin internal laboratorium, database-->>backend: kembalikan nama profil lab, inventaris, beserta daftar koleksinya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.12 Sequence Diagram: Halaman Kalender Akademik
-Proses dimulai ketika pengguna mengakses halaman Kalender Akademik. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta data kalender akademik terkini. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang mencakup nama semester dan tautan atau foto ilustrasi kalender akademik. Setelah menerima data tersebut, Sistem Pengendali menyusunnya menjadi tampilan halaman kalender yang rapi, kemudian Antarmuka Layar menampilkan susunan Kalender Akademik Fakultas kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -295,10 +305,11 @@ sequenceDiagram
     Frontend-->>User: Sajikan Tampilan utuh Susunan Kalender Akademik Fakultas
 ```
 
+Gambar 2.1.12 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Kalender Akademik. Sistem melakukan query ke database untuk mendapatkan database-->>backend: mengembalikan teks desklumat serta tautan ilustrasi grafis kalender. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.13 Sequence Diagram: Halaman Dokumen Kurikulum
-Proses dimulai ketika pengguna membuka halaman Dokumen Kurikulum. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta sajian materi referensi berkas silabus dan kurikulum. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang memuat judul-judul dokumen kurikulum beserta tautan unduhan berkas dalam format PDF atau DOC. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan etalase kurikulum yang informatif, kemudian Antarmuka Layar menampilkan daftar pengunduhan kurikulum kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -318,10 +329,11 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Daftar Pengunduhan Tata Aturan Kurikulum 
 ```
 
+Gambar 2.1.13 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Kurikulum. Sistem melakukan query ke database untuk mendapatkan sajian materi referensi berkas silabus, database-->>backend: kembalikan tajuk naskah & tautan unduhan file pdf/doc. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.14 Sequence Diagram: Halaman Dokumen Fakultas
-Proses dimulai ketika pengguna membuka halaman Dokumen Fakultas untuk menelusuri arsip-arsip dokumen yang tersedia untuk publik. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk memuat ulang daftar dokumen. Sistem Pengendali mengirimkan perintah ke Pangkalan Data untuk mengambil seluruh daftar nama dokumen beserta lokasi tautan unduhan berkas fisiknya. Setelah Pangkalan Data mengembalikan data tersebut, Sistem Pengendali menyusunnya menjadi tampilan tabel pengunduhan yang rapi, dan Antarmuka Layar menampilkan daftar arsip dokumen kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -341,10 +353,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Arsip Hukum Publik secara utuh
 ```
 
+Gambar 2.1.14 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Fakultas. Sistem melakukan query ke database untuk mendapatkan muat ulang wujud dokumen ketatapan publik, database-->>backend: serahkan susunan pemetaan letak tautan fail penyimpanan dokumen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.15 Sequence Diagram: Halaman Rencana Strategis (Renstra)
-Proses dimulai ketika pengguna mengklik menu halaman Rencana Strategis (Renstra). Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk memuat laporan Renstra Fakultas. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang berisi deskripsi paragraf wawasan strategis beserta tautan akses berkas dokumen Renstra. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan halaman Rencana Strategis yang siap dibaca, kemudian Antarmuka Layar menampilkan informasi acuan strategis fakultas secara lengkap kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -364,10 +377,11 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Antarmuka utuh Informasi Acuan Strategis Fakultas
 ```
 
+Gambar 2.1.15 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Rencana Strategis (Renstra). Sistem melakukan query ke database untuk mendapatkan database-->>backend: serahkan deskripsi paragraf wawasan serta link akses berkas dokumen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.16 Sequence Diagram: Halaman Standar Operasional Prosedur (SOP)
-Proses dimulai ketika pengguna membuka direktori halaman SOP (Standar Operasional Prosedur) Fakultas. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk memuat daftar SOP. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang berisi nama-nama dokumen SOP beserta tautan lokasi berkas unduhan masing-masing. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan halaman daftar SOP, kemudian Antarmuka Layar menampilkan tabel unduhan arsip operasional kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -387,10 +401,11 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Layar Tabel Unduhan Arsip Operasional Ke Ruang Pandang
 ```
 
+Gambar 2.1.16 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Standar Operasional Prosedur (SOP). Sistem melakukan query ke database untuk mendapatkan sajian susunan urutan kepatuhan aturan sop, database-->>backend: mengembalikan wujud nama instruktur layanan serta tautannya ke layar. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.17 Sequence Diagram: Halaman Data Penelitian
-Proses dimulai ketika pengguna mengakses halaman Data Penelitian untuk menelusuri karya riset civitas akademika. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta daftar riwayat penelitian. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang memuat judul setiap penelitian, abstrak singkat, serta tautan ke sumber jurnal atau dokumen aslinya. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan daftar artikel penelitian, kemudian Antarmuka Layar menampilkan kompilasi karya keilmuan para peneliti kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -410,10 +425,11 @@ sequenceDiagram
     Frontend-->>User: Sajikan Daftar Artikel Riwayat Keilmuan Para Peneliti ke Hadapan Pengunjung
 ```
 
+Gambar 2.1.17 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Penelitian. Sistem melakukan query ke database untuk mendapatkan daftar kumpulan pelacakan riwayat aktivitas penelitian sivitas, database-->>backend: membalas kembalian pemaparan tajuk abstrak judul jurnal dan tautannya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.18 Sequence Diagram: Halaman Data Pengabdian Masyarakat
-Proses dimulai ketika pengguna mengakses halaman Data Pengabdian Masyarakat. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk memuat dokumentasi rekaman aktivitas sosial pengabdian. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang berisi deskripsi singkat setiap kegiatan pengabdian serta tautan ke berkas laporan dokumentasinya. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan album karya pengabdian masyarakat, kemudian Antarmuka Layar menayangkan dokumentasi kegiatan pengabdian kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -433,10 +449,11 @@ sequenceDiagram
     Frontend-->>User: Munculkan Tayangan Dokumenter Pengabdian Ke dalam Ruang Baca Khalayak Luas
 ```
 
+Gambar 2.1.18 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Pengabdian Masyarakat. Sistem melakukan query ke database untuk mendapatkan muatan dokumentasi rekaman aktivitas sosial pengabdian, database-->>backend: mewakili penarikan esai pengenalan aktivitas serta laporannya kembali merapat. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.19 Sequence Diagram: Halaman Profil Organisasi (BEM)
-Proses dimulai ketika pengguna mengklik menu untuk melihat profil kepengurusan BEM (Badan Eksekutif Mahasiswa). Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk mengambil data struktur dan silsilah kabinet mahasiswa BEM. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data deskriptif yang mencakup informasi kepemimpinan, program kerja, dan identitas BEM. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan halaman identitas organisasi mahasiswa, kemudian Antarmuka Layar menampilkan profil dan skema kepengurusan BEM kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -456,10 +473,11 @@ sequenceDiagram
     Frontend-->>User: Paparkan Tampilan Pesona Skema Berbalut Identitas Anggun BEM ke Permukaan Layar
 ```
 
+Gambar 2.1.19 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Organisasi (BEM). Sistem melakukan query ke database untuk mendapatkan riwayat penataan struktur silsilah kabinet mahasiswa bem pelaporan, database-->>backend: pertukaran pengakuan perihal wujud deskriptif kepemimpinan disahkan mutlak. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.20 Sequence Diagram: Halaman Unit Kegiatan Mahasiswa (UKM)
-Proses dimulai ketika pengguna mengklik menu untuk mengakses halaman Unit Kegiatan Mahasiswa (UKM). Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta data seluruh unit kegiatan yang terdaftar. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang mencakup nama setiap UKM, deskripsi bidang kegiatan, serta lampiran foto atau logo UKM yang bersangkutan. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan galeri grid profil UKM, kemudian Antarmuka Layar menampilkan daftar Unit Kegiatan Mahasiswa kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -479,10 +497,11 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Galeri Meriah Potret Keaktifan Pemuda UKM nan Dinamis Mutlak
 ```
 
+Gambar 2.1.20 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Unit Kegiatan Mahasiswa (UKM). Sistem melakukan query ke database untuk mendapatkan pembeberan eksistensi segenap atribut unit kegiatan terdaftar sah, database-->>backend: berikan wujud tajuk himpunan minor, profil ranah peminatan, serta lampiran fotonya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.21 Sequence Diagram: Halaman Himpunan Mahasiswa
-Proses dimulai ketika pengguna mencari dan mengakses halaman Himpunan Mahasiswa per program studi. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk meminta data perwakilan setiap himpunan mahasiswa di bawah naungan BEM. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data yang mencakup program kerja dan informasi spesifik setiap himpunan per program studi. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan halaman etalase himpunan mahasiswa, kemudian Antarmuka Layar menampilkan profil susunan kabinet himpunan tiap jurusan kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -502,10 +521,11 @@ sequenceDiagram
     Frontend-->>User: Paparkan Profil Megah Relasional Aktivis Mahasiswa Pemegang Identitas Perjurusan Prodi
 ```
 
+Gambar 2.1.21 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Himpunan Mahasiswa. Sistem melakukan query ke database untuk mendapatkan pengungkapan tata aturan perwakilan tiap jajaran hima di bawah naungan bem, database-->>backend: mewujudkan pertukaran penyerahan tabel program kerja spesifik per rumpun perwakilan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.1.22 Sequence Diagram: Halaman Profil & Tracer Alumni
-Proses dimulai ketika pengguna mengakses halaman Profil dan Tracer Alumni untuk menelusuri data para lulusan. Antarmuka Layar meneruskan permintaan ke Sistem Pengendali untuk mengambil data direktori kelulusan dan informasi karir alumni. Sistem Pengendali mengirimkan perintah pengambilan data ke Pangkalan Data. Pangkalan Data mengembalikan data kompilasi yang mencakup informasi karir, penempatan kerja, dan catatan masa penyelesaian studi para alumni. Setelah data diterima, Sistem Pengendali menyusunnya menjadi tampilan riwayat alumni yang informatif, kemudian Antarmuka Layar menampilkan lembar catatan perjalanan dan keaktifan anggota lulusan kepada pengguna.
 
 ```mermaid
 sequenceDiagram
@@ -525,10 +545,9 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Lembar Kebanggaan Perjalanan Waktu Catatan Karier dan Keaktifan Anggota Purna Lulusan Web 
 ```
 
----
+Gambar 2.1.22 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil & Tracer Alumni. Sistem melakukan query ke database untuk mendapatkan database-->>backend: hadirkan rentetan kompilasi wawasan data karir penempatan serta rekam masa pelepasan ke tangan server. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
-## 2.2 Lingkungan Administrator
-Bagian ini menggambarkan pengelolaan data rahasia dan fungsional yang dijalankan secara eksklusif oleh pengelola admin web.
+---
 
 ### 2.2.1 Sequence Diagram: Login Administrator
 Admin membuka halaman login, mengisi *Username* dan *Password*, lalu menekan tombol Login. Sistem Pengendali memverifikasi kredensial tersebut ke Pangkalan Data. Jika valid, sistem membuat sesi aktif dan mengarahkan admin ke halaman Dashboard; jika tidak valid, sistem menampilkan pesan kesalahan.
@@ -1422,6 +1441,3 @@ sequenceDiagram
         end
     end
 ```
-
----
-

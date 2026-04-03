@@ -21,7 +21,7 @@ Basis data `db_web_fikom` terdiri dari **22 tabel** yang dikelompokkan ke dalam 
 
 ## 3.2 Entity Relationship Diagram (ERD)
 
-### 3.2.1 ERD Domain Autentikasi, Profil, dan Konten Publik
+Diagram ERD berikut menggambarkan seluruh **22 tabel** yang terdapat dalam basis data `db_web_fikom` secara terpadu dalam satu diagram relasi. Tabel `users` berperan sebagai entitas pusat autentikasi yang memiliki hubungan pengelolaan (*manages*) ke seluruh tabel konten melalui sesi administrator. Tabel `dosen` menjadi entitas inti domain akademik yang terhubung dengan tabel Tri Dharma (penelitian dan pengabdian).
 
 ```mermaid
 erDiagram
@@ -83,19 +83,6 @@ erDiagram
         timestamp updated_at
     }
 
-    USERS ||--o{ BERITA : "mengelola"
-    USERS ||--o{ HERO_SLIDER : "mengelola"
-    USERS ||--|| TENTANG_FIKOM : "memperbarui"
-```
-
-***Gambar 3.1** ERD Domain Autentikasi, Profil, dan Konten Publik*
-
----
-
-### 3.2.2 ERD Domain Akademik, Tridharma, dan Kemahasiswaan
-
-```mermaid
-erDiagram
     DOSEN {
         int id PK
         varchar nidn UK
@@ -107,6 +94,13 @@ erDiagram
         varchar status
         varchar email
         varchar foto
+    }
+
+    TABEL_DOSEN {
+        int id PK
+        varchar nama
+        varchar nidn
+        varchar prodi
     }
 
     KURIKULUM {
@@ -128,6 +122,15 @@ erDiagram
         varchar nama_lab
         text deskripsi
         varchar foto
+    }
+
+    MAHASISWA {
+        int id PK
+        varchar nim UK
+        varchar nama
+        varchar program_studi
+        int angkatan
+        varchar status
     }
 
     PENELITIAN {
@@ -206,11 +209,64 @@ erDiagram
         timestamp created_at
     }
 
+    SOP {
+        int id PK
+        varchar nama_sop
+        text deskripsi
+        varchar file_pdf
+    }
+
+    RENCANA_STRATEGIS {
+        int id PK
+        varchar nama_dokumen
+        text deskripsi
+        varchar file_pdf
+    }
+
+    RENCANA_OPERASIONAL {
+        int id PK
+        varchar nama_dokumen
+        text deskripsi
+        varchar file_pdf
+    }
+
+    %% === RELASI USERS (Pusat Autentikasi & Pengelolaan) ===
+    USERS ||--o{ BERITA : "mengelola"
+    USERS ||--o{ HERO_SLIDER : "mengelola"
+    USERS ||--|| TENTANG_FIKOM : "memperbarui"
+    USERS ||--o{ VISI_MISI : "mengelola"
+    USERS ||--o{ TB_FAKTA : "mengelola"
+    USERS ||--|| HALAMAN_STATIS : "memperbarui"
+    USERS ||--o{ KERJASAMA : "mengelola"
+    USERS ||--o{ SOP : "mengunggah"
+    USERS ||--o{ RENCANA_STRATEGIS : "mengunggah"
+    USERS ||--o{ RENCANA_OPERASIONAL : "mengunggah"
+    USERS ||--o{ KALENDER_AKADEMIK : "mengelola"
+    USERS ||--o{ PENDAFTARAN : "memverifikasi"
+    USERS ||--o{ BEM_STRUKTUR : "mengelola"
+
+    %% === RELASI DOSEN (Pusat Domain Akademik) ===
+    USERS ||--o{ DOSEN : "mengelola"
     DOSEN ||--o{ PENELITIAN : "melakukan"
     DOSEN ||--o{ PENGABDIAN : "melaksanakan"
+    DOSEN ||--o{ TABEL_DOSEN : "direferensikan"
+    DOSEN ||--o{ KURIKULUM : "mengampu"
+    DOSEN ||--o{ RUANGAN : "menggunakan"
+    DOSEN ||--o{ LABORATORIUM : "menggunakan"
+
+    %% === RELASI MAHASISWA ===
+    MAHASISWA ||--o{ PENDAFTARAN : "berasal dari"
 ```
 
-***Gambar 3.2** ERD Domain Akademik, Tridharma, dan Kemahasiswaan*
+***Gambar 3.1** ERD Terpadu Seluruh Tabel Basis Data `db_web_fikom` (22 Tabel)*
+
+**Keterangan Notasi Relasi:**
+
+| Notasi | Makna | Contoh |
+|:------:|:------|:-------|
+| `\|\|--o{` | Satu ke Banyak (*One-to-Many*) | Satu `users` mengelola banyak `berita` |
+| `\|\|--\|\|` | Satu ke Satu (*One-to-One*) | Satu `users` memperbarui satu `tentang_fikom` |
+| `o{--\|\|` | Banyak ke Satu (*Many-to-One*) | Banyak `penelitian` dilakukan oleh satu `dosen` |
 
 ---
 

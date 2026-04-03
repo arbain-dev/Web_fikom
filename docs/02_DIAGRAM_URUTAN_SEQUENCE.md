@@ -54,7 +54,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Data Civitas utuh
 ```
 
-Gambar 2.1.2 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Civitas Akademika. Sistem melakukan query ke database untuk mendapatkan data civitas, database-->>backend: mengembalikan himpunan rekaman data civitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.2 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Civitas Akademika. Sistem melakukan query ke database untuk mendapatkan data civitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -79,7 +79,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Struktur Organisasi
 ```
 
-Gambar 2.1.3 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Struktur Organisasi. Sistem melakukan query ke database untuk mendapatkan bagan struktur organisasi, database-->>backend: mengembalikan teks data struktur organisasi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.3 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Struktur Organisasi. Sistem melakukan query ke database untuk mendapatkan bagan struktur organisasi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -104,7 +104,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Tentang Fakultas
 ```
 
-Gambar 2.1.4 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Tentang Fakultas. Sistem melakukan query ke database untuk mendapatkan narasi profil fakultas, database-->>backend: mengembalikan teks deskripsi fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.4 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Tentang Fakultas. Sistem melakukan query ke database untuk mendapatkan narasi profil fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -129,7 +129,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Visi & Misi
 ```
 
-Gambar 2.1.5 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Visi dan Misi. Sistem melakukan query ke database untuk mendapatkan teks visi misi, database-->>backend: mengembalikan naskah penjabaran visi misi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.5 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Visi dan Misi. Sistem melakukan query ke database untuk mendapatkan teks visi misi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -153,7 +153,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Grid Kartu Profil Para Dosen
 ```
 
-Gambar 2.1.6 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Dosen. Sistem melakukan query ke database untuk mendapatkan direktori riwayat dosen, database-->>backend: mengembalikan profil nama, nidn, jabatan, foto internal. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.6 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Dosen. Sistem melakukan query ke database untuk mendapatkan direktori riwayat dosen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -257,7 +257,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruang Kelas ke Pandangan
 ```
 
-Gambar 2.1.10 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Ruangan. Sistem melakukan query ke database untuk mendapatkan inventaris aset daftar ruangan, database-->>backend: serahkan susunan rekaman prasarana fisik kampus. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.10 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Ruangan. Sistem melakukan query ke database untuk mendapatkan inventaris aset daftar ruangan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -281,7 +281,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Etalase Galeri Mesin Laboratorium Komputer Terpadu
 ```
 
-Gambar 2.1.11 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Laboratorium. Sistem melakukan query ke database untuk mendapatkan fasilitas mesin internal laboratorium, database-->>backend: kembalikan nama profil lab, inventaris, beserta daftar koleksinya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.11 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Laboratorium. Sistem melakukan query ke database untuk mendapatkan fasilitas mesin internal laboratorium. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -329,7 +329,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Daftar Pengunduhan Tata Aturan Kurikulum 
 ```
 
-Gambar 2.1.13 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Kurikulum. Sistem melakukan query ke database untuk mendapatkan sajian materi referensi berkas silabus, database-->>backend: kembalikan tajuk naskah & tautan unduhan file pdf/doc. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.13 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Kurikulum. Sistem melakukan query ke database untuk mendapatkan sajian materi referensi berkas silabus. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -353,7 +353,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Arsip Hukum Publik secara utuh
 ```
 
-Gambar 2.1.14 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Fakultas. Sistem melakukan query ke database untuk mendapatkan muat ulang wujud dokumen ketatapan publik, database-->>backend: serahkan susunan pemetaan letak tautan fail penyimpanan dokumen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.14 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Fakultas. Sistem melakukan query ke database untuk mendapatkan muat ulang wujud dokumen ketatapan publik. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -401,7 +401,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Layar Tabel Unduhan Arsip Operasional Ke Ruang Pandang
 ```
 
-Gambar 2.1.16 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Standar Operasional Prosedur (SOP). Sistem melakukan query ke database untuk mendapatkan sajian susunan urutan kepatuhan aturan sop, database-->>backend: mengembalikan wujud nama instruktur layanan serta tautannya ke layar. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.16 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Standar Operasional Prosedur (SOP). Sistem melakukan query ke database untuk mendapatkan sajian susunan urutan kepatuhan aturan sop. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -425,7 +425,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Daftar Artikel Riwayat Keilmuan Para Peneliti ke Hadapan Pengunjung
 ```
 
-Gambar 2.1.17 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Penelitian. Sistem melakukan query ke database untuk mendapatkan daftar kumpulan pelacakan riwayat aktivitas penelitian sivitas, database-->>backend: membalas kembalian pemaparan tajuk abstrak judul jurnal dan tautannya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.17 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Penelitian. Sistem melakukan query ke database untuk mendapatkan daftar kumpulan pelacakan riwayat aktivitas penelitian sivitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -449,7 +449,7 @@ sequenceDiagram
     Frontend-->>User: Munculkan Tayangan Dokumenter Pengabdian Ke dalam Ruang Baca Khalayak Luas
 ```
 
-Gambar 2.1.18 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Pengabdian Masyarakat. Sistem melakukan query ke database untuk mendapatkan muatan dokumentasi rekaman aktivitas sosial pengabdian, database-->>backend: mewakili penarikan esai pengenalan aktivitas serta laporannya kembali merapat. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.18 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Pengabdian Masyarakat. Sistem melakukan query ke database untuk mendapatkan muatan dokumentasi rekaman aktivitas sosial pengabdian. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -473,7 +473,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Tampilan Pesona Skema Berbalut Identitas Anggun BEM ke Permukaan Layar
 ```
 
-Gambar 2.1.19 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Organisasi (BEM). Sistem melakukan query ke database untuk mendapatkan riwayat penataan struktur silsilah kabinet mahasiswa bem pelaporan, database-->>backend: pertukaran pengakuan perihal wujud deskriptif kepemimpinan disahkan mutlak. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.19 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Organisasi (BEM). Sistem melakukan query ke database untuk mendapatkan riwayat penataan struktur silsilah kabinet mahasiswa bem pelaporan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -497,7 +497,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Galeri Meriah Potret Keaktifan Pemuda UKM nan Dinamis Mutlak
 ```
 
-Gambar 2.1.20 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Unit Kegiatan Mahasiswa (UKM). Sistem melakukan query ke database untuk mendapatkan pembeberan eksistensi segenap atribut unit kegiatan terdaftar sah, database-->>backend: berikan wujud tajuk himpunan minor, profil ranah peminatan, serta lampiran fotonya. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.20 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Unit Kegiatan Mahasiswa (UKM). Sistem melakukan query ke database untuk mendapatkan pembeberan eksistensi segenap atribut unit kegiatan terdaftar sah. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 
@@ -521,7 +521,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Profil Megah Relasional Aktivis Mahasiswa Pemegang Identitas Perjurusan Prodi
 ```
 
-Gambar 2.1.21 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Himpunan Mahasiswa. Sistem melakukan query ke database untuk mendapatkan pengungkapan tata aturan perwakilan tiap jajaran hima di bawah naungan bem, database-->>backend: mewujudkan pertukaran penyerahan tabel program kerja spesifik per rumpun perwakilan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Gambar 2.1.21 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Himpunan Mahasiswa. Sistem melakukan query ke database untuk mendapatkan pengungkapan tata aturan perwakilan tiap jajaran hima di bawah naungan bem. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
 ---
 

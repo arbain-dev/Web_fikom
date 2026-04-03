@@ -50,8 +50,8 @@ flowchart TD
 ```
 ***Gambar 4.22** Activity Diagram Interaksi Halaman Beranda (Home)*
 
-**Penjelasan:**  
-Bagan di atas merunut jejak interaksi pengguna yang menggulir layar ke bawah secara bertahap murni (*waterfall*). Sesuai urutan penampang di *file* pemrograman, pengunjung yang tidak mengeklik menu atas akan melewati serangkaian penawaran secara berurutan: mengamati *Slider* Utama, melewati penghitung angka Statistik, melihat daftar Berita, profil awal Fakultas, kotak Program Studi, dan blok Informasi Akademik, lalu berujung pada logo mitra yang berputar. Setiap blok menawarkan persimpangan, yang bila diabaikan, akan terus merambat ke kotak berikutnya hingga paling bawah.
+**Penjelasan:**
+Alur dimulai saat pengguna membuka halaman utama beranda. Jika memilih menu navigasi, sistem menampilkan halaman terkait dan proses berakhir. Jika tidak, proses berlanjut menampilkan slider banner, opsi prodi, dan daftar berita fakultas. Jika membaca berita, sistem menampilkan halaman detail. Jika diabaikan, sistem menampilkan tombol visi misi, info akademik, dan diakhiri dengan tampilan logo instansi mitra.
 
 ---
 
@@ -76,8 +76,8 @@ flowchart TD
 ```
 ***Gambar 4.23** Activity Diagram Interaksi Halaman Visi dan Misi*
 
-**Penjelasan:**  
-Halaman ini menyajikan teks informasi statis. Pembaca dapat menelusuri ketiga elemen bacaan utamanya (Visi, Misi, Sasaran Strategis) secara leluasa dan berjajar menyamping selonjor selagi mereka menggulir dinamis layarnya hingga dirasa cukup dan keluar dari sirkuit interaksi.
+**Penjelasan:**
+Alur dimulai saat pengguna mengakses halaman visi dan misi. Sistem menampilkan judul. Pengguna kemudian berfokus membaca teks bagian visi, misi, atau sasaran strategis. Setelah membaca salah satu atau semua bagian tersebut, aktivitas di halaman ini berakhir.
 
 ---
 
@@ -100,8 +100,8 @@ flowchart TD
 ```
 ***Gambar 4.24** Activity Diagram Interaksi Halaman Sambutan*
 
-**Penjelasan:**  
-Skema area *Sambutan Dekan* memaparkan pengalaman relasi persepsi responsif. Setibanya pengguna, antarmuka mendatangkan kisi persilangan posisi kiri dan kanan. Andil pengunjung dibentangkan bercabang mengarah samping, menyusuri paragraf di satu sisi pandang, lalu memantau kutipan ringkas di seberangnya di waktu yang berdampingan.
+**Penjelasan:**
+Alur diawali dengan kunjungan ke halaman sambutan pimpinan. Sistem memuat teks dan foto pimpinan terkait. Pengguna dapat membaca narasi sambutan pada satu sisi layar dan detail kontak pada sisi lainnya secara bersamaan, yang berujung pada penutupan aktivitas.
 
 ---
 
@@ -130,8 +130,8 @@ flowchart TD
 ```
 ***Gambar 4.25** Activity Diagram Interaksi Direktori Dosen*
 
-**Penjelasan:**  
-Pengalaman di etalase pengajar dibentuk menjalur ke samping (*Left-to-Right*). Bila pembaca mendapati instrukturnya lalu mengeklik salah satu susunan muka dosen, antarmuka mencuatkan pop-up (*jendela lapisan*). Kehadiran fungsional rute ini terpecah menjadi interaksi pelunasan pesan melalui email perangkat bersurat, atau sekadar membuang lapisannya menuju akhir jalur horisontal.
+**Penjelasan:**
+Alur dimulai ketika pengguna mengakses halaman direktori dosen. Sistem memuat susunan kotak dosen. Bila pengguna menekan salah satu kotak, sistem akan memunculkan pop-up profil dosen terkait. Dari pop-up tersebut, pengguna memiliki opsi untuk langsung menyurati email dosen atau sekadar menutup jendela tersebut untuk mengakhiri fitur.
 
 ---
 
@@ -154,8 +154,8 @@ flowchart TD
 ```
 ***Gambar 4.26** Activity Diagram Interaksi Halaman Struktur Organisasi*
 
-**Penjelasan:**  
-Berdasarkan bagan berorientasi bentang menyamping ini, cakupan navigasi visual perhadapkan di pusat peta gambar struktural. Pengamatan bergerak linear dari membaca judul membelah fokus jabatan pada alur pengawasan institusional fakultas dalam bagannya secara lurus dan segera selesai di kanan.
+**Penjelasan:**
+Alur bermula saat pengguna mengakses halaman struktur organisasi fakultas. Sistem menampilkan teks dan grafik peta jabatan. Pengguna kemudian membaca secara menurun mulai dari pimpinan teratas, melacak lapisan pengawasan di bawahnya, dan pada akhirnya proses penelusuran selesai.
 
 ---
 
@@ -181,8 +181,8 @@ flowchart TD
 ```
 ***Gambar 4.27** Activity Diagram Interaksi Halaman Pendaftaran Mahasiswa Baru*
 
-**Penjelasan:**  
-Formulir Pendaftaran memodelkan untaian sekuensial yang merambat utuh lurus dari pelataran kiri menuju kanan agar menumpas ketebalan vertikal layar. Setelah menekan tombol konfirmasi, bila ada luput format, iterasi putaran berpelintir kembali pada pengisian. Jika keakuratan terisi pas, diagram bergulir menuju penyimpanan data dan disudahi laporan kesuksesan hijau melintang.
+**Penjelasan:**
+Alur dimulai melalui pengaksesan halaman formulir pendaftaran. Pengunjung mengisi isian identitas serta melampirkan berkas persyaratan wajib. Berikutnya, pengguna menekan tombol kirim. Sistem melakukan verifikasi formulir. Apabila tidak lengkap atau salah, sistem menolak dan menampilkan pemberitahuan revisi. Apabila data tervalidasi benar, sistem menyimpannya ke basis data serta memberikan informasi bahwa pendaftaran telah berhasil.
 
 ---
 
@@ -211,8 +211,8 @@ flowchart TD
 ```
 ***Gambar 4.28** Activity Diagram Prodi TI (Informatika)*
 
-**Penjelasan:**  
-Pemodelan *Informatika* dilarikan horizontal persis pergerakan ular. Interaksinya menggugah dari penelaahan *header* riwayat sambutan lalu mencadangkan lintasan pilihan: berakselerasi putus awal atau meluncur menyelami *grid* pengumuman muka-muka dosen pengampu jurusan.
+**Penjelasan:**
+Alur berawal saat memuat halaman spesifik prodi Informatika. Sistem mendeskripsikan secara ringkas program tersebut. Tahap selanjutnya, pengunjung disuguhkan teks visi misi spesifik prodi lalu melihat tabel/gambar profil dosen-dosen dari program studi tersebut secara berurutan linier hingga ke batas sekat layar akhir.
 
 ---
 
@@ -240,8 +240,8 @@ flowchart TD
 ```
 ***Gambar 4.29** Activity Diagram Prodi Pend. TI*
 
-**Penjelasan:**  
-Menyulap urutan bertingkat jadi berjajar memanjang melukiskan rute jelajah halaman pendidikan vokasi ini. Lintasan setara presisinya dengan Informatika; meluncur dari profil, menyelami pendalaman materi visi sampai menemukan ujung galeri dewan lektor perguruan bersangkutan dengan arah ke samping.
+**Penjelasan:**
+Alur diawali saat pembuatan jendela pangkalan halaman untuk Pendidikan Teknologi Informasi. Menyerupai struktur alur prodi TI, jalur baca diarahkan vertikal dari penjelasan singkat programnya, menuju pemaparan landasan tujuan hingga baris grid profil deretan dosen prodi.
 
 ---
 
@@ -265,8 +265,8 @@ flowchart TD
 ```
 ***Gambar 4.30** Activity Diagram Menu Ruangan Kelas*
 
-**Penjelasan:**  
-Merunut ke samping guna pangkas kepadatan susunan, ruangan kelas dihidupkan via penempatan galeri foto. Jantung pengait visual ditekankan pada gestur penekanan foto memancing *lightbox popup*, dilanjutkan keharusan pembaca mengetuk penyelesaian persilangan layarnya agar pudar.
+**Penjelasan:**
+Alur dimulai dari tindakan pengguna membuka pilihan susunan fasilitas kelas. Sistem menjabarkan data daftar ruangan tersedia berupa koleksi gambar galeri. Ketika pengunjung ingin menangkap wujud visual yang lebih jelas dan memperbesarnya dengan klik, antarmuka sistem memicu pop-up layar penuh ruangan terkait. Klik pada silang (close) mengembalikan pengunjung.
 
 ---
 
@@ -290,8 +290,8 @@ flowchart TD
 ```
 ***Gambar 4.31** Activity Diagram Menu Laboratorium*
 
-**Penjelasan:**  
-Diagram menjalar rebah yang menjernihkan simulasi fasilitas laborat komputasi. Begitu memasuki pelelangan foto peralatan praktik, simpul mengizinkan penarikan tirai lebar *(Popup Mode)* ketika disinggung tombol intip oleh partisipan situs menjorok mengayun rute interaksi.
+**Penjelasan:**
+Alur dibuka sewaktu pengunjung beralih menuju muatan halaman Laboratorium. Layar sistem mencetak rentetan sampel gambar lab tersebut. Untuk meninjau gambar lebih spesifik, tombol pemantik pada gambar lab bersangkutan menampilkan fitur jendela popup. Opsi tutup dengan tanda silang selanjutnya meniadakan pemutaran gambar kembali ke menu semula.
 
 ---
 
@@ -315,8 +315,8 @@ flowchart TD
 ```
 ***Gambar 4.32** Activity Diagram Menu Kurikulum*
 
-**Penjelasan:**  
-Lintasan lateral *(kiri ke kanan)* melukis skenario ekstraksi dokumen kurikulum akademis. Bila tumpukan info kotak direkam mata, dorongan aksi "Lihat PDF" menginstruksi modul bayangan menampilkan berkas *inline frame*. Perputaran diagram dipungkasi sekalian pengunjung mematikan panggung proyektor layar pratinjau itu.
+**Penjelasan:**
+Alur penarikan data beroperasi pada tatkala bagian info rincian kurikulum akademis termuat di sisi klien. Apabila pengguna mengambil opsi memperdalam wacana untuk membuka wujud lampiran aslinya, sistem memunculkan peninjau dokumen utuh secara pop-up pratinjau. Peninjauan lalu disudahi apabila pengunjung mencabut penayangan dokumen tersebut.
 
 ---
 
@@ -340,8 +340,8 @@ flowchart TD
 ```
 ***Gambar 4.33** Activity Diagram Menu Kalender Akademik*
 
-**Penjelasan:**  
-Skema pamungkas publik dirangkai horizontal berjejer. Pengunjung memasuki gerbang kalender dibebaskan menggali poster jadwal per tahun. Menyetuh bidang kalender mana pun seketika membangunkan proyektor poster makro penanggalan. Lalu, memusnahkan modul dengan menekan silang jadi palang penutup sirkulasi interaktinya yang utuh.
+**Penjelasan:**
+Alur ini berasal dari ketukan menuju kalender akademik institusi. Pengguna diberikan cuplikan grafik atau daftar agenda kampus. Tatkala kursor tertuju mengeklinya, pengangkatan perincian pada layar jendela interaktif dibangkitkan sistem secara melebar. Seluruh aktivitas penuntasan cukup menyilangkan jendela.
 
 ---
 
@@ -365,8 +365,8 @@ flowchart TD
 ```
 ***Gambar 4.34** Activity Diagram Menu Rencana Operasional*
 
-**Penjelasan:**  
-Pengunjung yang masuk ke halaman ini langsung disuguhkan rincian dokumen pedoman fakultas yang spesifik pada operasional. Proses keputusannya bertumpu pada apakah pengunjung ingin murni membaca sekelebatan atau bertekat mengunduh salinan berkas fisiknya, di mana ketukan pada tautan unduhan akan memicu sistem merespon dengan menyimpan berkas PDF langsung ke perangkat pembacanya.
+**Penjelasan:**
+Alur beroperasi sesaat peralihan memuat blok lembaran fail administratif Rencana Operasional (Renop) Fakultas. Sistem melampirkan barisan pustaka yang dirangkumnya. Apabila audiens berinteraksi melakukan klik tautan unduh dokumen, hal tersebut memandu transfer file ke peramban. Jika tiada klik, kegiatan tuntas dan berujung selesai.
 
 ---
 
@@ -390,8 +390,8 @@ flowchart TD
 ```
 ***Gambar 4.35** Activity Diagram Menu Rencana Strategis*
 
-**Penjelasan:**  
-Menirukan arsitektur sistem pada diagram Renop, menu Rencana Strategis membentangkan koleksi berkas pedoman jangka panjang. Alurnya sangat ringkas untuk memonitor kotak-kotak daftarnya dan memutuskan eksekusi proses pengunduhan (*Download*) seandainya pengguna memerlukan arsip dokumen aslinya.
+**Penjelasan:**
+Alur berlaku nyaris serasi layaknya format Renop. Perhentian arah pengunjung saat meraba katalog dokumen Rencana Strategis (Renstra). Fasilitas tombol unduh file telah disediakan, desakan pengunjung menekannya seketika melegitimasi proses unduhan file berlangsung.
 
 ---
 
@@ -415,8 +415,8 @@ flowchart TD
 ```
 ***Gambar 4.36** Activity Diagram Menu SOP*
 
-**Penjelasan:**  
-Halaman Standar Operasional menjejaki skema interaksi perwujudan berkas digital. Pengunjung bisa berselancar bebas membaca gambaran singkat pelaksanaannya. Jika berniat mendalami ketentuan kerjanya secara paripurna, sistem akan menghantarkan perpindahan fail salinannya lewat satu pijatan khusus pada pemicu unduhannya menuju lumbung muatan gawai (*Download Folder*).
+**Penjelasan:**
+Alur berjalan saat pengunjung menjajaki ketersediaan laman SOP (Standar Operasional Prosedur). Sama persis dengan skema dokumen pendahulunya, jikamana pengguna membutuhkan pengarsipan dokumen format PDF, tuas tautan spesifik menuntaskan fungsional unduhan salinannya hingga usai.
 
 ---
 
@@ -446,8 +446,8 @@ flowchart TD
 ```
 ***Gambar 4.37** Activity Diagram Menu Penelitian Dosen*
 
-**Penjelasan:**  
-Aktivitas di ruang publikasi riset dirancang sedemikian interaktif. Mengingat muatan riwayatnya yang padat, penelusuran berawal santai sekadar melihat bingkai judul. Bila disinggung kursornya lantas ditekan, panel penengadah *(Popup Layer)* barulah membentangkan informasi penyandang dana berserta statusnya. Peran krusial interaksinya adalah memerdekakan pemakai menyeberang mandiri ke bilik ranah jurnal asli lewat sambungan tembus (*Link Redirect*) antar tab peramban perantaranya.
+**Penjelasan:**
+Lintasan awal terpacu waktu akses jurnal akademik Penelitian Dosen disinggahi. Sistem menggelar katalog laporan karya pada matriks grid. Saat meng-klik sebuah jurnal, kerangka tambahan mementaskan *detail* risetnya ke wajah pembaca lewat pop-up. Dua perpisahan ditarik: mengarahkan klik menyeberang ke URL riset asalnya keluar web, atau pencabutan tab pop-up pembaca.
 
 ---
 
@@ -472,8 +472,8 @@ flowchart TD
 ```
 ***Gambar 4.38** Activity Diagram Menu Pengabdian Masyarakat*
 
-**Penjelasan:**  
-Pada seksi catatan karya sosialisasi masyarakat, antarmuka peninjau *(Document Viewer)* diarusutamakan untuk meluputkan paksaan pengunduhan sisa tumpukan fail tak perlu. Saat kehendak menyela mengintip laporan timbul, sistem membikin gelap buram belakang halaman sekadar membentangkan perwajahan bacaannya dan sirna saat dicopot.
+**Penjelasan:**
+Lintasan alur ditujukan pada laman aksi sosial Pengabdian Masyarakat oleh civitas fakultas kampus. Apabila peninjau mengais perihal laporan aksinya, antarmuka mereplikasi halaman dengan mendirikan *document viewer*, mengeliminasi lompatan keluar. Aktivitas dibendung jika si pengunjung mendesak saklar tutup pada layar pembacanya.
 
 ---
 
@@ -494,8 +494,8 @@ flowchart TD
 ```
 ***Gambar 4.39** Activity Diagram Menu Badan Eksekutif Mahasiswa (BEM)*
 
-**Penjelasan:**  
-Bagian administrasi organisasi intra-kampus ini ditutup lewat rutinitas navigasional kaku murni ke bawah *(waterfall)*. Kerangka dirajut menguntai selaras tata letak struktur berjenjang kemahasiswaan. Tapak penjelajahan cukup dipetakan mengikut seretan usapan layar meluncur dari puncak kepemimpinan presidium berangsur sampai lapis anggota-anggota akar kepengurusannya.
+**Penjelasan:**
+Garis alur dibuka dalam wadah susunan kepengurusan himpunan tingkat BEM. Keruntutan ini diplot turun selurus-lurusnya; sistem memuat panel panggung pertama, disusul sekat profil tingkat Inti serta pimpinan Bendahara fungsional, dan berlanjut menguraikan barisan pos departemen operasional serta mati menemui palang batasan akhirnya.
 
 ---
 
@@ -519,8 +519,8 @@ flowchart TD
 ```
 ***Gambar 4.40** Activity Diagram Menu Kegiatan UKM*
 
-**Penjelasan:**  
-Jejak aktivitas mengintai kabar Unit Kegiatan Mahasiswa (UKM) ditarik mengarah ke bawah. Ketika peserta mendapati tumpukan majalah beritanya, persilangan muncul bilamana ada topik spesifik yang menggoda mereka. Memecet tautan beritanya lantas akan memindahkan tubuh situs menuju rute baru untuk penjabaran cerita selengkapnya.
+**Penjelasan:**
+Sirkuit alur dilacak begitu direktori warta Kegiatan UKM diklik. Penikmat mendarat di jejeran ketersediaan opsi membaca ragam tulisan di matriks kartu bacaan. Saat pemicu selera mengharuskan penyelidikan lengkap teks ulasan dari satu bacaan berita, klik memusatkan sistem menerbangkan layar berpindah pada dokumen khusus bacaan tanpa halangan lalu berakhir dari siklus penelurusannya.
 
 ---
 
@@ -540,5 +540,6 @@ flowchart TD
 ```
 ***Gambar 4.41** Activity Diagram Menu Himpunan Mahasiswa*
 
-**Penjelasan:**  
-Peta alir wawasan pilar kelembagaan mahasiswa prodi ini bersifat mengalir lurus (*waterfall*). Rancangan menuntun audiens sebatas menggerakkan layar gulir membaca petunjuk muka organisasi. Tatapannya diarahkan menyantap pamflet identitas himpunan per prodi satu-persatu lalu berujung menyudahi perantauan tanpa benturan kerumitan layar lanjutan.
+**Penjelasan:**
+Lintasan inisiasi dibuka manakala pangkalan alamat himpunan diaktifkan (*load*). Alur berjalan terpadu secara vertikal lurus ke bawah. Sesudah menyajikan narasi pamflet penyambutan, sistem menertontonkan wajah lambang HMTI beriringan ke profil susunan himpunan ke dua dari HMPTI. Semua ini tuntas setibanya penyusuran menyentuh bagian panel terakhir layarnya.
+

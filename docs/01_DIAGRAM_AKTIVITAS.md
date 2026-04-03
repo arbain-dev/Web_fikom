@@ -1,7 +1,7 @@
 # BAB IV — PERANCANGAN SISTEM: 4.1 Activity Diagram (Administrator)
 
 ## 4.1.1 Pengertian *Activity Diagram* 
-*Activity Diagram* (Diagram Aktivitas) digunakan untuk menggambarkan urutan aktivitas proses pada suatu sistem. Pada dokumen ini, seluruh diagram difokuskan secara eksklusif pada **Pengelolaan Konten (sisi Administrator)**. Diagram ini menggunakan model aliran konvensional demi kemudahan pembacaan. Komponen lingkaran penuh berwarna solid menunjukkan *Start Node* (titik awal kegiatan), sedangkan lingkaran dengan garis ganda menunjukkan *End Node* (titik akhir kegiatan).
+*Activity Diagram* digunakan untuk menggambarkan urutan aktivitas pada suatu sistem. Dokumen ini berfokus pada **sisi Administrator** dalam mengelola konten web. Lingkaran hitam penuh menandai titik awal (*Start Node*), sedangkan lingkaran dengan garis ganda menandai titik akhir (*End Node*).
 
 ---
 
@@ -40,8 +40,8 @@ flowchart TD
 ```
 ***Gambar 4.1** Activity Diagram Login Administrator*
 
-**Penjelasan:**  
-Diagram ini menjelaskan alur sistem saat administrator melakukan proses masuk (*login*) agar dapat mengelola web. Pertama, saat pengguna masuk ke halaman *login*, sistem akan memeriksa apakah perangkat mereka masih menyimpan sesi aktif. Jika iya, pengguna tak perlu login dan langsung dialihkan menuju halaman *dashboard*. Namun jika sesi belum terbuka, pengguna harus berhadapan dengan formulir akun. Sesudah administrator mengisi teks *username* berserta *password* dan menekan tombol *submit*, validasi program berjalan. Jika ada ruang form yang melompong, pesan peringatan akan mencuat. Apabila divalidasi tidak kosong, kombinasi pengguna pun dicocokkan di dalam sistem utama (*database*). Di mana saat data bersikap sah bersesuaian, interaksi direkam lalu otorisasinya ditetapkan demi memberikan ruang bagi penggunanya masuk mengakses manajemen pusat sistemnya (*dashboard*).
+**Penjelasan:**
+Ketika admin mengakses halaman login, sistem memeriksa apakah sesi masih aktif. Jika aktif, admin langsung diarahkan ke Dashboard. Jika belum, admin mengisi formulir *username* dan *password*. Sistem memvalidasi input; jika kosong atau tidak cocok dengan data di sistem, muncul pesan error dan admin harus mengisi ulang. Jika valid, sesi dibuat dan admin diarahkan ke Dashboard.
 
 ---
 
@@ -72,8 +72,8 @@ flowchart TD
 ```
 ***Gambar 4.2** Activity Diagram Menu Kelola Visi Misi*
 
-**Penjelasan:**  
-Siklus kegiatan administrasi sistem pada pandangan pertama dapat diamati dari pengelolaan tabel informasi dasar yakni Visi Misi. Usai administrator mengakses tabel di halaman, ia mendapat rute ke pengubahan jika menekan opsi *Tambah* atau *Edit*. Interaksi ini memampangkan kotak perihal untuk ditaruh ketikan wacananya. Selepas penekan tombol operasional (*Submit*) dieksekusi, pemeriksaan ketelitian mencegah kejadian kotak form yang sekadar diisi kosong. Form kosong membawakan rute alur mundur yang memamerkan rintangan wujud pesan keluhan program (*Error*). Bilamana tulisan masukan bernilai patut dan dinilai aman kelengkapannya, pemrosesan akan memposisikan dan melabuhkan wacana baru mendarat di kerangka basis data demi kelak memperlihatkan profil gubahannya secara cepat sewaktu layar dialihkan.
+**Penjelasan:**
+Admin membuka halaman, lalu memilih **Tambah** atau **Edit** untuk menampilkan formulir isian teks Visi dan Misi. Setelah menekan Submit, sistem memeriksa apakah form terisi. Jika kosong, muncul pesan error. Jika valid, data disimpan dan admin dikembalikan ke halaman tabel.
 
 ---
 
@@ -107,8 +107,8 @@ flowchart TD
 ```
 ***Gambar 4.3** Activity Diagram Menu Kelola Struktur Organisasi*
 
-**Penjelasan:**  
-Penambahan deretan profil Pemangku Organisasi tidak leluasa membiarkan pendaftaran nama teks, haruslah dibarengi unggahan media visual sosok potretnya. Begitu aksi form menyala, kelengkapannya mesti direstui melalui tombol pengajuan (*Submit*). Hal yang diandalkan dari pemeriksaan tahapan kali ini condong tertitik berat pada kewajaran bentuk format gambarnya, sekiranya dokumen disetorkan ternyata berlawanan format (bukan berjenis berkas profil potret awam .JPG/.PNG). Atas kekeliruan parameternya, transaksi ini terhadang memicu instruksi peringatan eror. Di kondisi lainnya saat semua diisi komplit beserta lampiran medianya pas, pengunggahan dilakukan terpadu mentransfer fotonya ke penyimpan *server* sekalian mendelegasikannya serangkaian dengan catatannya melintasi sistem. Sementara aksi sekunder seputar pemusnahan salah satu laporan pejabat, alur ini memuat pencopotan terintegrasi data tulis pada *database* sekaligus membuang fotonya sama rata.
+**Penjelasan:**
+Admin mengisi formulir dengan Nama, Jabatan, dan Foto Pejabat, lalu menekan Submit. Sistem memvalidasi format file gambar; jika tidak valid (bukan JPG/PNG), muncul pesan error. Jika valid, foto disimpan ke server dan data disimpan ke database. Untuk **Hapus**, sistem menghapus foto dan data sekaligus.
 
 ---
 
@@ -138,8 +138,8 @@ flowchart TD
 ```
 ***Gambar 4.4** Activity Diagram Menu Kelola Fakta Fakultas*
 
-**Penjelasan:**  
-Administrasi pengisian papan kuantitas hitung mahasiswa maupun kepegawaian dilaksanakan mengikuti kelola Fakta Fakultas. Di saat administrator memasuki area form entri parameter angkanya lalu menekan tombol kirim, kelengkapan inputannya senantiasa difilter mencegah campur tangan abjad/teks di dalam kolom bilangannya. Parameter numerik menuntut pengisian hitungan wajar agar saat eksekusinya berjalan sistem mampu mencerna angka ke memori tanpa *error*. Melanggar standar validasi tersebut akan mencegat kemajuan transaksi lalu mengembalikan pandangan ke form utama dengan isyarat pesan kegagalan, namun ketersediaan form wajar yang berisikan bilangan murni pasti lolos menembus *database* dan segera merefleksikan jumlah terbarunya.
+**Penjelasan:**
+Admin mengisi Judul dan nilai angka statistik fakultas, lalu menekan Submit. Sistem memvalidasi bahwa kolom angka hanya berisi bilangan numerik. Jika formatnya salah, muncul error. Jika valid, data disimpan dan halaman kembali ke tabel.
 
 ---
 
@@ -169,8 +169,8 @@ flowchart TD
 ```
 ***Gambar 4.5** Activity Diagram Menu Kelola Tentang Fakultas*
 
-**Penjelasan:**  
-Prosedur kelola catatan Latar Belakang (Tentang Fakultas) ini dipahami layaknya modul kepenulisan artikel utuh, yang mendayagunakan antarmuka pengetikan lapang (*Text Editor*). Di mana kelar mengetikan cerita sejarah kampus, operasional transmisi (*submit*) difungsikan mengarah ke peladen yang memberlakukan proteksi tulisan tak kasat rumpang. Umpamanya form narasi dikirim dalam kondisi bersih tanpa teks sama sekali, aplikasi serta-merta menjatuhkan penggunanya pada pesan hambatan operasional kosong ketikan. Sebalik rute amannya, keberhasilan wacana bakal dituangkan merombak letak tabel catatannya lalu mengalihkan layar kembali ke visual profil semulanya untuk dipinjau ulang.
+**Penjelasan:**
+Admin mengedit narasi sejarah dan latar belakang fakultas melalui *Text Editor*. Setelah Submit, sistem memeriksa apakah teks tidak kosong. Jika kosong, muncul pesan error. Jika terisi, teks baru disimpan ke database dan halaman kembali ke tampilan profil.
 
 ---
 
@@ -204,8 +204,8 @@ flowchart TD
 ```
 ***Gambar 4.6** Activity Diagram Menu Kelola Slider*
 
-**Penjelasan:**  
-Modul *Slider* digunakan untuk mengatur *banner* atau *carousel* gambar yang menempati posisi teratas pada halaman publik beranda utama Fakultas. Ketika administrator memilih untuk melakukan aksi penambahan, ia akan menjumpai format isian untuk mengunggah gambar promosi (*banner*) yang menarik beserta serangkaian label judulnya. Verifikasi terhadap masukan ini memiliki peran ganda: menilai perihal tak luputnya tulisan selagi tetap mengawal kepastian identitas jenis gambar (*upload validation*). Berkas ilustrasi selain ekstensi standar akan dirintangi, mewujudkan larangan operasi simpan yang diinfokan dalam kemasan pemberitahuan *error*. Apabila *banner* foto tersebut resmi dikonfirmasi lulus ketentuan, materi disiarkan mendarat aman di peladen dan tabel referensi berkoheren untuk menampilkannya di laman *frontend* nantinya. Hal serupa juga berlaku sewaktu gambar lama hendak dihapus tuntas dari sistem.
+**Penjelasan:**
+Admin mengisi judul dan mengunggah gambar *banner* untuk halaman beranda. Sistem memvalidasi format dan kelengkapan file gambar. Jika tidak valid, muncul error. Jika valid, gambar diunggah ke server dan data disimpan ke database. Untuk **Hapus**, gambar dan data dihapus sekaligus.
 
 ---
 
@@ -239,8 +239,8 @@ flowchart TD
 ```
 ***Gambar 4.7** Activity Diagram Menu Kelola Berita*
 
-**Penjelasan:**  
-Halaman ini menampung manajemen publikasi artikel portal berita harian fakultas. Kegiatan administrasi di modul ini membutuhkan konsentrasi besar meliputi pembubuhan tajuk artikel, pelampiran gambar *thumbnail*, serta penulisan rincian laporan (melalui perkakas *Rich Text Editor*). Setelah administrator mengirim dokumen ini (*submit*), validasi sistem menelisik kesiapan materi gambar media *thumbnail* juga keseluruhan panjang teks artikelnya. Andaikata parameter dikesampingkan (seperti artikel kosong panjang atau jenis gambar ditolak), sistem menyanggah aktivitas simpan menaikkan keterangan *Error*. Di jalur validitas sukses, program mengangkat wujud *thumbnail* ini merebahkan diri pada lokasi penyimpan server, berdampingan menyuntik tatanan baris teks artikel tersebut menetap rapi di tabel basis datanya.
+**Penjelasan:**
+Admin mengisi Judul, Isi Artikel (*Rich Text Editor*), dan Foto Thumbnail, lalu menekan Submit. Sistem memvalidasi teks dan format gambar. Jika tidak valid, muncul error. Jika valid, thumbnail diunggah ke server dan data berita disimpan ke database. Untuk **Hapus**, foto dan data berita dihapus sekaligus.
 
 ---
 
@@ -274,8 +274,8 @@ flowchart TD
 ```
 ***Gambar 4.8** Activity Diagram Menu Kelola Dosen*
 
-**Penjelasan:**  
-Menu Dosen menangani kerangka pencatatan portofolio para tenaga pelatih dan dosen pengampu akademik. Aktivitas pengelolaan mewajibkan komponen unik pendaftaran semacam penulisan Nomor Induk Dosen (NIDN) sampai kepada penempatan figur gambaran potret dosen tersebut. Penekanan fungsi pemeriksaan di tahapan konfirmasi peluncuran meliput akurasi pengunggahan *file* foto sekaligus memastikan nomor seri input identitasnya. Segala ketidaksesuaian prosedur kelola entri profil tersebut akan dijegal perampungannya menampilkan kendala *Error* agar memanggil atensi penyunting ulangnya. Jika berkedudukan normal tanpa anomali, pasfoto tertransfer matang bersemayam dalam ranah *server*, dan deskripsi sisa pelengkapnya dipadukan mendaftarkan entri di simpanan profil tenaga pengajar untuk dapat disoroti para mahasiswa dari beranda depan situs.
+**Penjelasan:**
+Admin mengisi data dosen (NIDN, Nama, Jabatan) dan mengunggah Foto Profil. Sistem memvalidasi format foto dan nomor NIDN. Jika tidak valid, muncul pesan error. Jika valid, foto diunggah ke server dan data dosen disimpan ke database. Untuk **Hapus**, foto dan biodata dihapus sekaligus.
 
 ---
 
@@ -309,8 +309,8 @@ flowchart TD
 ```
 ***Gambar 4.9** Activity Diagram Menu Kelola Ruangan Kelas*
 
-**Penjelasan:**  
-Pengurusan prasarana kampus dibagikan porsinya ke ruang Kelola Ruangan, area kelola fasilitas kelas harian. Urutan tindakan pada bagan meruntut perihal administrator menciptakan daftar katalog ruang kelas baru berserta memuat kelengkapan potret denah fisiknya. Mekanisme keamanan operasional beraksi menyortir kewajaran berkas potret fasilitas sewaktu administrasi menempatkan perizinan simpan datanya (*submit*). Kendala pemilahan file asing otomatis mencabut jalannya skenario penyimpanan sejalan menyiagakan keterangan *Error*. Tatkala format masukan diresmikan tervalidasi layak operasional, salinan citra ruang diamankan ke lokasi cadangan seraya mengkaitkannya berkolerasi sepadan dengan nama ruangannya di relasi parameter pangkalan data, bersambung pergeseran menyodorkan ringkasan tabel ruangan asali.
+**Penjelasan:**
+Admin mengisi Nama Ruang, keterangan Fasilitas, dan mengunggah Foto Ruangan. Sistem memvalidasi format dan kelengkapan gambar. Jika tidak valid, muncul error. Jika valid, foto disimpan ke server dan data ruangan tersimpan ke database. Untuk **Hapus**, foto dan data ruangan dihapus sekaligus.
 
 ---
 
@@ -344,8 +344,8 @@ flowchart TD
 ```
 ***Gambar 4.10** Activity Diagram Menu Kelola Laboratorium*
 
-**Penjelasan:**  
-Ruang laboratorium memegang hierarki penempatan setaraf menu ruangan umum yang mengikutsertakan manajemen perlengkapan (*inventaris*) inventaris penelitian praktiknya. Kegiatan pencatatan fasilitas ini menuntun administrator menggubah narasi deskriptif fasilitas alat praktek bersama perwakilan foto interiornya. Interaksi form terkonfirmasi mengemban pemeriksaan kesesuaian potret foto yang dipersangkakan melampaui aturan kompresi, bila itu terwujud larangan berbalut panel peringatan *Error* beraksi menyelamatkan ekosistem penampungannya dengan menahan *editing*. Namun jika kondisi gambar bersesuaian dengan deskriptif fasilitasnya, potret lab di*upload* sempurna menempatkan letaknya selaras bersama keterangan penunjangnya dalam daftar *database* sistem. Kelancaran aktivitas merelokasi kembali layar fungsional administrator mengarahkan pemunculan penampang tabel Laboratorium dengan kelengkapan data hasil olah teranyarnya.
+**Penjelasan:**
+Admin mengisi Nama Lab, daftar Inventaris, dan mengunggah Foto Laboratorium. Sistem memvalidasi format gambar dan kelengkapan isian. Jika tidak valid, muncul error. Jika valid, foto diunggah ke server dan data lab disimpan ke database. Untuk **Hapus**, foto dan data lab dihapus sekaligus.
 
 ---
 
@@ -379,8 +379,8 @@ flowchart TD
 ```
 ***Gambar 4.11** Activity Diagram Menu Kelola Kalender Akademik*
 
-**Penjelasan:**  
-Pengelolaan parameter jadwal akademik dirancang untuk disesuaikan secara rutin oleh administrator pengelola. Tatkala administrator memutuskan menambahkan butir agenda terbaru, antarmuka layar mengarahkan ke formulir pencatatan tanggal beserta rincian nama acara. Kewajiban saat eksekusi form disimpan adalah memvalidasi kelogisan parameter input format tanggal dan teks agar berpadanan dengan syarat kalender. Ketidakcocokan format berimbas melontarkan layar *error* pencegahan, yang mendesak pengguna menelaah isiannya lagi. Andaikata seluruh kolom masukan sahih memenuhi syarat, kalender pendataan tercatat di sistem tatanan memori untuk bisa dibaca masyarakat umum dan disusul kepulangan antarmuka ke halaman daftar agendanya.
+**Penjelasan:**
+Admin mengisi Nama Kegiatan, Tanggal, dan Semester, lalu menekan Submit. Sistem memvalidasi format tanggal dan kelengkapan teks. Jika tidak valid, muncul error. Jika valid, data kalender disimpan dan halaman kembali ke tabel agenda.
 
 ---
 
@@ -414,8 +414,8 @@ flowchart TD
 ```
 ***Gambar 4.12** Activity Diagram Menu Kelola Kurikulum*
 
-**Penjelasan:**  
-Tahap manajemen dokumen kurikulum akademik diampu sepenuhnya dalam rute administrator ini. Dari form interaksi yang disodorkan seusai pemilihan menu, penyusunan matakuliah berserta beban bobot SKS-nya mesti ditugaskan tanpa luput terisi. Mengantisipasi anomali *input* berupa pengetikan di luar angka pada kolom jumlah SKS, arsitektur validasi sigap menilai dan memeriksa parameter (*Decision Node: Input SKS Valid?*). Manakala keteledoran memasukkan input karakter bukan angka terjadi, maka pergeseran data direm untuk memberitahukan perbaikan kepada penggunanya (*Error*). Kelancaran konfirmasi dan evaluasi inputan yang sepenuhnya akurat mendorong berjalannya penanaman lajur rekaman data ke basis sistem secara permanen.
+**Penjelasan:**
+Admin mengisi Nama Mata Kuliah, jumlah SKS, dan Semester, lalu menekan Submit. Sistem memvalidasi bahwa kolom SKS berisi angka yang valid. Jika tidak valid, muncul error. Jika valid, data kurikulum disimpan ke database dan halaman kembali ke tabel.
 
 ---
 
@@ -449,8 +449,8 @@ flowchart TD
 ```
 ***Gambar 4.13** Activity Diagram Menu Kelola Kerjasama*
 
-**Penjelasan:**  
-Pengelolaan informasi identitas kemitraan kerja (*Partnership*) direkam dengan memasukkan bukti visual logo instansi terpadu. Serupa dengan operasi gambar pendahulu, pembaharuan entri memerlukan pelampiran ekstensi visual ke kotak *form*. Pelaksanaan *submit* segera menghantarkan dokumen media ke pemeriksaan ekstensi foto legal (.JPG/.PNG). Pelanggaran di tahapan *upload* logo itu secara otomatis memberhentikan eksekusi peremajaan *database* selagi menahan pengguna di tempat asalnya berhias teks teguran keliru ekstensi media (*Error*). Pada kondisi form media diterima wajar, operasi selanjutnya menjamin kelancaran unggahan foto instansi partner ke simpanan peladennya sekalian mengukir informasi kerja samanya di laci pencatatan basis data, dituntaskan kepulangan ke menu awal kelolanya.
+**Penjelasan:**
+Admin mengisi Nama Instansi, Keterangan MoU, dan mengunggah Logo mitra. Sistem memvalidasi format logo dan kelengkapan teks. Jika tidak valid, muncul error. Jika valid, logo diunggah ke server dan data mitra disimpan ke database. Untuk **Hapus**, logo dan data dihapus sekaligus.
 
 ---
 
@@ -484,8 +484,8 @@ flowchart TD
 ```
 ***Gambar 4.14** Activity Diagram Menu Kelola Pengabdian*
 
-**Penjelasan:**  
-Aktivitas pencatatan daftar rekam jejak Pengabdian Masyarakat oleh civitas akademika dikelola menurut runtunan diagram ke-14 ini. Modul mendayagunakan administrator mencatatkan rincian entri baru semisal keterangan judul penugasan abdi masyarakat juga tanggal pengayaannya. Mekanisme fungsional menjaga kekompakan kelengkapan teks ini agar rincian nama pelaksananya tak terkecualikan untuk dibiarkan rumpang kosong. Mengalihkan proses pendaftaran manakala menjumpai kealpaan pengisian *form*, modul menyanggah transaksi di tahap *Error*. Bila data perihal pengabdiannya sungguh absah dikerjakan, jejak kegiatannya diarsip rapi ke dalam tabel direktori data demi menghibur profil sivitas akademika sembari menyelesaikan siklus ini melalui halaman *redirect* beranda utamanya.
+**Penjelasan:**
+Admin mengisi Judul Kegiatan, Nama Pelaksana, dan Tanggal, lalu menekan Submit. Sistem memvalidasi kelengkapan teks dan file. Jika tidak lengkap, muncul error. Jika valid, data pengabdian disimpan ke database dan halaman kembali ke tabel.
 
 ---
 
@@ -519,8 +519,8 @@ flowchart TD
 ```
 ***Gambar 4.15** Activity Diagram Menu Kelola Penelitian*
 
-**Penjelasan:**  
-Kegiatan pembaharuan jurnal keilmuan dan kajian reset direkam di instrumen pengolahan Penelitian ini. Sesaat *form* antarmukanya beroperasi, administrator difasilitasi rincian parameter bagi masukan deskripsi hasil risetnya secara teliti (Judul Jurnal, Abstrak). Evaluasi yang dibebankan terhadap transaksi pengirimannya melingkupi pendeteksian apakah form berwacana teks panjang tersebut sungguh murni tak kehilangan perannya dari kekosongan masukan. Bilamana penceritaannya dirasakan kurang bobot minimalnya atau justru tertinggal blanko bersih nilainya, arsitektur otomatis membantah perintah pelaporan selagi mewujudkan pemunculan wujud kendala (*Error*). Menanggapi terlewatinya pengujian standar ini akibat sempurnanya wacana risetnya, aktivitas lantas tertutup memberkati perpindahan data penelitian ini menjealajah barisan *Database* peladennya yang mengabari rute penyelesaiannya di relokasi muatan antarmuka tabelnya.
+**Penjelasan:**
+Admin mengisi Judul Penelitian, Nama Peneliti, dan Abstrak, lalu menekan Submit. Sistem memvalidasi bahwa semua kolom teks terisi dan tidak kosong. Jika ada yang kosong, muncul error. Jika valid, data penelitian disimpan ke database dan halaman kembali ke tabel.
 
 ---
 
@@ -554,8 +554,8 @@ flowchart TD
 ```
 ***Gambar 4.16** Activity Diagram Menu Kelola Dokumen Fakultas*
 
-**Penjelasan:**  
-Pengarsipan digital untuk dokumen legalitas dan akademik kampus dilakukan melalui modul Kelola Dokumen Fakultas. Oleh karena peruntukannya mewadahi berkas surat menyurat atau kepenulisan resmi, administrator diatur untuk melampirkan berkas fisik *hard-soft copy* menggunakan ekstensi spesifik (.PDF) pada kotak *form* isiannya. Validasi penyerahan dokumen (*submit*) mendeteksi kewajaran *file* agar format selain PDF (semisal dokumen bervirus atau *Word*) dirintangi dengan munculnya penundaan pemberitahuan perbaikan isi *form* (*Error*). Bilamana administrator mengunggah format mutlak PDF yang akurat, sistem selanjutnya meneruskan siklus mengunggah dan mendokumentasikan dokumen fisik itu menetap ke *server* sambil menata informasinya pada barisan rekam *database*.
+**Penjelasan:**
+Admin mengisi Judul Dokumen dan mengunggah file PDF. Sistem memvalidasi bahwa file yang diunggah berformat PDF. Jika bukan PDF, muncul error. Jika valid, file disimpan ke server dan data dokumen tersimpan ke database. Untuk **Hapus**, file dan data dihapus sekaligus.
 
 ---
 
@@ -589,8 +589,8 @@ flowchart TD
 ```
 ***Gambar 4.17** Activity Diagram Menu Kelola Renstra*
 
-**Penjelasan:**  
-Kebutuhan mendistribusikan berkas Rencana Strategis (Renstra) kepada sasaran umum memiliki rancangan pengoperasian yang linier dengan tata kelola dokumen elektronik. Administrator mengawali proses peremajaan data dengan menyerahkan masukan judul keterangan Renstra yang didampingi arsip dokumentasi PDF pada area form. Di tahap pembuktian kelayakan (*Gambar Valid?*), perlindungan program memeriksa keandalan ukuran *file* muatan serta ekstensinya (PDF) dari kemungkinan malfungsi. Apabila terendus perlakuan menyisipkan format *file* cacat, pangkalan menepis penyimpanan dan mempertahankan layar perbaikan (*Error*). Sedemikian hingga apabila parameter format disetujui, Renstra diunggah dan ditanam menyatu ke penyimpan arsip relasional peladen secepat milidetik, dan layar bergeser mengantarkan administrator meninjau kembali tabel daftarnya.
+**Penjelasan:**
+Admin mengisi Judul dan mengunggah file PDF Rencana Strategis. Sistem memvalidasi format file PDF. Jika tidak valid, muncul error. Jika valid, file diunggah ke server dan data Renstra disimpan ke database. Untuk **Hapus**, file dan data dihapus sekaligus.
 
 ---
 
@@ -624,8 +624,8 @@ flowchart TD
 ```
 ***Gambar 4.18** Activity Diagram Menu Kelola SOP*
 
-**Penjelasan:**  
-Pengelolaan prosedur standar operasional (SOP) fakultas menghadirkan aktivitas integrasi *upload* berkas dari pihak admin. Seiring tindakan menyunting, barisan rincian mencakup deskripsi teks SOP dan *softcopy* SOP yang dirangkum menjadi PDF dikontrol masukannya dari antarmuka tambah data. Di fase penyerahan pengetikan, keleluasaan fungsi simpan bertugas memastikan apakah unggahan dokumen taat tata letak (.PDF). Menanggapi unggahan ekstensi yang ditolak sistem, instruksi transaksi langsung dibekukan sistem bersama pengumuman perintah ralat *Error*. Andaikata pengiriman diresmikan memenuhi format valid PDF yang tertib, dokumen SOP diamankan pindah menempati lumbung peladen beserta modifikasi entri tabel *database* utamanya, seraya diputuskan beralih pada rekap pelaporan tabel menu kelola SOP kembali.
+**Penjelasan:**
+Admin mengisi Nama SOP dan mengunggah file PDF pedoman. Sistem memvalidasi format file; jika bukan PDF, muncul error. Jika valid, file disimpan ke server dan data SOP tersimpan ke database. Untuk **Hapus**, file dan data SOP dihapus sekaligus.
 
 ---
 
@@ -659,8 +659,8 @@ flowchart TD
 ```
 ***Gambar 4.19** Activity Diagram Menu Kelola BEM*
 
-**Penjelasan:**  
-Pemenuhan daftar identifikasi keanggotaan Badan Eksekutif Mahasiswa (BEM) mengimplementasikan prosedur pengolahan figur portofolio visual layaknya modul struktural sivitas dekanat. Sehabis antarmuka kelola ditekan administrator untuk memacu *form* pengisian, kewajiban memberikan profil tercantum mewajibkan integrasi antara foto mahasiswa (ketua/anggota) dan data teks kepengurusannya. Validitas perampingan informasi mendeteksi kualitas input di antaranya kepatuhan pada kelengkapan isian serta rasio dukungan gambar berformat normal penulisan (.JPG/.PNG). Kegagalan mencalonkan format foto benar membenturkan administrator dengan pemunculan *Error* sehingga pengisian ditolak. Pembenaran bahwa semua identitas teks masukan dan gambarnya mulus lolos ujian kebenaran, memastikan penyematan foto itu tersimpan rapi selaras dengan tatanan daftar struktur di *database*.
+**Penjelasan:**
+Admin mengisi Nama, Jabatan, dan mengunggah Foto anggota BEM. Sistem memvalidasi format foto dan kelengkapan isian. Jika tidak valid, muncul error. Jika valid, foto diunggah ke server dan data anggota BEM disimpan ke database. Untuk **Hapus**, foto dan data dihapus sekaligus.
 
 ---
 
@@ -691,8 +691,8 @@ flowchart TD
 ```
 ***Gambar 4.20** Activity Diagram Verifikasi Pendaftaran*
 
-**Penjelasan:**  
-Berbeda dari modul unggah konten, layanan urusan modul Pendaftaran meliput langkah penilaian (verifikasi kualifikasi calon pelajar). Setelah *dashboard* antrean peserta terekspos, administrator dapat menekan rincian pelamar satu persatu guna meriset visual kelengkapan persyaratan mereka. Posisi sentral percabangan (syarat) meminta kebijakan manual pengguna untuk menggolongkan keputusan. Keputusan mengklik validasi lulus menerbitkan informasi label *DITERIMA*, sedang penilaian pelamar tak kapabel memaparkan cap informasi *DITOLAK*. Setelah putusan verifikasi status dipastikan ketuk palu (*submit*), sistem memproses pergantian penanda status pesertanya pada sel-sel sistem *database*, selanjutnya me-*redirect* memori visual peninjauan bergeser memeriksa rekaman pendaftar urutan lainnya pada antrean tabel.
+**Penjelasan:**
+Admin membuka halaman dan memeriksa rincian data setiap pendaftar. Berdasarkan kelengkapan berkas, admin menetapkan status **DITERIMA** atau **DITOLAK**. Keputusan tersebut dikonfirmasi dan disimpan ke database, lalu halaman kembali ke daftar antrean pendaftar.
 
 ---
 
@@ -722,5 +722,5 @@ flowchart TD
 ```
 ***Gambar 4.21** Activity Diagram Pengaturan Sistem (Setelan)*
 
-**Penjelasan:**  
-Pengontrolan aspek grafis identitas universal kampus (*brading*) diselesaikan pada alur kegiatan Pengaturan Sistem. Rute diawali saat modul disoroti, pengelola bisa mencantumkan dan menimpa perubahan informasi semisal memanipulasi teks identitas lembaga maupun mengunggah kembali bentuk konfigurasi media logo kampus (*upload image*). Selagi persetujuan aksi diangkat mendelegasikan perintah simpan (*submit*), batasan pertahanan memusatkan evaluasi menyaring muatan berkas logonya (*Validasi Logo*). Semisal *file* yang tersalurkan diprediksi korup atau bukan esensi gambar seutuhnya, alur simpan direm mengungkit tampilan peringatan *Error* yang sigaga. Berlawanan bila ekstensinya benar dan wacana isian wajar, pembaharuan konfigurasi *database* diteken sehingga aset logo baru menimpa cadangan lama guna mengendalikan tampilan grafis seketika pasca layar memuat ulang perambannya (*refresh/redirect*).
+**Penjelasan:**
+Admin mengubah informasi situs (Nama, Kontak) atau mengunggah Logo baru. Sistem memvalidasi format file logo. Jika tidak valid, muncul error. Jika valid, logo baru disimpan ke server (menggantikan yang lama) dan pengaturan diperbarui di database, kemudian sistem memuat ulang konfigurasi.

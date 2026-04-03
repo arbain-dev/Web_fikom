@@ -531,7 +531,7 @@ sequenceDiagram
 Bagian ini menggambarkan pengelolaan data rahasia dan fungsional yang dijalankan secara eksklusif oleh pengelola admin web.
 
 ### 2.2.1 Sequence Diagram: Login Administrator
-Proses Login Administrator dimulai ketika admin membuka halaman login dan sistem menampilkan formulir isian. Admin memasukkan *Username* dan *Password*, kemudian menekan tombol Login. Antarmuka Layar mengirimkan data formulir tersebut secara aman ke Sistem Pengendali. Sistem Pengendali memeriksa kecocokan kombinasi kredensial tersebut dengan data yang tersimpan di Pangkalan Data. Apabila hasil pengecekan menunjukkan bahwa identitas dan kata sandi yang dimasukkan valid dan cocok, sistem membuat sesi login yang aktif dan mengarahkan admin menuju halaman Dashboard. Sebaliknya, apabila kombinasi yang dimasukkan tidak sesuai atau salah, sistem menampilkan pesan kesalahan dan admin harus kembali mengisi formulir login dari awal.
+Admin membuka halaman login, mengisi *Username* dan *Password*, lalu menekan tombol Login. Sistem Pengendali memverifikasi kredensial tersebut ke Pangkalan Data. Jika valid, sistem membuat sesi aktif dan mengarahkan admin ke halaman Dashboard; jika tidak valid, sistem menampilkan pesan kesalahan.
 
 ```mermaid
 sequenceDiagram
@@ -561,11 +561,7 @@ sequenceDiagram
 ---
 
 ### 2.2.2 Sequence Diagram: Kelola Slider Beranda
-Proses dimulai ketika admin membuka menu Kelola Slider Beranda. Sistem secara otomatis menarik semua data slider yang tersimpan dari Pangkalan Data dan menampilkannya dalam bentuk tabel kepada admin sebagai tampilan awal.
-
-Apabila admin ingin menambah data baru atau mengedit data yang sudah ada, admin menekan tombol **Tambah** atau **Edit**, lalu mengisi formulir yang tersedia dengan Teks Judul Utama, Subjudul, dan mengunggah Foto *Slider*. Setelah menekan tombol **Simpan**, data dikirimkan ke Sistem Pengendali yang memeriksa format dan ukuran berkas. Apabila berkas valid, sistem menyimpan file foto ke folder server (`/uploads/slider`). Khusus untuk proses Edit, file lama dari data sebelumnya dihapus terlebih dahulu. Setelah penyimpanan berkas berhasil, teks dan referensi nama file disimpan secara permanen ke Pangkalan Data, kemudian admin diarahkan kembali ke tabel dengan notifikasi keberhasilan. Apabila format atau ukuran berkas tidak sesuai, sistem menolak proses dan menampilkan pesan kesalahan.
-
-Apabila admin ingin menghapus sebuah data, admin menekan tombol **Hapus** pada baris yang diinginkan. Sistem mengambil referensi nama file foto dari Pangkalan Data, menghapus file fisik tersebut dari folder server (`/uploads/slider`), lalu menghapus rekaman data dari Pangkalan Data. Setelah selesai, halaman dimuat ulang dengan notifikasi konfirmasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data slider dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Subjudul, Foto Slider); sistem memvalidasi berkas, menyimpan foto ke `/uploads/slider` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file fisik dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -621,11 +617,7 @@ sequenceDiagram
 ---
 
 ### 2.2.3 Sequence Diagram: Kelola Berita
-Proses dimulai ketika admin membuka menu Kelola Berita. Sistem otomatis mengambil semua data berita dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit berita, admin mengisi formulir yang memuat Judul Berita, Konten, serta mengunggah Foto Sampul. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas yang diunggah. Jika valid, sistem menyimpan file foto ke folder server (`/uploads/`), menghapus file lama untuk proses Edit, lalu menyimpan seluruh data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus sebuah berita, sistem mencari dan menghapus file foto dari folder server (`/uploads/`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data berita dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Konten, Foto Sampul); sistem memvalidasi berkas, menyimpan foto ke `/uploads/` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -681,11 +673,7 @@ sequenceDiagram
 ---
 
 ### 2.2.4 Sequence Diagram: Kelola Dosen
-Proses dimulai ketika admin membuka menu Kelola Dosen. Sistem otomatis mengambil semua data dosen dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data dosen, admin mengisi formulir yang memuat Nama, NIDN, Jabatan Akademik, serta mengunggah Foto Profil. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file foto ke folder server (`/uploads/dosen`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data dosen, sistem mencari dan menghapus file foto dari folder server (`/uploads/dosen`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data dosen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama, NIDN, Jabatan, Foto Profil); sistem memvalidasi berkas, menyimpan foto ke `/uploads/dosen` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -741,11 +729,7 @@ sequenceDiagram
 ---
 
 ### 2.2.5 Sequence Diagram: Kelola Fasilitas Ruangan
-Proses dimulai ketika admin membuka menu Kelola Fasilitas Ruangan. Sistem otomatis mengambil semua data ruangan dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data ruangan, admin mengisi formulir yang memuat Nama Ruang, Kapasitas, Fasilitas, serta mengunggah Foto Kelas/Ruangan. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file foto ke folder server (`/uploads/ruangan`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data ruangan, sistem mencari dan menghapus file foto dari folder server (`/uploads/ruangan`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data ruangan dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Ruang, Kapasitas, Fasilitas, Foto Kelas); sistem memvalidasi berkas, menyimpan foto ke `/uploads/ruangan` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -801,11 +785,7 @@ sequenceDiagram
 ---
 
 ### 2.2.6 Sequence Diagram: Kelola Fasilitas Laboratorium
-Proses dimulai ketika admin membuka menu Kelola Fasilitas Laboratorium. Sistem otomatis mengambil semua data laboratorium dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data lab, admin mengisi formulir yang memuat Nama Lab, Daftar Inventaris Peralatan, serta mengunggah Foto Laboratorium. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file foto ke folder server (`/uploads/laboratorium`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data laboratorium, sistem mencari dan menghapus file foto dari folder server (`/uploads/laboratorium`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data laboratorium dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Lab, Inventaris, Foto Lab); sistem memvalidasi berkas, menyimpan foto ke `/uploads/laboratorium` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -861,11 +841,7 @@ sequenceDiagram
 ---
 
 ### 2.2.7 Sequence Diagram: Kelola Kalender Akademik
-Proses dimulai ketika admin membuka menu Kelola Kalender Akademik. Sistem otomatis mengambil semua data kalender dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data kalender, admin mengisi formulir yang memuat Tahun Akademik, Deskripsi, serta mengunggah Gambar Kalender. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file gambar ke folder server (`/uploads/kalender`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data kalender, sistem mencari dan menghapus file gambar dari folder server (`/uploads/kalender`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data kalender dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Akademik, Deskripsi, Gambar Kalender); sistem memvalidasi berkas, menyimpan gambar ke `/uploads/kalender` (menghapus gambar lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file gambar dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -921,11 +897,7 @@ sequenceDiagram
 ---
 
 ### 2.2.8 Sequence Diagram: Kelola Dokumen Kurikulum
-Proses dimulai ketika admin membuka menu Kelola Dokumen Kurikulum. Sistem otomatis mengambil semua data dokumen kurikulum dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data, admin mengisi formulir yang memuat Judul, Deskripsi Kurikulum, serta mengunggah Dokumen Asli. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file dokumen ke folder server (`/docs/kurikulum`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data dokumen kurikulum, sistem mencari dan menghapus file dari folder server (`/docs/kurikulum`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data kurikulum dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen PDF); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/kurikulum` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -981,11 +953,7 @@ sequenceDiagram
 ---
 
 ### 2.2.9 Sequence Diagram: Kelola Mitra Kerjasama
-Proses dimulai ketika admin membuka menu Kelola Mitra Kerjasama. Sistem otomatis mengambil semua data mitra dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data mitra, admin mengisi formulir yang memuat Nama Mitra, Deskripsi MoU, serta mengunggah Logo Kemitraan. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file logo ke folder server (`/uploads/kerjasama`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data mitra kerjasama, sistem mencari dan menghapus file logo dari folder server (`/uploads/kerjasama`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data mitra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Mitra, Deskripsi MoU, Logo); sistem memvalidasi berkas, menyimpan logo ke `/uploads/kerjasama` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file logo dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1041,11 +1009,7 @@ sequenceDiagram
 ---
 
 ### 2.2.10 Sequence Diagram: Kelola Data Penelitian
-Proses dimulai ketika admin membuka menu Kelola Data Penelitian. Sistem otomatis mengambil semua data penelitian dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data penelitian, admin mengisi formulir yang memuat Judul Riset, Abstrak Singkat, serta mengunggah Dokumen Laporan Publikasi. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file dokumen ke folder server (`/docs/penelitian`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data penelitian, sistem mencari dan menghapus file dokumen dari folder server (`/docs/penelitian`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data penelitian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Riset, Abstrak, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/penelitian` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1101,11 +1065,7 @@ sequenceDiagram
 ---
 
 ### 2.2.11 Sequence Diagram: Kelola Data Pengabdian
-Proses dimulai ketika admin membuka menu Kelola Data Pengabdian. Sistem otomatis mengambil semua data pengabdian dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data pengabdian, admin mengisi formulir yang memuat Judul Kegiatan, Ringkasan, serta mengunggah Laporan Dokumentasi. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file dokumen ke folder server (`/docs/pengabdian`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data pengabdian, sistem mencari dan menghapus file laporan dari folder server (`/docs/pengabdian`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data pengabdian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Kegiatan, Ringkasan, Laporan Dokumentasi); sistem memvalidasi berkas, menyimpan file ke `/docs/pengabdian` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file laporan dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1161,11 +1121,7 @@ sequenceDiagram
 ---
 
 ### 2.2.12 Sequence Diagram: Kelola Dokumen Fakultas
-Proses dimulai ketika admin membuka menu Kelola Dokumen Fakultas. Sistem otomatis mengambil semua data dokumen dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit dokumen, admin mengisi formulir yang memuat Judul, Teks Deskripsi, serta mengunggah Dokumen Publikasi. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file ke folder server (`/docs/fakultas`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data dokumen, sistem mencari dan menghapus file dari folder server (`/docs/fakultas`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data dokumen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan file ke `/docs/fakultas` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1221,11 +1177,7 @@ sequenceDiagram
 ---
 
 ### 2.2.13 Sequence Diagram: Kelola Rencana Strategis
-Proses dimulai ketika admin membuka menu Kelola Rencana Strategis. Sistem otomatis mengambil semua data dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data Renstra, admin mengisi formulir yang memuat Tahun Periode, Visi Renstra, serta mengunggah Naskah Renstra. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file ke folder server (`/docs/renstra`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data Renstra, sistem mencari dan menghapus file dari folder server (`/docs/renstra`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data Renstra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Periode, Visi Renstra, Naskah PDF); sistem memvalidasi berkas, menyimpan file ke `/docs/renstra` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1281,11 +1233,7 @@ sequenceDiagram
 ---
 
 ### 2.2.14 Sequence Diagram: Kelola Standar Operasional Prosedur (SOP)
-Proses dimulai ketika admin membuka menu Kelola SOP. Sistem otomatis mengambil semua data SOP dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data SOP, admin mengisi formulir yang memuat Nama SOP, Rincian Prosedur, serta mengunggah Dokumen Pedoman SOP. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file ke folder server (`/docs/sop`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data SOP, sistem mencari dan menghapus file dari folder server (`/docs/sop`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data SOP dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama SOP, Rincian Prosedur, Dokumen SOP); sistem memvalidasi berkas, menyimpan file ke `/docs/sop` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1341,11 +1289,7 @@ sequenceDiagram
 ---
 
 ### 2.2.15 Sequence Diagram: Kelola Data Organisasi BEM
-Proses dimulai ketika admin membuka menu Kelola Data Organisasi BEM. Sistem otomatis mengambil semua data BEM dari Pangkalan Data dan menampilkannya dalam tabel kepada admin.
-
-Apabila admin ingin menambah atau mengedit data BEM, admin mengisi formulir yang memuat Nama Departemen, Program Kerja, serta mengunggah Logo atau Foto Profil BEM. Setelah tombol **Simpan** ditekan, Sistem Pengendali memeriksa format dan ukuran berkas. Jika valid, sistem menyimpan file ke folder server (`/uploads/bem`), menghapus file lama untuk proses Edit, lalu menyimpan data teks beserta referensi file ke Pangkalan Data. Admin diarahkan kembali ke tabel dengan notifikasi sukses. Jika berkas tidak valid, sistem menampilkan pesan kesalahan.
-
-Apabila admin menghapus data BEM, sistem mencari dan menghapus file dari folder server (`/uploads/bem`), kemudian menghapus rekaman data dari Pangkalan Data. Halaman dimuat ulang dengan notifikasi penghapusan berhasil.
+Admin membuka halaman ini dan sistem menampilkan seluruh data BEM dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Departemen, Program Kerja, Logo/Foto); sistem memvalidasi berkas, menyimpan file ke `/uploads/bem` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
@@ -1401,11 +1345,7 @@ sequenceDiagram
 ---
 
 ### 2.2.16 Sequence Diagram: Verifikasi Pendaftaran
-Halaman Verifikasi Pendaftaran berfungsi khusus untuk admin meninjau dan memvalidasi antrean data pendaftar yang masuk, tanpa adanya fitur tambah data baru dari sisi admin.
-
-Proses dimulai ketika admin membuka halaman antrean validasi. Sistem otomatis mengambil daftar semua pendaftar dari Pangkalan Data dan menampilkannya dalam tabel. Admin dapat meninjau kelengkapan berkas setiap pendaftar, termasuk melihat foto dokumen lampiran seperti KTP atau ijazah yang tersimpan di server. Setelah melakukan pengecekan, admin memutuskan status pendaftar dengan memilih **Diterima** atau **Ditolak**. Keputusan tersebut dikirimkan ke Sistem Pengendali yang kemudian memperbarui status validasi di Pangkalan Data. Halaman ditampilkan ulang dengan data terbaru dan notifikasi sukses.
-
-Jika terdapat pendaftar yang datanya terbukti tidak valid atau fiktif, admin dapat menekan tombol **Hapus**. Sistem kemudian mencari referensi file lampiran di Pangkalan Data, menghapus file tersebut dari server, lalu menghapus rekaman data pendaftar dari Pangkalan Data. Halaman dimuat ulang bersih dengan notifikasi konfirmasi penghapusan berhasil.
+Admin membuka halaman antrean validasi dan sistem menampilkan daftar semua pendaftar dari Pangkalan Data. Admin meninjau kelengkapan berkas tiap pendaftar, lalu menetapkan status **Diterima** atau **Ditolak** yang akan diperbarui di Pangkalan Data. Jika ada data pendaftar yang terbukti tidak valid, admin menekan tombol **Hapus** dan sistem menghapus file lampiran dari server serta menghapus rekaman dari Pangkalan Data.
 
 ```mermaid
 sequenceDiagram
@@ -1446,9 +1386,7 @@ sequenceDiagram
 ---
 
 ### 2.2.17 Sequence Diagram: Pengaturan Sistem
-Halaman Pengaturan Sistem hanya memiliki satu baris data konfigurasi yang selalu diperbarui, bukan ditambah atau ditumpuk sebagai riwayat baru.
-
-Proses dimulai ketika admin mengakses menu Pengaturan Sistem. Sistem langsung mengambil baris data profil pengaturan yang tersimpan di Pangkalan Data dan mengisinya ke dalam formulir di layar admin secara otomatis, sehingga admin dapat langsung melihat nilai konfigurasi saat ini. Apabila admin ingin mengubah pengaturan, admin memodifikasi teks pada formulir atau mengunggah gambar Logo atau Favicon baru, kemudian menekan tombol **Simpan**. Data formulir dikirimkan ke Sistem Pengendali yang memeriksa ekstensi file gambar. Jika spesifikasi gambar valid, sistem menyimpan file logo baru ke direktori internal server dan menghapus file logo lama. Setelah itu, Sistem Pengendali memperbarui baris pengaturan di Pangkalan Data pada tabel tunggal yang bersangkutan. Halaman kemudian disegarkan dengan notifikasi sukses. Apabila file yang diunggah memiliki ekstensi yang tidak diizinkan, sistem menolak proses dan menampilkan pesan kesalahan.
+Admin mengakses menu ini dan sistem lang mengambil data profil konfigurasi dari Pangkalan Data lalu mengisi formulir secara otomatis. Admin mengubah nilai yang diperlukan atau mengunggah Logo/Favicon baru, lalu menekan **Simpan**. Jika berkas gambar valid, sistem menyimpan logo baru ke server, menghapus logo lama, dan memperbarui baris konfigurasi di Pangkalan Data. Jika tidak valid, sistem menampilkan pesan kesalahan.
 
 ```mermaid
 sequenceDiagram

@@ -1,20 +1,27 @@
-# BAB III — PERANCANGAN BASIS DATA
+# BAB III — Perancangan Basis Data
 
 ## 3.1 Gambaran Umum Basis Data
 
-Sistem Web FIKOM Universitas Muhammadiyah Sidenreng Rappang (UNISAN) menggunakan **MySQL** sebagai sistem manajemen basis data relasional (*Relational Database Management System* / RDBMS) yang diakses melalui ekstensi `mysqli` (MySQL Improved) pada PHP. Pemilihan MySQL didasarkan pada beberapa pertimbangan teknis: (a) kompatibilitas penuh dengan tumpukan teknologi XAMPP yang digunakan dalam lingkungan pengembangan, (b) dukungan penuh terhadap *stored procedure*, *transaction*, dan pengurusan integritas referensial melalui *foreign key*, serta (c) performa yang teruji untuk beban kerja *web application* berskala menengah.
+Sistem Web FIKOM Universitas Muhammadiyah Sidenreng Rappang (UNISAN) menggunakan **MySQL (MariaDB 10.4.32)** sebagai sistem manajemen basis data relasional yang diakses melalui ekstensi `mysqli` pada PHP. Koneksi basis data diinisialisasi melalui file `config/database.php` dengan parameter host `localhost`, username `root`, dan nama basis data `db_web_fikom`. Setelah koneksi berhasil, sistem mengeksekusi `set_charset("utf8mb4")` untuk mendukung seluruh karakter Unicode termasuk karakter khusus Bahasa Indonesia.
 
-Koneksi basis data diinisialisasi melalui file `config/database.php` yang menginstansiasi objek `new mysqli()` dengan parameter *host* `localhost`, *username* `root`, dan nama basis data `db_web_fikom`. Setelah koneksi berhasil, sistem segera mengeksekusi `set_charset("utf8mb4")` untuk memastikan dukungan penuh terhadap karakter Unicode termasuk *emoji* dan karakter khusus Bahasa Indonesia. Seluruh manipulasi data (*Create*, *Read*, *Update*, *Delete*) menggunakan *Prepared Statement* (`$conn->prepare()`) untuk mencegah serangan *SQL Injection*.
+Seluruh manipulasi data (*Create*, *Read*, *Update*, *Delete*) menggunakan **Prepared Statement** (`$conn->prepare()`) untuk mencegah serangan *SQL Injection*.
 
-Pendekatan yang digunakan adalah **Raw SQL dengan Prepared Statement** melalui ekstensi `mysqli` secara langsung, tanpa menggunakan lapisan ORM (*Object Relational Mapper*). Keuntungan pendekatan ini adalah transparansi penuh terhadap *query* yang dieksekusi dan kendali optimasi performa secara langsung. Zona waktu sistem dikonfigurasi ke `Asia/Makassar` (WITA, UTC+8) melalui `date_default_timezone_set()`.
+Basis data `db_web_fikom` terdiri dari **22 tabel** yang dikelompokkan ke dalam enam domain fungsional:
 
-Basis data `db_web_fikom` terdiri dari **22 tabel** yang dikelompokkan ke dalam enam domain fungsional: (1) **Autentikasi & Pengguna** — mengelola akses sistem; (2) **Profil & Identitas** — menyimpan informasi resmi fakultas; (3) **Akademik & SDM** — mendata dosen, kurikulum, dan fasilitas; (4) **Tridharma & Kemahasiswaan** — mendokumentasikan penelitian, pengabdian, dan organisasi; (5) **Konten & Publikasi** — mengelola berita dan dokumen; dan (6) **Pendaftaran & Feedback** — memproses data calon mahasiswa.
+| Domain | Tabel | Keterangan |
+|:-------|:------|:-----------|
+| **Autentikasi & Pengguna** | `users`, `mahasiswa` | Akses sistem & data mahasiswa |
+| **Profil & Identitas** | `tentang_fikom`, `halaman_statis`, `visi_misi`, `hero_slider`, `tb_fakta` | Konten profil fakultas |
+| **Akademik & SDM** | `dosen`, `tabel_dosen`, `kurikulum`, `ruangan`, `laboratorium` | Data civitas akademika & fasilitas |
+| **Tridharma** | `penelitian`, `pengabdian`, `kerjasama` | Tri Dharma Perguruan Tinggi |
+| **Konten & Dokumen** | `berita`, `sop`, `rencana_strategis`, `rencana_operasional` | Publikasi & dokumen resmi |
+| **Kemahasiswaan & Lainnya** | `bem_struktur`, `kalender_akademik`, `pendaftaran` | Kemahasiswaan & PMB |
 
 ---
 
 ## 3.2 Entity Relationship Diagram (ERD)
 
-### 3.2.1 ERD Domain Autentikasi, Profil, dan Konten
+### 3.2.1 ERD Domain Autentikasi, Profil, dan Konten Publik
 
 ```mermaid
 erDiagram
@@ -23,7 +30,9 @@ erDiagram
         varchar username UK
         varchar email UK
         varchar password
-        varchar nama
+        varchar nama_lengkap
+        varchar no_hp
+        varchar foto_profil
         timestamp created_at
         timestamp updated_at
     }
@@ -39,59 +48,51 @@ erDiagram
         timestamp created_at
     }
 
-    SLIDER {
+    HERO_SLIDER {
+        int id PK
+        varchar gambar
+        tinyint is_active
+    }
+
+    TB_FAKTA {
         int id PK
         varchar judul
-        varchar subjudul
+        int angka
+        int urutan
+    }
+
+    TENTANG_FIKOM {
+        int id PK
+        varchar judul
+        text deskripsi
         varchar gambar
+    }
+
+    VISI_MISI {
+        int id PK
+        varchar kategori
+        text konten
         int urutan
     }
 
     HALAMAN_STATIS {
         int id PK
-        varchar slug UK
-        text visi
-        text misi
-        text tujuan
-        text sasaran
-        text sambutan_dekan
-        text tentang_fakultas
-        timestamp updated_at
-    }
-
-    FAKTA {
-        int id PK
-        varchar label
-        int nilai
-        varchar ikon
-    }
-
-    VISIMISI {
-        int id PK
-        text visi
-        text misi
-        text tujuan
-        text sasaran
-    }
-
-    STRUKTUR {
-        int id PK
-        varchar gambar
+        varchar nama_halaman UK
+        varchar gambar_path
+        text konten
         timestamp updated_at
     }
 
     USERS ||--o{ BERITA : "mengelola"
-    USERS ||--o{ SLIDER : "mengelola"
-    USERS ||--|| HALAMAN_STATIS : "memperbarui"
+    USERS ||--o{ HERO_SLIDER : "mengelola"
+    USERS ||--|| TENTANG_FIKOM : "memperbarui"
 ```
 
-***Gambar 3.1** ERD Domain Autentikasi, Profil, dan Konten*
-
-ERD pada Gambar 3.1 menvisualisasikan hubungan antara entitas pengelolaan konten utama. Tabel `users` merupakan entitas sentral autentikasi yang memiliki relasi pengelolaan (*manages*) ke tabel `berita` dan `slider`. Tabel `halaman_statis` mengimplementasikan pola *Single Row Config* di mana satu baris data mewakili seluruh konfigurasi konten profil fakultas yang hanya dapat diperbarui oleh administrator.
+***Gambar 3.1** ERD Domain Autentikasi, Profil, dan Konten Publik*
 
 ---
 
-### 3.2.2 ERD Domain Akademik, Tridharma, dan Pendaftaran
+### 3.2.2 ERD Domain Akademik, Tridharma, dan Kemahasiswaan
 
 ```mermaid
 erDiagram
@@ -108,30 +109,24 @@ erDiagram
         varchar foto
     }
 
-    MATAKULIAH {
+    KURIKULUM {
         int id PK
-        varchar kode UK
-        varchar nama
-        int sks
-        int semester
-        varchar program_studi
+        varchar nama_kurikulum
+        text deskripsi
+        varchar file_pdf
     }
 
     RUANGAN {
         int id PK
-        varchar nama
-        int kapasitas
-        varchar lokasi
-        text fasilitas
+        varchar nama_ruangan
+        text deskripsi
         varchar foto
     }
 
     LABORATORIUM {
         int id PK
-        varchar nama
-        varchar jenis
+        varchar nama_lab
         text deskripsi
-        text spesifikasi
         varchar foto
     }
 
@@ -141,75 +136,81 @@ erDiagram
         varchar peneliti
         int tahun
         varchar status
-        decimal dana
-        varchar dokumen
+        varchar skim_penelitian
+        varchar kelompok_bidang
+        varchar nomor_sk
+        varchar lama_kegiatan
+        varchar sumber_dana
+        int jumlah_dana
         date tanggal_mulai
         date tanggal_selesai
+        varchar lokasi_penelitian
+        varchar afiliasi
+        varchar file_proposal
+        varchar file_laporan
+        varchar link_publikasi
     }
 
     PENGABDIAN {
         int id PK
         varchar judul
         varchar pelaksana
-        date tanggal
         text deskripsi
-        varchar dokumen
+        varchar file_pdf
+        date tanggal_kegiatan
     }
 
     KERJASAMA {
         int id PK
-        varchar nama_mitra
-        varchar jenis
+        varchar nama_instansi
         varchar logo
-        date tanggal_mou
-        text keterangan
+        varchar link_website
+        varchar bulan
+        int tahun
     }
 
-    BEM {
+    BEM_STRUKTUR {
         int id PK
-        varchar nama_kabinet
-        text visi
-        text misi
-        varchar logo
-        text pengurus
-        timestamp updated_at
+        varchar nama
+        varchar jabatan
+        varchar prodi
+        varchar kategori
+        int urutan
+        varchar foto
     }
 
-    KALENDER {
+    KALENDER_AKADEMIK {
         int id PK
-        varchar nama_kegiatan
-        date tanggal_mulai
-        date tanggal_selesai
-        text keterangan
-    }
-
-    DOKUMEN {
-        int id PK
-        varchar judul
-        varchar jenis
+        varchar nama_kalender
         text deskripsi
-        varchar file
-        timestamp created_at
+        varchar gambar
+        varchar tahun_akademik
     }
 
     PENDAFTARAN {
         int id PK
         varchar nama
         varchar nik
-        varchar program_studi
-        varchar jalur_masuk
-        varchar no_whatsapp
-        timestamp tanggal_daftar
+        varchar email
+        varchar hp
+        varchar tempat_lahir
+        date tanggal_lahir
+        varchar jk
+        varchar asal_sekolah
+        varchar prodi
+        varchar jalur
+        text alamat
+        varchar file_ktp
+        varchar file_ijazah
+        varchar catatan
+        timestamp created_at
     }
 
     DOSEN ||--o{ PENELITIAN : "melakukan"
     DOSEN ||--o{ PENGABDIAN : "melaksanakan"
-    MATAKULIAH }o--|| DOSEN : "diampu oleh"
 ```
 
-***Gambar 3.2** ERD Domain Akademik, Tridharma, dan Pendaftaran*
-
-ERD pada Gambar 3.2 menggambarkan entitas-entitas dalam domain akademik dan kemahasiswaan. Tabel `dosen` memiliki relasi fungsional *one-to-many* dengan `penelitian` dan `pengabdian`, merepresentasikan Tri Dharma Perguruan Tinggi. Tabel `pendaftaran` bersifat independen sebagai *standalone entity* yang tidak memerlukan relasi *foreign key* ke tabel lain karena data pendaftar hanya membutuhkan informasi identitas mandiri tanpa mereferensikan akun pengguna yang sudah ada.
+***Gambar 3.2** ERD Domain Akademik, Tridharma, dan Kemahasiswaan*
 
 ---
 
@@ -217,331 +218,373 @@ ERD pada Gambar 3.2 menggambarkan entitas-entitas dalam domain akademik dan kema
 
 ### 3.3.1 Tabel: `users`
 
-Tabel `users` merupakan entitas utama yang menyimpan data akun administrator sistem. Seluruh akses ke panel admin bergantung pada keberadaan rekaman yang valid di tabel ini. Tabel ini mengimplementasikan keamanan berlapis melalui penyimpanan *password hash* menggunakan algoritma bcrypt via fungsi `password_hash()` PHP, memastikan kata sandi tidak pernah disimpan dalam bentuk teks polos.
+Tabel `users` menyimpan data akun administrator sistem. Kata sandi disimpan dalam bentuk *hash* bcrypt melalui fungsi `password_hash()`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik administrator |
 | 2 | `username` | `VARCHAR(50)` | `UNIQUE`, `NOT NULL` | Nama pengguna untuk login |
-| 3 | `email` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Alamat email untuk login dan pemulihan akun |
+| 3 | `email` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Alamat email untuk login |
 | 4 | `password` | `VARCHAR(255)` | `NOT NULL` | Hash bcrypt dari kata sandi |
-| 5 | `nama` | `VARCHAR(100)` | `NOT NULL` | Nama lengkap administrator |
-| 6 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu pembuatan akun |
-| 7 | `updated_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP ON UPDATE` | Waktu pembaruan terakhir |
-
-**Relasi:** Tidak memiliki *foreign key* ke tabel lain (entitas induk/akar sistem).
+| 5 | `nama_lengkap` | `VARCHAR(100)` | `NULL` | Nama lengkap administrator |
+| 6 | `no_hp` | `VARCHAR(20)` | `NULL` | Nomor handphone |
+| 7 | `foto_profil` | `VARCHAR(255)` | `NULL` | Nama file foto profil |
+| 8 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu pembuatan akun |
+| 9 | `updated_at` | `TIMESTAMP` | `ON UPDATE CURRENT_TIMESTAMP` | Waktu pembaruan terakhir |
 
 ---
 
 ### 3.3.2 Tabel: `berita`
 
-Tabel `berita` menyimpan seluruh data artikel dan pengumuman yang dipublikasikan di website. Setiap entri berita dapat memiliki foto *thumbnail* yang disimpan sebagai nama file di kolom `foto`, sementara file fisiknya disimpan di direktori `uploads/berita/`. Sistem mendukung kategori berita (*Informasi*, *Pengumuman*, *Kampus*, *Kegiatan UKM*, *Akademik*) untuk memudahkan klasifikasi dan filtrasi.
+Tabel `berita` menyimpan seluruh data artikel dan pengumuman yang dipublikasikan di website. File foto disimpan di direktori `uploads/berita/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik berita |
 | 2 | `judul` | `VARCHAR(255)` | `NOT NULL` | Judul artikel berita |
-| 3 | `kategori` | `VARCHAR(50)` | `NOT NULL` | Kategori berita (Informasi, Pengumuman, dll.) |
-| 4 | `tanggal_publish` | `DATE` | `NOT NULL` | Tanggal publikasi berita |
-| 5 | `konten` | `TEXT` | `NULL` | Isi lengkap artikel berita |
+| 3 | `kategori` | `VARCHAR(50)` | `NOT NULL` | Kategori (Informasi, Pengumuman, Kampus, dll.) |
+| 4 | `tanggal_publish` | `DATE` | `NOT NULL` | Tanggal publikasi |
+| 5 | `konten` | `TEXT` | `NULL` | Isi lengkap artikel |
 | 6 | `link` | `VARCHAR(255)` | `NULL` | URL eksternal (opsional) |
 | 7 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto thumbnail |
 | 8 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu data diinput |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit; dikelola oleh `users` secara fungsional melalui sesi login.
 
 ---
 
 ### 3.3.3 Tabel: `dosen`
 
-Tabel `dosen` merupakan direktori tenaga pengajar Fakultas Ilmu Komputer. Data yang tersimpan meliputi identitas akademis lengkap yang ditampilkan di halaman publik `pages/dosen.php`. Kolom `program_studi` membatasi nilai ke dua Program Studi yang ada, yaitu *Informatika* dan *Pendidikan Teknologi Informasi*, sementara kolom `status` mendistingsikan dosen Tetap, Kontrak, dan Tidak Tetap.
+Tabel `dosen` merupakan direktori tenaga pengajar Fakultas Ilmu Komputer yang ditampilkan di halaman publik. File foto disimpan di direktori `uploads/dosen/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik dosen |
 | 2 | `nidn` | `VARCHAR(20)` | `UNIQUE`, `NULL` | Nomor Induk Dosen Nasional |
 | 3 | `nama` | `VARCHAR(150)` | `NOT NULL` | Nama lengkap dosen beserta gelar |
-| 4 | `program_studi` | `VARCHAR(100)` | `NOT NULL` | Afiliasi program studi dosen |
+| 4 | `program_studi` | `VARCHAR(100)` | `NOT NULL` | Afiliasi program studi |
 | 5 | `keahlian` | `VARCHAR(200)` | `NULL` | Bidang keahlian atau spesialisasi |
 | 6 | `pendidikan` | `VARCHAR(10)` | `NOT NULL` | Jenjang pendidikan tertinggi (S2/S3) |
 | 7 | `jabatan` | `VARCHAR(50)` | `NULL` | Jabatan fungsional akademik |
-| 8 | `status` | `VARCHAR(20)` | `NOT NULL` | Status kepegawaian (Tetap/Kontrak) |
+| 8 | `status` | `VARCHAR(20)` | `NOT NULL` | Status kepegawaian (Tetap/Kontrak/Tidak Tetap) |
 | 9 | `email` | `VARCHAR(100)` | `NOT NULL` | Alamat email dosen |
-| 10 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto profil dosen |
-
-**Relasi:** Memiliki relasi fungsional *one-to-many* dengan tabel `penelitian` dan `pengabdian` melalui nama peneliti (bukan *foreign key* eksplisit).
+| 10 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto profil (maks 2MB, JPG/PNG/WebP) |
 
 ---
 
 ### 3.3.4 Tabel: `penelitian`
 
-Tabel `penelitian` mendokumentasikan aktivitas riset yang dilakukan oleh sivitas akademika sebagai pemenuhan Tri Dharma Perguruan Tinggi aspek penelitian. Kolom `status` merepresentasikan fase penelitian (*Draft*, *Sedang Berjalan*, *Selesai*), sedangkan kolom `dokumen` menyimpan nama file laporan penelitian yang dapat diunduh melalui halaman publik.
+Tabel `penelitian` mendokumentasikan aktivitas riset sivitas akademika. Mendukung upload dua file terpisah (proposal dan laporan) ke direktori `uploads/penelitian_proposal/` dan `uploads/penelitian_laporan/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik penelitian |
 | 2 | `judul` | `VARCHAR(255)` | `NOT NULL` | Judul lengkap penelitian |
 | 3 | `peneliti` | `VARCHAR(200)` | `NOT NULL` | Nama peneliti/tim peneliti |
-| 4 | `tahun` | `YEAR` | `NOT NULL` | Tahun pelaksanaan penelitian |
-| 5 | `status` | `VARCHAR(20)` | `NOT NULL` | Status: Draft/Sedang Berjalan/Selesai |
-| 6 | `dana` | `DECIMAL(15,2)` | `NULL` | Jumlah dana hibah penelitian (Rupiah) |
-| 7 | `dokumen` | `VARCHAR(255)` | `NULL` | Nama file dokumen proposal/laporan |
-| 8 | `tanggal_mulai` | `DATE` | `NULL` | Tanggal mulai penelitian |
-| 9 | `tanggal_selesai` | `DATE` | `NULL` | Tanggal selesai penelitian |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit; terhubung fungsional ke `dosen` melalui nama peneliti.
+| 4 | `tahun` | `INT` | `NOT NULL` | Tahun pelaksanaan penelitian |
+| 5 | `status` | `VARCHAR(20)` | `NOT NULL` | Status: Draft / Sedang Berjalan / Selesai |
+| 6 | `skim_penelitian` | `VARCHAR(100)` | `NULL` | Skim/skema penelitian yang diikuti |
+| 7 | `kelompok_bidang` | `VARCHAR(100)` | `NULL` | Kelompok bidang riset |
+| 8 | `nomor_sk` | `VARCHAR(100)` | `NULL` | Nomor Surat Keputusan penelitian |
+| 9 | `lama_kegiatan` | `VARCHAR(50)` | `NULL` | Durasi kegiatan (mis. "6 Bulan") |
+| 10 | `sumber_dana` | `VARCHAR(50)` | `NULL` | Sumber dana (Internal/Eksternal/Mandiri/Lainnya) |
+| 11 | `jumlah_dana` | `INT` | `NULL` | Jumlah dana dalam Rupiah |
+| 12 | `tanggal_mulai` | `DATE` | `NULL` | Tanggal mulai penelitian |
+| 13 | `tanggal_selesai` | `DATE` | `NULL` | Tanggal selesai penelitian |
+| 14 | `lokasi_penelitian` | `VARCHAR(200)` | `NULL` | Lokasi/tempat pelaksanaan |
+| 15 | `afiliasi` | `VARCHAR(200)` | `NULL` | Afiliasi institusi peneliti |
+| 16 | `file_proposal` | `VARCHAR(255)` | `NULL` | Nama file proposal (PDF/DOC/DOCX) |
+| 17 | `file_laporan` | `VARCHAR(255)` | `NULL` | Nama file laporan akhir (PDF/DOC/DOCX) |
+| 18 | `link_publikasi` | `VARCHAR(255)` | `NULL` | URL publikasi/jurnal online |
 
 ---
 
 ### 3.3.5 Tabel: `pengabdian`
 
-Tabel `pengabdian` merupakan repositori data kegiatan pengabdian kepada masyarakat yang menjadi bukti implementasi Tri Dharma aspek ketiga. Setiap kegiatan dicatat bersama dokumen laporannya yang dapat diakses publik melalui halaman `pages/pengabdian.php`.
+Tabel `pengabdian` mendokumentasikan kegiatan pengabdian kepada masyarakat. File dokumen disimpan di direktori `uploads/pengabdian_file/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik kegiatan pengabdian |
 | 2 | `judul` | `VARCHAR(255)` | `NOT NULL` | Judul kegiatan pengabdian |
 | 3 | `pelaksana` | `VARCHAR(200)` | `NOT NULL` | Nama pelaksana/tim pelaksana |
-| 4 | `tanggal` | `DATE` | `NOT NULL` | Tanggal pelaksanaan kegiatan |
-| 5 | `deskripsi` | `TEXT` | `NULL` | Deskripsi singkat kegiatan |
-| 6 | `dokumen` | `VARCHAR(255)` | `NULL` | Nama file laporan kegiatan |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
+| 4 | `deskripsi` | `TEXT` | `NULL` | Deskripsi singkat kegiatan |
+| 5 | `file_pdf` | `VARCHAR(255)` | `NULL` | Nama file laporan (PDF/DOC/DOCX, maks 5MB) |
+| 6 | `tanggal_kegiatan` | `DATE` | `NULL` | Tanggal pelaksanaan kegiatan |
 
 ---
 
-### 3.3.6 Tabel: `matakuliah`
+### 3.3.6 Tabel: `kerjasama`
 
-Tabel `matakuliah` menyimpan struktur kurikulum Program Studi Informatika dan Pendidikan Teknologi Informasi. Data ini ditampilkan pada halaman `pages/kurikulum.php` untuk memberikan transparansi mengenai peta jalan akademik kepada mahasiswa dan calon mahasiswa.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik mata kuliah |
-| 2 | `kode` | `VARCHAR(20)` | `UNIQUE`, `NOT NULL` | Kode mata kuliah (unik per kurikulum) |
-| 3 | `nama` | `VARCHAR(150)` | `NOT NULL` | Nama lengkap mata kuliah |
-| 4 | `sks` | `INT` | `NOT NULL` | Bobot Satuan Kredit Semester |
-| 5 | `semester` | `INT` | `NOT NULL` | Semester penawaran (1–8) |
-| 6 | `program_studi` | `VARCHAR(100)` | `NOT NULL` | Afiliasi Program Studi |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.7 Tabel: `ruangan`
-
-Tabel `ruangan` berfungsi sebagai inventaris digital ruang kelas dan ruang pertemuan yang tersedia di Fakultas Ilmu Komputer, lengkap dengan informasi kapasitas dan kelengkapan fasilitas.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik ruangan |
-| 2 | `nama` | `VARCHAR(100)` | `NOT NULL` | Nama/kode ruangan |
-| 3 | `kapasitas` | `INT` | `NOT NULL` | Kapasitas tempat duduk |
-| 4 | `lokasi` | `VARCHAR(100)` | `NULL` | Lokasi fisik (lantai/gedung) |
-| 5 | `fasilitas` | `TEXT` | `NULL` | Deskripsi fasilitas yang tersedia |
-| 6 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto ruangan |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.8 Tabel: `laboratorium`
-
-Tabel `laboratorium` menyimpan profil laboratorium praktikum yang merupakan sarana utama pendidikan vokasional di Fakultas Ilmu Komputer, mencakup spesifikasi perangkat keras dan lunak.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik laboratorium |
-| 2 | `nama` | `VARCHAR(100)` | `NOT NULL` | Nama laboratorium |
-| 3 | `jenis` | `VARCHAR(50)` | `NOT NULL` | Jenis lab (Pemrograman/Multimedia/Jaringan) |
-| 4 | `deskripsi` | `TEXT` | `NULL` | Keterangan umum laboratorium |
-| 5 | `spesifikasi` | `TEXT` | `NULL` | Spesifikasi perangkat keras/lunak |
-| 6 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto laboratorium |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.9 Tabel: `kerjasama`
-
-Tabel `kerjasama` mendokumentasikan kemitraan strategis Fakultas Ilmu Komputer dengan instansi eksternal baik pemerintah maupun swasta yang telah menandatangani MoU atau MoA.
+Tabel `kerjasama` mendokumentasikan kemitraan strategis dengan instansi eksternal. File logo disimpan di direktori `uploads/kerjasama/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik kerjasama |
-| 2 | `nama_mitra` | `VARCHAR(200)` | `NOT NULL` | Nama instansi mitra |
-| 3 | `jenis` | `VARCHAR(50)` | `NULL` | Jenis kemitraan (MoU/MoA/PKS) |
-| 4 | `logo` | `VARCHAR(255)` | `NULL` | Nama file logo instansi mitra |
-| 5 | `tanggal_mou` | `DATE` | `NULL` | Tanggal penandatanganan dokumen |
-| 6 | `keterangan` | `TEXT` | `NULL` | Keterangan ruang lingkup kerjasama |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
+| 2 | `nama_instansi` | `VARCHAR(200)` | `NOT NULL` | Nama instansi mitra |
+| 3 | `logo` | `VARCHAR(255)` | `NULL` | Nama file logo instansi mitra |
+| 4 | `link_website` | `VARCHAR(255)` | `NULL` | URL website resmi mitra |
+| 5 | `bulan` | `VARCHAR(20)` | `NULL` | Bulan penandatanganan MoU |
+| 6 | `tahun` | `INT` | `NULL` | Tahun penandatanganan MoU |
 
 ---
 
-### 3.3.10 Tabel: `bem`
+### 3.3.7 Tabel: `bem_struktur`
 
-Tabel `bem` menyimpan profil Badan Eksekutif Mahasiswa Fakultas Ilmu Komputer yang diimplementasikan dalam pola *Single Row Update* karena hanya terdapat satu BEM aktif dalam satu waktu.
+Tabel `bem_struktur` menyimpan data per-anggota struktur organisasi BEM dengan kategorisasi hierarki (*inti*, *sekben*, *departemen*). File foto disimpan di direktori `uploads/bem/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik rekaman BEM |
-| 2 | `nama_kabinet` | `VARCHAR(100)` | `NOT NULL` | Nama Kabinet BEM periode aktif |
-| 3 | `visi` | `TEXT` | `NULL` | Visi organisasi BEM |
-| 4 | `misi` | `TEXT` | `NULL` | Misi dan program kerja BEM |
-| 5 | `logo` | `VARCHAR(255)` | `NULL` | Nama file logo/foto kabinet |
-| 6 | `pengurus` | `TEXT` | `NULL` | Data pengurus (format JSON/teks) |
-| 7 | `updated_at` | `TIMESTAMP` | `ON UPDATE CURRENT_TIMESTAMP` | Waktu pembaruan terakhir |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik anggota BEM |
+| 2 | `nama` | `VARCHAR(100)` | `NOT NULL` | Nama lengkap anggota |
+| 3 | `jabatan` | `VARCHAR(100)` | `NOT NULL` | Jabatan dalam BEM |
+| 4 | `prodi` | `VARCHAR(100)` | `NULL` | Program studi dan angkatan |
+| 5 | `kategori` | `VARCHAR(20)` | `NOT NULL` | Hierarki: `inti` / `sekben` / `departemen` |
+| 6 | `urutan` | `INT` | `DEFAULT 1` | Urutan tampil dalam hierarki |
+| 7 | `foto` | `VARCHAR(255)` | `NOT NULL` | Nama file foto anggota (JPG/PNG, wajib) |
 
 ---
 
-### 3.3.11 Tabel: `kalender`
+### 3.3.8 Tabel: `kalender_akademik`
 
-Tabel `kalender` berfungsi sebagai basis data kegiatan akademik resmi semester berjalan yang dijadikan acuan seluruh sivitas akademika.
+Tabel `kalender_akademik` menyimpan jadwal dan kegiatan akademik resmi per tahun akademik. File gambar/poster disimpan di direktori `uploads/kalender/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik kegiatan |
-| 2 | `nama_kegiatan` | `VARCHAR(200)` | `NOT NULL` | Nama/judul kegiatan akademik |
-| 3 | `tanggal_mulai` | `DATE` | `NOT NULL` | Tanggal mulai kegiatan |
-| 4 | `tanggal_selesai` | `DATE` | `NULL` | Tanggal selesai (jika multi-hari) |
-| 5 | `keterangan` | `TEXT` | `NULL` | Keterangan tambahan kegiatan |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
+| 2 | `nama_kalender` | `VARCHAR(200)` | `NOT NULL` | Nama/judul kegiatan akademik |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Keterangan kegiatan |
+| 4 | `gambar` | `VARCHAR(255)` | `NULL` | Nama file gambar/poster kalender |
+| 5 | `tahun_akademik` | `VARCHAR(20)` | `NOT NULL` | Tahun akademik (mis. "2024/2025") |
 
 ---
 
-### 3.3.12 Tabel: `dokumen`
+### 3.3.9 Tabel: `pendaftaran`
 
-Tabel `dokumen` berfungsi sebagai repositori digital dokumen resmi yang mencakup SOP, Renstra, Renop, dan dokumen fakultas lainnya yang dapat diakses secara publik.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik dokumen |
-| 2 | `judul` | `VARCHAR(255)` | `NOT NULL` | Judul/nama dokumen |
-| 3 | `jenis` | `VARCHAR(50)` | `NOT NULL` | Jenis dokumen (SOP/Renstra/Renop/Umum) |
-| 4 | `deskripsi` | `TEXT` | `NULL` | Deskripsi singkat isi dokumen |
-| 5 | `file` | `VARCHAR(255)` | `NULL` | Nama file dokumen yang diunggah |
-| 6 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu dokumen diunggah |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.13 Tabel: `slider`
-
-Tabel `slider` menyimpan konten *Hero Slider* yang ditampilkan di bagian paling atas halaman beranda website.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik slide |
-| 2 | `judul` | `VARCHAR(200)` | `NULL` | Judul/heading pada slide |
-| 3 | `subjudul` | `VARCHAR(200)` | `NULL` | Sub-judul/deskripsi singkat |
-| 4 | `gambar` | `VARCHAR(255)` | `NOT NULL` | Nama file gambar slider |
-| 5 | `urutan` | `INT` | `DEFAULT 0` | Urutan tampil slide |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.14 Tabel: `fakta`
-
-Tabel `fakta` menyimpan data statistik kuantitatif fakultas yang ditampilkan di *homepage* sebagai *social proof* kepada pengunjung.
-
-| No | Kolom | Tipe Data | Constraint | Keterangan |
-|:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik fakta |
-| 2 | `label` | `VARCHAR(100)` | `NOT NULL` | Label/nama statistik (mis. "Total Dosen") |
-| 3 | `nilai` | `INT` | `NOT NULL` | Nilai numerik statistik |
-| 4 | `ikon` | `VARCHAR(50)` | `NULL` | Kelas ikon Font Awesome |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
-
----
-
-### 3.3.15 Tabel: `pendaftaran`
-
-Tabel `pendaftaran` merupakan repositori data calon mahasiswa baru yang mendaftar melalui formulir online di website. Data ini dikelola secara eksklusif oleh administrator melalui halaman `kelola_pendaftaran.php`.
+Tabel `pendaftaran` merupakan repositori data calon mahasiswa baru yang mendaftar melalui formulir online di website. Mendukung upload dua dokumen (KTP dan Ijazah) ke direktori `uploads/pendaftaran/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
 | 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik pendaftar |
 | 2 | `nama` | `VARCHAR(150)` | `NOT NULL` | Nama lengkap calon mahasiswa |
 | 3 | `nik` | `VARCHAR(20)` | `NOT NULL` | Nomor Induk Kependudukan |
-| 4 | `program_studi` | `VARCHAR(100)` | `NOT NULL` | Program studi yang dipilih |
-| 5 | `jalur_masuk` | `VARCHAR(50)` | `NOT NULL` | Jalur pendaftaran (Reguler/Prestasi/dll.) |
-| 6 | `no_whatsapp` | `VARCHAR(20)` | `NOT NULL` | Nomor WhatsApp yang dapat dihubungi |
-| 7 | `tanggal_daftar` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu pendaftaran otomatis |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit (entitas independen).
+| 4 | `email` | `VARCHAR(100)` | `NOT NULL` | Alamat email pendaftar |
+| 5 | `hp` | `VARCHAR(20)` | `NOT NULL` | Nomor handphone/WhatsApp |
+| 6 | `tempat_lahir` | `VARCHAR(100)` | `NULL` | Kota tempat lahir |
+| 7 | `tanggal_lahir` | `DATE` | `NULL` | Tanggal lahir |
+| 8 | `jk` | `VARCHAR(10)` | `NULL` | Jenis kelamin (Laki-laki/Perempuan) |
+| 9 | `asal_sekolah` | `VARCHAR(200)` | `NULL` | Nama sekolah/madrasah asal |
+| 10 | `prodi` | `VARCHAR(100)` | `NOT NULL` | Program studi pilihan |
+| 11 | `jalur` | `VARCHAR(50)` | `NOT NULL` | Jalur pendaftaran (Reguler/Prestasi/dll.) |
+| 12 | `alamat` | `TEXT` | `NULL` | Alamat lengkap pendaftar |
+| 13 | `file_ktp` | `VARCHAR(255)` | `NULL` | Nama file scan KTP |
+| 14 | `file_ijazah` | `VARCHAR(255)` | `NULL` | Nama file scan Ijazah/SKHUN |
+| 15 | `catatan` | `VARCHAR(255)` | `NULL` | Catatan tambahan pendaftar |
+| 16 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Waktu pendaftaran otomatis |
 
 ---
 
-### 3.3.16 Tabel: `halaman_statis`
+### 3.3.10 Tabel: `kurikulum`
 
-Tabel ini mengimplementasikan pola *Configuration Table* yang menyimpan seluruh konten halaman profil dalam satu baris data yang diperbarui secara berkala oleh administrator.
+Tabel `kurikulum` menyimpan dokumen kurikulum resmi Program Studi. File PDF disimpan di direktori `uploads/kurikulum/`.
 
 | No | Kolom | Tipe Data | Constraint | Keterangan |
 |:--:|:------|:----------|:-----------|:-----------|
-| 1 | `id` | `INT` | `PK` | ID rekaman (hanya satu baris) |
-| 2 | `slug` | `VARCHAR(50)` | `UNIQUE` | Identifikasi konfigurasi (mis. "profil") |
-| 3 | `visi` | `TEXT` | `NULL` | Konten visi fakultas |
-| 4 | `misi` | `TEXT` | `NULL` | Konten misi fakultas |
-| 5 | `tujuan` | `TEXT` | `NULL` | Konten tujuan fakultas |
-| 6 | `sasaran` | `TEXT` | `NULL` | Konten sasaran fakultas |
-| 7 | `sambutan_dekan` | `TEXT` | `NULL` | Teks sambutan dekan |
-| 8 | `tentang_fakultas` | `TEXT` | `NULL` | Sejarah dan profil fakultas |
-| 9 | `updated_at` | `TIMESTAMP` | `ON UPDATE CURRENT_TIMESTAMP` | Waktu pembaruan terakhir |
-
-**Relasi:** Tidak memiliki *foreign key* eksplisit.
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik kurikulum |
+| 2 | `nama_kurikulum` | `VARCHAR(200)` | `NOT NULL` | Nama/judul dokumen kurikulum |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi kurikulum |
+| 4 | `file_pdf` | `VARCHAR(255)` | `NULL` | Nama file PDF kurikulum |
 
 ---
 
-## 3.4 Ringkasan Relasi Antar Tabel
+### 3.3.11 Tabel: `ruangan`
 
-| No | Tabel Induk | Tabel Anak | Jenis Relasi | Keterangan |
-|:--:|:------------|:-----------|:-------------|:-----------|
-| 1 | `users` | `berita` | One-to-Many (fungsional) | Admin mengelola berita |
-| 2 | `users` | `slider` | One-to-Many (fungsional) | Admin mengelola slider |
-| 3 | `users` | `dosen` | One-to-Many (fungsional) | Admin mengelola data dosen |
-| 4 | `users` | `penelitian` | One-to-Many (fungsional) | Admin mengelola penelitian |
-| 5 | `users` | `pengabdian` | One-to-Many (fungsional) | Admin mengelola pengabdian |
-| 6 | `users` | `kerjasama` | One-to-Many (fungsional) | Admin mengelola kerjasama |
-| 7 | `users` | `matakuliah` | One-to-Many (fungsional) | Admin mengelola kurikulum |
-| 8 | `users` | `dokumen` | One-to-Many (fungsional) | Admin mengelola dokumen |
-| 9 | `users` | `pendaftaran` | One-to-Many (fungsional) | Admin memverifikasi pendaftar |
-| 10 | `dosen` | `penelitian` | One-to-Many (fungsional) | Dosen melakukan penelitian |
-| 11 | `dosen` | `pengabdian` | One-to-Many (fungsional) | Dosen melaksanakan pengabdian |
-| 12 | `dosen` | `matakuliah` | One-to-Many (fungsional) | Dosen mengampu mata kuliah |
+Tabel `ruangan` merupakan inventaris digital ruang kelas dan ruang pertemuan. File foto disimpan di direktori `uploads/ruangan/`.
 
-> **Catatan:** Relasi antar tabel bersifat *fungsional/logis* dan diimplementasikan melalui logika aplikasi PHP, bukan melalui *foreign key constraint* pada level basis data, untuk memaksimalkan fleksibilitas dalam pengelolaan data.
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik ruangan |
+| 2 | `nama_ruangan` | `VARCHAR(100)` | `NOT NULL` | Nama/kode ruangan |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi dan fasilitas ruangan |
+| 4 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto ruangan |
 
 ---
 
-## 3.5 Indeks Basis Data
+### 3.3.12 Tabel: `laboratorium`
 
-| No | Tabel | Kolom Terindeks | Jenis Indeks | Tujuan |
-|:--:|:------|:----------------|:-------------|:-------|
-| 1 | `users` | `id` | PRIMARY | Pencarian dan relasi utama |
-| 2 | `users` | `username` | UNIQUE | Pencegahan duplikasi username |
-| 3 | `users` | `email` | UNIQUE | Pencegahan duplikasi email |
-| 4 | `berita` | `id` | PRIMARY | Pencarian rekaman berita |
-| 5 | `berita` | `tanggal_publish` | INDEX | Pengurutan berita terbaru |
-| 6 | `dosen` | `id` | PRIMARY | Pencarian rekaman dosen |
-| 7 | `dosen` | `nidn` | UNIQUE | Pencegahan duplikasi NIDN |
-| 8 | `penelitian` | `id` | PRIMARY | Pencarian rekaman penelitian |
-| 9 | `penelitian` | `tahun` | INDEX | Filter research by year |
-| 10 | `matakuliah` | `kode` | UNIQUE | Pencegahan duplikasi kode MK |
-| 11 | `pendaftaran` | `id` | PRIMARY | Pencarian rekaman pendaftar |
+Tabel `laboratorium` menyimpan profil laboratorium praktikum Fakultas Ilmu Komputer. File foto disimpan di direktori `uploads/laboratorium/`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik laboratorium |
+| 2 | `nama_lab` | `VARCHAR(100)` | `NOT NULL` | Nama laboratorium |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi dan spesifikasi laboratorium |
+| 4 | `foto` | `VARCHAR(255)` | `NULL` | Nama file foto laboratorium |
 
 ---
 
-## 3.6 Konfigurasi Koneksi Basis Data
+### 3.3.13 Tabel: `sop`
 
-### 3.6.1 Parameter Koneksi
+Tabel `sop` merupakan repositori digital Standar Operasional Prosedur (SOP) resmi fakultas. File PDF disimpan di direktori `uploads/sop/`.
 
-Konfigurasi koneksi basis data didefinisikan terpusat di file `config/database.php` menggunakan konstanta PHP yang dicegah dari pendefinisian ganda menggunakan `!defined()`:
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik SOP |
+| 2 | `nama_sop` | `VARCHAR(255)` | `NOT NULL` | Nama/judul dokumen SOP |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi singkat isi SOP |
+| 4 | `file_pdf` | `VARCHAR(255)` | `NULL` | Nama file PDF SOP |
+
+---
+
+### 3.3.14 Tabel: `rencana_strategis`
+
+Tabel `rencana_strategis` menyimpan dokumen Renstra (Rencana Strategis) fakultas. File PDF disimpan di direktori `uploads/renstra/`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik dokumen |
+| 2 | `nama_dokumen` | `VARCHAR(255)` | `NOT NULL` | Nama/judul dokumen Renstra |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi dokumen |
+| 4 | `file_pdf` | `VARCHAR(255)` | `NULL` | Nama file PDF Renstra |
+
+---
+
+### 3.3.15 Tabel: `rencana_operasional`
+
+Tabel `rencana_operasional` menyimpan dokumen Renop (Rencana Operasional) fakultas. File PDF disimpan di direktori `uploads/renop/`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik dokumen |
+| 2 | `nama_dokumen` | `VARCHAR(255)` | `NOT NULL` | Nama/judul dokumen Renop |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi dokumen |
+| 4 | `file_pdf` | `VARCHAR(255)` | `NULL` | Nama file PDF Renop |
+
+---
+
+### 3.3.16 Tabel: `hero_slider`
+
+Tabel `hero_slider` menyimpan konten *Hero Slider* yang ditampilkan di bagian paling atas halaman beranda website. File gambar disimpan di direktori `uploads/slider/`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik slide |
+| 2 | `gambar` | `VARCHAR(255)` | `NOT NULL` | Nama file gambar slider |
+| 3 | `is_active` | `TINYINT(1)` | `DEFAULT 1` | Status aktif slider (1=aktif, 0=nonaktif) |
+
+---
+
+### 3.3.17 Tabel: `tb_fakta`
+
+Tabel `tb_fakta` menyimpan data statistik kuantitatif fakultas yang ditampilkan di *homepage* sebagai angka pencapaian.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik fakta |
+| 2 | `judul` | `VARCHAR(100)` | `NOT NULL` | Label statistik (mis. "Total Dosen") |
+| 3 | `angka` | `INT` | `NOT NULL` | Nilai numerik statistik |
+| 4 | `urutan` | `INT` | `DEFAULT 0` | Urutan tampil di homepage |
+
+---
+
+### 3.3.18 Tabel: `tentang_fikom`
+
+Tabel `tentang_fikom` mengimplementasikan pola *Single Row Config* yang menyimpan profil dan deskripsi umum Fakultas Ilmu Komputer. File gambar disimpan di direktori `uploads/tentang/`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK` | ID rekaman (hanya 1 baris, id=1) |
+| 2 | `judul` | `VARCHAR(200)` | `NOT NULL` | Judul/heading halaman tentang |
+| 3 | `deskripsi` | `TEXT` | `NULL` | Deskripsi/sejarah fakultas |
+| 4 | `gambar` | `VARCHAR(255)` | `NULL` | Nama file gambar gedung/ilustrasi |
+
+---
+
+### 3.3.19 Tabel: `visi_misi`
+
+Tabel `visi_misi` menggunakan pola *Multi-Row Category* di mana satu tabel menyimpan semua jenis konten (Visi, Misi, Tujuan, Sasaran) yang dibedakan dengan kolom `kategori`.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik item |
+| 2 | `kategori` | `VARCHAR(20)` | `NOT NULL` | Jenis konten: `Visi` / `Misi` / `Tujuan` / `Sasaran` |
+| 3 | `konten` | `TEXT` | `NOT NULL` | Isi teks konten |
+| 4 | `urutan` | `INT` | `DEFAULT 0` | Nomor urut tampil |
+
+---
+
+### 3.3.20 Tabel: `halaman_statis`
+
+Tabel `halaman_statis` menyimpan konten halaman-halaman statis yang dikelola via upload gambar, termasuk gambar struktur organisasi. Setiap baris merepresentasikan satu halaman dengan slug unik.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik halaman |
+| 2 | `nama_halaman` | `VARCHAR(100)` | `UNIQUE`, `NOT NULL` | Slug identitas halaman (mis. `struktur_organisasi`) |
+| 3 | `gambar_path` | `VARCHAR(255)` | `NULL` | Nama file gambar halaman |
+| 4 | `konten` | `TEXT` | `NULL` | Konten teks tambahan (opsional) |
+| 5 | `updated_at` | `TIMESTAMP` | `ON UPDATE CURRENT_TIMESTAMP` | Waktu pembaruan terakhir |
+
+---
+
+### 3.3.21 Tabel: `mahasiswa`
+
+Tabel `mahasiswa` menyimpan data mahasiswa aktif yang terdaftar di sistem, berbeda dari tabel `pendaftaran` yang merekam proses PMB.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik mahasiswa |
+| 2 | `nim` | `VARCHAR(20)` | `UNIQUE`, `NOT NULL` | Nomor Induk Mahasiswa |
+| 3 | `nama` | `VARCHAR(150)` | `NOT NULL` | Nama lengkap mahasiswa |
+| 4 | `program_studi` | `VARCHAR(100)` | `NOT NULL` | Program studi |
+| 5 | `angkatan` | `INT` | `NOT NULL` | Tahun angkatan masuk |
+| 6 | `status` | `VARCHAR(20)` | `DEFAULT 'Aktif'` | Status akademik (Aktif/Cuti/Lulus) |
+
+---
+
+### 3.3.22 Tabel: `tabel_dosen`
+
+Tabel `tabel_dosen` merupakan tabel tambahan yang digunakan sebagai referensi cepat data nama dosen untuk keperluan *dropdown* dan autofill pada form-form admin.
+
+| No | Kolom | Tipe Data | Constraint | Keterangan |
+|:--:|:------|:----------|:-----------|:-----------|
+| 1 | `id` | `INT` | `PK`, `AUTO_INCREMENT` | Identifikasi unik |
+| 2 | `nama` | `VARCHAR(150)` | `NOT NULL` | Nama lengkap dosen |
+| 3 | `nidn` | `VARCHAR(20)` | `NULL` | NIDN (referensi ke tabel `dosen`) |
+| 4 | `prodi` | `VARCHAR(100)` | `NULL` | Program studi |
+
+---
+
+## 3.4 Ringkasan Seluruh Tabel Database
+
+| No | Nama Tabel | Jumlah Kolom | Domain | Keterangan |
+|:--:|:-----------|:------------:|:-------|:-----------|
+| 1 | `users` | 9 | Autentikasi | Akun administrator sistem |
+| 2 | `berita` | 8 | Konten | Artikel dan pengumuman |
+| 3 | `dosen` | 10 | Akademik | Profil tenaga pengajar |
+| 4 | `penelitian` | 18 | Tridharma | Data riset dan penelitian |
+| 5 | `pengabdian` | 6 | Tridharma | Kegiatan pengabdian masyarakat |
+| 6 | `kerjasama` | 6 | Tridharma | Data mitra kerjasama |
+| 7 | `bem_struktur` | 7 | Kemahasiswaan | Struktur organisasi BEM |
+| 8 | `kalender_akademik` | 5 | Kemahasiswaan | Kalender kegiatan akademik |
+| 9 | `pendaftaran` | 16 | PMB | Data calon mahasiswa baru |
+| 10 | `kurikulum` | 4 | Akademik | Dokumen kurikulum Program Studi |
+| 11 | `ruangan` | 4 | Fasilitas | Inventaris ruang kelas |
+| 12 | `laboratorium` | 4 | Fasilitas | Profil laboratorium |
+| 13 | `sop` | 4 | Dokumen | Standar Operasional Prosedur |
+| 14 | `rencana_strategis` | 4 | Dokumen | Dokumen Renstra |
+| 15 | `rencana_operasional` | 4 | Dokumen | Dokumen Renop |
+| 16 | `hero_slider` | 3 | Konten | Gambar hero slider homepage |
+| 17 | `tb_fakta` | 4 | Konten | Statistik angka pencapaian |
+| 18 | `tentang_fikom` | 4 | Profil | Deskripsi umum fakultas |
+| 19 | `visi_misi` | 4 | Profil | Visi, Misi, Tujuan, Sasaran |
+| 20 | `halaman_statis` | 5 | Profil | Gambar halaman statis |
+| 21 | `mahasiswa` | 6 | Akademik | Data mahasiswa aktif |
+| 22 | `tabel_dosen` | 4 | Akademik | Referensi cepat nama dosen |
+
+---
+
+## 3.5 Konfigurasi Koneksi Basis Data
+
+### 3.5.1 Parameter Koneksi
 
 | Parameter | Nilai (Development) | Keterangan |
 |:----------|:--------------------|:-----------|
@@ -549,32 +592,26 @@ Konfigurasi koneksi basis data didefinisikan terpusat di file `config/database.p
 | `DB_USERNAME` | `root` | Nama pengguna database |
 | `DB_PASSWORD` | *(kosong)* | Password (lingkungan XAMPP lokal) |
 | `DB_NAME` | `db_web_fikom` | Nama database aplikasi |
+| *Engine* | `InnoDB` | Storage engine (mendukung transaction & FK) |
 | *Charset* | `utf8mb4` | Mendukung karakter Unicode penuh |
 | *Timezone* | `Asia/Makassar` | Zona waktu WITA (UTC+8) |
+| *RDBMS Version* | `MariaDB 10.4.32` | Versi server database |
 
-### 3.6.2 Penanganan Error Koneksi
+### 3.5.2 Penanganan Error Koneksi
 
-Sistem mengimplementasikan penanganan kesalahan koneksi yang aman untuk produksi:
+Sistem mengimplementasikan penanganan kesalahan koneksi yang aman:
 
 ```php
+// config/database.php
+$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if ($conn->connect_error) {
     error_log("Database Connection Failed: " . $conn->connect_error);
     die("Maaf, terjadi kesalahan pada sistem. Silakan coba lagi nanti.");
 }
+$conn->set_charset("utf8mb4");
 ```
 
-Detail pesan kesalahan dicatat ke *error log* server menggunakan `error_log()` tanpa diekspos ke pengguna akhir, mencegah kebocoran informasi sensitif mengenai konfigurasi basis data. Pesan umum ditampilkan sebagai gantinya.
-
-### 3.6.3 Rekomendasi Produksi
-
-Untuk *deployment* produksi, disarankan konfigurasi tambahan berikut:
-
-| Aspek | Rekomendasi | Alasan |
-|:------|:------------|:-------|
-| Kredensial | Pindahkan ke file `.env` atau variabel lingkungan | Mencegah hardcoding kredensial di kode sumber |
-| Password DB | Gunakan password kompleks, bukan string kosong | Keamanan akses database |
-| *Connection Pooling* | Gunakan `PDO` dengan *persistent connection* | Performa tinggi di bawah beban besar |
-| *SSL/TLS* | Aktifkan enkripsi koneksi ke MySQL | Keamanan transmisi data |
+Detail pesan kesalahan dicatat ke *error log* server menggunakan `error_log()` tanpa diekspos ke pengguna akhir, mencegah kebocoran informasi konfigurasi basis data.
 
 ---
 

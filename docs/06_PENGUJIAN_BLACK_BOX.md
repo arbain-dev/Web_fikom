@@ -14,137 +14,137 @@ Tujuan utama pengujian ini:
 ## 6.2 Skenario Pengujian Unit Menu Admin
 
 ### 6.2.1 Menu — Dashboard
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tampil Statistik | Buka Dashboard | Angka Dosen & Berita muncul | **Valid** |
-| 2 | Tampil Data Terbaru| Lihat tabel | Muncul 5 data terbaru | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tampil Statistik | Buka Dashboard | Angka Dosen & Berita muncul | Sesuai Harapan | **Valid** |
+| 2 | Tampil Data Terbaru| Lihat tabel | Muncul 5 data terbaru | Sesuai Harapan | **Valid** |
 
 ### 6.2.2 Submenu — Visi Misi
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Ubah Visi Misi | Edit teks & Simpan | Teks visi misi berubah | **Valid** |
-| 2 | Urutan Data | Ganti angka urutan | Posisi tampilan berubah | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Ubah Visi Misi | Edit teks & Simpan | Teks visi misi berubah | Sesuai Harapan | **Valid** |
+| 2 | Urutan Data | Ganti angka urutan | Posisi tampilan berubah | Sesuai Harapan | **Valid** |
 
 ### 6.2.3 Submenu — Struktur Organisasi
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Upload Gambar | Pilih file & Simpan | Gambar struktur terupdate | **Valid** |
-| 2 | Hapus Gambar | Klik tombol hapus | Gambar struktur kosong | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Upload Gambar | Pilih file & Simpan | Gambar struktur terupdate | Sesuai Harapan | **Valid** |
+| 2 | Hapus Gambar | Klik tombol hapus | Gambar struktur kosong | Sesuai Harapan | **Valid** |
 
 ### 6.2.4 Submenu — Data Civitas (Fakta)
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Data | Isi nama & angka | Angka statistik bertambah | **Valid** |
-| 2 | Hapus Data | Klik ikon hapus | Data fakta hilang dari list | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Data | Isi nama & angka | Angka statistik bertambah | Sesuai Harapan | **Valid** |
+| 2 | Hapus Data | Klik ikon hapus | Data fakta hilang dari list | Sesuai Harapan | **Valid** |
 
 ### 6.2.5 Submenu — Tentang Fakultas
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Edit Deskripsi | Ubah teks profil | Deskripsi fakultas terupdate | **Valid** |
-| 2 | Ganti Foto | Upload foto baru | Foto gedung fakultas berubah | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Edit Deskripsi | Ubah teks profil | Deskripsi fakultas terupdate | Sesuai Harapan | **Valid** |
+| 2 | Ganti Foto | Upload foto baru | Foto gedung fakultas berubah | Sesuai Harapan | **Valid** |
 
 ### 6.2.6 Menu — Kelola Slider
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Slider | Upload foto slider | Slide baru muncul di home | **Valid** |
-| 2 | Hapus Slider | Klik hapus | Gambar slider hilang | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Slider | Upload foto slider | Slide baru muncul di home | Sesuai Harapan | **Valid** |
+| 2 | Hapus Slider | Klik hapus | Gambar slider hilang | Sesuai Harapan | **Valid** |
 
 ### 6.2.7 Submenu — Semua Berita
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Berita | Form berita & Foto | Berita baru terbit di web | **Valid** |
-| 2 | Edit Berita | Ubah judul/isi | Konten berita diperbarui | **Valid** |
-| 3 | Hapus Berita | Konfirmasi hapus | Berita & foto terhapus | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Berita | Form berita & Foto | Berita baru terbit di web | Sesuai Harapan | **Valid** |
+| 2 | Edit Berita | Ubah judul/isi | Konten berita diperbarui | Sesuai Harapan | **Valid** |
+| 3 | Hapus Berita | Konfirmasi hapus | Berita & foto terhapus | Sesuai Harapan | **Valid** |
 
 ### 6.2.8 Submenu — Daftar Dosen
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Dosen | Isi NIDN & Nama | Dosen baru terdaftar di DB | **Valid** |
-| 2 | Filter Prodi | Pilih prodi | Muncul dosen prodi terpilih | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Dosen | Isi NIDN & Nama | Dosen baru terdaftar di DB | Sesuai Harapan | **Valid** |
+| 2 | Filter Prodi | Pilih prodi | Muncul dosen prodi terpilih | Sesuai Harapan | **Valid** |
 
 ### 6.2.9 Submenu — Ruangan
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Ruangan | Nama & Kapasitas | Ruangan baru tersimpan | **Valid** |
-| 2 | Hapus Ruangan | Klik hapus | Ruangan ditiadakan | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Ruangan | Nama & Kapasitas | Ruangan baru tersimpan | Sesuai Harapan | **Valid** |
+| 2 | Hapus Ruangan | Klik hapus | Ruangan ditiadakan | Sesuai Harapan | **Valid** |
 
 ### 6.2.10 Submenu — Laboratorium
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Lab | Nama & Fasilitas | Lab baru muncul di daftar | **Valid** |
-| 2 | Edit Lab | Ubah deskripsi | Spesifikasi lab terupdate | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Lab | Nama & Fasilitas | Lab baru muncul di daftar | Sesuai Harapan | **Valid** |
+| 2 | Edit Lab | Ubah deskripsi | Spesifikasi lab terupdate | Sesuai Harapan | **Valid** |
 
 ### 6.2.11 Submenu — Kurikulum
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Upload Kurikulum | File PDF kurikulum | File tersedia untuk didownload | **Valid** |
-| 2 | Ganti File | Upload PDF baru | File lama terganti otomatis | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Upload Kurikulum | File PDF kurikulum | File tersedia untuk didownload | Sesuai Harapan | **Valid** |
+| 2 | Ganti File | Upload PDF baru | File lama terganti otomatis | Sesuai Harapan | **Valid** |
 
 ### 6.2.12 Submenu — Kalender
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Input Jadwal | Nama kegiatan & Tgl | Terjadwal di kalender akademik | **Valid** |
-| 2 | Hapus Jadwal | Klik delete | Kegiatan akademik dihapus | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Input Jadwal | Nama kegiatan & Tgl | Terjadwal di kalender akademik | Sesuai Harapan | **Valid** |
+| 2 | Hapus Jadwal | Klik delete | Kegiatan akademik dihapus | Sesuai Harapan | **Valid** |
 
 ### 6.2.13 Submenu — BEM
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Update Kabinet | Nama kabinet & Visi | Profil BEM terupdate | **Valid** |
-| 2 | Pengurus BEM | Tambah anggota | Daftar pengurus bertambah | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Update Kabinet | Nama kabinet & Visi | Profil BEM terupdate | Sesuai Harapan | **Valid** |
+| 2 | Pengurus BEM | Tambah anggota | Daftar pengurus bertambah | Sesuai Harapan | **Valid** |
 
 ### 6.2.14 Submenu — Kerjasama
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Mitra | Logo & Nama Mitra | Logo mitra tampil di carousel | **Valid** |
-| 2 | Hapus Mitra | Klik hapus | Data kerjasama ditiadakan | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Mitra | Logo & Nama Mitra | Logo mitra tampil di carousel | Sesuai Harapan | **Valid** |
+| 2 | Hapus Mitra | Klik hapus | Data kerjasama ditiadakan | Sesuai Harapan | **Valid** |
 
 ### 6.2.15 Submenu — Penelitian
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Input Penelitian | Judul & Peneliti | Data penelitian tersimpan | **Valid** |
-| 2 | Upload Laporan | File PDF laporan | Laporan akhir riset diunggah | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Input Penelitian | Judul & Peneliti | Data penelitian tersimpan | Sesuai Harapan | **Valid** |
+| 2 | Upload Laporan | File PDF laporan | Laporan akhir riset diunggah | Sesuai Harapan | **Valid** |
 
 ### 6.2.16 Submenu — Pengabdian
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Kegiatan | Judul & Deskripsi | Data pengabdian tersimpan | **Valid** |
-| 2 | Hapus Pengabdian | Klik hapus | Data & file PDF terhapus | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Kegiatan | Judul & Deskripsi | Data pengabdian tersimpan | Sesuai Harapan | **Valid** |
+| 2 | Hapus Pengabdian | Klik hapus | Data & file PDF terhapus | Sesuai Harapan | **Valid** |
 
 ### 6.2.17 Submenu — Rencana Operasional (Renop)
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Upload Renop | Dokumen PDF Renop | Renop tampil di halaman publik | **Valid** |
-| 2 | Hapus Dokumen | Klik hapus | File dokumen dihapus permanen | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Upload Renop | Dokumen PDF Renop | Renop tampil di halaman publik | Sesuai Harapan | **Valid** |
+| 2 | Hapus Dokumen | Klik hapus | File dokumen dihapus permanen | Sesuai Harapan | **Valid** |
 
 ### 6.2.18 Submenu — Rencana Strategis (Renstra)
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tambah Renstra | Judul & File PDF | Dokumen Renstra tersimpan | **Valid** |
-| 2 | Update Metadata | Ganti judul dokumen | Nama dokumen terupdate | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tambah Renstra | Judul & File PDF | Dokumen Renstra tersimpan | Sesuai Harapan | **Valid** |
+| 2 | Update Metadata | Ganti judul dokumen | Nama dokumen terupdate | Sesuai Harapan | **Valid** |
 
 ### 6.2.19 Submenu — SOP
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Upload SOP Baru | Judul & PDF | Repositori SOP bertambah | **Valid** |
-| 2 | Hapus SOP | Klik hapus | Dokumen SOP ditiadakan | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Upload SOP Baru | Judul & PDF | Repositori SOP bertambah | Sesuai Harapan | **Valid** |
+| 2 | Hapus SOP | Klik hapus | Dokumen SOP ditiadakan | Sesuai Harapan | **Valid** |
 
 ### 6.2.20 Menu — Data Pendaftaran
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Tampil Pendaftar | Buka Menu | Daftar calon mahasiswa muncul | **Valid** |
-| 2 | Detail Pendaftaran| Klik detail | Data lengkap pendaftar tampil | **Valid** |
-| 3 | Hapus Pendaftar | Klik Konfirmasi | Data & berkas KTP terhapus | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Tampil Pendaftar | Buka Menu | Daftar calon mahasiswa muncul | Sesuai Harapan | **Valid** |
+| 2 | Detail Pendaftaran| Klik detail | Data lengkap pendaftar tampil | Sesuai Harapan | **Valid** |
+| 3 | Hapus Pendaftar | Klik Konfirmasi | Data & berkas KTP terhapus | Sesuai Harapan | **Valid** |
 
 ### 6.2.21 Menu — Pengaturan (Profile)
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Ubah Profil | Ganti nama/email | Info profil admin terupdate | **Valid** |
-| 2 | Ganti Password | Masukkan pass baru | Kredensial login berubah | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Ubah Profil | Ganti nama/email | Info profil admin terupdate | Sesuai Harapan | **Valid** |
+| 2 | Ganti Password | Masukkan pass baru | Kredensial login berubah | Sesuai Harapan | **Valid** |
 
 ### 6.2.22 Keamanan — Logout
-| No | Skenario Uji | Input | Output yang Diharapkan | Status |
-|:--:|:-------------|:------|:-----------------------|:------:|
-| 1 | Logout | Klik Keluar | Sesi berakhir & balik ke Login | **Valid** |
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Logout | Klik Keluar | Sesi berakhir & balik ke Login | Sesuai Harapan | **Valid** |
 
 ---
 
@@ -152,30 +152,31 @@ Tujuan utama pengujian ini:
 
 Berikut adalah rekapitulasi dari seluruh skenario pengujian fungsionalitas sistem:
 
-| No | Modul / Menu yang Diuji | Status |
-|:--:|:------------------------|:------:|
-| 1 | Dashboard | **Valid** |
-| 2 | Visi Misi | **Valid** |
-| 3 | Struktur Organisasi | **Valid** |
-| 4 | Data Civitas (Fakta) | **Valid** |
-| 5 | Tentang Fakultas | **Valid** |
-| 6 | Kelola Slider | **Valid** |
-| 7 | Semua Berita | **Valid** |
-| 8 | Daftar Dosen | **Valid** |
-| 9 | Ruangan | **Valid** |
-| 10 | Laboratorium | **Valid** |
-| 11 | Kurikulum | **Valid** |
-| 12 | Kalender | **Valid** |
-| 13 | BEM | **Valid** |
-| 14 | Kerjasama | **Valid** |
-| 15 | Penelitian | **Valid** |
-| 16 | Pengabdian | **Valid** |
-| 17 | Rencana Operasional | **Valid** |
-| 18 | Rencana Strategis | **Valid** |
-| 19 | SOP | **Valid** |
-| 20 | Data Pendaftaran | **Valid** |
-| 21 | Pengaturan Profil | **Valid** |
-| 22 | Logout | **Valid** |
+| No | Modul / Menu yang Diuji | Jumlah Skenario | Status |
+|:--:|:------------------------|:---------------:|:------:|
+| 1 | Dashboard | 2 | **Valid** |
+| 2 | Visi Misi | 2 | **Valid** |
+| 3 | Struktur Organisasi | 2 | **Valid** |
+| 4 | Data Civitas (Fakta) | 2 | **Valid** |
+| 5 | Tentang Fakultas | 2 | **Valid** |
+| 6 | Kelola Slider | 2 | **Valid** |
+| 7 | Semua Berita | 3 | **Valid** |
+| 8 | Daftar Dosen | 2 | **Valid** |
+| 9 | Ruangan | 2 | **Valid** |
+| 10 | Laboratorium | 2 | **Valid** |
+| 11 | Kurikulum | 2 | **Valid** |
+| 12 | Kalender | 2 | **Valid** |
+| 13 | BEM | 2 | **Valid** |
+| 14 | Kerjasama | 2 | **Valid** |
+| 15 | Penelitian | 2 | **Valid** |
+| 16 | Pengabdian | 2 | **Valid** |
+| 17 | Rencana Operasional | 2 | **Valid** |
+| 18 | Rencana Strategis | 2 | **Valid** |
+| 19 | SOP | 2 | **Valid** |
+| 20 | Data Pendaftaran | 3 | **Valid** |
+| 21 | Pengaturan Profil | 2 | **Valid** |
+| 22 | Logout | 1 | **Valid** |
+| | **TOTAL** | **45** | **Valid** |
 
 **Kesimpulan Akhir:** Berdasarkan hasil pengujian di atas, seluruh fitur pada **setiap menu dan submenu** Admin telah berjalan dengan lancar dan sesuai fungsinya (**Valid**).
 

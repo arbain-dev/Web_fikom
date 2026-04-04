@@ -2,15 +2,15 @@
 
 ## 7.1 Pengantar White Box Testing
 
-*White Box Testing* atau pengujian kotak putih adalah metode pengujian perangkat lunak yang berfokus pada pemeriksaan struktur logika internal, alur percabangan, dan iterasi di dalam kode program. Penguji harus memahami logika kode untuk memastikan bahwa seluruh jalur independen (*independent paths*) telah dieksekusi setidaknya satu kali.
+*White Box Testing* adalah cara menguji aplikasi dengan memeriksa langsung alur logika dan percabangan di dalam kode program. Tujuannya adalah memastikan setiap jalur perintah dalam kode pernah dijalankan dan bekerja dengan benar.
 
 ### Metode Cyclomatic Complexity (V(G))
-Untuk mengukur kekompleksan logika sistem, digunakan metode *Cyclomatic Complexity* yang dikembangkan oleh Thomas J. McCabe. Terdapat dua rumus utama yang digunakan dalam laporan ini:
+Untuk menghitung kerumitan logika program, kita menggunakan metode *Cyclomatic Complexity*. Ada dua rumus yang digunakan:
 1.  **V(G) = E — N + 2**
-    *   `E` (Edges): Jumlah garis penghubung antar node.
-    *   `N` (Nodes): Jumlah titik/pernyataan dalam graf alur.
+    *   `E` (Edges): Garis penghubung antar langkah.
+    *   `N` (Nodes): Titik perintah atau pernyataan kode.
 2.  **V(G) = P + 1**
-    *   `P`: Jumlah *Predicate Nodes* (node yang memiliki percabangan/keputusan).
+    *   `P`: Jumlah titik keputusan (seperti `if` atau `else`).
 
 ---
 
@@ -165,7 +165,7 @@ graph TD
 
 ## 7.5 Kesimpulan Pengujian White Box
 
-Analisis pengujian *White Box* terhadap modul utama sistem menunjukkan bahwa struktur logika program telah dirancang dengan matang dan mencakup seluruh skenario percabangan yang diperlukan.
+Hasil pengujian *White Box* menunjukkan bahwa semua logika program pada modul utama sudah benar dan mencakup semua kemungkinan alur yang ada.
 
 ### Tabel Rekapitulasi Kesimpulan
 | Modul Pengujian | Cyclomatic Complexity (V(G)) | Status Logika | Keterangan Jalur |
@@ -174,7 +174,7 @@ Analisis pengujian *White Box* terhadap modul utama sistem menunjukkan bahwa str
 | Pendaftaran PMB | 5 | **Valid** | Keamanan CSRF & Integritas DB tercover dalam logika |
 | Kelola Berita | 5 | **Valid** | Alur Tambah & Edit data ditangani via percabangan action |
 
-**Kesimpulan Akhir:** Berdasarkan perhitungan *Cyclomatic Complexity*, seluruh modul berada dalam kategori koding yang baik (*Simple and manageable*) dengan nilai V(G) < 10. Kode program memiliki alur logika yang akurat dan tidak memiliki blok kode yang tidak terjangkau (*unreachable code*). Seluruh percabangan telah tervalidasi berhasil.
+**Kesimpulan Akhir:** Berdasarkan hitungan *Cyclomatic Complexity*, semua modul masuk dalam kategori kode yang baik dan rapi karena nilai V(G) di bawah 10. Alur program sudah akurat, tidak ada kode yang mubazir, dan semua percabangan berhasil dijalankan sesuai rencana.
 
 ---
 

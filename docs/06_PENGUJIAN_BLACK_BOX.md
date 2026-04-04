@@ -2,12 +2,12 @@
 
 ## 6.1 Pengantar Black Box Testing
 
-*Black Box Testing* atau pengujian kotak hitam adalah metode pengujian perangkat lunak yang berfokus pada fungsionalitas aplikasi tanpa perlu mengetahui struktur internal kode programnya. Pengujian ini dilakukan dari sudut pandang pengguna akhir (*end-user*) untuk memastikan bahwa setiap input yang diberikan ke dalam sistem menghasilkan output yang sesuai dengan persyaratan fungsional yang telah ditetapkan.
+*Black Box Testing* adalah cara menguji aplikasi dengan melihat fungsinya saja. Kita tidak perlu tahu isi kode programnya, yang penting kita cek apakah input yang dimasukkan menghasilkan output yang benar sesuai keinginan pengguna.
 
-Fokus utama dari pengujian ini adalah:
-1.  **Validasi Fungsi**: Memastikan tombol, form, dan navigasi berfungsi sebagaimana mestinya.
-2.  **Kesesuaian Output**: Memastikan data tersimpan, terhapus, atau diperbarui dengan benar di basis data.
-3.  **Penanganan Kesalahan**: Memastikan sistem memberikan pesan peringatan yang tepat jika terjadi kesalahan input.
+Tujuan utama pengujian ini:
+1.  **Cek Fungsi**: Memastikan tombol, form, dan menu bekerja dengan benar.
+2.  **Cek Data**: Memastikan data bisa disimpan, diubah, atau dihapus dari database.
+3.  **Cek Pesan Error**: Memastikan muncul peringatan yang jelas jika ada salah input.
 
 ---
 
@@ -118,7 +118,7 @@ Berikut adalah rekapitulasi dari seluruh skenario pengujian fungsionalitas siste
 | Profil Admin | 3 | 3 | 0 | 100% |
 | **TOTAL** | **35** | **35** | **0** | **100%** |
 
-**Kesimpulan Akhir:** Berdasarkan hasil pengujian di atas, seluruh fitur utama pada halaman Admin dan halaman Publik Web FIKOM UNISAN telah berjalan dengan baik dan sesuai dengan fungsi yang diharapkan (**Valid**).
+**Kesimpulan Akhir:** Dari hasil tes di atas, semua fitur di halaman Admin dan halaman publik Web FIKOM UNISAN sudah berjalan lancar dan sesuai fungsinya (**Valid**).
 
 ---
 

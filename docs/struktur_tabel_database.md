@@ -222,12 +222,6 @@ Berikut adalah rincian struktur dari seluruh tabel yang ada di dalam database `d
 | `username` | `varchar(50)` | No | Unique | NULL |  |
 | `password` | `varchar(255)` | No |  | NULL |  |
 | `email` | `varchar(100)` | No |  | NULL |  |
-| `role` | `varchar(50)` | Yes |  | `mahasiswa` |  |
-| `foto` | `varchar(255)` | Yes |  | NULL |  |
-| `reset_token` | `varchar(64)` | Yes |  | NULL |  |
-| `token_expiry` | `datetime` | Yes |  | NULL |  |
-| `bulan` | `varchar(20)` | Yes |  | NULL |  |
-| `tahun` | `int(11)` | Yes |  | NULL |  |
 
 ### Tabel: `visi_misi`
 | Field | Type | Null | Key | Default | Extra |

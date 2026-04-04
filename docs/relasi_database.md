@@ -12,7 +12,7 @@ erDiagram
         int id PK
         varchar username
         varchar password
-        varchar role
+        varchar email
     }
     dosen {
         int id PK

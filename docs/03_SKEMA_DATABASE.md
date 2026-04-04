@@ -1,4 +1,4 @@
-﻿# BAB V — SKEMA DATABASE & KAMUS DATA
+# BAB V — SKEMA DATABASE & KAMUS DATA
 
 ## 5.1 Pengantar Relasi Antar Tabel
 Basis data (*database*) pada sub-sistem **Web FIKOM** menggunakan MySQL dan dikonfigurasi melalui pendekatan *loose-coupling*. Hal ini berimplikasi pada pertimbangan meminimalkan penegakan *Foreign Key constraint* fungsional di tingkat instansi basis data agar sistem bersifat lebih fleksibel. Pengelolaan relasi antar sub-entitas (sebagai contoh, relasi penyebutan identitas pelaksana pada jurnal penelitian merujuk pada referensi data sivitas instruktur dosen) diseimbangkan langsung secara manajerial di tingkat logika integrasi aplikasi PHP. Kebijakan skalabilitas ini mencegah terjadinya kegagalan berantai (*cascading anomalies*) jika salah satu entitas dikonfigurasi ulang secara independen.
@@ -11,7 +11,7 @@ erDiagram
         int id PK
         varchar username
         varchar password
-        varchar role
+        varchar email
     }
     dosen {
         int id PK
@@ -385,19 +385,14 @@ Wadah entitas lumbung yang difungsikan menangkap pelaporan deskriptif manuskrip 
 | 3 | `deskripsi` | TEXT | Teks penjelasan ringkas |
 | 4 | `gambar` | VARCHAR(255) | Nama file gambar profil / ilustrasi |
 
-### 21. Tabel: `users` (Hierarki Manajemen Pangkalan Otentikasi Administrator Pemegang Tampuk Akses Kendali Tertinggi Pengawalan Privilese Terotorisasi Kredensial *Dashboard Admin Pannel Backend Security Checkpoint Protocol Control Center System Level Root Base*)
-Sub-Sistem paling kritikal. Ini merupakan repositori absolut gerbang keamanan penjagaan pemrosesan sinkronasi otentikasi konfirmasi hak persetujuan *User Login Sessions* dan pemeriksaan kredensial sandi kriptografis valid murni sebelum fungsi perombakan sistem pada *Dashboard Admin* berhak dibebaskan restriksinya tereksekusi paripurna mutlak tertutup sistem privasi lokal.
+### 21. Tabel: `users` (Hierarki Manajemen Pangkalan Otentikasi Administrator Pemegang Tampuk Akses Kendali)
+Sub-Sistem paling kritikal. Ini merupakan repositori absolut gerbang keamanan penjagaan pemrosesan sinkronasi otentikasi konfirmasi hak akses administrator.
 | No | Nama Field | Tipe Data | Keterangan |
 |---|---|---|---|
 | 1 | `id` | INT | Primary Key, Auto Increment |
-| 2 | `username` | VARCHAR(255) | Username unik untuk login |
+| 2 | `username` | VARCHAR(50) | Username unik untuk login |
 | 3 | `password` | VARCHAR(255) | Password terenkripsi (bcrypt) |
-| 4 | `email` | VARCHAR(255) | Alamat email aktif pengguna |
-| 5 | `role` | VARCHAR(255) | Peran pengguna (hak akses) |
-| 6 | `foto` | VARCHAR(255) | Nama file foto profil / ilustrasi |
-| 7 | `reset_token` | VARCHAR(255) | Kode token acak persetujuan rilis ganti password |
-| 8 | `token_expiry` | DATETIME | Batas tenggat waktu (timer expire limit) link token tersebut |
-| 9 | `bulan` & `tahun` | INT | Parameter penetapan waktu / penanggalan |
+| 4 | `email` | VARCHAR(100) | Alamat email aktif administrator |
 
 ### 22. Tabel: `visi_misi` (Sentra Kompilasi Dokumentasi Ikrar Deklarasi Pedoman Cita-Cita Landasan Nilai Etis Strategis Kelembangan Pengembangan Operasional Tatanan Institusional Tujuan Fakultas Terstruktur pada Elemen Susur Layar)
 Modul utilitas pencantuman wadah integrasi khusus kompilasi pernyataan pilar nilai tujuan esensial visi dan spesifikasi rincian arahan pelaksana misi institusional dirangkum tabel mutlak direpresentasikan presentasi berjenjang berurutan tata urut logis pangkalan layar publik klien.

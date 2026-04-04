@@ -39,19 +39,19 @@ Pengujian ini dilakukan pada file `admin/proses_login.php` untuk memverifikasi a
 ```mermaid
 flowchart TD
     A([Mulai]) --> B[/Input: Username, Password, Role/]
-    B --> C{Apakah ada\nfield yang kosong?}
+    B --> C{"Apakah ada<br/>field yang kosong?"}
     C -- Ya --> D[Redirect: status=kosong]
-    C -- Tidak --> E{Switch Role\n(admin/dosen/mhs)}
+    C -- Tidak --> E{"Switch Role<br/>(admin/dosen/mhs)"}
     E -- Default --> F[Redirect: status=gagal]
-    E -- Valid --> G{Role == admin?}
-    G -- Ya --> H[Query: SELECT * FROM users]
-    G -- Tidak --> I[Query: SELECT FROM $tabel]
+    E -- Valid --> G{"Role == admin?"}
+    G -- Ya --> H["Query: SELECT * FROM users"]
+    G -- Tidak --> I["Query: SELECT FROM $tabel"]
     H & I --> J[Eksekusi Query ke Database]
-    J --> K{User ditemukan?\n(num_rows == 1)}
-    K -- Tidak --> L[Redirect: status=gagal\n(User tidak ada)]
-    K -- Ya --> M{password_verify\n(cocok?)}
-    M -- Tidak --> N[Redirect: status=gagal\n(Password salah)]
-    M -- Ya --> O[Set Session & Redirect\nke Dashboard]
+    J --> K{"User ditemukan?<br/>(num_rows == 1)"}
+    K -- Tidak --> L["Redirect: status=gagal<br/>(User tidak ada)"]
+    K -- Ya --> M{"password_verify<br/>(cocok?)"}
+    M -- Tidak --> N["Redirect: status=gagal<br/>(Password salah)"]
+    M -- Ya --> O["Set Session & Redirect<br/>ke Dashboard"]
     D & F & L & N & O --> P([Selesai])
 ```
 
@@ -108,17 +108,17 @@ Analisis dilakukan pada file `pages/pendaftaran.php` untuk memvalidasi alur pend
 
 ```mermaid
 flowchart TD
-    A([Mulai]) --> B{Request POST?}
+    A([Mulai]) --> B["Request POST?"]
     B -- Tidak --> C([Tampilkan Form])
-    B -- Ya --> D{Check CSRF\nToken Valid?}
+    B -- Ya --> D{"Check CSRF<br/>Token Valid?"}
     D -- Tidak --> E[Stop / Error]
-    D -- Ya --> F{Field Wajib\nKosong?}
+    D -- Ya --> F{"Field Wajib<br/>Kosong?"}
     F -- Ya --> G[Redirect: status=kosong]
-    F -- Tidak --> H{Ada File\nUpload?}
+    F -- Tidak --> H{"Ada File<br/>Upload?"}
     H -- Ya --> I[Proses Upload File]
     H -- Tidak --> J[Prepare INSERT SQL]
     I --> J
-    J --> K{Eksekusi\nQuery Berhasil?}
+    J --> K{"Eksekusi<br/>Query Berhasil?"}
     K -- Ya --> L[Redirect: status=sukses]
     K -- Tidak --> M[Redirect: status=error]
     E & G & L & M --> N([Selesai])
@@ -174,17 +174,17 @@ Analisis pada `admin/kelola_dosen.php` untuk operasi simpan (Tambah/Edit) data d
 
 ```mermaid
 flowchart TD
-    A([Mulai]) --> B{Request POST\n& action exist?}
+    A([Mulai]) --> B{"Request POST<br/>& action exist?"}
     B -- Tidak --> C([Tampilkan Tabel])
-    B -- Ya --> D{Validasi\nField Kosong?}
+    B -- Ya --> D{"Validasi<br/>Field Kosong?"}
     D -- Ya --> E[Tampilkan Error]
-    D -- Tidak --> F{Ada File\nFoto Baru?}
+    D -- Tidak --> F{"Ada File<br/>Foto Baru?"}
     F -- Ya --> G[Validasi & Upload]
     F -- Tidak --> H{Cek Action}
     G --> H
     H -- Tambah --> I[INSERT Query]
     H -- Edit --> J[UPDATE Query]
-    I & J --> K{Eksekusi\nMySQL?}
+    I & J --> K{"Eksekusi<br/>MySQL?"}
     K -- Ya --> L[Redirect: status=sukses]
     K -- Tidak --> M[Set Error DB]
     C & E & L & M --> N([Selesai])

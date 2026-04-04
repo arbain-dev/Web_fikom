@@ -165,11 +165,11 @@ Berikut adalah rincian pengujian *Black Box* untuk memastikan seluruh fungsional
 
 ---
 
-### r. Pengujian pada Sub-menu Rencana Operasional
+### r. Pengujian pada Sub-menu Dokumen Fakultas
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Unggah dokumen Renop | Pilih file PDF renop fakultatif | Dokumen Renop berhasil tampil di repositori publik | Sesuai dengan yang diharapkan | Valid |
+| 1 | Unggah Dokumen Fakultas | Pilih file PDF dokumen fakultatif | Dokumen Fakultas berhasil tampil di repositori publik | Sesuai dengan yang diharapkan | Valid |
 | 2 | Ganti file dokumen | Upload file baru untuk dokumen lama | File dokumen lama otomatis tergantikan oleh baru | Sesuai dengan yang diharapkan | Valid |
 
 ---

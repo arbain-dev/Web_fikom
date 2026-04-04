@@ -11,114 +11,173 @@ Tujuan utama pengujian ini:
 
 ---
 
-## 6.2 Skenario Pengujian Per Menu Admin
+## 6.2 Skenario Pengujian Unit Menu Admin
 
-### 6.2.1 Modul — Sistem Autentikasi (Login & Logout)
+### 6.2.1 Menu — Dashboard
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tampil Statistik | Buka Dashboard | Angka Dosen & Berita muncul | **Valid** |
+| 2 | Tampil Data Terbaru| Lihat tabel | Muncul 5 data terbaru | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Login dengan field kosong | Klik login tanpa isi username/password | Muncul pesan "Field wajib diisi!" | Sesuai Harapan | **Valid** |
-| 2 | Login dengan password salah | Username benar, password acak | Muncul pesan "Username atau Password salah!" | Sesuai Harapan | **Valid** |
-| 3 | Login dengan username tidak terdaftar | Username acak, password acak | Muncul pesan "Username atau Password salah!" | Sesuai Harapan | **Valid** |
-| 4 | Login sukses (Admin) | Username & Password benar (Role Admin) | Redirect ke Halaman Dashboard Admin | Sesuai Harapan | **Valid** |
-| 5 | Logout Sistem | Klik tombol "Keluar" | Sesi dihancurkan, redirect ke form login | Sesuai Harapan | **Valid** |
-| 6 | Lupa Kata Sandi | Memasukkan email terdaftar | Link instruksi dikirim ke email | Sesuai Harapan | **Valid** |
+### 6.2.2 Submenu — Visi Misi
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Ubah Visi Misi | Edit teks & Simpan | Teks visi misi berubah | **Valid** |
+| 2 | Urutan Data | Ganti angka urutan | Posisi tampilan berubah | **Valid** |
 
-### 6.2.2 Modul — Halaman Dashboard
+### 6.2.3 Submenu — Struktur Organisasi
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Upload Gambar | Pilih file & Simpan | Gambar struktur terupdate | **Valid** |
+| 2 | Hapus Gambar | Klik tombol hapus | Gambar struktur kosong | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Menampilkan Statistik | Mengakses menu Dashboard | Angka jumlah Dosen, Berita, & Riset tampil akurat | Sesuai Harapan | **Valid** |
-| 2 | Menampilkan Data Terbaru | Melihat tabel aktivitas | Menampilkan 5 data berita & penelitian terbaru | Sesuai Harapan | **Valid** |
+### 6.2.4 Submenu — Data Civitas (Fakta)
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Data | Isi nama & angka | Angka statistik bertambah | **Valid** |
+| 2 | Hapus Data | Klik ikon hapus | Data fakta hilang dari list | **Valid** |
 
-### 6.2.3 Modul — Kelola Berita (CRUD)
+### 6.2.5 Submenu — Tentang Fakultas
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Edit Deskripsi | Ubah teks profil | Deskripsi fakultas terupdate | **Valid** |
+| 2 | Ganti Foto | Upload foto baru | Foto gedung fakultas berubah | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Tambah Berita (Lengkap) | Isi Judul, Kategori, Konten, & Foto | Data tersimpan, pesan sukses tampil | Sesuai Harapan | **Valid** |
-| 2 | Tambah Berita (Tanpa Foto) | Isi Judul, Kategori, Konten saja | Data tersimpan tanpa foto, pesan sukses | Sesuai Harapan | **Valid** |
-| 3 | Ubah Data Berita | Mengganti judul atau gambar | Data terupdate, file lama terhapus otomatis | Sesuai Harapan | **Valid** |
-| 4 | Hapus Data Berita | Klik tombol hapus & konfirmasi | Rekaman DB & file foto di server terhapus | Sesuai Harapan | **Valid** |
-| 5 | Pencarian Berita | Ketik kata kunci di kolom pencarian | Daftar berita memfilter sesuai keyword | Sesuai Harapan | **Valid** |
+### 6.2.6 Menu — Kelola Slider
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Slider | Upload foto slider | Slide baru muncul di home | **Valid** |
+| 2 | Hapus Slider | Klik hapus | Gambar slider hilang | **Valid** |
 
-### 6.2.4 Modul — Kelola Dosen
+### 6.2.7 Submenu — Semua Berita
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Berita | Form berita & Foto | Berita baru terbit di web | **Valid** |
+| 2 | Edit Berita | Ubah judul/isi | Konten berita diperbarui | **Valid** |
+| 3 | Hapus Berita | Konfirmasi hapus | Berita & foto terhapus | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Tambah Data Dosen | Isi NIDN, Nama, Prodi, & Foto | Data dosen tersimpan di tabel `dosen` | Sesuai Harapan | **Valid** |
-| 2 | Filter Program Studi | Pilih "Informatika" di dropdown filter | Hanya menampilkan dosen prodi Informatika | Sesuai Harapan | **Valid** |
-| 3 | Edit Foto Dosen | Upload foto baru | Foto lama diganti dengan foto baru | Sesuai Harapan | **Valid** |
-| 4 | Hapus Data Dosen | Konfirmasi hapus | Data terhapus secara permanen | Sesuai Harapan | **Valid** |
+### 6.2.8 Submenu — Daftar Dosen
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Dosen | Isi NIDN & Nama | Dosen baru terdaftar di DB | **Valid** |
+| 2 | Filter Prodi | Pilih prodi | Muncul dosen prodi terpilih | **Valid** |
 
-### 6.2.5 Modul — Kelola Penelitian & Pengabdian
+### 6.2.9 Submenu — Ruangan
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Ruangan | Nama & Kapasitas | Ruangan baru tersimpan | **Valid** |
+| 2 | Hapus Ruangan | Klik hapus | Ruangan ditiadakan | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Input Data Penelitian | Isi judul & upload file PDF proposal | Data & file proposal tersimpan | Sesuai Harapan | **Valid** |
-| 2 | Update Status Selesai | Ubah status ke "Selesai" & upload Laporan | Status berganti, file laporan tersimpan | Sesuai Harapan | **Valid** |
-| 3 | Hapus Data Riset | Klik hapus | Data & seluruh file PDF terkait terhapus | Sesuai Harapan | **Valid** |
+### 6.2.10 Submenu — Laboratorium
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Lab | Nama & Fasilitas | Lab baru muncul di daftar | **Valid** |
+| 2 | Edit Lab | Ubah deskripsi | Spesifikasi lab terupdate | **Valid** |
 
-### 6.2.6 Modul — Kelola Fasilitas (Ruangan & Laboratorium)
+### 6.2.11 Submenu — Kurikulum
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Upload Kurikulum | File PDF kurikulum | File tersedia untuk didownload | **Valid** |
+| 2 | Ganti File | Upload PDF baru | File lama terganti otomatis | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Tambah Data Ruangan | Nama ruangan, kapasitas, foto | Data & foto tampil di halaman publik | Sesuai Harapan | **Valid** |
-| 2 | Tambah Data Lab | Nama lab, spesifikasi, foto | Data & foto tersimpan dengan benar | Sesuai Harapan | **Valid** |
-| 3 | Ubah Spesifikasi Lab | Edit deskripsi fasilitas | Perubahan langsung tercermin di frontend | Sesuai Harapan | **Valid** |
+### 6.2.12 Submenu — Kalender
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Input Jadwal | Nama kegiatan & Tgl | Terjadwal di kalender akademik | **Valid** |
+| 2 | Hapus Jadwal | Klik delete | Kegiatan akademik dihapus | **Valid** |
 
-### 6.2.7 Modul — Dokumentasi Resmi (SOP, Renstra, Renop)
+### 6.2.13 Submenu — BEM
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Update Kabinet | Nama kabinet & Visi | Profil BEM terupdate | **Valid** |
+| 2 | Pengurus BEM | Tambah anggota | Daftar pengurus bertambah | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Upload Dokumen SOP | Judul SOP & file PDF | Dokumen tersedia untuk didownload publik | Sesuai Harapan | **Valid** |
-| 2 | Ganti File Renstra | Upload file PDF baru | Versi dokumen diupdate ke file terbaru | Sesuai Harapan | **Valid** |
-| 3 | Hapus Dokumen Renop | Klik hapus | Dokumen hilang dari daftar publik | Sesuai Harapan | **Valid** |
+### 6.2.14 Submenu — Kerjasama
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Mitra | Logo & Nama Mitra | Logo mitra tampil di carousel | **Valid** |
+| 2 | Hapus Mitra | Klik hapus | Data kerjasama ditiadakan | **Valid** |
 
-### 6.2.8 Modul — Kelola Profil (Visi Misi & Tentang Fak)
+### 6.2.15 Submenu — Penelitian
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Input Penelitian | Judul & Peneliti | Data penelitian tersimpan | **Valid** |
+| 2 | Upload Laporan | File PDF laporan | Laporan akhir riset diunggah | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Update Visi Misi | Menyunting poin-poin misi | Teks misi terupdate secara real-time | Sesuai Harapan | **Valid** |
-| 2 | Ganti Gambar Gedung | Upload foto baru di "Tentang Fak" | Gambar latar belakang halaman profil berubah | Sesuai Harapan | **Valid** |
+### 6.2.16 Submenu — Pengabdian
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Kegiatan | Judul & Deskripsi | Data pengabdian tersimpan | **Valid** |
+| 2 | Hapus Pengabdian | Klik hapus | Data & file PDF terhapus | **Valid** |
 
-### 6.2.9 Modul — Pendaftaran PMB (Public & Admin)
+### 6.2.17 Submenu — Rencana Operasional (Renop)
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Upload Renop | Dokumen PDF Renop | Renop tampil di halaman publik | **Valid** |
+| 2 | Hapus Dokumen | Klik hapus | File dokumen dihapus permanen | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submit Form (Public) | Isi form lengkap & upload KTP | Pesan "Pendaftaran Berhasil" tampil | Sesuai Harapan | **Valid** |
-| 2 | Cek Data Pendaftar (Admin) | Akses menu 'Kelola Pendaftaran' | Data pendaftar terbaru muncul di urutan atas | Sesuai Harapan | **Valid** |
-| 3 | Lihat Detail Pendaftar | Klik ikon mata (detail) | Seluruh info pendaftar tampil dalam modal | Sesuai Harapan | **Valid** |
-| 4 | Hapus Data Pendaftar | Klik hapus | Data pendaftar & file KTP/Ijazah terhapus | Sesuai Harapan | **Valid** |
+### 6.2.18 Submenu — Rencana Strategis (Renstra)
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tambah Renstra | Judul & File PDF | Dokumen Renstra tersimpan | **Valid** |
+| 2 | Update Metadata | Ganti judul dokumen | Nama dokumen terupdate | **Valid** |
 
-### 6.2.10 Modul — Pengaturan Profil Admin
+### 6.2.19 Submenu — SOP
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Upload SOP Baru | Judul & PDF | Repositori SOP bertambah | **Valid** |
+| 2 | Hapus SOP | Klik hapus | Dokumen SOP ditiadakan | **Valid** |
 
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Update Info Profil | Ganti nama atau username | Data akun admin diperbarui | Sesuai Harapan | **Valid** |
-| 2 | Ganti Password | Isi pass lama & pass baru | Password di-hash ulang & berhasil diubah | Sesuai Harapan | **Valid** |
-| 3 | Ganti Password (Pass Lama Salah) | Password lama tidak cocok | Muncul peringatan "Password lama salah!" | Sesuai Harapan | **Valid** |
+### 6.2.20 Menu — Data Pendaftaran
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Tampil Pendaftar | Buka Menu | Daftar calon mahasiswa muncul | **Valid** |
+| 2 | Detail Pendaftaran| Klik detail | Data lengkap pendaftar tampil | **Valid** |
+| 3 | Hapus Pendaftar | Klik Konfirmasi | Data & berkas KTP terhapus | **Valid** |
+
+### 6.2.21 Menu — Pengaturan (Profile)
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Ubah Profil | Ganti nama/email | Info profil admin terupdate | **Valid** |
+| 2 | Ganti Password | Masukkan pass baru | Kredensial login berubah | **Valid** |
+
+### 6.2.22 Keamanan — Logout
+| No | Skenario Uji | Input | Output yang Diharapkan | Status |
+|:--:|:-------------|:------|:-----------------------|:------:|
+| 1 | Logout | Klik Keluar | Sesi berakhir & balik ke Login | **Valid** |
 
 ---
 
 ## 6.3 Tabel Kesimpulan Pengujian Black Box
 
-Berikut adalah rekapitulasi dari seluruh skenario pengujian fungsionalitas sistem yang telah dilakukan:
+Berikut adalah rekapitulasi dari seluruh skenario pengujian fungsionalitas sistem:
 
-| Kategori Pengujian | Jumlah Skenario | Skenario Valid | Skenario Tidak Valid | Presentase Keberhasilan |
-|:-------------------|:---------------:|:--------------:|:--------------------:|:-----------------------:|
-| Autentikasi | 6 | 6 | 0 | 100% |
-| Dashboard | 2 | 2 | 0 | 100% |
-| Kelola Berita | 5 | 5 | 0 | 100% |
-| Kelola Dosen | 4 | 4 | 0 | 100% |
-| Kelola Riset | 3 | 3 | 0 | 100% |
-| Fasilitas (Ruang/Lab)| 3 | 3 | 0 | 100% |
-| Dokumen Resmi | 3 | 3 | 0 | 100% |
-| Profil Fakultas | 2 | 2 | 0 | 100% |
-| Pendaftaran PMB | 4 | 4 | 0 | 100% |
-| Profil Admin | 3 | 3 | 0 | 100% |
-| **TOTAL** | **35** | **35** | **0** | **100%** |
+| No | Modul / Menu yang Diuji | Status |
+|:--:|:------------------------|:------:|
+| 1 | Dashboard | **Valid** |
+| 2 | Visi Misi | **Valid** |
+| 3 | Struktur Organisasi | **Valid** |
+| 4 | Data Civitas (Fakta) | **Valid** |
+| 5 | Tentang Fakultas | **Valid** |
+| 6 | Kelola Slider | **Valid** |
+| 7 | Semua Berita | **Valid** |
+| 8 | Daftar Dosen | **Valid** |
+| 9 | Ruangan | **Valid** |
+| 10 | Laboratorium | **Valid** |
+| 11 | Kurikulum | **Valid** |
+| 12 | Kalender | **Valid** |
+| 13 | BEM | **Valid** |
+| 14 | Kerjasama | **Valid** |
+| 15 | Penelitian | **Valid** |
+| 16 | Pengabdian | **Valid** |
+| 17 | Rencana Operasional | **Valid** |
+| 18 | Rencana Strategis | **Valid** |
+| 19 | SOP | **Valid** |
+| 20 | Data Pendaftaran | **Valid** |
+| 21 | Pengaturan Profil | **Valid** |
+| 22 | Logout | **Valid** |
 
-**Kesimpulan Akhir:** Dari hasil tes di atas, semua fitur di halaman Admin dan halaman publik Web FIKOM UNISAN sudah berjalan lancar dan sesuai fungsinya (**Valid**).
+**Kesimpulan Akhir:** Berdasarkan hasil pengujian di atas, seluruh fitur pada **setiap menu dan submenu** Admin telah berjalan dengan lancar dan sesuai fungsinya (**Valid**).
 
 ---
 

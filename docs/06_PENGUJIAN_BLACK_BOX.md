@@ -1,106 +1,43 @@
 # 🧪 LAPORAN PENGUJIAN BLACK BOX — WEBSITE FIKOM UNISAN
 
-## 4.3.2 Pengujian Black Box (Halaman Publik)
+## 4.3.2 Pengujian Black Box (Menu Publik)
 
-Pengujian *Black Box* pada bagian ini difokuskan untuk menguji seluruh menu dan submenu yang dapat diakses oleh pengguna publik melalui navigasi utama website.
+Pengujian *Black Box* ini difokuskan pada pengujian setiap menu navigasi yang tersedia pada halaman publik Website FIKOM UNISAN. Setiap poin pengujian mewakili satu tautan/halaman yang dapat diakses oleh pengguna.
 
----
-
-### A. Pengujian Menu Utama & Beranda
+### Tabel Pengujian Fungsionalitas Menu Navigasi
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Mengakses Beranda | Klik logo atau menu "FIKOM" | Sistem menampilkan slider utama, berita terbaru, dan data fakta civitas | Sesuai dengan yang diharapkan | Valid |
-| 2 | Navigasi Slider | Klik tombol navigasi (kiri/kanan) pada banner | Sistem berpindah gambar banner secara halus (carousel) | Sesuai dengan yang diharapkan | Valid |
-| 3 | Akses Semua Berita | Klik tombol "Lihat Semua Berita" | Sistem menampilkan daftar seluruh berita yang pernah dipublikasikan | Sesuai dengan yang diharapkan | Valid |
+| 1 | Mengakses Beranda | Klik logo atau menu "FIKOM" | Sistem menampilkan slider utama, berita terbaru, dan data fakta | Sesuai dengan yang diharapkan | Valid |
+| 2 | Mengakses Sambutan Dekan | Klik menu "Sambutan Dekan" | Sistem menampilkan profil dan teks sambutan resmi Dekan | Sesuai dengan yang diharapkan | Valid |
+| 3 | Mengakses Visi & Misi | Klik menu "Visi & Misi" | Sistem menampilkan poin-poin visi dan misi fakultas | Sesuai dengan yang diharapkan | Valid |
+| 4 | Mengakses Daftar Dosen | Klik menu "Dosen" | Sistem menampilkan grid profil lengkap seluruh dosen pengajar | Sesuai dengan yang diharapkan | Valid |
+| 5 | Mengakses Struktur Organisasi | Klik menu "Struktur Organisasi" | Sistem menampilkan gambar bagan organisasi fakultas | Sesuai dengan yang diharapkan | Valid |
+| 6 | Mengakses Halaman Pendaftaran | Klik menu "Pendaftaran" | Sistem mengarahkan ke formulir pendaftaran mahasiswa baru | Sesuai dengan yang diharapkan | Valid |
+| 7 | Mengakses Prodi Informatika | Klik menu "Informatika" | Sistem menampilkan profil program studi Teknik Informatika | Sesuai dengan yang diharapkan | Valid |
+| 8 | Mengakses Prodi Pend. TI | Klik menu "Pend. Teknologi Informasi" | Sistem menampilkan profil program studi Pendidikan TI | Sesuai dengan yang diharapkan | Valid |
+| 9 | Mengakses Sarana Prasarana | Klik menu "Sarana dan Prasarana" | Sistem menampilkan galeri ruangan (Kelas, Aula, dsb) | Sesuai dengan yang diharapkan | Valid |
+| 10 | Mengakses Laboratorium | Klik menu "Laboratorium" | Sistem menampilkan profil laboratorium komputer fakultas | Sesuai dengan yang diharapkan | Valid |
+| 11 | Mengakses Kurikulum | Klik menu "Kurikulum" | Sistem menampilkan tabel mata kuliah dan sebaran SKS | Sesuai dengan yang diharapkan | Valid |
+| 12 | Mengakses Kalender Akademik | Klik menu "Kalender Akademik" | Sistem menampilkan jadwal agenda pendidikan tahunan | Sesuai dengan yang diharapkan | Valid |
+| 13 | Mengakses Rencana Operasional | Klik menu "Rencana Operasional" | Sistem menampilkan daftar file dokumen operasional fakultas | Sesuai dengan yang diharapkan | Valid |
+| 14 | Mengakses Rencana Strategis | Klik menu "Rencana Strategis" | Sistem menampilkan daftar file rencana strategis fakultas | Sesuai dengan yang diharapkan | Valid |
+| 15 | Mengakses Dokumen SOP | Klik menu "SOP" | Sistem menampilkan daftar standar operasional prosedur | Sesuai dengan yang diharapkan | Valid |
+| 16 | Mengakses Menu Penelitian | Klik menu "Penelitian" | Sistem menampilkan daftar judul publikasi penelitian dosen | Sesuai dengan yang diharapkan | Valid |
+| 17 | Mengakses Menu Pengabdian | Klik menu "Pengabdian" | Sistem menampilkan daftar kegiatan pengabdian masyarakat | Sesuai dengan yang diharapkan | Valid |
+| 18 | Mengakses Profil BEM | Klik menu "BEM" | Sistem menampilkan struktur dan visi misi organisasi BEM | Sesuai dengan yang diharapkan | Valid |
+| 19 | Mengakses Informasi UKM | Klik menu "UKM" | Sistem menampilkan profil unit kegiatan mahasiswa fakultas | Sesuai dengan yang diharapkan | Valid |
+| 20 | Mengakses Himpunan Mahasiswa | Klik menu "Himpunan" | Sistem menampilkan profil HMPS tiap program studi | Sesuai dengan yang diharapkan | Valid |
+| 21 | Mengakses Menu Alumni | Klik menu "Alumni" | Sistem menampilkan informasi pendataan Tracer Study | Sesuai dengan yang diharapkan | Valid |
 
----
-
-### B. Pengujian Menu Profil
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Sambutan Dekan | Klik menu Profil > Sambutan Dekan | Sistem menampilkan foto dekan dan teks sambutan resmi | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Visi & Misi | Klik menu Profil > Visi & Misi | Sistem menampilkan konten poin visi dan misi fakultas | Sesuai dengan yang diharapkan | Valid |
-| 3 | Submenu Dosen | Klik menu Profil > Dosen | Sistem menampilkan grid profil lengkap seluruh dosen pengajar | Sesuai dengan yang diharapkan | Valid |
-| 4 | Submenu Struktur Organisasi | Klik menu Profil > Struktur Organisasi | Sistem menampilkan gambar bagan struktur organisasi fakultas | Sesuai dengan yang diharapkan | Valid |
-| 5 | Submenu Pendaftaran | Klik menu Profil > Pendaftaran | Sistem mengarahkan pengguna ke halaman formulir PMB | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### C. Pengujian Menu Program Studi
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Informatika | Klik menu Program Studi > Informatika | Sistem menampilkan profil dan prospek lulusan Informatika | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Pend. TI | Klik menu Program Studi > Pend. Teknologi Informasi | Sistem menampilkan profil dan prospek lulusan PTI | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### D. Pengujian Menu Fasilitas
+### Pengujian Interaksi Fitur Utama
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Sarana Prasarana | Klik menu Fasilitas > Sarana Prasarana | Sistem menampilkan daftar foto dan nama ruangan (Kelas/Aula) | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Laboratorium | Klik menu Fasilitas > Laboratorium | Sistem menampilkan daftar laboratorium komputer fakultas | Sesuai dengan yang diharapkan | Valid |
+| 1 | Menekan Tombol Berita | Klik tombol "Lihat Semua" pada Beranda | Sistem menampilkan daftar seluruh berita secara urut | Sesuai dengan yang diharapkan | Valid |
+| 2 | Unduh Berkas PDF | Klik ikon download pada tabel dokumen | Sistem mengunduh file PDF secara otomatis ke perangkat | Sesuai dengan yang diharapkan | Valid |
+| 3 | Mengisi Form Pendaftaran | Input data valid pada form pendaftaran | Sistem menyimpan data dan memberi notifikasi sukses | Sesuai dengan yang diharapkan | Valid |
 
 ---
 
-### E. Pengujian Menu Akademik
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Kurikulum | Klik menu Akademik > Kurikulum | Sistem menampilkan daftar mata kuliah dan SKS per semester | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Kalender Akademik | Klik menu Akademik > Kalender Akademik | Sistem menampilkan kalender/tabel jadwal kegiatan pendidikan | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### F. Pengujian Menu Dokumen (Dokumen Fakultas)
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Rencana Operasional | Klik menu Dokumen > Rencana Operasional | Sistem menampilkan daftar file RENOP (Dokumen Fakultas) | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Rencana Strategis | Klik menu Dokumen > Rencana Strategis | Sistem menampilkan daftar file RENSTRA fakultas | Sesuai dengan yang diharapkan | Valid |
-| 3 | Submenu SOP | Klik menu Dokumen > Standar Operasional Prosedur | Sistem menampilkan daftar berkas SOP yang tersedia | Sesuai dengan yang diharapkan | Valid |
-| 4 | Fungsi Unduh (Download) | Klik tombol "Download" pada file apapun | Berkas PDF berhasil diunduh secara utuh ke perangkat | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### G. Pengujian Menu Riset
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu Penelitian | Klik menu Riset > Penelitian | Sistem menampilkan publikasi judul penelitian dosen | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu Pengabdian | Klik menu Riset > Pengabdian | Sistem menampilkan laporan kegiatan pengabdian masyarakat | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### H. Pengujian Menu Kemahasiswaan & Organisasi
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Submenu BEM | Klik menu Kemahasiswaan > BEM | Sistem menampilkan profil organisasi dan pengurus BEM | Sesuai dengan yang diharapkan | Valid |
-| 2 | Submenu UKM | Klik menu Kemahasiswaan > UKM | Sistem menampilkan daftar Unit Kegiatan Mahasiswa | Sesuai dengan yang diharapkan | Valid |
-| 3 | Submenu Himpunan | Klik menu Kemahasiswaan > Himpunan | Sistem menampilkan HMPS tiap program studi | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### I. Pengujian Menu Alumni & Tracer Study
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Mengakses Menu Alumni | Klik menu "Alumni" di navigasi | Sistem menampilkan informasi pendataan Tracer Study | Sesuai dengan yang diharapkan | Valid |
-
----
-
-### J. Pengujian Fitur Pendaftaran Mahasiswa Baru (PMB)
-
-| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Menekan Tombol Daftar | Klik tombol "Daftar Sekarang" pada form | Sistem melakukan validasi dan mengunci tombol jika data kosong | Sesuai dengan yang diharapkan | Valid |
-| 2 | Validasi File Upload | Upload berkas > 2MB atau format salah | Sistem memberikan peringatan pembatasan file | Sesuai dengan yang diharapkan | Valid |
-| 3 | Finalisasi Pendaftaran | Klik submit dengan data lengkap | Sistem menyimpan data dan redirect ke notifikasi sukses | Sesuai dengan yang diharapkan | Valid |
-
----
-
-*Laporan pengujian Black Box pada halaman publik ini disusun untuk memastikan bahwa informasi fakultas dapat tersampaikan dengan baik kepada stakeholder dan masyarakat umum.*
+*Laporan pengujian Black Box pada halaman publik ini disusun untuk memverifikasi fungsionalitas navigasi dan penyampaian informasi pada Website FIKOM UNISAN.*

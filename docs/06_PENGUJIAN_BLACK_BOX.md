@@ -48,11 +48,11 @@ Pengujian *Black Box* pada bagian ini difokuskan sepenuhnya untuk memverifikasi 
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
 | 7 | Menguji akses menu S1 Informatika. | Memilih dan menekan tautan menu Informatika pada dropdown program studi. | Sistem berhasil menampilkan profil kurikulum dan kompetensi lulusan Teknik Informatika. | Sesuai dengan yang diharapkan | Valid |
 
-### H. Modul Menu Program Studi Pendidikan TI
+### H. Modul Menu Program Studi Pendidikan Teknologi Informasi
 
 | No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 8 | Menguji akses menu S1 Pendidikan TI. | Memilih dan menekan tautan menu Pend. Teknologi Informasi pada dropdown prodi. | Sistem berhasil menampilkan profil dan prospek lulusan Pendidikan Teknologi Informasi. | Sesuai dengan yang diharapkan | Valid |
+| 8 | Menguji akses menu S1 Pendidikan Teknologi Informasi. | Memilih dan menekan tautan menu Pendidikan Teknologi Informasi pada dropdown prodi. | Sistem berhasil menampilkan profil dan prospek lulusan Pendidikan Teknologi Informasi. | Sesuai dengan yang diharapkan | Valid |
 
 ### I. Modul Menu Sarana dan Prasarana
 
@@ -78,11 +78,11 @@ Pengujian *Black Box* pada bagian ini difokuskan sepenuhnya untuk memverifikasi 
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
 | 12 | Menguji akses menu Kalender Akademik. | Memilih dan menekan tautan menu Kalender Akademik pada dropdown akademik. | Sistem berhasil memuat jadwal agenda pendidikan tahun akademik yang sedang berjalan. | Sesuai dengan yang diharapkan | Valid |
 
-### M. Modul Menu Rencana Operasional
+### M. Modul Menu Dokumen Fakultas
 
 | No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
 |:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 13 | Menguji akses menu Rencana Operasional. | Memilih dan menekan tautan menu Rencana Operasional pada dropdown dokumen. | Sistem berhasil menampilkan daftar berkas Rencana Operasional (Dokumen Fakultas). | Sesuai dengan yang diharapkan | Valid |
+| 13 | Menguji akses menu Dokumen Fakultas. | Memilih dan menekan tautan menu Dokumen Fakultas pada dropdown dokumen. | Sistem berhasil menampilkan daftar berkas Dokumen Fakultas. | Sesuai dengan yang diharapkan | Valid |
 
 ### N. Modul Menu Rencana Strategis
 

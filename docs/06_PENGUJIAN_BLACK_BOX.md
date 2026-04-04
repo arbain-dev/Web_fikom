@@ -1,80 +1,71 @@
 # 🧪 LAPORAN PENGUJIAN BLACK BOX — WEBSITE FIKOM UNISAN
 
-## 4.3.2 Rincian Pengujian Black Box
+## 4.3.2 Rincian Pengujian Black Box (Halaman Publik)
 
-Berikut adalah rincian hasil pengujian *Black Box* untuk memastikan setiap menu dan fitur utama pada Website FIKOM UNISAN berjalan sesuai fungsionalitas yang diharapkan.
-
-### A. Modul Otentikasi (Proses Login Administrator)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 1 | Menguji form login dengan semua field wajib kosong. | `username = ""` <br> `password = ""` | Sistem menolak proses dan mengarahkan kembali ke halaman login dengan pesan error "Data Kosong". | Sesuai dengan yang diharapkan | Valid |
-| 2 | Menguji login dengan username yang belum terdaftar. | `username = "adminX"` <br> `password = "123"` | Sistem menolak login karena perpaduan user/role tidak ditemukan di database. | Sesuai dengan yang diharapkan | Valid |
-| 3 | Menguji masuk sistem menggunakan password salah. | `username = "admin"` <br> `password = "salah123"` | Sistem menolak login dan menampilkan pesan peringatan kredensial gagal otentikasi. | Sesuai dengan yang diharapkan | Valid |
-| 4 | Menguji percobaan login sah dari seluruh Role. | `username = "admin"` <br> `password = "benar123"` | Sistem menerima login, mengamankan identitas berwujud Session, membiarkan masuk halaman Dasbor. | Sesuai dengan yang diharapkan | Valid |
-
-### B. Modul Registrasi (Proses Pendaftaran Mahasiswa Baru)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 5 | Mengisi form pendaftaran dengan isian kolom wajib kosong. | `nama = ""` <br> `email = "test@uns.ac.id"` | Sistem antarmuka membatalkan proses transmisi rekam jaringan dan mencetak penanda Field Required. | Sesuai dengan yang diharapkan | Valid |
-| 6 | Mengunggah berkas pendaftaran melebihi batas ukuran (2MB). | `berkas = "file_3MB.pdf"` | Sistem menolak file dan memberikan informasi pembatasan ukuran unggahan. | Sesuai dengan yang diharapkan | Valid |
-| 7 | Mengirim formulir pendaftaran dengan data lengkap dan valid. | `nama = "Nama Lengkap Maba"` <br> `nik = "1234567890"` | Sistem berhasil merekam data calon mahasiswa baru ke database dan memberikan notifikasi sukses. | Sesuai dengan yang diharapkan | Valid |
-
-### C. Modul Profil (Visi Misi)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 8 | Menguji akses halaman Visi dan Misi fakultas. | `Klik Menu Visi & Misi` | Sistem menampilkan informasi poin-poin Visi dan Misi FIKOM UNISAN secara utuh. | Sesuai dengan yang diharapkan | Valid |
-
-### D. Modul Struktur Organisasi
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 9 | Menguji akses halaman Struktur Organisasi. | `Klik Menu Struktur Organisasi` | Sistem menampilkan dokumentasi visual/bagan organisasi manajemen fakultas saat ini. | Sesuai dengan yang diharapkan | Valid |
-
-### E. Modul Data Dosen
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 10 | Menguji akses halaman Daftar Dosen FIKOM. | `Klik Menu Dosen` | Sistem memuat grid profil seluruh dosen aktif lengkap dengan jabatan akademis. | Sesuai dengan yang diharapkan | Valid |
-
-### F. Modul Program Studi (Informatika & PTI)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 11 | Menguji akses halaman S1 Informatika. | `Klik Menu Informatika` | Sistem menampilkan profil kurikulum dan kompetensi lulusan Teknik Informatika. | Sesuai dengan yang diharapkan | Valid |
-| 12 | Menguji akses halaman S1 Pendidikan TI. | `Klik Menu Pendidikan TI` | Sistem menampilkan profil dan prospek lulusan Pendidikan Teknologi Informasi. | Sesuai dengan yang diharapkan | Valid |
-
-### G. Modul Fasilitas (Ruangan & Lab)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 13 | Menguji akses halaman Sarana Prasarana. | `Klik Menu Sarana & Prasarana` | Sistem menampilkan galeri foto dan deskripsi ruangan kelas serta aula fakultas. | Sesuai dengan yang diharapkan | Valid |
-| 14 | Menguji akses halaman Laboratorium. | `Klik Menu Laboratorium` | Sistem menampilkan spesifikasi alutsista teknologi dan daftar laboratorium aktif. | Sesuai dengan yang diharapkan | Valid |
-
-### H. Modul Akademik (Kurikulum & Kalender)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 15 | Menguji akses dan pengunduhan Kurikulum. | `Klik link Kurikulum` | File kurikulum dalam format PDF berhasil dimuat dan tersedia untuk diunduh. | Sesuai dengan yang diharapkan | Valid |
-| 16 | Menguji akses halaman Kalender Akademik. | `Klik Menu Kalender Akademik` | Sistem memuat jadwal agenda perkuliahan dan wisuda tahun akademik berjalan. | Sesuai dengan yang diharapkan | Valid |
-
-### I. Modul Dokumen & Unduhan (Pelayanan Informasi Publik)
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 17 | Menguji akses berkas standar operasional (SOP). | `Klik Menu SOP` | Sistem menampilkan direktori berkas SOP resmi yang dikeluarkan pihak fakultas. | Sesuai dengan yang diharapkan | Valid |
-| 18 | Menguji akses Dokumen Fakultas (Renop/Renstra). | `Klik Menu Dokumen` | Sistem menampilkan repositori rencana strategis dan rencana operasional fakultas. | Sesuai dengan yang diharapkan | Valid |
-| 19 | Menguji fungsi tombol unduh file PDF. | `Klik tombol Download` | Berkas digital berhasil ditransmisikan dan tersimpan ke perangkat lokal pengguna (Client). | Sesuai dengan yang diharapkan | Valid |
-
-### J. Modul Riset & Kemahasiswaan
-
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
-| 20 | Menguji akses halaman Penelitian Dosen. | `Klik Menu Penelitian` | Sistem menampilkan rekam jejak judul publikasi ilmiah dosen FIKOM. | Sesuai dengan yang diharapkan | Valid |
-| 21 | Menguji akses halaman Organisasi (BEM/HMPS). | `Klik Menu Kemahasiswaan` | Sistem menampilkan profil organisasi mahasiswa resmi yang bernaung di bawah fakultas. | Sesuai dengan yang diharapkan | Valid |
+Pengujian *Black Box* pada bagian ini difokuskan sepenuhnya untuk memverifikasi setiap item yang tersedia pada submenu navigasi utama halaman publik Website FIKOM UNISAN.
 
 ---
 
-*Laporan pengujian Black Box per modul ini disusun guna memastikan standar kualitas antarmuka dan fungsionalitas Website FIKOM UNISAN.*
+### A. Modul Menu Profil (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 1 | Menguji akses submenu Sambutan Dekan. | `Klik Submenu [Sambutan Dekan]` | Sistem menampilkan foto dekan dan teks sambutan resmi secara lengkap. | Sesuai dengan yang diharapkan | Valid |
+| 2 | Menguji akses submenu Visi & Misi. | `Klik Submenu [Visi & Misi]` | Sistem menampilkan poin-poin visi dan misi fakultas sesuai database. | Sesuai dengan yang diharapkan | Valid |
+| 3 | Menguji akses submenu Dosen. | `Klik Submenu [Dosen]` | Sistem memuat grid profil seluruh dosen aktif FIKOM UNISAN. | Sesuai dengan yang diharapkan | Valid |
+| 4 | Menguji akses submenu Struktur Organisasi. | `Klik Submenu [Struktur Organisasi]` | Sistem menampilkan gambar bagan organisasi manajemen fakultas. | Sesuai dengan yang diharapkan | Valid |
+| 5 | Menguji akses submenu Pendaftaran. | `Klik Submenu [Pendaftaran]` | Sistem mengarahkan pengguna ke halaman formulir pendaftaran PMB. | Sesuai dengan yang diharapkan | Valid |
+
+### B. Modul Menu Program Studi (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 6 | Menguji akses submenu S1 Informatika. | `Klik Submenu [Informatika]` | Sistem menampilkan profil dan kompetensi lulusan Teknik Informatika. | Sesuai dengan yang diharapkan | Valid |
+| 7 | Menguji akses submenu S1 Pendidikan TI. | `Klik Submenu [Pendidikan TI]` | Sistem menampilkan profil dan prospek lulusan Pendidikan Teknologi Informasi. | Sesuai dengan yang diharapkan | Valid |
+
+### C. Modul Menu Fasilitas (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 8 | Menguji akses submenu Sarana Prasarana. | `Klik Submenu [Sarana & Prasarana]` | Sistem menampilkan galeri foto dan deskripsi ruangan (Kelas/Aula). | Sesuai dengan yang diharapkan | Valid |
+| 9 | Menguji akses submenu Laboratorium. | `Klik Submenu [Laboratorium]` | Sistem menampilkan daftar dan spesifikasi laboratorium komputer. | Sesuai dengan yang diharapkan | Valid |
+
+### D. Modul Menu Akademik (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 10 | Menguji akses dan pengunduhan Kurikulum. | `Klik Submenu [Kurikulum]` | Sistem menampilkan sebaran mata kuliah dan tombol unduh file PDF. | Sesuai dengan yang diharapkan | Valid |
+| 11 | Menguji akses submenu Kalender Akademik. | `Klik Submenu [Kalender Akademik]` | Sistem memuat jadwal agenda pendidikan tahun akademik berjalan. | Sesuai dengan yang diharapkan | Valid |
+
+### E. Modul Menu Dokumen (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 12 | Menguji akses submenu Rencana Operasional. | `Klik Submenu [Renop]` | Sistem menampilkan daftar berkas Rencana Operasional (Dokumen Fak). | Sesuai dengan yang diharapkan | Valid |
+| 13 | Menguji akses submenu Rencana Strategis. | `Klik Submenu [Renstra]` | Sistem menampilkan daftar berkas Rencana Strategis fakultas. | Sesuai dengan yang diharapkan | Valid |
+| 14 | Menguji akses submenu SOP. | `Klik Submenu [SOP]` | Sistem menampilkan daftar standar operasional prosedur fakultas. | Sesuai dengan yang diharapkan | Valid |
+
+### F. Modul Menu Riset (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 15 | Menguji akses submenu Penelitian. | `Klik Submenu [Penelitian]` | Sistem menampilkan publikasi judul penelitian dosen pengajar. | Sesuai dengan yang diharapkan | Valid |
+| 16 | Menguji akses submenu Pengabdian. | `Klik Submenu [Pengabdian]` | Sistem menampilkan laporan kegiatan pengabdian masyarakat. | Sesuai dengan yang diharapkan | Valid |
+
+### G. Modul Menu Kemahasiswaan (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 17 | Menguji akses submenu BEM. | `Klik Submenu [BEM]` | Sistem menampilkan profil dan struktur kepengurusan BEM FIKOM. | Sesuai dengan yang diharapkan | Valid |
+| 18 | Menguji akses submenu UKM. | `Klik Submenu [UKM]` | Sistem menampilkan profil unit kegiatan mahasiswa fakultas. | Sesuai dengan yang diharapkan | Valid |
+| 19 | Menguji akses submenu Himpunan (HMPS). | `Klik Submenu [Himpunan]` | Sistem menampilkan profil himpunan mahasiswa tiap program studi. | Sesuai dengan yang diharapkan | Valid |
+
+### H. Modul Menu Alumni (Submenu)
+
+| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:-------------|:------|:-----------------------|:--------------|:------:|
+| 20 | Menguji akses submenu Tracer Study. | `Klik Menu [Alumni]` | Sistem menampilkan informasi pendataan alumni FIKOM UNISAN. | Sesuai dengan yang diharapkan | Valid |
+
+---
+
+*Laporan pengujian Black Box pada submenu halaman publik ini disusun untuk memastikan bahwa setiap tautan navigasi berfungsi dengan baik bagi pengguna umum.*

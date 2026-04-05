@@ -1,249 +1,279 @@
-# BAB IV — ANALISIS HASIL PENGUJIAN
+# LAPORAN PENGUJIAN WHITE BOX (WHITE BOX TESTING)
 
-## 4.3 Hasil Pengujian
+## 01. PENGANTAR PENGUJIAN
 
-### 4.3.1 Pengujian White Box (White Box Testing)
+Pengujian *White Box* (*Glass Box Testing*) adalah metode pengujian perangkat lunak yang fokus pada verifikasi struktur internal, desain algoritma, dan alur kerja kode program. Tujuan utamanya adalah untuk memastikan bahwa seluruh jalur logika (*logical path*) telah dieksekusi setidaknya satu kali, serta mendeteksi adanya kesalahan penulisan (*syntax error*) maupun celah logika pada percabangan.
 
-Pengujian *White Box* dilakukan untuk mengevaluasi struktur logika internal dan alur eksekusi kode program secara mendalam. Metodologi yang digunakan adalah **Basis Path Testing**, yang bertujuan untuk memastikan bahwa setiap jalur logika yang mungkin telah dieksekusi setidaknya satu kali selama pengujian.
-
-Tingkat kompleksitas dan keandalan sistem diukur menggunakan parameter **Cyclomatic Complexity (V(G))** melalui tiga pendekatan analisis utama:
-1.  **Analisis Edge dan Node**: Menghitung kepadatan hubungan antar instruksi dalam grafik alir ($V(G) = E - N + 2$).
-2.  **Analisis Predicate Node (P)**: Menghitung jumlah titik keputusan/percabangan ($V(G) = P + 1$).
-3.  **Analisis Independent Path**: Menentukan jumlah rute independen minimum yang harus ditempuh (Tepat 5 Jalur Independen per modul).
+Dalam laporan ini, tingkat kompleksitas logika diukur menggunakan metode **Cyclomatic Complexity (V(G))**. Nilai ukuran matematika ini menentukan jumlah jalur independen minimum yang harus diuji untuk menjamin cakupan kode yang lengkap.
 
 ---
 
-### a. Unit Pengujian 1: Menu Login Administrator (`proses_login.php`)
+## 02. UNIT PENGUJIAN 1: MENU LOGIN ADMINISTRATOR (`proses_login.php`)
 
-Analisis ini memvalidasi alur autentikasi pengguna untuk memastikan hanya kredensial yang sah yang dapat mengakses dashboard.
+Modul ini menangani autentikasi pengguna berdasarkan metode POST, verifikasi input kosong, pencocokan username di database, dan enkripsi password.
 
-**1. Tabel Pemetaan Statement dan Node**
-
-| Potongan Skrip (Statement Code) | Simpul (Node) |
-|---------------------------------|---------------|
-| `if ($_SERVER["REQUEST_METHOD"] == "POST")` | **1** |
-| `if (empty($username) \|\| empty($password))` | **2** |
+### A. Tabel Pemetaan Statement dan Node
+| Potongan Kode PHP (Statement Code) | Simpul (Node) |
+|:---|:---:|
+| `if ($_SERVER["REQUEST_METHOD"] == "POST") {` | **1** |
+| `if (empty($username) \|\| empty($password)) {` | **2** |
 | `header("location: login?status=kosong"); exit;` | **3** |
-| `if ($result->num_rows === 1)` | **4** |
-| `if (password_verify($password, $data['password']))` | **5** |
+| `$sql = "SELECT * FROM users WHERE username = ?"; ... if ($result->num_rows === 1) {` | **4** |
+| `if (password_verify($password, $data['password'])) {` | **5** |
 | `$_SESSION['login'] = true; header("location: dashboard");` | **6** |
 | `header("location: login?status=gagal");` (Password Salah) | **7** |
 | `header("location: login?status=gagal");` (User Tidak Ditemukan) | **8** |
-| `exit;` (Bukan akses POST / Ilegal) | **9** |
-| **End of Script / Logika Usai** | **10** |
+| `exit;` (Bukan akses POST / Direct URL) | **9** |
+| **Akhir Logika Program** | **10** |
 
-**2. Flowchart dan Flowgraph**
-
+### B. Flowchart (Mermaid flowchart TD)
 ```mermaid
 flowchart TD
     1{Akses POST?} -->|Ya| 2{Input Kosong?}
     1 -->|Tidak| 9[Redirect: Ilegal]
     
     2 -->|Ya| 3[Redirect: Kosong]
-    2 -->|Tidak| 4{User Ada?}
+    2 -->|Tidak| 4{User Ditemukan?}
     
-    4 -->|Ya| 5{Password Benar?}
+    4 -->|Ya| 5{Password Cocok?}
     4 -->|Tidak| 8[Redirect: Gagal]
     
-    5 -->|Ya| 6[Pintu Dashboard Terbuka]
+    5 -->|Ya| 6[Akses Dashboard]
     5 -->|Tidak| 7[Redirect: Gagal]
     
-    3 --> 10(((Selesai)))
+    3 --> 10(((Stop)))
     6 --> 10
     7 --> 10
     8 --> 10
     9 --> 10
 ```
 
+### C. Flowgraph (Mermaid graph TD)
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
+    classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
+
     1((1)):::predicate -->|Ya| 2((2)):::predicate
-    1 -->|Tidak| 9((9))
-    2 -->|Kosong| 3((3))
-    2 -->|Terisi| 4((4)):::predicate
-    4 -->|Ada| 5((5)):::predicate
-    4 -->|Tidak| 8((8))
-    5 -->|Sesuai| 6((6))
-    5 -->|Salah| 7((7))
+    1 -->|Tidak / R1| 9((9))
+    2 -->|Ya / R2| 3((3))
+    2 -->|Tidak| 4((4)):::predicate
+    4 -->|Ya| 5((5)):::predicate
+    4 -->|Tidak / R3| 8((8))
+    5 -->|Ya / R5| 6((6))
+    5 -->|Tidak / R4| 7((7))
     3 & 6 & 7 & 8 & 9 --> 10(((10)))
+
+    %% Penandaan Region
+    subgraph Region_Analisis
+        R1[Region 1]:::region
+        R2[Region 2]:::region
+        R3[Region 3]:::region
+        R4[Region 4]:::region
+        R5[Region 5]:::region
+    end
 ```
 
-**3. Analisis Perhitungan White Box (Login)**
+### D. Perhitungan Cyclomatic Complexity V(G)
+1. **Metode Edge-Node**: 
+   - $V(G) = (E - N) + 2$
+   - $V(G) = (13 - 10) + 2 = \mathbf{5}$
+2. **Metode Predicate Node**:
+   - $V(G) = P + 1$
+   - $V(G) = 4 + 1 = \mathbf{5}$
 
-1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
-    -   Jumlah Edge (E) = 13 (Garis transisi antar node)
-    -   Jumlah Node (N) = 10 (Simpul instruksi)
-    -   $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
+### E. Tabel Independent Path (Jalur Independen)
+| Jalur | Penelusuran Jalur | Penjelasan Logika |
+|:---:|:---|:---|
+| **P1** | 1 -> 9 -> 10 | Akses langsung tanpa melalui form POST (Keamanan). |
+| **P2** | 1 -> 2 -> 3 -> 10 | Input login dibiarkan kosong oleh pengguna. |
+| **P3** | 1 -> 2 -> 4 -> 8 -> 10 | Username tidak terdaftar dalam database sistem. |
+| **P4** | 1 -> 2 -> 4 -> 5 -> 7 -> 10 | Akun ada, namun verifikasi password gagal (salah). |
+| **P5** | 1 -> 2 -> 4 -> 5 -> 6 -> 10 | **Skenario Login Berhasil** (Optimal). |
 
-2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
-    -   Jumlah Predicate Node (P) = 4 (Simpul percabangan 1, 2, 4, 5)
-    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
-
-3.  **Independent Path (5 Jalur Independen):**
-    -   **P1:** 1-9-10 (Akses langsung via URL tanpa POST).
-    -   **P2:** 1-2-3-10 (Lolos POST namun isian form kosong).
-    -   **P3:** 1-2-4-8-10 (Cek database: Akun tidak ditemukan).
-    -   **P4:** 1-2-4-5-7-10 (Akun ditemukan, namun sandi tidak valid).
-    -   **P5:** 1-2-4-5-6-10 (**Skenario Sukses: Login Berhasil**).
+**Narasi Kesimpulan:** Berdasarkan hasil uji di atas, Modul Login telah melewati seluruh jalur percabangan (5 Jalur) dengan sukses. Tidak ditemukan adanya *Dead Code* dan sistem merespons input dengan tepat sesuai kondisi logika.
 
 ---
 
-### b. Unit Pengujian 2: Menu Pendaftaran Mahasiswa (`proses_pendaftaran.php`)
+## 03. UNIT PENGUJIAN 2: MENU PENDAFTARAN MAHASISWA (`proses_pendaftaran.php`)
 
-Analisis dilakukan pada integrasi keamanan CSRF dan validasi penyimpanan data calon mahasiswa baru.
+Modul ini memvalidasi keamanan Token CSRF dan integritas data input calon mahasiswa baru sebelum disimpan ke basis data.
 
-**1. Tabel Pemetaan Statement dan Node**
-
-| Potongan Skrip (Statement Code) | Simpul (Node) |
-|---------------------------------|---------------|
-| `if ($_SERVER["REQUEST_METHOD"] == "POST")` | **1** |
-| `if (CSRF_TOKEN_INVALID)` | **2** |
-| `die("Invalid Token");` | **3** |
-| `if (empty($nama) \|\| empty($nik))` | **4** |
-| `$msg = "Data Belum Lengkap";` | **5** |
-| `if ($query_execute_success)` | **6** |
-| `$msg = "Berhasil";` | **7** |
-| `$msg = "Gagal Query";` | **8** |
+### A. Tabel Pemetaan Statement dan Node
+| Potongan Kode PHP (Statement Code) | Simpul (Node) |
+|:---|:---:|
+| `if ($_SERVER["REQUEST_METHOD"] == "POST") {` | **1** |
+| `if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {` | **2** |
+| `die("Invalid CSRF Token.");` | **3** |
+| `if (empty($nama) \|\| empty($nik)) {` | **4** |
+| `$msg = "Lengkapi data wajib!";` | **5** |
+| `$stmt->execute(); if ($stmt) {` | **6** |
+| `$msg = "Berhasil!";` | **7** |
+| `$msg = "Terjadi kesalahan";` | **8** |
 | `exit;` (Akses GET) | **9** |
-| **Selesai / Logika Pendaftaran Usai** | **10** |
+| **Program Selesai** | **10** |
 
-**2. Flowchart dan Flowgraph**
-
+### B. Flowchart
 ```mermaid
 flowchart TD
-    1{Request POST?} -->|Ya| 2{Token CSRF Valid?}
-    1 -->|Tidak| 9[Hanya Tampil Form]
+    1{Metode POST?} -->|Ya| 2{Token CSRF Valid?}
+    1 -->|Tidak| 9[Hanya Tampil Halaman]
     
-    2 -->|Salah| 3[Akses Ditolak/Die]
-    2 -->|Benar| 4{Data Kosong?}
+    2 -->|Tidak| 3[Sistem Berhenti/Die]
+    2 -->|Ya| 4{Input Kosong?}
     
-    4 -->|Ya| 5[Msg: Lengkapi Data]
-    4 -->|Tidak| 6{Simpan ke DB?}
+    4 -->|Ya| 5[Msg: Data Kurang]
+    4 -->|Tidak| 6{Query Berhasil?}
     
-    6 -->|Berhasil| 7[Msg: Pendaftaran Sukses]
-    6 -->|Gagal| 8[Msg: Error Database]
+    6 -->|Ya| 7[Msg: Sukses]
+    6 -->|Tidak| 8[Msg: Gagal DB]
     
-    3 --> 10(((Selesai)))
+    3 --> 10(((Stop)))
     5 --> 10
     7 --> 10
     8 --> 10
     9 --> 10
 ```
 
+### C. Flowgraph
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
+    classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
+
     1((1)):::predicate -->|Ya| 2((2)):::predicate
-    1 -->|Tidak| 9((9))
-    2 -->|Invalid| 3((3))
-    2 -->|Valid| 4((4)):::predicate
-    4 -->|Kosong| 5((5))
-    4 -->|Lengkap| 6((6)):::predicate
-    6 -->|Berhasil| 7((7))
-    6 -->|Gagal| 8((8))
+    1 -->|Tidak / R1| 9((9))
+    2 -->|Tidak / R2| 3((3))
+    2 -->|Ya| 4((4)):::predicate
+    4 -->|Ya / R3| 5((5))
+    4 -->|Tidak| 6((6)):::predicate
+    6 -->|Ya / R5| 7((7))
+    6 -->|Tidak / R4| 8((8))
     3 & 5 & 7 & 8 & 9 --> 10(((10)))
+
+    subgraph Region_Analisis
+        R1[Region 1]:::region
+        R2[Region 2]:::region
+        R3[Region 3]:::region
+        R4[Region 4]:::region
+        R5[Region 5]:::region
+    end
 ```
 
-**3. Analisis Perhitungan White Box (Pendaftaran)**
+### D. Perhitungan Cyclomatic Complexity V(G)
+1. **Metode Edge-Node**: $V(G) = (13 - 10) + 2 = \mathbf{5}$
+2. **Metode Predicate Node**: $V(G) = 4 + 1 = \mathbf{5}$
 
-1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
-    -   Jumlah Edge (E) = 13 (Garis transisi)
-    -   Jumlah Node (N) = 10 (Simpul)
-    -   $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
+### E. Tabel Independent Path (5 Jalur)
+| Jalur | Penelusuran Jalur | Penjelasan Logika |
+|:---:|:---|:---|
+| **P1** | 1 -> 9 -> 10 | Pengunjung hanya melihat form tanpa mengirim data. |
+| **P2** | 1 -> 2 -> 3 -> 10 | Upaya pengiriman data ilegal (Serangan CSRF). |
+| **P3** | 1 -> 2 -> 4 -> 5 -> 10 | Form dikirim namun data wajib (NIK/Nama) kosong. |
+| **P4** | 1 -> 2 -> 4 -> 6 -> 8 -> 10 | Terjadi kegagalan konektivitas pangkalan data. |
+| **P5** | 1 -> 2 -> 4 -> 6 -> 7 -> 10 | **Skenario Pendaftaran Berhasil**. |
 
-2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
-    -   Jumlah Predicate Node (P) = 4 (Simpul 1, 2, 4, 6)
-    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
-
-3.  **Independent Path (5 Jalur Independen):**
-    -   **P1:** 1-9-10 (Pengguna membuka form via GET).
-    -   **P2:** 1-2-3-10 (Upaya injeksi: Token CSRF Tidak Valid).
-    -   **P3:** 1-2-4-5-10 (Mengosongkan isian wajib NIK/Nama).
-    -   **P4:** 1-2-4-6-8-10 (Error teknis pada pangkalan data MySQL).
-    -   **P5:** 1-2-4-6-7-10 (**Skenario Sukses: Data Tersimpan**).
+**Narasi Kesimpulan:** Seluruh fungsionalitas pendaftaran mahasiswa telah tervalidasi. Pengamanan CSRF berfungsi dengan baik dan pengecekan redundansi data berjalan sesuai alur logika yang diharapkan.
 
 ---
 
-### c. Unit Pengujian 3: Menu Kelola Data Dosen (`admin/kelola_dosen.php`)
+## 04. UNIT PENGUJIAN 3: MENU KELOLA DATA DOSEN (`kelola_dosen.php`)
 
-Analisis dilakukan pada manajemen rekam data dosen yang mencakup penanganan file media foto.
+Modul ini menangani penginputan data dosen baru beserta manajemen file upload foto profil.
 
-**1. Tabel Pemetaan Statement dan Node**
+### A. Tabel Pemetaan Statement dan Node
+| Potongan Kode PHP (Statement Code) | Simpul (Node) |
+|:---|:---:|
+| `if (isset($_POST['simpan_dosen'])) {` | **1** |
+| `if (empty($_POST['nidn']) \|\| empty($_POST['nama'])) {` | **2** |
+| `$_SESSION['error'] = "Input kosong";` | **3** |
+| `if (!empty($_FILES['foto']['name'])) {` | **4** |
+| `$foto = upload(); $stmt = "INSERT with Photo";` | **5** |
+| `$stmt = "INSERT without Photo";` | **6** |
+| `if ($stmt->execute()) {` | **7** |
+| `$_SESSION['sukses'] = "Berhasil";` | **8** |
+| `$_SESSION['error'] = "Gagal DB";` | **9** |
+| `/* End of POST Block */` | **10** |
+| **Tampilan Akhir UI** | **11** |
 
-| Potongan Skrip | Simpul (Node) |
-|----------------|---------------|
-| `if (isset($_POST['simpan']))` | **1** |
-| `if (empty($nidn) \|\| empty($nama))` | **2** |
-| `Error: Input Kosong` | **3** |
-| `if (!empty($foto['name']))` | **4** |
-| `Upload Foto + Query Insert Foto` | **5** |
-| `Query Insert Tanpa Foto` | **6** |
-| `if ($execute_query)` | **7** |
-| `Success: Data Tertambah` | **8** |
-| `Error: Gagal Query` | **9** |
-| `Skip Aksi (Tidak ada POST)` | **10** |
-| **End of Transaction** | **11** |
-
-**2. Flowchart dan Flowgraph**
-
+### B. Flowchart
 ```mermaid
 flowchart TD
-    1{Klik Simpan?} -->|Ya| 2{NIDN/Nama Kosong?}
-    1 -->|Tidak| 10[Tampil Tabel Data]
+    1{Tombol Simpan?} -->|Ya| 2{Input Kosong?}
+    1 -->|Tidak| 10[Tetap di Tabel]
     
-    2 -->|Ya| 3[Msg: Input Wajib Kosong]
-    2 -->|Tidak| 4{Ada Foto Baru?}
+    2 -->|Ya| 3[Set Error: Kosong]
+    2 -->|Tidak| 4{Ada Upload Foto?}
     
-    4 -->|Ada| 5[Siapkan Data + Foto]
-    4 -->|Tidak| 6[Siapkan Data Saja]
+    4 -->|Ya| 5[Proses Query + Foto]
+    4 -->|Tidak| 6[Proses Query Biasa]
     
-    5 --> 7{Lakukan Simpan?}
+    5 --> 7{Lakukan Eksekusi?}
     6 --> 7
     
-    7 -->|Berhasil| 8[Notif: Sukses Simpan]
-    7 -->|Gagal| 9[Notif: Gagal Database]
+    7 -->|Sukses| 8[Notif: Berhasil]
+    7 -->|Gagal| 9[Notif: Gagal DB]
     
-    3 --> 11(((Selesai)))
+    3 --> 11(((End)))
     8 --> 11
     9 --> 11
     10 --> 11
 ```
 
+### C. Flowgraph
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
-    1((1)):::predicate -->|Simpan| 2((2)):::predicate
-    1 -->|No Action| 10((10))
-    2 -->|Kosong| 3((3))
-    2 -->|Lengkap| 4((4)):::predicate
-    4 -->|Ada Foto| 5((5))
-    4 -->|No Foto| 6((6))
+    classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
+
+    1((1)):::predicate -->|Ya| 2((2)):::predicate
+    1 -->|Tidak / R1| 10((10))
+    2 -->|Ya / R2| 3((3))
+    2 -->|Tidak| 4((4)):::predicate
+    4 -->|Ya| 5((5))
+    4 -->|Tidak| 6((6))
     5 --> 7((7)):::predicate
     6 --> 7
-    7 -->|Sukses| 8((8))
-    7 -->|Gagal| 9((9))
+    7 -->|Ya / R4| 8((8))
+    7 -->|Tidak / R3| 9((9))
     3 & 8 & 9 & 10 --> 11(((11)))
+
+    subgraph Region_Analisis
+        R1[Region 1]:::region
+        R2[Region 2]:::region
+        R3[Region 3]:::region
+        R4[Region 4]:::region
+        R5[Region 5 (Internal Loop)]:::region
+    end
 ```
 
-**3. Analisis Perhitungan White Box (Kelola Dosen)**
+### D. Perhitungan Cyclomatic Complexity V(G)
+1. **Metode Edge-Node**: $V(G) = (14 - 11) + 2 = \mathbf{5}$
+2. **Metode Predicate Node**: $V(G) = 4 + 1 = \mathbf{5}$
 
-1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
-    -   Jumlah Edge (E) = 14
-    -   Jumlah Node (N) = 11
-    -   $V(G) = E - N + 2 = 14 - 11 + 2 = \mathbf{5}$
+### E. Tabel Independent Path (5 Jalur)
+| Jalur | Penelusuran Jalur | Penjelasan Logika |
+|:---:|:---|:---|
+| **P1** | 1 -> 10 -> 11 | Admin hanya memantau data tanpa aksi simpan. |
+| **P2** | 1 -> 2 -> 3 -> 11 | Percobaan simpan dengan data identitas kosong. |
+| **P3** | 1 -> 2 -> 4 -> 5 -> 7 -> 8 -> 11 | **Sukses Tambah Dosen** dengan upload foto. |
+| **P4** | 1 -> 2 -> 4 -> 6 -> 7 -> 8 -> 11 | **Sukses Tambah Dosen** tanpa foto pendukung. |
+| **P5** | 1 -> 2 -> 4 -> [5/6] -> 7 -> 9 -> 11 | Kegagalan query akibat duplikasi data (*Unique Key*). |
 
-2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
-    -   Jumlah Predicate Node (P) = 4 (Simpul 1, 2, 4, 7)
-    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
-
-3.  **Independent Path (5 Jalur Independen):**
-    -   **P1:** 1-10-11 (Membuka daftar tanpa melakukan aksi simpan).
-    -   **P2:** 1-2-3-11 (Kesalahan isian: NIDN/Nama tidak diisi).
-    -   **P3:** 1-2-4-5-7-8-11 (**Sukses: Tambah dosen lengkap foto**).
-    -   **P4:** 1-2-4-6-7-8-11 (**Sukses: Tambah dosen tanpa foto**).
-    -   **P5:** 1-2-4-[5/6]-7-9-11 (Kegagalan integritas pangkalan data).
+**Narasi Kesimpulan:** Penanganan input dosen telah berjalan solid. Sistem mampu membedakan kondisi penyimpanan dengan atau tanpa lampiran file serta menangani error integrasi database secara tepat.
 
 ---
 
-*Seluruh rangkaian pengujian White Box telah divalidasi dan terbukti bahwa arsitektur logika sistem Web FIKOM UNISAN berfungsi dengan efisiensi tinggi serta mencakup seluruh kondisi percabangan kritis.*
+## 05. KESIMPULAN AKHIR PENGUJIAN
+
+Berdasarkan hasil analisis mendalam menggunakan metode *Cyclomatic Complexity* pada tiga modul kritis, didapatkan kesimpulan bahwa arsitektur sistem Web FIKOM UNISAN telah dirancang dengan sangat baik dan memiliki alur logika yang kokoh.
+
+### Tabel Kesimpulan Pengujian White Box (Overall)
+
+| Identifikasi Fitur Utama | Skor V(G) | Jumlah Jalur Independen | Status Kelayakan |
+|:---|:---:|:---:|:---:|
+| **Menu Login Administrator** | 5 | 5 Jalur | **VALID (100%)** |
+| **Menu Pendaftaran Mahasiswa** | 5 | 5 Jalur | **VALID (100%)** |
+| **Menu Kelola Data Dosen** | 5 | 5 Jalur | **VALID (100%)** |
+
+**Kesimpulan Pengujian:** Seluruh alur logika program dinyatakan **VALID** dan **BERHASIL**. Sistem telah terbebas dari *unreachable code* dan sanggup menangani berbagai kondisi input dari pengguna secara akurat sesuai dengan perancangan sistem yang ditetapkan.

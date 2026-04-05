@@ -36,19 +36,19 @@ Analisis ini memvalidasi alur autentikasi pengguna untuk memastikan hanya kreden
 
 ```mermaid
 flowchart TD
-    1["Node 1 (Pengecekan Akses POST)"] -->|True| 2["Node 2 (Verifikasi Input Kosong)"]
-    1 -->|False| 9["Node 9 (Ditolak Akses)"]
+    1{Akses POST?} -->|Ya| 2{Input Kosong?}
+    1 -->|Tidak| 9[Redirect: Ilegal]
     
-    2 -->|True| 3["Node 3 (Redirect: Kosong)"]
-    2 -->|False| 4["Node 4 (Pengecekan num_rows == 1)"]
+    2 -->|Ya| 3[Redirect: Kosong]
+    2 -->|Tidak| 4{User Ada?}
     
-    4 -->|True| 5["Node 5 (Verifikasi Password)"]
-    4 -->|False| 8["Node 8 (Redirect: User Tidak Ada)"]
+    4 -->|Ya| 5{Password Benar?}
+    4 -->|Tidak| 8[Redirect: Gagal]
     
-    5 -->|True| 6["Node 6 (Akses Dashboard)"]
-    5 -->|False| 7["Node 7 (Redirect: Gagal)"]
+    5 -->|Ya| 6[Pintu Dashboard Terbuka]
+    5 -->|Tidak| 7[Redirect: Gagal]
     
-    3 --> 10(((10: Selesai)))
+    3 --> 10(((Selesai)))
     6 --> 10
     7 --> 10
     8 --> 10
@@ -112,19 +112,19 @@ Analisis dilakukan pada integrasi keamanan CSRF dan validasi penyimpanan data ca
 
 ```mermaid
 flowchart TD
-    1["Node 1 (Aksi Penerimaan POST)"] -->|True| 2["Node 2 (Verifikasi Token CSRF)"]
-    1 -->|False| 9["Node 9 (Rendering Halaman GET)"]
+    1{Request POST?} -->|Ya| 2{Token CSRF Valid?}
+    1 -->|Tidak| 9[Hanya Tampil Form]
     
-    2 -->|True| 3["Node 3 (Die: CSRF Ilegal)"]
-    2 -->|False| 4["Node 4 (Validasi Field Kosong)"]
+    2 -->|Salah| 3[Akses Ditolak/Die]
+    2 -->|Benar| 4{Data Kosong?}
     
-    4 -->|True| 5["Node 5 (Pesan: Data Tidak Lengkap)"]
-    4 -->|False| 6["Node 6 (Eksekusi Query Database)"]
+    4 -->|Ya| 5[Msg: Lengkapi Data]
+    4 -->|Tidak| 6{Simpan ke DB?}
     
-    6 -->|True| 7["Node 7 (Pendaftaran Berhasil)"]
-    6 -->|False| 8["Node 8 (Kegagalan DB)"]
+    6 -->|Berhasil| 7[Msg: Pendaftaran Sukses]
+    6 -->|Gagal| 8[Msg: Error Database]
     
-    3 --> 10(((10: Selesai)))
+    3 --> 10(((Selesai)))
     5 --> 10
     7 --> 10
     8 --> 10
@@ -189,22 +189,22 @@ Analisis dilakukan pada manajemen rekam data dosen yang mencakup penanganan file
 
 ```mermaid
 flowchart TD
-    1["Node 1 (Aksi Simpan Dosen)"] -->|True| 2["Node 2 (Cek Input Wajib)"]
-    1 -->|False| 10["Node 10 (Akses View Tabel)"]
+    1{Klik Simpan?} -->|Ya| 2{NIDN/Nama Kosong?}
+    1 -->|Tidak| 10[Tampil Tabel Data]
     
-    2 -->|True| 3["Node 3 (Pesan: NIDN/Nama Kosong)"]
-    2 -->|False| 4["Node 4 (Deteksi File Foto)"]
+    2 -->|Ya| 3[Msg: Input Wajib Kosong]
+    2 -->|Tidak| 4{Ada Foto Baru?}
     
-    4 -->|True| 5["Node 5 (Query dengan Foto)"]
-    4 -->|False| 6["Node 6 (Query Tanpa Foto)"]
+    4 -->|Ada| 5[Siapkan Data + Foto]
+    4 -->|Tidak| 6[Siapkan Data Saja]
     
-    5 --> 7["Node 7 (Eksekusi Query DB)"]
+    5 --> 7{Lakukan Simpan?}
     6 --> 7
     
-    7 -->|True| 8["Node 8 (Berhasil Simpan)"]
-    7 -->|False| 9["Node 9 (Gagal DB)"]
+    7 -->|Berhasil| 8[Notif: Sukses Simpan]
+    7 -->|Gagal| 9[Notif: Gagal Database]
     
-    3 --> 11(((11: Selesai)))
+    3 --> 11(((Selesai)))
     8 --> 11
     9 --> 11
     10 --> 11

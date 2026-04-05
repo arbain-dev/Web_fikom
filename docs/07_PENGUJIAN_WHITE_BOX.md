@@ -58,14 +58,14 @@ flowchart TD
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
-    1((1)):::predicate --> 2((2)):::predicate
-    1 --> 9((9))
-    2 --> 3((3))
-    2 --> 4((4)):::predicate
-    4 --> 5((5)):::predicate
-    4 --> 8((8))
-    5 --> 6((6))
-    5 --> 7((7))
+    1((1)):::predicate -->|Ya| 2((2)):::predicate
+    1 -->|Tidak| 9((9))
+    2 -->|Kosong| 3((3))
+    2 -->|Terisi| 4((4)):::predicate
+    4 -->|Ada| 5((5)):::predicate
+    4 -->|Tidak| 8((8))
+    5 -->|Sesuai| 6((6))
+    5 -->|Salah| 7((7))
     3 & 6 & 7 & 8 & 9 --> 10(((10)))
 ```
 
@@ -134,14 +134,14 @@ flowchart TD
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
-    1((1)):::predicate --> 2((2)):::predicate
-    1 --> 9((9))
-    2 --> 3((3))
-    2 --> 4((4)):::predicate
-    4 --> 5((5))
-    4 --> 6((6)):::predicate
-    6 --> 7((7))
-    6 --> 8((8))
+    1((1)):::predicate -->|Ya| 2((2)):::predicate
+    1 -->|Tidak| 9((9))
+    2 -->|Invalid| 3((3))
+    2 -->|Valid| 4((4)):::predicate
+    4 -->|Kosong| 5((5))
+    4 -->|Lengkap| 6((6)):::predicate
+    6 -->|Berhasil| 7((7))
+    6 -->|Gagal| 8((8))
     3 & 5 & 7 & 8 & 9 --> 10(((10)))
 ```
 
@@ -213,16 +213,16 @@ flowchart TD
 ```mermaid
 graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
-    1((1)):::predicate --> 2((2)):::predicate
-    1 --> 10((10))
-    2 --> 3((3))
-    2 --> 4((4)):::predicate
-    4 --> 5((5))
-    4 --> 6((6))
+    1((1)):::predicate -->|Simpan| 2((2)):::predicate
+    1 -->|No Action| 10((10))
+    2 -->|Kosong| 3((3))
+    2 -->|Lengkap| 4((4)):::predicate
+    4 -->|Ada Foto| 5((5))
+    4 -->|No Foto| 6((6))
     5 --> 7((7)):::predicate
     6 --> 7
-    7 --> 8((8))
-    7 --> 9((9))
+    7 -->|Sukses| 8((8))
+    7 -->|Gagal| 9((9))
     3 & 8 & 9 & 10 --> 11(((11)))
 ```
 

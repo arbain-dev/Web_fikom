@@ -13,7 +13,7 @@ Tingkat kompleksitas dan keandalan sistem diukur menggunakan parameter **Cycloma
 
 ---
 
-### a. Unit Pengujian 1: Proses Login Administrator (`proses_login.php`)
+### a. Unit Pengujian 1: Login Administrator (`proses_login.php`)
 
 Analisis ini memvalidasi alur autentikasi pengguna untuk memastikan hanya kredensial yang sah yang dapat mengakses dashboard.
 

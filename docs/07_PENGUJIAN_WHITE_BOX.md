@@ -13,7 +13,7 @@ Tingkat kompleksitas dan keandalan sistem diukur menggunakan parameter **Cycloma
 
 ---
 
-### a. Unit Pengujian 1: Login Administrator (`proses_login.php`)
+### a. Unit Pengujian 1: Menu Login Administrator (`proses_login.php`)
 
 Analisis ini memvalidasi alur autentikasi pengguna untuk memastikan hanya kredensial yang sah yang dapat mengakses dashboard.
 
@@ -89,7 +89,7 @@ graph TD
 
 ---
 
-### b. Unit Pengujian 2: Pendaftaran Mahasiswa (`proses_pendaftaran.php`)
+### b. Unit Pengujian 2: Menu Pendaftaran Mahasiswa (`proses_pendaftaran.php`)
 
 Analisis dilakukan pada integrasi keamanan CSRF dan validasi penyimpanan data calon mahasiswa baru.
 
@@ -165,7 +165,7 @@ graph TD
 
 ---
 
-### c. Unit Pengujian 3: Kelola Data Dosen (`admin/kelola_dosen.php`)
+### c. Unit Pengujian 3: Menu Kelola Data Dosen (`admin/kelola_dosen.php`)
 
 Analisis dilakukan pada manajemen rekam data dosen yang mencakup penanganan file media foto.
 

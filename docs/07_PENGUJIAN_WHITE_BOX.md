@@ -2,7 +2,7 @@
 
 ## 4.3 Hasil Pengujian
 
-### 4.3.1 Pengujian White Box
+### 4.3.1 Pengujian White Box (White Box Testing)
 
 Pengujian *White Box* dilakukan untuk mengamati alur logika internal pada kode program. Fokus pengujian ini adalah memastikan setiap jalur (*path*) yang ada di dalam program telah teruji dan berjalan sesuai dengan fungsi yang diharapkan. Dalam pengujian ini, digunakan metode **Cyclomatic Complexity (V(G))** untuk menghitung tingkat kerumitan logika sistem melalui tiga pendekatan rumus utama:
 
@@ -51,23 +51,27 @@ graph TD
     style 5 fill:#bbf,stroke:#333
 ```
 
-**Hasil Perhitungan Kompleksitas (V(G)):**
-1.  **Berdasarkan Edge & Node**: $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
-2.  **Berdasarkan Predicate (P)**: $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+**Analisis Perhitungan White Box (Login):**
 
-**Tabel 4.13 Jalur Independen (Independent Path) — Login**
+1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
+    -   Jumlah Edge (E) = 13
+    -   Jumlah Node (N) = 10
+    -   $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
 
-| Jalur | Penelusuran Node | Deskripsi Alur |
-|-------|------------------|----------------|
-| **P1** | 1 -> 9 -> 10 | Akses langsung tanpa melalui metode POST (Ditolak). |
-| **P2** | 1 -> 2 -> 3 -> 10 | Input form kosong (Username/Password tidak diisi). |
-| **P3** | 1 -> 2 -> 4 -> 8 -> 10 | User tidak ditemukan di database. |
-| **P4** | 1 -> 2 -> 4 -> 5 -> 7 -> 10 | User ditemukan, namun password salah. |
-| **P5** | 1 -> 2 -> 4 -> 5 -> 6 -> 10 | **Sukses:** Kredensial benar dan masuk dashboard. |
+2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
+    -   Jumlah Predicate Node (P) = 4 (Simpul 1, 2, 4, 5)
+    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+
+3.  **Independent Path (5 Jalur Independen):**
+    -   **P1:** 1-9-10 (Akses Non-POST).
+    -   **P2:** 1-2-3-10 (Input Kosong).
+    -   **P3:** 1-2-4-8-10 (User Tidak Ada).
+    -   **P4:** 1-2-4-5-7-10 (Password Salah).
+    -   **P5:** 1-2-4-5-6-10 (**Login Berhasil**).
 
 ---
 
-### b. Unit Pengujian 2: Pendaftaran Mahasiswa (`proses_pendaftaran.php`)
+### b. Unit Pengujian 2: Pendaftaran Mahasiswa Baru (`proses_pendaftaran.php`)
 
 Analisis dilakukan pada pengiriman data formulir registrasi mahasiswa baru.
 
@@ -86,19 +90,23 @@ Analisis dilakukan pada pengiriman data formulir registrasi mahasiswa baru.
 | `exit;` (Akses GET) | **9** |
 | **Selesai** | **10** |
 
-**Hasil Perhitungan Kompleksitas (V(G)):**
-1.  **Berdasarkan Edge & Node**: $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
-2.  **Berdasarkan Predicate (P)**: $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+**Analisis Perhitungan White Box (Pendaftaran):**
 
-**Tabel 4.15 Jalur Independen (Independent Path) — Pendaftaran**
+1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
+    -   Jumlah Edge (E) = 13
+    -   Jumlah Node (N) = 10
+    -   $V(G) = E - N + 2 = 13 - 10 + 2 = \mathbf{5}$
 
-| Jalur | Penelusuran Node | Deskripsi Alur |
-|-------|------------------|----------------|
-| **P1** | 1 -> 9 -> 10 | Pengunjung hanya melihat form (Akses GET). |
-| **P2** | 1 -> 2 -> 3 -> 10 | Keamanan CSRF mendeteksi akses ilegal. |
-| **P3** | 1 -> 2 -> 4 -> 5 -> 10 | Formulir dikirim dengan data wajib kosong. |
-| **P4** | 1 -> 2 -> 4 -> 6 -> 8 -> 10 | Server database menolak penyimpanan data. |
-| **P5** | 1 -> 2 -> 4 -> 6 -> 7 -> 10 | **Sukses:** Seluruh data tersimpan sempurna. |
+2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
+    -   Jumlah Predicate Node (P) = 4 (Simpul 1, 2, 4, 6)
+    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+
+3.  **Independent Path (5 Jalur Independen):**
+    -   **P1:** 1-9-10 (Akses via GET).
+    -   **P2:** 1-2-3-10 (CSRF Invalid).
+    -   **P3:** 1-2-4-5-10 (Input Wajib Kosong).
+    -   **P4:** 1-2-4-6-8-10 (Database Error).
+    -   **P5:** 1-2-4-6-7-10 (**Pendaftaran Sukses**).
 
 ---
 
@@ -122,20 +130,24 @@ Analisis dilakukan pada proses penambahan entitas dosen baru ke sistem.
 | `Skip Action` | **10** |
 | **End** | **11** |
 
-**Hasil Perhitungan Kompleksitas (V(G)):**
-1.  **Berdasarkan Edge & Node**: $V(G) = E - N + 2 = 14 - 11 + 2 = \mathbf{5}$
-2.  **Berdasarkan Predicate (P)**: $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+**Analisis Perhitungan White Box (Kelola Dosen):**
 
-**Tabel 4.17 Jalur Independen (Independent Path) — Kelola Dosen**
+1.  **Perhitungan Cyclomatic Complexity dari Edge dan Node:**
+    -   Jumlah Edge (E) = 14
+    -   Jumlah Node (N) = 11
+    -   $V(G) = E - N + 2 = 14 - 11 + 2 = \mathbf{5}$
 
-| Jalur | Penelusuran Node | Deskripsi Alur |
-|-------|------------------|----------------|
-| **P1** | 1 -> 10 -> 11 | Membuka laman tanpa melakukan aksi simpan. |
-| **P2** | 1 -> 2 -> 3 -> 11 | Mengklik simpan dengan NIDN/Nama kosong. |
-| **P3** | 1 -> 2 -> 4 -> 5 -> 7 -> 8 -> 11 | **Sukses:** Tambah data lengkap dengan foto. |
-| **P4** | 1 -> 2 -> 4 -> 6 -> 7 -> 8 -> 11 | **Sukses:** Tambah data tanpa foto pendukung. |
-| **P5** | 1 -> 2 -> 4 -> 5/6 -> 7 -> 9 -> 11 | Kegagalan teknis saat penulisan ke database. |
+2.  **Perhitungan Cyclomatic Complexity dari Predicate Node (P):**
+    -   Jumlah Predicate Node (P) = 4 (Simpul 1, 2, 4, 7)
+    -   $V(G) = P + 1 = 4 + 1 = \mathbf{5}$
+
+3.  **Independent Path (5 Jalur Independen):**
+    -   **P1:** 1-10-11 (Tidak ada aksi simpan).
+    -   **P2:** 1-2-3-11 (NIDN/Nama Kosong).
+    -   **P3:** 1-2-4-5-7-8-11 (**Sukses dengan Foto**).
+    -   **P4:** 1-2-4-6-7-8-11 (**Sukses tanpa Foto**).
+    -   **P5:** 1-2-4-5/6-7-9-11 (Kesalahan Query DB).
 
 ---
 
-*Laporan pengujian teknis White Box ini disusun untuk memastikan bahwa arsitektur logika sistem Web FIKOM UNISAN bebas dari celah kesalahan dan telah tervalidasi 100% pada seluruh percabangan kritis.*
+*Laporan pengujian teknis White Box ini disusun secara komprehensif untuk memastikan validitas alur logika pada seluruh jalur kritis sistem Web FIKOM UNISAN.*

@@ -102,9 +102,6 @@ $$V(G) = P + 1$$
 **Perhitungan:**
 $$V(G) = 4 + 1 = \mathbf{5}$$
 
-> [!NOTE]
-> Nilai V(G) menunjukkan jumlah jalur independen minimum yang harus diuji untuk memastikan cakupan logika yang lengkap. Dalam modul login ini, kedua metode menghasilkan nilai V(G) = 5 yang konsisten.
-
 #### 6. Independent Path (5 Jalur Independen)
 Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
 
@@ -112,11 +109,11 @@ Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
 
 | Region | Independent Path |
 |:---:|:---|
-| **R1** | Start - 1 - 9 - 10 (Akses login ilegal via URL) |
-| **R2** | Start - 1 - 2 - 3 - 10 (Gagal: Isian form kosong) |
-| **R3** | Start - 1 - 2 - 4 - 8 - 10 (Gagal: User tidak ditemukan) |
-| **R4** | Start - 1 - 2 - 4 - 5 - 7 - 10 (Gagal: Password salah) |
-| **R5** | Start - 1 - 2 - 4 - 5 - 6 - 10 (**Berhasil: Login sukses**) |
+| **R1** | Start → 1 → 9 → 10 → End |
+| **R2** | Start → 1 → 2 → 3 → 10 → End |
+| **R3** | Start → 1 → 2 → 4 → 8 → 10 → End |
+| **R4** | Start → 1 → 2 → 4 → 5 → 7 → 10 → End |
+| **R5** | Start → 1 → 2 → 4 → 5 → 6 → 10 → End |
 
 Berdasarkan hasil perhitungan Cyclomatic Complexity dan pengujian terhadap lima jalur independen yang ada, dapat disimpulkan bahwa seluruh alur logika dalam modul login telah berjalan dengan benar dan tidak ditemukan kesalahan pada struktur kontrolnya. Dengan demikian, pengujian white-box terhadap modul ini dinyatakan **berhasil**.
 
@@ -223,11 +220,11 @@ Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
 
 | Region | Independent Path |
 |:---:|:---|
-| **R1** | Start - 1 - 9 - 10 (Akses form via GET) |
-| **R2** | Start - 1 - 2 - 3 - 10 (Serangan CSRF / Token Ilegal) |
-| **R3** | Start - 1 - 2 - 4 - 5 - 10 (Gagal: Isian data tidak lengkap) |
-| **R4** | Start - 1 - 2 - 4 - 6 - 8 - 10 (Gagal: Kesalahan database) |
-| **R5** | Start - 1 - 2 - 4 - 6 - 7 - 10 (**Berhasil: Pendaftaran selesai**) |
+| **R1** | Start → 1 → 9 → 10 → End |
+| **R2** | Start → 1 → 2 → 3 → 10 → End |
+| **R3** | Start → 1 → 2 → 4 → 5 → 10 → End |
+| **R4** | Start → 1 → 2 → 4 → 6 → 8 → 10 → End |
+| **R5** | Start → 1 → 2 → 4 → 6 → 7 → 10 → End |
 
 Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan bahwa alur logika modul pendaftaran telah berjalan sesuai rancangan sistem. Pengamanan token dan validasi data berhasil menangani setiap kondisi input dengan benar. Dengan demikian, pengujian white-box dinyatakan **berhasil**.
 
@@ -339,11 +336,11 @@ Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
 
 | Region | Independent Path |
 |:---:|:---|
-| **R1** | Start - 1 - 10 - 11 (Membuka tabel tanpa aksi simpan) |
-| **R2** | Start - 1 - 2 - 3 - 11 (Gagal: NIDN atau Nama kosong) |
-| **R3** | Start - 1 - 2 - 4 - [5/6] - 7 - 9 - 11 (Gagal: Error database) |
-| **R4** | Start - 1 - 2 - 4 - 6 - 7 - 8 - 11 (**Berhasil: Simpan tanpa foto**) |
-| **R5** | Start - 1 - 2 - 4 - 5 - 7 - 8 - 11 (**Berhasil: Simpan dengan foto**) |
+| **R1** | Start → 1 → 10 → 11 → End |
+| **R2** | Start → 1 → 2 → 3 → 11 → End |
+| **R3** | Start → 1 → 2 → 4 → [5/6] → 7 → 9 → 11 → End |
+| **R4** | Start → 1 → 2 → 4 → 6 → 7 → 8 → 11 → End |
+| **R5** | Start → 1 → 2 → 4 → 5 → 7 → 8 → 11 → End |
 
 Berdasarkan analisis terhadap modul kelola data dosen, seluruh jalur eksekusi kritis telah diuji dan menunjukkan hasil yang konsisten. Penanganan file upload dan integrasi database berjalan optimal sesuai dengan jalur independen yang ditetapkan. Pengujian white-box dinyatakan **berhasil**.
 

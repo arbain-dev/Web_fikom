@@ -22,7 +22,7 @@ Dalam laporan ini, tingkat kompleksitas logika diukur menggunakan metode **Cyclo
 | `header("location: login?status=gagal");` (Password Salah) | **7** |
 | `header("location: login?status=gagal");` (User Tidak Ditemukan) | **8** |
 | `exit;` (Bukan akses POST / Direct URL) | **9** |
-| **Akhir Logika Program** | **10** |
+| **End of Script / Logika Usai** | **10** |
 
 ### 2. Flowchart
 ```mermaid
@@ -71,25 +71,54 @@ graph TD
     end
 ```
 
-### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
-- **Edge (E)** = 13
-- **Node (N)** = 10
-- **Rumus**: $V(G) = E - N + 2$
-- **Hasil**: $13 - 10 + 2 = \mathbf{5}$
+Dari flowgraph tersebut didapatkan:
 
-### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
-- **Predicate Node (P)** = 4 (Simpul 1, 2, 4, 5)
-- **Rumus**: $V(G) = P + 1$
-- **Hasil**: $4 + 1 = \mathbf{5}$
+**Diketahui:**
+* Region (R) = 5
+* Node (N) = 10
+* Edge (E) = 13
+* Predicate Node (P) = 4
 
-### 6. Independent Path (5 Jalur Independen)
-| Jalur | Penelusuran Jalur | Penjelasan Logika |
-|:---:|:---|:---|
-| **P1** | 1 -> 9 -> 10 | Akses langsung tanpa melalui form POST. |
-| **P2** | 1 -> 2 -> 3 -> 10 | Input login dibiarkan kosong. |
-| **P3** | 1 -> 2 -> 4 -> 8 -> 10 | Username tidak terdaftar di sistem. |
-| **P4** | 1 -> 2 -> 4 -> 5 -> 7 -> 10 | Password salah. |
-| **P5** | 1 -> 2 -> 4 -> 5 -> 6 -> 10 | **Akses Login Berhasil**. |
+#### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
+**Diketahui:**
+* Edge (E) = 13
+* Node (N) = 10
+
+**Rumus:**
+$$V(G) = E - N + 2$$
+
+**Perhitungan:**
+$$V(G) = 13 - 10 + 2 = \mathbf{5}$$
+
+Jadi, nilai Cyclomatic Complexity dari flowgraph tersebut adalah **5**.
+
+#### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
+**Diketahui:**
+* Predicate Node (P) = 4 (yaitu Node 1, Node 2, Node 4, dan Node 5)
+
+**Rumus:**
+$$V(G) = P + 1$$
+
+**Perhitungan:**
+$$V(G) = 4 + 1 = \mathbf{5}$$
+
+> [!NOTE]
+> Nilai V(G) menunjukkan jumlah jalur independen minimum yang harus diuji untuk memastikan cakupan logika yang lengkap. Dalam modul login ini, kedua metode menghasilkan nilai V(G) = 5 yang konsisten.
+
+#### 6. Independent Path (5 Jalur Independen)
+Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
+
+**Tabel 4.10 Independent Path Autentikasi Login**
+
+| Region | Independent Path |
+|:---:|:---|
+| **R1** | Start - 1 - 9 - 10 (Akses login ilegal via URL) |
+| **R2** | Start - 1 - 2 - 3 - 10 (Gagal: Isian form kosong) |
+| **R3** | Start - 1 - 2 - 4 - 8 - 10 (Gagal: User tidak ditemukan) |
+| **R4** | Start - 1 - 2 - 4 - 5 - 7 - 10 (Gagal: Password salah) |
+| **R5** | Start - 1 - 2 - 4 - 5 - 6 - 10 (**Berhasil: Login sukses**) |
+
+Berdasarkan hasil perhitungan Cyclomatic Complexity dan pengujian terhadap lima jalur independen yang ada, dapat disimpulkan bahwa seluruh alur logika dalam modul login telah berjalan dengan benar dan tidak ditemukan kesalahan pada struktur kontrolnya. Dengan demikian, pengujian white-box terhadap modul ini dinyatakan **berhasil**.
 
 ---
 
@@ -99,30 +128,30 @@ graph TD
 | Potongan Kode PHP (Statement Code) | Simpul (Node) |
 |:---|:---:|
 | `if ($_SERVER["REQUEST_METHOD"] == "POST") {` | **1** |
-| `if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {` | **2** |
-| `die("Invalid CSRF Token.");` | **3** |
+| `if (CSRF_TOKEN_INVALID) {` | **2** |
+| `die("Invalid Token");` | **3** |
 | `if (empty($nama) \|\| empty($nik)) {` | **4** |
 | `$msg = "Lengkapi data wajib!";` | **5** |
-| `$stmt->execute(); if ($stmt) {` | **6** |
-| `$msg = "Berhasil!";` | **7** |
-| `$msg = "Terjadi kesalahan";` | **8** |
+| `if ($query_execute) {` | **6** |
+| `$msg = "Berhasil";` | **7** |
+| `$msg = "Gagal Query";` | **8** |
 | `exit;` (Akses GET) | **9** |
-| **Program Selesai** | **10** |
+| **Selesai** | **10** |
 
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Metode POST?} -->|Ya| 2{Token CSRF Valid?}
-    1 -->|Tidak| 9[Hanya Tampil Halaman]
+    1{Akses POST?} -->|Ya| 2{Token Valid?}
+    1 -->|Tidak| 9[Tampil Form]
     
-    2 -->|Tidak| 3[Sistem Berhenti/Die]
+    2 -->|Tidak| 3[Sistem Die]
     2 -->|Ya| 4{Input Kosong?}
     
-    4 -->|Ya| 5[Msg: Data Kurang]
-    4 -->|Tidak| 6{Query Berhasil?}
+    4 -->|Ya| 5[Pesan: Error]
+    4 -->|Tidak| 6{Simpan DB?}
     
-    6 -->|Ya| 7[Msg: Sukses]
-    6 -->|Tidak| 8[Msg: Gagal DB]
+    6 -->|Ya| 7[Pesan: Sukses]
+    6 -->|Tidak| 8[Pesan: Gagal]
     
     3 --> 10(((Stop)))
     5 --> 10
@@ -139,8 +168,8 @@ graph TD
 
     1((1)):::predicate -->|Ya| 2((2)):::predicate
     1 -->|Tidak / R1| 9((9))
-    2 -->|Tidak / R2| 3((3))
-    2 -->|Ya| 4((4)):::predicate
+    2 -->|Salah / R2| 3((3))
+    2 -->|Benar| 4((4)):::predicate
     4 -->|Ya / R3| 5((5))
     4 -->|Tidak| 6((6)):::predicate
     6 -->|Ya / R5| 7((7))
@@ -156,25 +185,51 @@ graph TD
     end
 ```
 
-### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
-- **Edge (E)** = 13
-- **Node (N)** = 10
-- **Rumus**: $V(G) = E - N + 2$
-- **Hasil**: $13 - 10 + 2 = \mathbf{5}$
+Dari flowgraph tersebut didapatkan:
 
-### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
-- **Predicate Node (P)** = 4 (Simpul 1, 2, 4, 6)
-- **Rumus**: $V(G) = P + 1$
-- **Hasil**: $4 + 1 = \mathbf{5}$
+**Diketahui:**
+* Region (R) = 5
+* Node (N) = 10
+* Edge (E) = 13
+* Predicate Node (P) = 4
 
-### 6. Independent Path (5 Jalur Independen)
-| Jalur | Penelusuran Jalur | Penjelasan Logika |
-|:---:|:---|:---|
-| **P1** | 1 -> 9 -> 10 | Pengunjung hanya melihat form. |
-| **P2** | 1 -> 2 -> 3 -> 10 | Serangan CSRF / Token Tidak Valid. |
-| **P3** | 1 -> 2 -> 4 -> 5 -> 10 | Form dikirim dengan data kosong. |
-| **P4** | 1 -> 2 -> 4 -> 6 -> 8 -> 10 | Kegagalan database. |
-| **P5** | 1 -> 2 -> 4 -> 6 -> 7 -> 10 | **Pendaftaran Berhasil**. |
+#### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
+**Diketahui:**
+* Edge (E) = 13
+* Node (N) = 10
+
+**Rumus:**
+$$V(G) = E - N + 2$$
+
+**Perhitungan:**
+$$V(G) = 13 - 10 + 2 = \mathbf{5}$$
+
+Jadi, nilai Cyclomatic Complexity dari flowgraph tersebut adalah **5**.
+
+#### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
+**Diketahui:**
+* Predicate Node (P) = 4 (yaitu Node 1, Node 2, Node 4, dan Node 6)
+
+**Rumus:**
+$$V(G) = P + 1$$
+
+**Perhitungan:**
+$$V(G) = 4 + 1 = \mathbf{5}$$
+
+#### 6. Independent Path (5 Jalur Independen)
+Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
+
+**Tabel 4.11 Independent Path Pendaftaran Mahasiswa**
+
+| Region | Independent Path |
+|:---:|:---|
+| **R1** | Start - 1 - 9 - 10 (Akses form via GET) |
+| **R2** | Start - 1 - 2 - 3 - 10 (Serangan CSRF / Token Ilegal) |
+| **R3** | Start - 1 - 2 - 4 - 5 - 10 (Gagal: Isian data tidak lengkap) |
+| **R4** | Start - 1 - 2 - 4 - 6 - 8 - 10 (Gagal: Kesalahan database) |
+| **R5** | Start - 1 - 2 - 4 - 6 - 7 - 10 (**Berhasil: Pendaftaran selesai**) |
+
+Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan bahwa alur logika modul pendaftaran telah berjalan sesuai rancangan sistem. Pengamanan token dan validasi data berhasil menangani setiap kondisi input dengan benar. Dengan demikian, pengujian white-box dinyatakan **berhasil**.
 
 ---
 
@@ -183,37 +238,37 @@ graph TD
 ### 1. Pemetaan Statement dan Node
 | Potongan Kode PHP (Statement Code) | Simpul (Node) |
 |:---|:---:|
-| `if (isset($_POST['simpan_dosen'])) {` | **1** |
-| `if (empty($_POST['nidn']) \|\| empty($_POST['nama'])) {` | **2** |
-| `$_SESSION['error'] = "Input kosong";` | **3** |
-| `if (!empty($_FILES['foto']['name'])) {` | **4** |
-| `$foto = upload(); $stmt = "INSERT with Photo";` | **5** |
-| `$stmt = "INSERT without Photo";` | **6** |
-| `if ($stmt->execute()) {` | **7** |
-| `$_SESSION['sukses'] = "Berhasil";` | **8** |
-| `$_SESSION['error'] = "Gagal DB";` | **9** |
-| `/* End of POST Block */` | **10** |
-| **Tampilan Akhir UI** | **11** |
+| `if (isset($_POST['simpan'])) {` | **1** |
+| `if (empty($nidn) \|\| empty($nama)) {` | **2** |
+| `Error: Input Kosong` | **3** |
+| `if (ADA_FOTO)` | **4** |
+| `Upload Foto + SQL` | **5** |
+| `SQL Tanpa Foto` | **6** |
+| `if ($execute)` | **7** |
+| `Success Message` | **8** |
+| `Error Message` | **9** |
+| `No POST Action` | **10** |
+| **End** | **11** |
 
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Tombol Simpan?} -->|Ya| 2{Input Kosong?}
-    1 -->|Tidak| 10[Tetap di Tabel]
+    1{Simpan?} -->|Ya| 2{Kosong?}
+    1 -->|Tidak| 10[Tetap Tampil]
     
-    2 -->|Ya| 3[Set Error: Kosong]
-    2 -->|Tidak| 4{Ada Upload Foto?}
+    2 -->|Ya| 3[Pesan: Error]
+    2 -->|Tidak| 4{Ada Foto?}
     
-    4 -->|Ya| 5[Proses Query + Foto]
-    4 -->|Tidak| 6[Proses Query Biasa]
+    4 -->|Ya| 5[Proses Foto]
+    4 -->|Tidak| 6[Proses Biasa]
     
-    5 --> 7{Lakukan Eksekusi?}
+    5 --> 7{Eksekusi?}
     6 --> 7
     
-    7 -->|Sukses| 8[Notif: Berhasil]
-    7 -->|Gagal| 9[Notif: Gagal DB]
+    7 -->|Ya| 8[Notif: Sukses]
+    7 -->|Tidak| 9[Notif: Gagal]
     
-    3 --> 11(((End)))
+    3 --> 11(((Stop)))
     8 --> 11
     9 --> 11
     10 --> 11
@@ -225,12 +280,12 @@ graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
     classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
 
-    1((1)):::predicate -->|Ya / Simpan| 2((2)):::predicate
-    1 -->|Tidak / R1| 10((10))
-    2 -->|Ya / R2| 3((3))
-    2 -->|Tidak| 4((4)):::predicate
-    4 -->|Ya| 5((5))
-    4 -->|Tidak| 6((6))
+    1((1)):::predicate -->|Simpan| 2((2)):::predicate
+    1 -->|Batal / R1| 10((10))
+    2 -->|Kosong / R2| 3((3))
+    2 -->|Isi| 4((4)):::predicate
+    4 -->|Foto| 5((5))
+    4 -->|No Foto| 6((6))
     5 --> 7((7)):::predicate
     6 --> 7
     7 -->|Ya / R4| 8((8))
@@ -246,36 +301,60 @@ graph TD
     end
 ```
 
-### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
-- **Edge (E)** = 14
-- **Node (N)** = 11
-- **Rumus**: $V(G) = E - N + 2$
-- **Hasil**: $14 - 11 + 2 = \mathbf{5}$
+Dari flowgraph tersebut didapatkan:
 
-### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
-- **Predicate Node (P)** = 4 (Simpul 1, 2, 4, 7)
-- **Rumus**: $V(G) = P + 1$
-- **Hasil**: $4 + 1 = \mathbf{5}$
+**Diketahui:**
+* Region (R) = 5
+* Node (N) = 11
+* Edge (E) = 14
+* Predicate Node (P) = 4
 
-### 6. Independent Path (5 Jalur Independen)
-| Jalur | Penelusuran Jalur | Penjelasan Logika |
-|:---:|:---|:---|
-| **P1** | 1 -> 10 -> 11 | Tidak melakukan aksi simpan. |
-| **P2** | 1 -> 2 -> 3 -> 11 | Input NIDN/Nama kosong. |
-| **P3** | 1 -> 2 -> 4 -> 5 -> 7 -> 8 -> 11 | **Sukses Simpan** dengan upload foto. |
-| **P4** | 1 -> 2 -> 4 -> 6 -> 7 -> 8 -> 11 | **Sukses Simpan** tanpa upload foto. |
-| **P5** | 1 -> 2 -> 4 -> [5/6] -> 7 -> 9 -> 11 | Kegagalan query database. |
+#### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
+**Diketahui:**
+* Edge (E) = 14
+* Node (N) = 11
+
+**Rumus:**
+$$V(G) = E - N + 2$$
+
+**Perhitungan:**
+$$V(G) = 14 - 11 + 2 = \mathbf{5}$$
+
+Jadi, nilai Cyclomatic Complexity dari flowgraph tersebut adalah **5**.
+
+#### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
+**Diketahui:**
+* Predicate Node (P) = 4 (yaitu Node 1, Node 2, Node 4, dan Node 7)
+
+**Rumus:**
+$$V(G) = P + 1$$
+
+**Perhitungan:**
+$$V(G) = 4 + 1 = \mathbf{5}$$
+
+#### 6. Independent Path (5 Jalur Independen)
+Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
+
+**Tabel 4.12 Independent Path Kelola Data Dosen**
+
+| Region | Independent Path |
+|:---:|:---|
+| **R1** | Start - 1 - 10 - 11 (Membuka tabel tanpa aksi simpan) |
+| **R2** | Start - 1 - 2 - 3 - 11 (Gagal: NIDN atau Nama kosong) |
+| **R3** | Start - 1 - 2 - 4 - [5/6] - 7 - 9 - 11 (Gagal: Error database) |
+| **R4** | Start - 1 - 2 - 4 - 6 - 7 - 8 - 11 (**Berhasil: Simpan tanpa foto**) |
+| **R5** | Start - 1 - 2 - 4 - 5 - 7 - 8 - 11 (**Berhasil: Simpan dengan foto**) |
+
+Berdasarkan analisis terhadap modul kelola data dosen, seluruh jalur eksekusi kritis telah diuji dan menunjukkan hasil yang konsisten. Penanganan file upload dan integrasi database berjalan optimal sesuai dengan jalur independen yang ditetapkan. Pengujian white-box dinyatakan **berhasil**.
 
 ---
 
-## 05. KESIMPULAN AKHIR PENGUJIAN
+## 05. KESIMPULAN AKHIR
 
-### Tabel Kesimpulan Pengujian White Box (Overall)
-
-| Identifikasi Fitur Utama | Skor V(G) | Jalur Independen | Status Kelayakan |
+| Modul Pengujian | Skor V(G) | Jalur Independen | Status |
 |:---|:---:|:---:|:---:|
-| **Menu Login Administrator** | 5 | 5 Jalur | **VALID (100%)** |
-| **Menu Pendaftaran Mahasiswa** | 5 | 5 Jalur | **VALID (100%)** |
-| **Menu Kelola Data Dosen** | 5 | 5 Jalur | **VALID (100%)** |
+| **Menu Login Administrator** | 5 | 5 Jalur | **Sukses** |
+| **Menu Pendaftaran Mahasiswa** | 5 | 5 Jalur | **Sukses** |
+| **Menu Kelola Data Dosen** | 5 | 5 Jalur | **Sukses** |
 
-**Kesimpulan Pengujian:** Seluruh alur logika program dinyatakan **VALID** dan **BERHASIL**. Sistem telah terbebas dari kesalahan logika dan sanggup menangani berbagai kondisi input dari pengguna secara akurat.
+**Kesimpulan:** Seluruh alur logika program dinyatakan **VALID** dan **BERHASIL**. Sistem telah terbebas dari kesalahan struktur kontrol dan sanggup menangani setiap kondisi input pengguna secara akurat.

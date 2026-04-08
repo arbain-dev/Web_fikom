@@ -547,6 +547,28 @@ sequenceDiagram
 
 Gambar 2.1.22 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil & Tracer Alumni. Sistem melakukan query ke database untuk mendapatkan database-->>backend: hadirkan rentetan kompilasi wawasan data karir penempatan serta rekam masa pelepasan ke tangan server. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
 
+### 2.1.23 Sequence Diagram: Halaman Sambutan Dekan
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Pengunjung
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
+
+    User->>Frontend: Mengeklik menu Sambutan Dekan
+    Frontend->>Backend: Meminta konten narasi dan foto profil Dekan
+    
+    Backend->>Database: Perintah Ambil Data (Logika Halaman Statis/Profil)
+    Database-->>Backend: Mengembalikan teks sambutan dan path foto dekan
+    
+    Backend-->>Frontend: Menyusun Komponen Halaman Sambutan Utuh
+    Frontend-->>User: Tampilkan Halaman Sambutan Dekan yang Informatif
+```
+
+Gambar 2.1.23 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Sambutan Dekan. Sistem melakukan query ke database untuk mendapatkan pesan sambutan serta identitas visual pimpinan fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+
 ---
 
 ### 2.2.1 Sequence Diagram: Login Administrator
@@ -1359,7 +1381,6 @@ sequenceDiagram
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
-```
 
 ---
 
@@ -1441,3 +1462,38 @@ sequenceDiagram
         end
     end
 ```
+
+---
+
+### 2.2.18 Sequence Diagram: Kelola Informasi Fakultas & Sambutan
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Server as "Storage"
+    participant Database as Database
+
+    Admin->>Frontend: Membuka menu Kelola Informasi Fakultas / Sambutan
+    Frontend->>Backend: Request data Profil & Sambutan saat ini
+    Backend->>Database: Ambil rekaman data profil
+    Database-->>Backend: Kembalikan data silsilah profil
+    Backend-->>Frontend: Tampilkan Form Edit Informasi Fakultas
+    
+    Admin->>Frontend: Mengubah Judul, Deskripsi, atau Mengunggah Foto Baru
+    Admin->>Frontend: Klik "Simpan Perubahan"
+    Frontend->>Backend: Kirim data formulir (Multipart/Form-data)
+    
+    opt Jika ada Unggahan Foto Baru
+        Backend->>Server: Simpan file foto baru ke /uploads/tentang/
+        Backend->>Server: Bersihkan aset foto lama dari penyimpanan fisis
+    end
+    
+    Backend->>Database: Update rekaman pada tabel tentang_fikom
+    Database-->>Backend: Konfirmasi pembaruan record sukses
+    Backend-->>Frontend: Refresh halaman dengan rilis Notifikasi Sukses
+```
+
+Gambar 2.2.18 di atas menjelaskan alur interaksi saat Administrator mengelola informasi profil fakultas dan sambutan. Sistem memungkinkan pembaruan teks narasi serta penggantian aset gambar pimpinan secara dinamis melalui antarmuka manajemen.

@@ -318,8 +318,8 @@ Konfigurasi skema pengarsipan padanan turunan dokumentasi penggerakan bakti peng
 | 5 | `file_pdf` | VARCHAR(255) | Dokumen kelengkapan pdf |
 | 6 | `tanggal_kegiatan` | DATE | Tanggal penetapan kegiatan |
 
-### 14. Tabel: `rencana_operasional` (Katalogisasi Dokumentasi Renop Institusional Fakultas)
-Basis pangkalan registrasi pendistribusian manual ketatapan rancangan pedoman arah laju operasional administrasi fakultatif murni rujukan *Public Read-Only Format*.
+### 14. Tabel: `rencana_operasional` (Katalogisasi Dokumentasi Dokumen Fakultas)
+Basis pangkalan registrasi pendistribusian manual ketatapan rancangan pedoman arah laju operasional administrasi fakultatif murni rujukan *Public Read-Only Format*. Di antarmuka publik, menu ini direpresentasikan sebagai **Dokumen Fakultas**.
 | No | Nama Field | Tipe Data | Keterangan |
 |---|---|---|---|
 | 1 | `id` | INT | Primary Key, Auto Increment |

@@ -345,11 +345,11 @@ Sistem menampilkan daftar kartu kalender akademik per semester atau tahun ajaran
 
 ---
 
-### 4.3.13 Activity Diagram Menu Rencana Operasional (Renop)
+### 4.3.13 Activity Diagram Menu Dokumen Fakultas
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Membuka Halaman Rencana Operasional]
+    Start(( )) --> A[Membuka Halaman Dokumen Fakultas]
     
     A --> B[Sistem Menampilkan Daftar Kartu Dokumen]
     B --> C{Membutuhkan\nSalinan Dokumen?}
@@ -363,10 +363,10 @@ flowchart TD
     style Start fill:#000,stroke:#000,color:#000
     style End fill:#fff,stroke:#000,stroke-width:2px
 ```
-***Gambar 4.34** Activity Diagram Menu Rencana Operasional*
+***Gambar 4.34** Activity Diagram Menu Dokumen Fakultas*
 
 **Penjelasan:**
-Sistem menampilkan daftar dokumen Rencana Operasional yang tersedia. Jika pengguna membutuhkan salinan, pengguna mengklik tombol unduh dan sistem secara otomatis menyimpan berkas PDF ke perangkat pengguna.
+Sistem menampilkan daftar dokumen resmi fakultas (seperti Renop, Renstra, atau SOP) yang tersedia. Jika pengguna membutuhkan salinan, pengguna mengklik tombol unduh dan sistem secara otomatis menyimpan berkas PDF ke perangkat pengguna.
 
 ---
 
@@ -542,3 +542,30 @@ flowchart TD
 
 **Penjelasan:**
 Halaman Himpunan Mahasiswa menampilkan konten secara linear. Pengguna membaca teks pengantar, kemudian melihat informasi Himpunan Mahasiswa Teknik Informatika (HMTI), dilanjutkan dengan Himpunan Mahasiswa Pendidikan Teknologi Informasi (HMPTI).
+
+---
+
+### 4.3.21 Activity Diagram Menu Alumni (Tracer Study)
+
+```mermaid
+flowchart TD
+    Start(( )) --> A[Membuka Halaman Alumni & Tracer Study]
+    
+    A --> B[Sistem Menampilkan Statistik Sebaran Alumni]
+    B --> C[Melihat Persentase Kebekerjaan & Masa Tunggu]
+    
+    C --> D{Ingin Mengisi\nTracer Study?}
+    
+    D -- Iya --> E[Mengeklik Tombol Isi Form Tracer Study]
+    E --> F[Sistem Mengarahkan ke Web Eksternal Tracer Study]
+    F --> End((( )))
+    
+    D -- Tidak --> End
+    
+    style Start fill:#000,stroke:#000,color:#000
+    style End fill:#fff,stroke:#000,stroke-width:2px
+```
+***Gambar 4.42** Activity Diagram Menu Alumni*
+
+**Penjelasan:**
+Sistem memuat halaman alumni yang menyajikan data statistik riwayat lulusan. Pengguna dapat melihat grafik atau angka pencapaian alumni. Jika pengguna adalah alumni yang ingin berkontribusi data, pengguna dapat mengklik tombol "Isi Form Tracer Study" yang akan mengarahkan ke platform eksternal resmi kemdikbud.

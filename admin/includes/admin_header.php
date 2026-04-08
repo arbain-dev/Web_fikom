@@ -173,7 +173,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                      </div>
                 </a>
                 <ul class="sidebar-submenu">
-                    <li><a href="kelola_renop" class="sidebar-link <?php if(strpos($currentPage, 'renop') !== false) echo 'active'; ?>">Rencana Operasional</a></li>
+                    <li><a href="kelola_renop" class="sidebar-link <?php if(strpos($currentPage, 'renop') !== false) echo 'active'; ?>">Dokumen Fakultas</a></li>
                     <li><a href="kelola_renstra" class="sidebar-link <?php if(strpos($currentPage, 'renstra') !== false) echo 'active'; ?>">Rencana Strategis</a></li>
                     <li><a href="kelola_sop" class="sidebar-link <?php if(strpos($currentPage, 'sop') !== false) echo 'active'; ?>">SOP</a></li>
                 </ul>

@@ -35,7 +35,7 @@ $pageTitles = [
     'struktur.php' => 'Struktur Organisasi',
     'himpunan_mahasiswa.php' => 'Himpunan Mahasiswa',
     'berita-ukm.php' => 'UKM',
-    'rencana_operasional.php' => 'Rencana Operasional',
+    'rencana_operasional.php' => 'Dokumen Fakultas',
     'rencana_strategis.php' => 'Rencana Strategis',
     'sop.php' => 'SOP',
     'pendaftaran.php' => 'Pendaftaran Mahasiswa Baru',
@@ -139,7 +139,7 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
                     <i class="fas fa-chevron-down nav-arrow"></i>
                 </a>
                 <ul class="nav-dropdown">
-                    <li><a href="rencana_operasional" class="nav-dropdown-item <?= isActive('rencana_operasional.php', $currentPage) ?>">Rencana Operasional</a></li>
+                    <li><a href="rencana_operasional" class="nav-dropdown-item <?= isActive('rencana_operasional.php', $currentPage) ?>">Dokumen Fakultas</a></li>
                     <li><a href="rencana_strategis" class="nav-dropdown-item <?= isActive('rencana_strategis.php', $currentPage) ?>">Rencana Strategis</a></li>
                     <li><a href="sop" class="nav-dropdown-item <?= isActive('sop.php', $currentPage) ?>">Standar Operasional Prosedur</a></li>
                 </ul>

@@ -146,7 +146,7 @@ include 'includes/admin_header.php';
 
   <!-- Banner Ungu -->
   <div class="page-banner">
-    <h1 class="banner-title">Rencana Operasional (RenOp)</h1>
+    <h1 class="banner-title">Dokumen Fakultas</h1>
   </div>
 
   <?php if (!empty($message)): ?>
@@ -213,7 +213,7 @@ include 'includes/admin_header.php';
 <div id="tambahModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Tambah RenOp</h2>
+      <h2>Tambah Dokumen</h2>
       <span class="close-btn" onclick="modalHide('tambahModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data">
@@ -243,7 +243,7 @@ include 'includes/admin_header.php';
 <div id="editModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Edit RenOp</h2>
+      <h2>Edit Dokumen</h2>
       <span class="close-btn" onclick="modalHide('editModal')">&times;</span>
     </div>
     <form method="POST" enctype="multipart/form-data">

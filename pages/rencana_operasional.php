@@ -19,8 +19,8 @@ if ($result && $result->num_rows > 0) {
 <!-- Page Header -->
 <header class="page-header-section">
     <div class="container reveal-on-scroll">
-        <h1 class="page-title">Rencana Operasional (Renop)</h1>
-        <p class="page-subtitle">Dokumen perencanaan operasional Fakultas Ilmu Komputer</p>
+        <h1 class="page-title">Dokumen Fakultas</h1>
+        <p class="page-subtitle">Akses arsip dan dokumen resmi Fakultas Ilmu Komputer</p>
     </div>
 </header>
 

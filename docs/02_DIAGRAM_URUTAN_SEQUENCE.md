@@ -1,6 +1,6 @@
 # BAB II — DIAGRAM URUTAN
 
-Bagian ini mendeskripsikan secara teknis dan formal urutan pengiriman pesan antar-objek atau pilar arsitektur sistem. Interaksi diuraikan menggunakan pendekatan kerangka kerja Arsitektur Lapis Tiga (Frontend, Sistem Pengendali Pusat, Database) dengan narasi deskriptif berbentuk paragraf baku.
+Bagian ini mendeskripsikan secara teknis dan formal urutan pengiriman pesan antar-objek atau pilar arsitektur sistem. Interaksi diuraikan menggunakan pendekatan kerangka kerja Arsitektur Lapis Tiga (Frontend, Backend, Database) dengan narasi deskriptif berbentuk paragraf baku.
 
 ## 2.1 Lingkungan Pengunjung
 Bagian ini memvisualisasikan interaksi yang terjadi saat antarmuka publik atau pengunjung berinteraksi dengan sistem peladen.
@@ -12,9 +12,9 @@ sequenceDiagram
     autonumber
     
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Buka Halaman Home
     Frontend->>Backend: Meminta semua data utama
@@ -40,9 +40,9 @@ sequenceDiagram
     autonumber
     
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Akses / Klik menu Civitas Akademika
     Frontend->>Backend: Meminta susunan data Civitas
@@ -65,9 +65,9 @@ sequenceDiagram
     autonumber
     
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Akses / Klik menu Struktur Organisasi
     Frontend->>Backend: Meminta bagan Struktur Organisasi
@@ -90,9 +90,9 @@ sequenceDiagram
     autonumber
     
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Akses / Klik menu Tentang Fakultas
     Frontend->>Backend: Meminta rincian narasi Profil Fakultas
@@ -115,9 +115,9 @@ sequenceDiagram
     autonumber
     
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Akses / Klik Visi dan Misi
     Frontend->>Backend: Meminta susunan teks Visi Misi
@@ -139,9 +139,9 @@ Gambar 2.1.5 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halama
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Klik menu Profil Dosen
     Frontend->>Backend: Meminta rincian direktori riwayat Dosen
@@ -163,9 +163,9 @@ Gambar 2.1.6 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halama
 sequenceDiagram
     autonumber
     actor User as Calon Pendaftar
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Isi Form Pendaftaran & Lampirkan File Fisik KTP atau Ijazah
     User->>Frontend: Klik Tombol "Kirim Pendaftaran"
@@ -193,9 +193,9 @@ Gambar 2.1.7 di atas menjelaskan alur interaksi saat Calon Pendaftar mendaftar m
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengeksplorasi Profil Program Studi TI
     Frontend->>Backend: Meminta perincian paket data keilmuan Prodi TI
@@ -218,9 +218,9 @@ Gambar 2.1.8 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halama
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengeksplorasi Profil Program Studi PTI
     Frontend->>Backend: Meminta perincian paket data keilmuan Prodi PTI
@@ -243,9 +243,9 @@ Gambar 2.1.9 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halama
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Ingin melihat-lihat Sarana Fasilitas Ruangan
     Frontend->>Backend: Meminta rincian inventaris aset daftar Ruangan
@@ -267,9 +267,9 @@ Gambar 2.1.10 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengunjungi Halaman Laboratorium
     Frontend->>Backend: Meminta informasi fasilitas mesin internal Laboratorium
@@ -291,9 +291,9 @@ Gambar 2.1.11 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengeksplorasi laman Kalender Akademik Resmi
     Frontend->>Backend: Memanggil rilis pemaparan Kalender Aktivitas Terkini
@@ -315,9 +315,9 @@ Gambar 2.1.12 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Membuka direktori akses Dokumen Kurikulum Dasar
     Frontend->>Backend: Meminta sajian materi referensi berkas silabus
@@ -339,9 +339,9 @@ Gambar 2.1.13 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Menyusuri indeks halaman Dokumen Ketetapan Fakultas
     Frontend->>Backend: Meminta muat ulang wujud Dokumen Ketatapan Publik
@@ -363,9 +363,9 @@ Gambar 2.1.14 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengeklik menu halaman Rencana Strategis
     Frontend->>Backend: Memanggil rilis wujud laporan Renstra Fakultas
@@ -387,9 +387,9 @@ Gambar 2.1.15 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Menengok direktori penelusuran Ketetapan SOP
     Frontend->>Backend: Meminta sajian susunan urutan kepatuhan aturan SOP
@@ -411,9 +411,9 @@ Gambar 2.1.16 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Membuka Laman Direktori Tulisan Jurnal / Hasil Riset
     Frontend->>Backend: Meminta daftar kumpulan pelacakan riwayat aktivitas Penelitian Sivitas
@@ -435,9 +435,9 @@ Gambar 2.1.17 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Menelurusi Laman Rekam Jejak Kiprah Pengabdian Sosial
     Frontend->>Backend: Meminta muatan dokumentasi rekaman aktivitas sosial Pengabdian
@@ -459,9 +459,9 @@ Gambar 2.1.18 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mengeklik lajur identitas kepengurusan BEM (Badan Eksekutif)
     Frontend->>Backend: Menagih riwayat penataan struktur silsilah kabinet mahasiswa BEM pelaporan 
@@ -483,9 +483,9 @@ Gambar 2.1.19 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Memicu klik tombol menu Unit Ekstrakurikuler (Galeri UKM)
     Frontend->>Backend: Meminta pembeberan eksistensi segenap atribut Unit Kegiatan terdaftar sah 
@@ -507,9 +507,9 @@ Gambar 2.1.20 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Mencari pangkalan letak susunan himpunan otoritatif prodi (Jurusan) eksklusif
     Frontend->>Backend: Meminta pengungkapan tata aturan perwakilan tiap jajaran HIMA di bawah naungan BEM
@@ -531,9 +531,9 @@ Gambar 2.1.21 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 sequenceDiagram
     autonumber
     actor User as Pengunjung
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant Database as Pangkalan Data
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
 
     User->>Frontend: Singgah merunut pelacakan riwayat kelulusan pemuda cendekia (Ruang Pencarian Alumni)
     Frontend->>Backend: Mengajukan penarikan data wujud Direktori Kelulusan serta kiprah sukses riwayat Purna Kampus
@@ -550,15 +550,15 @@ Gambar 2.1.22 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halam
 ---
 
 ### 2.2.1 Sequence Diagram: Login Administrator
-Admin membuka halaman login, mengisi *Username* dan *Password*, lalu menekan tombol Login. Sistem Pengendali memverifikasi kredensial tersebut ke Pangkalan Data. Jika valid, sistem membuat sesi aktif dan mengarahkan admin ke halaman Dashboard; jika tidak valid, sistem menampilkan pesan kesalahan.
+Admin membuka halaman login, mengisi *Username* dan *Password*, lalu menekan tombol Login. Backend memverifikasi kredensial tersebut ke Database. Jika valid, sistem membuat sesi aktif dan mengarahkan admin ke halaman Dashboard; jika tidak valid, sistem menampilkan pesan kesalahan.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Admin
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
-    participant DB as "Database"
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman login
     Frontend-->>Admin: Tampilkan form login
@@ -580,16 +580,16 @@ sequenceDiagram
 ---
 
 ### 2.2.2 Sequence Diagram: Kelola Slider Beranda
-Admin membuka halaman ini dan sistem menampilkan seluruh data slider dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Subjudul, Foto Slider); sistem memvalidasi berkas, menyimpan foto ke `/uploads/slider` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file fisik dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data slider dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Subjudul, Foto Slider); sistem memvalidasi berkas, menyimpan foto ke `/uploads/slider` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file fisik dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Slider Beranda
     Frontend->>Backend: Request Halaman & Data
@@ -613,7 +613,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -627,7 +627,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/slider
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -636,16 +636,16 @@ sequenceDiagram
 ---
 
 ### 2.2.3 Sequence Diagram: Kelola Berita
-Admin membuka halaman ini dan sistem menampilkan seluruh data berita dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Konten, Foto Sampul); sistem memvalidasi berkas, menyimpan foto ke `/uploads/` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data berita dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Konten, Foto Sampul); sistem memvalidasi berkas, menyimpan foto ke `/uploads/` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Berita
     Frontend->>Backend: Request Halaman & Data
@@ -669,7 +669,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -683,7 +683,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -692,16 +692,16 @@ sequenceDiagram
 ---
 
 ### 2.2.4 Sequence Diagram: Kelola Dosen
-Admin membuka halaman ini dan sistem menampilkan seluruh data dosen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama, NIDN, Jabatan, Foto Profil); sistem memvalidasi berkas, menyimpan foto ke `/uploads/dosen` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data dosen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama, NIDN, Jabatan, Foto Profil); sistem memvalidasi berkas, menyimpan foto ke `/uploads/dosen` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Dosen
     Frontend->>Backend: Request Halaman & Data
@@ -725,7 +725,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -739,7 +739,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/dosen
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -748,16 +748,16 @@ sequenceDiagram
 ---
 
 ### 2.2.5 Sequence Diagram: Kelola Fasilitas Ruangan
-Admin membuka halaman ini dan sistem menampilkan seluruh data ruangan dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Ruang, Kapasitas, Fasilitas, Foto Kelas); sistem memvalidasi berkas, menyimpan foto ke `/uploads/ruangan` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data ruangan dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Ruang, Kapasitas, Fasilitas, Foto Kelas); sistem memvalidasi berkas, menyimpan foto ke `/uploads/ruangan` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Fasilitas Ruangan
     Frontend->>Backend: Request Halaman & Data
@@ -781,7 +781,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -795,7 +795,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/ruangan
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -804,16 +804,16 @@ sequenceDiagram
 ---
 
 ### 2.2.6 Sequence Diagram: Kelola Fasilitas Laboratorium
-Admin membuka halaman ini dan sistem menampilkan seluruh data laboratorium dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Lab, Inventaris, Foto Lab); sistem memvalidasi berkas, menyimpan foto ke `/uploads/laboratorium` (menghapus foto lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data laboratorium dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Lab, Inventaris, Foto Lab); sistem memvalidasi berkas, menyimpan foto ke `/uploads/laboratorium` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Fasilitas Laboratorium
     Frontend->>Backend: Request Halaman & Data
@@ -837,7 +837,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -851,7 +851,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/laboratorium
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -860,16 +860,16 @@ sequenceDiagram
 ---
 
 ### 2.2.7 Sequence Diagram: Kelola Kalender Akademik
-Admin membuka halaman ini dan sistem menampilkan seluruh data kalender dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Akademik, Deskripsi, Gambar Kalender); sistem memvalidasi berkas, menyimpan gambar ke `/uploads/kalender` (menghapus gambar lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file gambar dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data kalender dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Akademik, Deskripsi, Gambar Kalender); sistem memvalidasi berkas, menyimpan gambar ke `/uploads/kalender` (menghapus gambar lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file gambar dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Kalender Akademik
     Frontend->>Backend: Request Halaman & Data
@@ -893,7 +893,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -907,7 +907,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/kalender
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -916,16 +916,16 @@ sequenceDiagram
 ---
 
 ### 2.2.8 Sequence Diagram: Kelola Dokumen Kurikulum
-Admin membuka halaman ini dan sistem menampilkan seluruh data kurikulum dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen PDF); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/kurikulum` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data kurikulum dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen PDF); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/kurikulum` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Dokumen Kurikulum
     Frontend->>Backend: Request Halaman & Data
@@ -949,7 +949,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -963,7 +963,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/kurikulum
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -972,16 +972,16 @@ sequenceDiagram
 ---
 
 ### 2.2.9 Sequence Diagram: Kelola Mitra Kerjasama
-Admin membuka halaman ini dan sistem menampilkan seluruh data mitra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Mitra, Deskripsi MoU, Logo); sistem memvalidasi berkas, menyimpan logo ke `/uploads/kerjasama` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file logo dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data mitra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Mitra, Deskripsi MoU, Logo); sistem memvalidasi berkas, menyimpan logo ke `/uploads/kerjasama` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file logo dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Mitra Kerjasama
     Frontend->>Backend: Request Halaman & Data
@@ -1005,7 +1005,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1019,7 +1019,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/kerjasama
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1028,16 +1028,16 @@ sequenceDiagram
 ---
 
 ### 2.2.10 Sequence Diagram: Kelola Data Penelitian
-Admin membuka halaman ini dan sistem menampilkan seluruh data penelitian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Riset, Abstrak, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/penelitian` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data penelitian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Riset, Abstrak, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/penelitian` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Data Penelitian
     Frontend->>Backend: Request Halaman & Data
@@ -1061,7 +1061,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1075,7 +1075,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/penelitian
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1084,16 +1084,16 @@ sequenceDiagram
 ---
 
 ### 2.2.11 Sequence Diagram: Kelola Data Pengabdian
-Admin membuka halaman ini dan sistem menampilkan seluruh data pengabdian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Kegiatan, Ringkasan, Laporan Dokumentasi); sistem memvalidasi berkas, menyimpan file ke `/docs/pengabdian` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file laporan dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data pengabdian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Kegiatan, Ringkasan, Laporan Dokumentasi); sistem memvalidasi berkas, menyimpan file ke `/docs/pengabdian` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file laporan dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Data Pengabdian
     Frontend->>Backend: Request Halaman & Data
@@ -1117,7 +1117,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1131,7 +1131,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/pengabdian
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1140,16 +1140,16 @@ sequenceDiagram
 ---
 
 ### 2.2.12 Sequence Diagram: Kelola Dokumen Fakultas
-Admin membuka halaman ini dan sistem menampilkan seluruh data dokumen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan file ke `/docs/fakultas` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data dokumen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan file ke `/docs/fakultas` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Dokumen Fakultas
     Frontend->>Backend: Request Halaman & Data
@@ -1173,7 +1173,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1187,7 +1187,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/fakultas
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1196,16 +1196,16 @@ sequenceDiagram
 ---
 
 ### 2.2.13 Sequence Diagram: Kelola Rencana Strategis
-Admin membuka halaman ini dan sistem menampilkan seluruh data Renstra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Periode, Visi Renstra, Naskah PDF); sistem memvalidasi berkas, menyimpan file ke `/docs/renstra` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data Renstra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Periode, Visi Renstra, Naskah PDF); sistem memvalidasi berkas, menyimpan file ke `/docs/renstra` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Rencana Strategis
     Frontend->>Backend: Request Halaman & Data
@@ -1229,7 +1229,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1243,7 +1243,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/renstra
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1252,16 +1252,16 @@ sequenceDiagram
 ---
 
 ### 2.2.14 Sequence Diagram: Kelola Standar Operasional Prosedur (SOP)
-Admin membuka halaman ini dan sistem menampilkan seluruh data SOP dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama SOP, Rincian Prosedur, Dokumen SOP); sistem memvalidasi berkas, menyimpan file ke `/docs/sop` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data SOP dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama SOP, Rincian Prosedur, Dokumen SOP); sistem memvalidasi berkas, menyimpan file ke `/docs/sop` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Standar Operasional Prosedur (SOP)
     Frontend->>Backend: Request Halaman & Data
@@ -1285,7 +1285,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1299,7 +1299,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah docs/sop
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1308,16 +1308,16 @@ sequenceDiagram
 ---
 
 ### 2.2.15 Sequence Diagram: Kelola Data Organisasi BEM
-Admin membuka halaman ini dan sistem menampilkan seluruh data BEM dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Departemen, Program Kerja, Logo/Foto); sistem memvalidasi berkas, menyimpan file ke `/uploads/bem` (menghapus file lama jika Edit), lalu menyimpan data ke Pangkalan Data. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Pangkalan Data, kemudian memuat ulang halaman dengan notifikasi sukses.
+Admin membuka halaman ini dan sistem menampilkan seluruh data BEM dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Departemen, Program Kerja, Logo/Foto); sistem memvalidasi berkas, menyimpan file ke `/uploads/bem` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman menu Kelola Data Organisasi BEM
     Frontend->>Backend: Request Halaman & Data
@@ -1341,7 +1341,7 @@ sequenceDiagram
                 end
             end
             
-            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Pangkalan Data
+            Backend->>DB: Sisipkan detail baris isian ketikan teks & integrasikan link lokasinya ke Database
             DB-->>Backend: Peladen menyematkan pertanda konfirmasi data terekam permanen
             Backend-->>Frontend: Dialihkan kembali ke tabel dibarengi rilis Menampilkan Konfirmasi Pesan Sukses
         else Terdeteksi Format File Salah / Skala Muatan Overload Besar
@@ -1355,7 +1355,7 @@ sequenceDiagram
         Frontend->>Backend: Eksekusi sanksi lemparan pembersihan mendesak pangkalan perampingan
         Backend->>DB: Lacak letak kedudukan koordinat alamat letak nama spesifik file 
         Backend->>Server: Congkel hancurkan secara fisis fail bawaan eksisting di laci wadah uploads/bem
-        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Pangkalan Data
+        Backend->>DB: Runtuhkan catatan nama jejak spesifik itu terbakar bersih melenggang jauh dari Database
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
@@ -1364,16 +1364,16 @@ sequenceDiagram
 ---
 
 ### 2.2.16 Sequence Diagram: Verifikasi Pendaftaran
-Admin membuka halaman antrean validasi dan sistem menampilkan daftar semua pendaftar dari Pangkalan Data. Admin meninjau kelengkapan berkas tiap pendaftar, lalu menetapkan status **Diterima** atau **Ditolak** yang akan diperbarui di Pangkalan Data. Jika ada data pendaftar yang terbukti tidak valid, admin menekan tombol **Hapus** dan sistem menghapus file lampiran dari server serta menghapus rekaman dari Pangkalan Data.
+Admin membuka halaman antrean validasi dan sistem menampilkan daftar semua pendaftar dari Database. Admin meninjau kelengkapan berkas tiap pendaftar, lalu menetapkan status **Diterima** atau **Ditolak** yang akan diperbarui di Database. Jika ada data pendaftar yang terbukti tidak valid, admin menekan tombol **Hapus** dan sistem menghapus file lampiran dari server serta menghapus rekaman dari Database.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Buka halaman antrean validasi
     Frontend->>Backend: Request Halaman & Data
@@ -1405,20 +1405,20 @@ sequenceDiagram
 ---
 
 ### 2.2.17 Sequence Diagram: Pengaturan Sistem
-Admin mengakses menu ini dan sistem lang mengambil data profil konfigurasi dari Pangkalan Data lalu mengisi formulir secara otomatis. Admin mengubah nilai yang diperlukan atau mengunggah Logo/Favicon baru, lalu menekan **Simpan**. Jika berkas gambar valid, sistem menyimpan logo baru ke server, menghapus logo lama, dan memperbarui baris konfigurasi di Pangkalan Data. Jika tidak valid, sistem menampilkan pesan kesalahan.
+Admin mengakses menu ini dan sistem lang mengambil data profil konfigurasi dari Database lalu mengisi formulir secara otomatis. Admin mengubah nilai yang diperlukan atau mengunggah Logo/Favicon baru, lalu menekan **Simpan**. Jika berkas gambar valid, sistem menyimpan logo baru ke server, menghapus logo lama, dan memperbarui baris konfigurasi di Database. Jika tidak valid, sistem menampilkan pesan kesalahan.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Admin as Administrator
-    participant Frontend as Antarmuka Layar
-    participant Backend as Sistem Pengendali
+    participant Frontend as Frontend
+    participant Backend as Backend
     participant Server as "Storage"
-    participant DB as "Database"
+    participant DB as Database
 
     Admin->>Frontend: Akses menu Pengaturan Sistem
-    View->>DB: Ambil baris profil pengaturan
-    DB-->>View: Sajikan isian ke form
+    Frontend->>DB: Ambil baris profil pengaturan
+    DB-->>Frontend: Sajikan isian ke form
 
     opt Jika Klik Ubah/Simpan Profil
         Admin->>Frontend: Modifikasi teks/Upload gambar Logo favicon

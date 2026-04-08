@@ -403,5 +403,25 @@ Modul utilitas pencantuman wadah integrasi khusus kompilasi pernyataan pilar nil
 | 3 | `konten` | TEXT | Isi konten / artikel / HTML penuh |
 | 4 | `urutan` | INT | Nomor pengaturan urutan penayangan visual |
 
+## 5.3 Pemeliharaan Sistem (System Maintenance)
+
+Pemeliharaan sistem merupakan tahap krusial dalam siklus hidup pengembangan sistem (*System Development Life Cycle*) untuk memastikan aplikasi **Web FIKOM UNISAN** tetap berfungsi secara optimal, aman, dan relevan dengan kebutuhan pengguna di lingkungan Universitas Ichsan Sidenreng Rappang. Prosedur pemeliharaan yang diterapkan mencakup empat kategori utama sebagai berikut:
+
+### 1. Pemeliharaan Korektif (Corrective Maintenance)
+Tahapan ini berfokus pada identifikasi dan perbaikan kesalahan (*logic errors* atau *bugs*) yang muncul setelah sistem diimplementasikan. Pada aplikasi ini, pemeliharaan korektif dilakukan melalui monitoring intensif terhadap umpan balik administrator dan pengecekan berkala log kesalahan pada server untuk memastikan integritas pengolahan data tetap terjaga.
+
+### 2. Pemeliharaan Adaptif (Adaptive Maintenance)
+Pemeliharaan ini dilakukan untuk menyesuaikan sistem dengan perubahan lingkungan teknis eksternal. Hal ini meliputi pembaharuan konfigurasi sistem saat terjadi pembaruan versi PHP atau MySQL pada peladen (*web server*), serta penyesuaian tata letak antarmuka agar tetap kompatibel dengan berbagai perangkat peramban (*browser*) terbaru yang digunakan oleh mahasiswa dan dosen.
+
+### 3. Pemeliharaan Perfektif (Perfective Maintenance)
+Tujuan dari tahap ini adalah untuk meningkatkan fungsionalitas dan efisiensi sistem tanpa mengubah struktur inti aplikasi. Pemeliharaan perfektif pada Web FIKOM melibatkan optimasi kueri basis data untuk mempercepat waktu pemuatan halaman, serta penyempurnaan antarmuka pengguna (*User Interface*) agar semakin intuitif dan memudahkan administrasi konten fakultas.
+
+### 4. Pemeliharaan Preventif (Preventive Maintenance)
+Pemeliharaan preventif merupakan tindakan proaktif untuk mencegah potensi kegagalan sistem di masa depan. Langkah-langkah yang diambil meliputi:
+- **Pencadangan Basis Data (*Database Backup*)**: Dilakukan secara berkala untuk menjamin keamanan data akademik jika terjadi ketersediaan redundansi data.
+- **Optimasi Penyimpanan**: Membersihkan aset digital (gambar/dokumen) yang sudah tidak digunakan pada server untuk menjaga efisiensi ruang penyimpanan.
+- **Audit Keamanan**: Melakukan peninjauan rutin terhadap mekanisme autentikasi dan validasi input untuk memitigasi risiko serangan siber.
+
 ---
+
 *Dokumentasi rujukan skematis pembedahan arsitektur basis data relasional logis disajikan utuh spesifikasinya mengakomodir fungsionalitas perbendaharaan Kamus Data secara formal terarah mematuhi acuan rekayasa sistem referensi tata rekayasa sistem transaksional fungsional peladen klien absolut pada institusi ybs.*

@@ -29,7 +29,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Data Di Halaman Home
 ```
 
-Gambar 2.1.1 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Utama. Sistem melakukan query ke database untuk mendapatkan semua data utama, slider, berita terbaru. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur ini memperlihatkan bagaimana halaman beranda mengumpulkan informasi dari berbagai sumber data seperti slider, berita terbaru, dan profil fakultas untuk ditampilkan secara utuh kepada pengunjung dalam satu waktu.
 
 ---
 
@@ -54,7 +54,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Data Civitas utuh
 ```
 
-Gambar 2.1.2 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Civitas Akademika. Sistem melakukan query ke database untuk mendapatkan data civitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Proses ini menunjukkan permintaan pengunjung terhadap daftar civitas akademika, di mana Backend mengambil seluruh rekaman identitas pengelola fakultas dari Database untuk disajikan kembali di layar.
 
 ---
 
@@ -79,7 +79,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Struktur Organisasi
 ```
 
-Gambar 2.1.3 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Struktur Organisasi. Sistem melakukan query ke database untuk mendapatkan bagan struktur organisasi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Diagram ini menggambarkan proses pengambilan data bagan organisasi yang tersimpan di sistem, yang kemudian disusun secara visual oleh Frontend agar pengunjung dapat melihat struktur kepemimpinan fakultas.
 
 ---
 
@@ -104,7 +104,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Tentang Fakultas
 ```
 
-Gambar 2.1.4 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Tentang Fakultas. Sistem melakukan query ke database untuk mendapatkan narasi profil fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Menyiapkan narasi profil fakultas yang informatif, di mana sistem menarik data deskriptif dari basis data untuk menjelaskan latar belakang lembaga kepada pengunjung secara detail.
 
 ---
 
@@ -129,7 +129,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Visi & Misi
 ```
 
-Gambar 2.1.5 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Visi dan Misi. Sistem melakukan query ke database untuk mendapatkan teks visi misi. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Saat pengunjung ingin mengetahui visi dan misi lembaga, sistem akan memproses permintaan tersebut dengan menarik naskah deklarasi cita-cita fakultas yang ada di Database untuk ditampilkan.
 
 ---
 
@@ -153,7 +153,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Grid Kartu Profil Para Dosen
 ```
 
-Gambar 2.1.6 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Dosen. Sistem melakukan query ke database untuk mendapatkan direktori riwayat dosen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur pengambilan informasi riwayat dan profil dosen secara kolektif, yang kemudian dirender oleh sistem dalam bentuk grid kartu profil agar pengunjung dapat mengenal jajaran pengajar dengan mudah.
 
 ---
 
@@ -183,7 +183,7 @@ sequenceDiagram
     end
 ```
 
-Gambar 2.1.7 di atas menjelaskan alur interaksi saat Calon Pendaftar mendaftar melalui Halaman Pendaftaran Mahasiswa Baru. Sistem memproses formulir pendaftaran dan validasi berkas fisik, menyimpannya secara aman di server, dan mencatat rekamannya ke dalam database. Informasi balasan status kemudian dikirimkan kembali ke tampilan (View) sebagai notifikasi informatif bagi Calon Pendaftar.
+Proses pendaftaran mahasiswa baru yang melibatkan pengunggahan berkas fisik. Sistem akan memvalidasi tipe file sebelum menyimpan data pendaftar ke Database dan memberikan respon keberhasilan.
 
 ---
 
@@ -208,7 +208,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Antarmuka Penjabaran Prodi TI utuh
 ```
 
-Gambar 2.1.8 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Program Studi TI (Teknik Informatika). Sistem melakukan query ke database untuk mendapatkan perincian paket data keilmuan prodi ti, ringkasan profil teknik informatika, perwakilan jajaran kepengurusan ti. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Penggambaran interaksi khusus untuk Prodi Teknik Informatika, yang mencakup pengambilan data profil konsentrasi ilmu, susunan pengurus prodi, dan acuan kurikulum yang berlaku.
 
 ---
 
@@ -233,7 +233,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Pesona Layar Profil utuh Prodi Pend. Teknologi Informasi
 ```
 
-Gambar 2.1.9 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Program Studi PTI (Pendidikan Teknologi Informasi). Sistem melakukan query ke database untuk mendapatkan perincian paket data keilmuan prodi pti, tunggal ringkasan profil entri wilayah pti, senarai pengurus eksklusif afiliasi pti. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Sama halnya dengan Prodi PTI, sistem secara spesifik menyaring data kurikulum dan kepengurusan yang berafiliasi dengan rumpun Pendidikan Teknologi Informasi untuk disajikan kepada peminat.
 
 ---
 
@@ -257,7 +257,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruang Kelas ke Pandangan
 ```
 
-Gambar 2.1.10 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Ruangan. Sistem melakukan query ke database untuk mendapatkan inventaris aset daftar ruangan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur yang menampilkan katalog prasarana fisik kampus, di mana sistem menyajikan rincian inventaris dan foto-foto ruangan yang tersedia untuk mendukung kegiatan perkuliahan.
 
 ---
 
@@ -281,7 +281,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Etalase Galeri Mesin Laboratorium Komputer Terpadu
 ```
 
-Gambar 2.1.11 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Fasilitas Laboratorium. Sistem melakukan query ke database untuk mendapatkan fasilitas mesin internal laboratorium. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Menunjukkan interaksi pengunjung saat meninjau fasilitas laboratorium komputer, di mana sistem menarik profil lab beserta daftar koleksi mesin atau alat yang tersedia di dalamnya.
 
 ---
 
@@ -305,7 +305,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Tampilan utuh Susunan Kalender Akademik Fakultas
 ```
 
-Gambar 2.1.12 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Kalender Akademik. Sistem melakukan query ke database untuk mendapatkan database-->>backend: mengembalikan teks desklumat serta tautan ilustrasi grafis kalender. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Pengambilan data jadwal aktivitas akademik tahunan, di mana sistem menampilkan naskah penjelasan beserta tautan grafis kalender yang dapat diakses oleh mahasiswa dan dosen.
 
 ---
 
@@ -329,7 +329,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Daftar Pengunduhan Tata Aturan Kurikulum 
 ```
 
-Gambar 2.1.13 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Kurikulum. Sistem melakukan query ke database untuk mendapatkan sajian materi referensi berkas silabus. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur pencarian referensi kurikulum yang memungkinkan pengunjung melihat daftar silabus dan mengunduh berkas PDF yang telah disediakan oleh pihak akademik.
 
 ---
 
@@ -353,7 +353,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Arsip Hukum Publik secara utuh
 ```
 
-Gambar 2.1.14 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Dokumen Fakultas. Sistem melakukan query ke database untuk mendapatkan muat ulang wujud dokumen ketatapan publik. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Memperlihatkan proses pengaksesan dokumen-dokumen resmi fakultas, di mana sistem menyediakan tabel daftar unduhan arsip yang tersimpan aman di server bagi khalayak publik.
 
 ---
 
@@ -377,7 +377,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Antarmuka utuh Informasi Acuan Strategis Fakultas
 ```
 
-Gambar 2.1.15 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Rencana Strategis (Renstra). Sistem melakukan query ke database untuk mendapatkan database-->>backend: serahkan deskripsi paragraf wawasan serta link akses berkas dokumen. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Fokus pada penyajian data rencana strategis jangka panjang fakultas, yang memberikan gambaran mengenai target dan pencapaian lembaga melalui akses terhadap berkas naskah resmi.
 
 ---
 
@@ -401,7 +401,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Layar Tabel Unduhan Arsip Operasional Ke Ruang Pandang
 ```
 
-Gambar 2.1.16 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Standar Operasional Prosedur (SOP). Sistem melakukan query ke database untuk mendapatkan sajian susunan urutan kepatuhan aturan sop. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Proses pengambilan pedoman standar operasional (SOP), yang memudahkan pengunjung untuk menemukan dan mengunduh aturan teknis layanan administrasi yang berlaku di lingkungan kampus.
 
 ---
 
@@ -425,7 +425,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Daftar Artikel Riwayat Keilmuan Para Peneliti ke Hadapan Pengunjung
 ```
 
-Gambar 2.1.17 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Penelitian. Sistem melakukan query ke database untuk mendapatkan daftar kumpulan pelacakan riwayat aktivitas penelitian sivitas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur yang menampilkan direktori karya ilmiah, di mana pengunjung dapat melihat judul, abstrak, dan tautan jurnal hasil riset yang dikompilasi oleh sistem dari berbagai sivitas.
 
 ---
 
@@ -449,7 +449,7 @@ sequenceDiagram
     Frontend-->>User: Munculkan Tayangan Dokumenter Pengabdian Ke dalam Ruang Baca Khalayak Luas
 ```
 
-Gambar 2.1.18 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Data Pengabdian Masyarakat. Sistem melakukan query ke database untuk mendapatkan muatan dokumentasi rekaman aktivitas sosial pengabdian. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Menggambarkan rekam jejak aktivitas sosial fakultas melalui program pengabdian masyarakat, yang disajikan dalam bentuk narasi dan dokumentasi kegiatan untuk kebutuhan informasi publik.
 
 ---
 
@@ -473,7 +473,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Tampilan Pesona Skema Berbalut Identitas Anggun BEM ke Permukaan Layar
 ```
 
-Gambar 2.1.19 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil Organisasi (BEM). Sistem melakukan query ke database untuk mendapatkan riwayat penataan struktur silsilah kabinet mahasiswa bem pelaporan. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Memperlihatkan profil organisasi Badan Eksekutif Mahasiswa (BEM), yang menampilkan susunan pengurus dan deskripsi peran organisasi sebagai wadah aspirasi di tingkat fakultas.
 
 ---
 
@@ -497,7 +497,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Galeri Meriah Potret Keaktifan Pemuda UKM nan Dinamis Mutlak
 ```
 
-Gambar 2.1.20 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Unit Kegiatan Mahasiswa (UKM). Sistem melakukan query ke database untuk mendapatkan pembeberan eksistensi segenap atribut unit kegiatan terdaftar sah. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Galeri unit kegiatan mahasiswa yang dinamis, di mana sistem menyajikan profil bidang minat tiap UKM beserta foto keaktifannya untuk memperkenalkan eksistensi komunitas kampus.
 
 ---
 
@@ -521,7 +521,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Profil Megah Relasional Aktivis Mahasiswa Pemegang Identitas Perjurusan Prodi
 ```
 
-Gambar 2.1.21 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Himpunan Mahasiswa. Sistem melakukan query ke database untuk mendapatkan pengungkapan tata aturan perwakilan tiap jajaran hima di bawah naungan bem. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Fokus pada identitas himpunan mahasiswa per program studi, yang menampilkan bagan kerja dan spesifikasi perwakilan jurusan yang beroperasi secara mandiri namun tetap terkoordinasi.
 
 ---
 
@@ -545,7 +545,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Lembar Kebanggaan Perjalanan Waktu Catatan Karier dan Keaktifan Anggota Purna Lulusan Web 
 ```
 
-Gambar 2.1.22 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Profil & Tracer Alumni. Sistem melakukan query ke database untuk mendapatkan database-->>backend: hadirkan rentetan kompilasi wawasan data karir penempatan serta rekam masa pelepasan ke tangan server. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Alur tracer alumni yang berfungsi untuk memetakan sebaran karir lulusan, di mana sistem menampilkan daftar kompilasi kesuksesan purna kampus bagi para pemangku kepentingan.
 
 ### 2.1.23 Sequence Diagram: Halaman Sambutan Dekan
 
@@ -567,12 +567,12 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Sambutan Dekan yang Informatif
 ```
 
-Gambar 2.1.23 di atas menjelaskan alur interaksi saat Pengunjung mengakses Halaman Sambutan Dekan. Sistem melakukan query ke database untuk mendapatkan pesan sambutan serta identitas visual pimpinan fakultas. Data-data ini kemudian dikirimkan ke tampilan (View) untuk dirender menjadi informasi visual yang informatif bagi Pengunjung.
+Menampilkan pesan penyambutan secara personal dari Dekan FIKOM, yang menggabungkan teks narasi sambutan dengan identitas visual pimpinan fakultas sebagai pembuka profil lembaga.
 
 ---
 
 ### 2.2.1 Sequence Diagram: Login Administrator
-Admin membuka halaman login, mengisi *Username* dan *Password*, lalu menekan tombol Login. Backend memverifikasi kredensial tersebut ke Database. Jika valid, sistem membuat sesi aktif dan mengarahkan admin ke halaman Dashboard; jika tidak valid, sistem menampilkan pesan kesalahan.
+Admin masuk ke sistem melalui form login. Backend akan mencocokkan kredensial dengan pangkalan data, dan jika sesuai, sesi aktif akan dibuat untuk memberikan akses ke dashboard utama.
 
 ```mermaid
 sequenceDiagram
@@ -602,7 +602,7 @@ sequenceDiagram
 ---
 
 ### 2.2.2 Sequence Diagram: Kelola Slider Beranda
-Admin membuka halaman ini dan sistem menampilkan seluruh data slider dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Subjudul, Foto Slider); sistem memvalidasi berkas, menyimpan foto ke `/uploads/slider` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file fisik dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Mengatur konten visual di halaman depan. Admin dapat menambah, mengubah, atau menghapus gambar slider. Sistem secara otomatis mengelola penyimpanan fisik file di server dan pembaruan datanya di database.
 
 ```mermaid
 sequenceDiagram
@@ -658,7 +658,7 @@ sequenceDiagram
 ---
 
 ### 2.2.3 Sequence Diagram: Kelola Berita
-Admin membuka halaman ini dan sistem menampilkan seluruh data berita dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Konten, Foto Sampul); sistem memvalidasi berkas, menyimpan foto ke `/uploads/` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Fasilitas manajemen berita fakultas. Admin dapat mempublikasikan informasi terbaru dengan lampiran foto sampul. Sistem memastikan setiap pembaruan atau penghapusan berita turut menyinkronkan aset gambar terkait.
 
 ```mermaid
 sequenceDiagram
@@ -714,7 +714,7 @@ sequenceDiagram
 ---
 
 ### 2.2.4 Sequence Diagram: Kelola Dosen
-Admin membuka halaman ini dan sistem menampilkan seluruh data dosen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama, NIDN, Jabatan, Foto Profil); sistem memvalidasi berkas, menyimpan foto ke `/uploads/dosen` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Pengelolaan data direktori pengajar. Admin bertugas memperbarui profil, jabatan, dan foto dosen. Proses penghapusan data akan membersihkan file foto profil dari penyimpanan server agar tidak membebani memori.
 
 ```mermaid
 sequenceDiagram
@@ -770,7 +770,7 @@ sequenceDiagram
 ---
 
 ### 2.2.5 Sequence Diagram: Kelola Fasilitas Ruangan
-Admin membuka halaman ini dan sistem menampilkan seluruh data ruangan dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Ruang, Kapasitas, Fasilitas, Foto Kelas); sistem memvalidasi berkas, menyimpan foto ke `/uploads/ruangan` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Manajemen inventaris ruang kelas. Admin mendaftarkan kapasitas dan fasilitas sarana fisik. Unggahan foto ruangan divalidasi oleh sistem sebelum disimpan untuk memastikan estetika tampilan publik terjaga.
 
 ```mermaid
 sequenceDiagram
@@ -826,7 +826,7 @@ sequenceDiagram
 ---
 
 ### 2.2.6 Sequence Diagram: Kelola Fasilitas Laboratorium
-Admin membuka halaman ini dan sistem menampilkan seluruh data laboratorium dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Lab, Inventaris, Foto Lab); sistem memvalidasi berkas, menyimpan foto ke `/uploads/laboratorium` (menghapus foto lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file foto dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Modul khusus untuk mengelola profil laboratorium komputer. Admin dapat memperbarui rincian alat dan foto lab, di mana sistem menangani penggantian aset gambar lama dengan yang baru secara otomatis.
 
 ```mermaid
 sequenceDiagram
@@ -882,7 +882,7 @@ sequenceDiagram
 ---
 
 ### 2.2.7 Sequence Diagram: Kelola Kalender Akademik
-Admin membuka halaman ini dan sistem menampilkan seluruh data kalender dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Akademik, Deskripsi, Gambar Kalender); sistem memvalidasi berkas, menyimpan gambar ke `/uploads/kalender` (menghapus gambar lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file gambar dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Pembaruan jadwal rutin fakultas. Admin mengunggah gambar kalender akademik terbaru, dan sistem akan menggantikan file kalender periode sebelumnya dengan versi yang paling mutakhir di server.
 
 ```mermaid
 sequenceDiagram
@@ -938,7 +938,7 @@ sequenceDiagram
 ---
 
 ### 2.2.8 Sequence Diagram: Kelola Dokumen Kurikulum
-Admin membuka halaman ini dan sistem menampilkan seluruh data kurikulum dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen PDF); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/kurikulum` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Manajemen dokumen akademik. Admin mengelola berkas silabus dalam format PDF/DOC. Sistem memastikan setiap file yang diunggah memiliki format yang aman sebelum disimpan dalam direktori dokumen khusus.
 
 ```mermaid
 sequenceDiagram
@@ -994,7 +994,7 @@ sequenceDiagram
 ---
 
 ### 2.2.9 Sequence Diagram: Kelola Mitra Kerjasama
-Admin membuka halaman ini dan sistem menampilkan seluruh data mitra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Mitra, Deskripsi MoU, Logo); sistem memvalidasi berkas, menyimpan logo ke `/uploads/kerjasama` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file logo dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Dokumentasi relasi institusi. Admin mengelola daftar logo dan detail kerjasama dengan pihak eksternal. Sistem memfasilitasi pembaruan profil mitra serta pembersihan aset logo jika kerjasama telah berakhir.
 
 ```mermaid
 sequenceDiagram
@@ -1050,7 +1050,7 @@ sequenceDiagram
 ---
 
 ### 2.2.10 Sequence Diagram: Kelola Data Penelitian
-Admin membuka halaman ini dan sistem menampilkan seluruh data penelitian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Riset, Abstrak, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan dokumen ke `/docs/penelitian` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dokumen dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Mengelola repositori karya ilmiah. Admin menginput abstrak dan berkas laporan hasil riset. Sistem akan menata riwayat penelitian agar dapat diakses oleh publik secara terstruktur melalui link unduhan.
 
 ```mermaid
 sequenceDiagram
@@ -1106,7 +1106,7 @@ sequenceDiagram
 ---
 
 ### 2.2.11 Sequence Diagram: Kelola Data Pengabdian
-Admin membuka halaman ini dan sistem menampilkan seluruh data pengabdian dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul Kegiatan, Ringkasan, Laporan Dokumentasi); sistem memvalidasi berkas, menyimpan file ke `/docs/pengabdian` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file laporan dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Dokumentasi kegiatan sosial fakultas. Admin mengunggah laporan pengabdian masyarakat. Sistem memastikan naskah naratif dan dokumentasi foto kegiatan tersimpan dengan benar dalam pangkalan data.
 
 ```mermaid
 sequenceDiagram
@@ -1162,7 +1162,7 @@ sequenceDiagram
 ---
 
 ### 2.2.12 Sequence Diagram: Kelola Dokumen Fakultas
-Admin membuka halaman ini dan sistem menampilkan seluruh data dokumen dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Judul, Deskripsi, Dokumen Publikasi); sistem memvalidasi berkas, menyimpan file ke `/docs/fakultas` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Manajemen arsip dokumen kompetensi fakultas. Admin mengelola dokumen resmi dalam bentuk digital. Setiap perubahan data dokumen akan diikuti dengan sinkronisasi file fisik di server penyimpanan.
 
 ```mermaid
 sequenceDiagram
@@ -1218,7 +1218,7 @@ sequenceDiagram
 ---
 
 ### 2.2.13 Sequence Diagram: Kelola Rencana Strategis
-Admin membuka halaman ini dan sistem menampilkan seluruh data Renstra dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Tahun Periode, Visi Renstra, Naskah PDF); sistem memvalidasi berkas, menyimpan file ke `/docs/renstra` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Pengelolaan rencana strategis lembaga. Admin memperbarui naskah target jangka panjang fakultas. Sistem menyediakan antarmuka untuk mengganti dokumen Renstra lama dengan versi revisi terbaru secara instan.
 
 ```mermaid
 sequenceDiagram
@@ -1274,7 +1274,7 @@ sequenceDiagram
 ---
 
 ### 2.2.14 Sequence Diagram: Kelola Standar Operasional Prosedur (SOP)
-Admin membuka halaman ini dan sistem menampilkan seluruh data SOP dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama SOP, Rincian Prosedur, Dokumen SOP); sistem memvalidasi berkas, menyimpan file ke `/docs/sop` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Modul standarisasi layanan. Admin mengelola dokumen instruksi prosedur (SOP). Sistem mengamankan setiap file pedoman yang diunggah agar tetap integritasnya saat diunduh oleh pengunjung.
 
 ```mermaid
 sequenceDiagram
@@ -1330,7 +1330,7 @@ sequenceDiagram
 ---
 
 ### 2.2.15 Sequence Diagram: Kelola Data Organisasi BEM
-Admin membuka halaman ini dan sistem menampilkan seluruh data BEM dalam tabel. Untuk **Tambah/Edit**, admin mengisi formulir (Nama Departemen, Program Kerja, Logo/Foto); sistem memvalidasi berkas, menyimpan file ke `/uploads/bem` (menghapus file lama jika Edit), lalu menyimpan data ke Database. Untuk **Hapus**, sistem menghapus file dari server dan rekaman dari Database, kemudian memuat ulang halaman dengan notifikasi sukses.
+Pengelolaan profil organisasi mahasiswa. Admin mengatur deskripsi departemen dan program kerja BEM. Proses pengeditan memungkinkan admin mengganti logo kabinet secara dinamis melalui panel admin.
 
 ```mermaid
 sequenceDiagram
@@ -1385,7 +1385,7 @@ sequenceDiagram
 ---
 
 ### 2.2.16 Sequence Diagram: Verifikasi Pendaftaran
-Admin membuka halaman antrean validasi dan sistem menampilkan daftar semua pendaftar dari Database. Admin meninjau kelengkapan berkas tiap pendaftar, lalu menetapkan status **Diterima** atau **Ditolak** yang akan diperbarui di Database. Jika ada data pendaftar yang terbukti tidak valid, admin menekan tombol **Hapus** dan sistem menghapus file lampiran dari server serta menghapus rekaman dari Database.
+Proses validasi akun pendaftar baru. Admin meninjau berkas calon mahasiswa dan memutuskan status kelulusan. Sistem memfasilitasi pembersihan data pendaftar fiktif beserta lampiran dokumennya secara massal.
 
 ```mermaid
 sequenceDiagram
@@ -1426,7 +1426,7 @@ sequenceDiagram
 ---
 
 ### 2.2.17 Sequence Diagram: Pengaturan Sistem
-Admin mengakses menu ini dan sistem lang mengambil data profil konfigurasi dari Database lalu mengisi formulir secara otomatis. Admin mengubah nilai yang diperlukan atau mengunggah Logo/Favicon baru, lalu menekan **Simpan**. Jika berkas gambar valid, sistem menyimpan logo baru ke server, menghapus logo lama, dan memperbarui baris konfigurasi di Database. Jika tidak valid, sistem menampilkan pesan kesalahan.
+Pengaturan parameter inti website. Admin mengelola konfigurasi seperti judul situs, logo, dan favicon. Sistem memastikan setiap perubahan identitas visual segera diterapkan pada seluruh halaman aplikasi.
 
 ```mermaid
 sequenceDiagram
@@ -1496,4 +1496,4 @@ sequenceDiagram
     Backend-->>Frontend: Refresh halaman dengan rilis Notifikasi Sukses
 ```
 
-Gambar 2.2.18 di atas menjelaskan alur interaksi saat Administrator mengelola informasi profil fakultas dan sambutan. Sistem memungkinkan pembaruan teks narasi serta penggantian aset gambar pimpinan secara dinamis melalui antarmuka manajemen.
+Manajemen konten penyambutan pimpinan. Admin memperbarui naskah sambutan dan foto resmi Dekan. Sistem menangani proses penggantian narasi dan aset gambar agar informasi pimpinan selalu mutakhir.

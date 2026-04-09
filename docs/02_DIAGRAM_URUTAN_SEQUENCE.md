@@ -1497,3 +1497,165 @@ sequenceDiagram
 ```
 
 Manajemen konten penyambutan pimpinan. Admin memperbarui naskah sambutan dan foto resmi Dekan. Sistem menangani proses penggantian narasi dan aset gambar agar informasi pimpinan selalu mutakhir.
+
+---
+
+### 2.2.19 Sequence Diagram: Kelola Visi dan Misi
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
+
+    Admin->>Frontend: Akses menu Kelola Visi & Misi
+    Frontend->>Backend: Meminta data Visi, Misi, Tujuan, Sasaran
+    Backend->>Database: Query tabel visi_misi per kategori
+    Database-->>Backend: Kembalikan kumpulan data narasi
+    Backend-->>Frontend: Tampilkan daftar item di layar admin
+    
+    %% Alur Update Visi
+    opt Perbarui Teks Visi Utama
+        Admin->>Frontend: Ubah teks Visi & klik "Simpan"
+        Frontend->>Backend: Kirim data narasi Visi
+        Backend->>Database: Update / Insert record Visi
+        Database-->>Backend: Konfirmasi sukses
+        Backend-->>Frontend: Notifikasi Berhasil diperbarui
+    end
+
+    %% Alur Tambah Item
+    opt Tambah Misi / Tujuan / Sasaran Baru
+        Admin->>Frontend: Input teks baru & tentukan nomor urut
+        Admin->>Frontend: Klik tombol "Tambah"
+        Frontend->>Backend: Transmisi data entri baru
+        Backend->>Database: Insert record baru ke tabel visi_misi
+        Database-->>Backend: Konfirmasi keberhasilan simpan
+        Backend-->>Frontend: Refresh tabel & Notifikasi Sukses
+    end
+
+    %% Alur Hapus Item
+    opt Hapus Salah Satu Item
+        Admin->>Frontend: Klik ikon Hapus pada baris data
+        Frontend->>Backend: Kirim ID record yang akan dihapus
+        Backend->>Database: Perintah Delete record berdasarkan ID
+        Database-->>Backend: Konfirmasi penghapusan permanen
+        Backend-->>Frontend: Hapus baris dari tampilan & Notifikasi Sukses
+    end
+```
+
+Pusat kendali deklarasi cita-cita lembaga. Admin dapat mengelola narasi visi utama serta menambah atau menghapus poin-poin misi, tujuan, dan sasaran strategis secara dinamis dalam satu antarmuka terintegrasi.
+
+---
+
+### 2.2.20 Sequence Diagram: Kelola Struktur Organisasi
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Server as "Storage"
+    participant Database as Database
+
+    Admin->>Frontend: Membuka menu Kelola Struktur Organisasi
+    Frontend->>Backend: Meminta visual struktur saat ini
+    Backend->>Database: Ambil path gambar (halaman_statis: struktur_organisasi)
+    Database-->>Backend: Kembalikan nama file gambar
+    Backend-->>Frontend: Tampilkan pratinjau gambar struktur di layar
+    
+    opt Unggah Bagan Struktur Baru
+        Admin->>Frontend: Pilih file gambar bagan (JPG/PNG/SVG)
+        Admin->>Frontend: Klik "Update Gambar"
+        Frontend->>Backend: Kirim berkas gambar (Binary/Form-data)
+        
+        Backend->>Backend: Validasi format & ukuran file
+        
+        alt Berkas Valid
+            Backend->>Server: Simpan fisik file baru ke /uploads/profil/
+            Backend->>Server: Hapus permanen file bagan lama dari penyimpanan
+            Backend->>Database: Update path gambar pada tabel halaman_statis
+            Database-->>Backend: Konfirmasi perubahan data berhasil
+            Backend-->>Frontend: Refresh Pratinjau & Notifikasi Sukses
+        else Berkas Tidak Valid
+            Backend-->>Frontend: Kirim Pesan Peringatan Format Salah
+        end
+    end
+```
+
+Manajemen representasi visual hierarki fakultas. Admin mengelola bagan organisasi dengan mengunggah berkas gambar terbaru, di mana sistem secara otomatis menggantikan aset lama untuk menjaga akurasi informasi kepemimpinan.
+
+---
+
+### 2.2.21 Sequence Diagram: Kelola Data Fakta (Statistik Fakultas)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Database as Database
+
+    Admin->>Frontend: Akses menu Kelola Fakta Fakultas
+    Frontend->>Backend: Request daftar statistik saat ini
+    Backend->>Database: Ambil semua record dari tb_fakta
+    Database-->>Backend: Kembalikan data (Judul, Angka, Urutan)
+    Backend-->>Frontend: Tampilkan tabel data fakta
+    
+    %% Alur Tambah / Edit
+    opt Tambah atau Edit Data Fakta
+        Admin->>Frontend: Input Judul (Misal: Dosen), Angka (Misal: 50), & Urutan
+        Admin->>Frontend: Klik "Simpan Data"
+        Frontend->>Backend: Kirim paket data (ID opsional untuk edit)
+        
+        alt Aksi Tambah
+            Backend->>Database: Insert record baru ke tb_fakta
+        else Aksi Edit
+            Backend->>Database: Update record berdasarkan ID
+        end
+        
+        Database-->>Backend: Konfirmasi penyimpanan sukses
+        Backend-->>Frontend: Refresh tabel & Notifikasi Sukses
+    end
+```
+
+Pengelolaan indikator numerik ketercapaian fakultas. Admin mengatur angka-angka fakta (seperti jumlah mahasiswa atau dosen) yang akan ditampilkan dengan efek animasi pada halaman utama untuk menarik perhatian pengunjung.
+
+---
+
+### 2.2.22 Sequence Diagram: Kelola Informasi Tentang Fakultas
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Administrator
+    participant Frontend as Frontend
+    participant Backend as Backend
+    participant Server as "Storage"
+    participant Database as Database
+
+    Admin->>Frontend: Membuka menu Kelola Informasi Tentang Fakultas
+    Frontend->>Backend: Meminta data narasi & gambar profil saat ini
+    Backend->>Database: Query data dari tabel tentang_fikom
+    Database-->>Backend: Kembalikan Judul, Deskripsi, & Nama File Gambar
+    Backend-->>Frontend: Tampilkan form dengan data eksisting
+    
+    Admin->>Frontend: Edit Judul, Deskripsi, atau Pilih Gambar Baru
+    Admin->>Frontend: Klik "Simpan Perubahan"
+    Frontend->>Backend: Kirim data formulir lengkap
+    
+    opt Jika ada Unggahan Gambar Baru
+        Backend->>Server: Simpan fisik gambar baru ke /uploads/tentang/
+        Backend->>Database: Update judul, deskripsi, & path gambar baru
+    else Tanpa Perubahan Gambar
+        Backend->>Database: Update judul & deskripsi saja
+    end
+    
+    Database-->>Backend: Konfirmasi pembaruan record berhasil
+    Backend-->>Frontend: Redirect ke halaman & Notifikasi Sukses
+```
+
+Manajemen konten naratif profil lembaga. Admin bertugas meredaksi sejarah atau deskripsi umum fakultas serta memperbarui citra visual pendukung agar selaras dengan perkembangan terkini institusi.

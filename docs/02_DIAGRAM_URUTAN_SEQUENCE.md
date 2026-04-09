@@ -29,7 +29,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Data Di Halaman Home
 ```
 
-Alur ini memperlihatkan bagaimana halaman beranda mengumpulkan informasi dari berbagai sumber data seperti slider, berita terbaru, dan profil fakultas untuk ditampilkan secara utuh kepada pengunjung dalam satu waktu.
+Halaman Utama berperan sebagai gerbang informasi terpadu yang menyajikan konten dari berbagai pilar fakultas. Saat Pengunjung membuka halaman ini, Frontend mengirimkan permintaan data kolektif kepada Backend. Selanjutnya, Backend melakukan serangkaian kueri ke Database untuk menarik data slider, berita terbaru, statistik fakta, narasi pengantar, serta daftar mitra. Hasil penggabungan seluruh data tersebut kemudian dikirimkan kembali ke antarmuka pengguna, memastikan penyajian informasi yang komprehensif dan aktual dalam satu siklus interaksi.
 
 ---
 
@@ -54,7 +54,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Data Civitas utuh
 ```
 
-Proses ini menunjukkan permintaan pengunjung terhadap daftar civitas akademika, di mana Backend mengambil seluruh rekaman identitas pengelola fakultas dari Database untuk disajikan kembali di layar.
+Proses visualisasi data Civitas Akademika menggambarkan mekanisme penarikan daftar profil sumber daya manusia di lingkungan fakultas. Pengunjung yang mengakses menu ini akan memicu permintaan data oleh Frontend kepada sistem peladen. Backend merespons dengan mengeksekusi perintah pengambilan rekaman data dari Database, yang kemudian ditransmisikan kembali untuk dirender menjadi daftar identitas pengelola yang terstruktur. Alur ini menjamin akurasi dan kemudahan akses informasi mengenai komposisi staf akademik bagi publik.
 
 ---
 
@@ -79,7 +79,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Struktur Organisasi
 ```
 
-Diagram ini menggambarkan proses pengambilan data bagan organisasi yang tersimpan di sistem, yang kemudian disusun secara visual oleh Frontend agar pengunjung dapat melihat struktur kepemimpinan fakultas.
+Representasi alur pengaksesan Bagan Struktur Organisasi menunjukkan proses penyajian hierarki kepemimpinan fakultas secara visual. Permintaan yang masuk dari antarmuka pengguna diproses oleh Backend melalui kueri spesifik pada tabel halaman statis untuk menarik path gambar atau teks deskripsi struktur. Setelah data diterima dari Database, Frontend mengolah informasi tersebut menjadi tampilan bagan yang informatif bagi pengunjung. Mekanisme ini memastikan transparansi tata kelola organisasi di tingkat fakultas dapat dipahami dengan baik oleh khalayak luas.
 
 ---
 
@@ -104,7 +104,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Tentang Fakultas
 ```
 
-Menyiapkan narasi profil fakultas yang informatif, di mana sistem menarik data deskriptif dari basis data untuk menjelaskan latar belakang lembaga kepada pengunjung secara detail.
+Interaksi pada Halaman Tentang Fakultas menitikberatkan pada penyajian narasi historis dan profil lembaga secara detail. Saat pengunjung memilih menu profil, sistem akan menginisiasi penarikan data deskriptif dari pangkalan data melalui Backend. Informasi yang dikembalikan oleh Database kemudian diformat oleh Frontend menjadi tayangan artikel profil yang komprehensif. Proses ini bertujuan untuk memberikan pemahaman mendalam mengenai latar belakang, identitas, dan peran strategis fakultas dalam penyelenggaraan pendidikan tinggi.
 
 ---
 
@@ -129,7 +129,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Visi & Misi
 ```
 
-Saat pengunjung ingin mengetahui visi dan misi lembaga, sistem akan memproses permintaan tersebut dengan menarik naskah deklarasi cita-cita fakultas yang ada di Database untuk ditampilkan.
+Alur penyajian Visi dan Misi fakultas memberikan wawasan mengenai landasan filosofis dan cita-cita strategis lembaga. Pengunjung yang mengakses halaman ini memicu sistem untuk menarik naskah deklarasi visi, misi, tujuan, dan sasaran dari Database. Backend bertanggung jawab untuk melakukan pemetaan data per kategori sebelum menyajikannya kembali ke Frontend. Hasil akhir dari proses ini adalah paparan teks yang terstruktur, memungkinkan pengunjung untuk memahami arah pengembangan dan komitmen kualitas yang dijunjung tinggi oleh fakultas.
 
 ---
 
@@ -153,7 +153,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Grid Kartu Profil Para Dosen
 ```
 
-Alur pengambilan informasi riwayat dan profil dosen secara kolektif, yang kemudian dirender oleh sistem dalam bentuk grid kartu profil agar pengunjung dapat mengenal jajaran pengajar dengan mudah.
+Proses pemuatan Direktori Profil Dosen menggambarkan mekanisme penyajian tenaga pendidik secara kolektif dengan data yang terperinci. Sistem merespons permintaan pengunjung dengan menarik beragam atribut data dari Database, mulai dari nama lengkap, NIDN, jabatan fungsional, hingga pas foto terbaru. Backend menyatukan seluruh atribut tersebut dan mengirimkannya ke Frontend untuk disusun menjadi grid kartu profil yang intuitif. Antarmuka ini dirancang untuk memudahkan pengunjung dalam mengenali keahlian dan kualifikasi akademik jajaran dosen di setiap program studi.
 
 ---
 
@@ -183,7 +183,7 @@ sequenceDiagram
     end
 ```
 
-Proses pendaftaran mahasiswa baru yang melibatkan pengunggahan berkas fisik. Sistem akan memvalidasi tipe file sebelum menyimpan data pendaftar ke Database dan memberikan respon keberhasilan.
+Siklus pendaftaran mahasiswa baru mencakup proses transmisi data calon pendaftar beserta berkas autentikasi fisiknya. Calon pendaftar mengirimkan formulir isian dan unggahan dokumen (seperti KTP atau Ijazah) melalui Frontend untuk divalidasi oleh Backend. Jika file memenuhi kriteria format sistem, data akan disimpan secara permanen ke Database dan notifikasi keberhasilan akan diterbitkan. Namun, apabila sistem mendeteksi ketidaksesuaian tipe file atau manipulasi data, proses akan ditangguhkan dengan pemberian umpan balik berupa peringatan kegagal bagi pengguna.
 
 ---
 
@@ -208,7 +208,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Antarmuka Penjabaran Prodi TI utuh
 ```
 
-Penggambaran interaksi khusus untuk Prodi Teknik Informatika, yang mencakup pengambilan data profil konsentrasi ilmu, susunan pengurus prodi, dan acuan kurikulum yang berlaku.
+Visualisasi alur informasi Program Studi Teknik Informatika menunjukkan integrasi data keilmuan yang spesifik bagi calon mahasiswa atau peneliti. Saat pengunjung mengeksplorasi prodi ini, sistem akan menarik data gabungan yang terdiri dari narasi profil konsentrasi, daftar pengelola prodi, hingga dokumen acuan kurikulum dari pangkalan data. Backend mengatur agar seluruh segmen informasi tersebut tersaji secara sinkron di halaman antarmuka TI, memberikan gambaran utuh mengenai atmosfer akademik dan standar kompetensi pada bidang informatika.
 
 ---
 
@@ -233,7 +233,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Pesona Layar Profil utuh Prodi Pend. Teknologi Informasi
 ```
 
-Sama halnya dengan Prodi PTI, sistem secara spesifik menyaring data kurikulum dan kepengurusan yang berafiliasi dengan rumpun Pendidikan Teknologi Informasi untuk disajikan kepada peminat.
+Manajemen informasi pada Program Studi Pendidikan Teknologi Informasi mengikuti pola penarikan data tematik yang menyesuaikan dengan profil kependidikan dan teknologi. Backend mengekstraksi riwayat profil prodi, senarai pengurus afiliasi, serta silabus kurikulum PTI dari Database untuk kemudian diproses oleh Frontend. Melalui alur ini, pengunjung dapat mengakses informasi yang relevan mengenai kesiapan prodi dalam mencetak tenaga pendidik profesional di bidang TI yang memiliki kualifikasi pedagogik dan teknis yang seimbang.
 
 ---
 
@@ -257,7 +257,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Layar Galeri Estetis Fasilitas Ruang Kelas ke Pandangan
 ```
 
-Alur yang menampilkan katalog prasarana fisik kampus, di mana sistem menyajikan rincian inventaris dan foto-foto ruangan yang tersedia untuk mendukung kegiatan perkuliahan.
+Proses penyajian Galeri Fasilitas Ruangan menggambarkan transparansi sarana prasarana fisik yang mendukung aktivitas perkuliahan. Sistem memproses permintaan pengunjung dengan menarik inventaris aset ruangan beserta dokumentasi fotonya dari pangkalan data. Data yang diperoleh kemudian disusun oleh Frontend menjadi etalase visual yang menampilkan kapasitas dan kelengkapan fasilitas di setiap ruang kelas. Mekanisme ini memberikan kepastian informasi bagi civitas akademika mengenai ketersediaan dan standar kelayakan sarana fisik yang ada di lingkungan kampus.
 
 ---
 
@@ -281,7 +281,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Etalase Galeri Mesin Laboratorium Komputer Terpadu
 ```
 
-Menunjukkan interaksi pengunjung saat meninjau fasilitas laboratorium komputer, di mana sistem menarik profil lab beserta daftar koleksi mesin atau alat yang tersedia di dalamnya.
+Siklus pemuatan informasi Fasilitas Laboratorium menyoroti ketersediaan sarana teknologi pendukung riset dan praktikum. Saat pengunjung mengakses laman ini, sistem akan mengidentifikasi profil setiap laboratorium melalui Backend. Data yang ditarik dari Database mencakup daftar inventaris mesin, perangkat keras, serta dokumentasi visual ruangan. Frontend kemudian mengolah paket data tersebut menjadi galeri etalase terpadu, memberikan gambaran mendalam bagi civitas akademika mengenai spesifikasi teknis dan keandalan fasilitas laboratorium komputer yang tersedia.
 
 ---
 
@@ -305,7 +305,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Tampilan utuh Susunan Kalender Akademik Fakultas
 ```
 
-Pengambilan data jadwal aktivitas akademik tahunan, di mana sistem menampilkan naskah penjelasan beserta tautan grafis kalender yang dapat diakses oleh mahasiswa dan dosen.
+Representasi alur Kalender Akademik Resmi menjelaskan mekanisme penyampaian jadwal aktivitas tahunan bagi seluruh sivitas. Sistem merespons permintaan akses laman dengan menarik naskah deskripsi jadwal serta tautan ilustrasi grafis kalender dari pangkalan data. Backend memastikan sinkronisasi antara periode akademik saat ini dengan konten yang disajikan. Melalui Frontend, pengunjung dapat melihat susunan agenda akademik mulai dari masa perkuliahan hingga jadwal ujian secara sistematis, yang berfungsi sebagai acuan utama dalam perencanaan studi.
 
 ---
 
@@ -329,7 +329,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Daftar Pengunduhan Tata Aturan Kurikulum 
 ```
 
-Alur pencarian referensi kurikulum yang memungkinkan pengunjung melihat daftar silabus dan mengunduh berkas PDF yang telah disediakan oleh pihak akademik.
+Proses penyajian Dokumen Kurikulum Dasar memberikan akses terbuka bagi pengunjung untuk menelaah struktur pendidikan di setiap program studi. Saat menu ini diakses, sistem akan menyajikan daftar materi referensi silabus dan kerangka mata kuliah. Backend menarik data tajuk naskah beserta path unduhan berkas PDF dari Database untuk diserahkan ke antarmuka pengguna. Alur ini memfasilitasi kebutuhan informasi mengenai standar kompetensi lulusan dan beban studi yang harus ditempuh oleh setiap mahasiswa.
 
 ---
 
@@ -353,7 +353,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Tabel Etalase Pengunduhan Arsip Hukum Publik secara utuh
 ```
 
-Memperlihatkan proses pengaksesan dokumen-dokumen resmi fakultas, di mana sistem menyediakan tabel daftar unduhan arsip yang tersimpan aman di server bagi khalayak publik.
+Mekanisme pengaksesan Dokumen Ketetapan Fakultas menggambarkan transparansi regulasi dan kebijakan resmi lembaga bagi publik. Sistem memproses permintaan pengunjung dengan melakukan pemetaan lokasi penyimpanan dokumen legal dan administratif pada server melalui kueri Database. Hasilnya disajikan oleh Frontend dalam bentuk tabel indeks yang memungkinkan pengguna untuk mengunduh arsip hukum atau formulir resmi secara mandiri. Proses ini menjamin kemudahan akses terhadap dokumen-dokumen penting yang bersifat publik dan otoritatif.
 
 ---
 
@@ -377,7 +377,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Antarmuka utuh Informasi Acuan Strategis Fakultas
 ```
 
-Fokus pada penyajian data rencana strategis jangka panjang fakultas, yang memberikan gambaran mengenai target dan pencapaian lembaga melalui akses terhadap berkas naskah resmi.
+Visualisasi penyajian Rencana Strategis (Renstra) memberikan gambaran mengenai peta jalan pengembangan fakultas dalam jangka panjang. Pengunjung yang mengakses menu ini akan menerima paparan wawasan strategis dan indikator kinerja lembaga. Sistem menarik narasi deskriptif beserta tautan profil rencana dari Database untuk diproses oleh Frontend. Melalui dokumen ini, pemangku kepentingan dapat memahami arah kebijakan, target pencapaian, serta prioritas pengembangan yang ditetapkan oleh kepemimpinan fakultas.
 
 ---
 
@@ -401,7 +401,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Layar Tabel Unduhan Arsip Operasional Ke Ruang Pandang
 ```
 
-Proses pengambilan pedoman standar operasional (SOP), yang memudahkan pengunjung untuk menemukan dan mengunduh aturan teknis layanan administrasi yang berlaku di lingkungan kampus.
+Proses penelusuran Standar Operasional Prosedur (SOP) menjelaskan alur kepatuhan aturan dalam setiap layanan administrasi dan akademik. Sistem menyajikan susunan hierarki prosedur pengerjaan tugas melalui penarikan data instruktur layanan dari pangkalan data. Backend memastikan setiap dokumen SOP yang ditampilkan adalah versi terbaru yang telah disahkan. Penyajian data dalam bentuk tabel unduhan oleh Frontend bertujuan untuk memberikan kepastian hukum dan efisiensi birokrasi bagi seluruh civitas akademika yang memerlukan panduan teknis.
 
 ---
 
@@ -425,7 +425,7 @@ sequenceDiagram
     Frontend-->>User: Sajikan Daftar Artikel Riwayat Keilmuan Para Peneliti ke Hadapan Pengunjung
 ```
 
-Alur yang menampilkan direktori karya ilmiah, di mana pengunjung dapat melihat judul, abstrak, dan tautan jurnal hasil riset yang dikompilasi oleh sistem dari berbagai sivitas.
+Interaksi pada Direktori Hasil Riset dan Jurnal menggambarkan pusat informasi keilmuan yang dihasilkan oleh jajaran sivitas fakultas. Saat pengunjung menyusuri laman ini, sistem akan mengumpulkan data kompilasi jurnal dan artikel ilmiah dari Database. Setiap entri data yang dikomunikasikan oleh Backend mencakup tajuk, abstrak, dan tautan publikasi jurnal eksternal. Frontend mengolah informasi tersebut menjadi katalog riset yang terstruktur, memfasilitasi referensi ilmiah bagi peneliti lain serta mempromosikan rekam jejak akademik lembaga.
 
 ---
 
@@ -449,7 +449,7 @@ sequenceDiagram
     Frontend-->>User: Munculkan Tayangan Dokumenter Pengabdian Ke dalam Ruang Baca Khalayak Luas
 ```
 
-Menggambarkan rekam jejak aktivitas sosial fakultas melalui program pengabdian masyarakat, yang disajikan dalam bentuk narasi dan dokumentasi kegiatan untuk kebutuhan informasi publik.
+Alur penyajian Rekam Jejak Pengabdian Masyarakat mendokumentasikan kontribusi nyata fakultas terhadap permasalahan sosial di lingkungan sekitar. Sistem memproses permintaan data dengan menarik esai naratif dan laporan aktivitas sosial dari Database. Backend bertanggung jawab untuk menyajikan rangkaian dokumentasi kegiatan yang telah dilaksanakan oleh dosen dan mahasiswa. Melalui antarmuka galeri pengabdian, publik dapat melihat efektivitas program kemitraan dan dampak positif yang dihasilkan oleh institusi dalam skala komunitas luas.
 
 ---
 
@@ -473,7 +473,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Tampilan Pesona Skema Berbalut Identitas Anggun BEM ke Permukaan Layar
 ```
 
-Memperlihatkan profil organisasi Badan Eksekutif Mahasiswa (BEM), yang menampilkan susunan pengurus dan deskripsi peran organisasi sebagai wadah aspirasi di tingkat fakultas.
+Representasi profil organisasi Badan Eksekutif Mahasiswa (BEM) menjelaskan struktur kepengurusan dan peran strategis lembaga kemahasiswaan tertinggi di tingkat fakultas. Saat diakses, sistem akan menarik riwayat kabinet dan visi kepemimpinan mahasiswa dari pangkalan data. Backend menyajikan data identitas silsilah kepengurusan yang kemudian divisualisasikan oleh Frontend. Alur ini bertujuan untuk memperkenalkan jajaran punggawa BEM sebagai representasi aspirasi dan penggerak kegiatan mahasiswa dalam satu periode jabatan.
 
 ---
 
@@ -497,7 +497,7 @@ sequenceDiagram
     Frontend-->>User: Suguhkan Antarmuka Galeri Meriah Potret Keaktifan Pemuda UKM nan Dinamis Mutlak
 ```
 
-Galeri unit kegiatan mahasiswa yang dinamis, di mana sistem menyajikan profil bidang minat tiap UKM beserta foto keaktifannya untuk memperkenalkan eksistensi komunitas kampus.
+Visualisasi Galeri Unit Kegiatan Mahasiswa (UKM) menampilkan keberagaman minat dan bakat pemuda di bidang ekstrakurikuler. Sistem merespons interaksi pengunjung dengan mengekstraksi profil unit kegiatan, ranah peminatan, serta dokumentasi foto keaktifan dari Database. Frontend menyusun data tersebut ke dalam grid etalase yang dinamis, memberikan informasi komprehensif mengenai komunitas-komunitas mahasiswa yang tersedia sebagai wadah pengembangan diri di luar jam akademik rutin.
 
 ---
 
@@ -521,7 +521,7 @@ sequenceDiagram
     Frontend-->>User: Paparkan Profil Megah Relasional Aktivis Mahasiswa Pemegang Identitas Perjurusan Prodi
 ```
 
-Fokus pada identitas himpunan mahasiswa per program studi, yang menampilkan bagan kerja dan spesifikasi perwakilan jurusan yang beroperasi secara mandiri namun tetap terkoordinasi.
+Proses penyajian profil Himpunan Mahasiswa Jurusan (HIMA) menggambarkan struktur koordinasi kemahasiswaan yang bersifat spesifik per program studi. Sistem menarik data susunan kabinet perwakilan independen dan fokus program kerja tahunan dari Database. Backend memastikan hubungan relasional antara HIMA dan rumpun keilmuannya tersaji dengan jelas. Melalui antarmuka identitas perjurusan, calon mahasiswa dapat mengenal platform organisasi yang menaungi minat profesional mereka di tingkat departemen.
 
 ---
 
@@ -545,7 +545,7 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Lembar Kebanggaan Perjalanan Waktu Catatan Karier dan Keaktifan Anggota Purna Lulusan Web 
 ```
 
-Alur tracer alumni yang berfungsi untuk memetakan sebaran karir lulusan, di mana sistem menampilkan daftar kompilasi kesuksesan purna kampus bagi para pemangku kepentingan.
+Mekanisme pelacakan pada Direktori Alumni dan Tracer Study berfungsi sebagai jembatan informasi antara lulusan dan institusi. Sistem memproses permintaan pengunjung dengan menarik rentetan data karir, penempatan kerja, serta rekam jejak lulusan dari pangkalan data. Backend menyusun wawasan statistik kelulusan yang kemudian disajikan oleh Frontend. Alur ini memberikan bukti nyata mengenai kualitas luaran pendidikan fakultas sekaligus memfasilitasi jejaring profesional di antara para lulusan lintas generasi.
 
 ### 2.1.23 Sequence Diagram: Halaman Sambutan Dekan
 
@@ -567,12 +567,12 @@ sequenceDiagram
     Frontend-->>User: Tampilkan Halaman Sambutan Dekan yang Informatif
 ```
 
-Menampilkan pesan penyambutan secara personal dari Dekan FIKOM, yang menggabungkan teks narasi sambutan dengan identitas visual pimpinan fakultas sebagai pembuka profil lembaga.
+Penyajian narasi Sambutan Dekan menandai perkenalan resmi kepemimpinan fakultas kepada pengunjung website. Saat menu ini diakses, Frontend akan meminta konten naratif sambutan beserta atribut visual foto pimpinan dari pangkalan data. Backend melakukan penarikan rekaman data statis dari tabel terkait untuk kemudian disusun menjadi komponen halaman sambutan yang informatif. Proses ini bertujuan untuk membangun kedekatan komunikasi dan menyampaikan pesan strategis pimpinan mengenai visi pengembangan lembaga.
 
 ---
 
 ### 2.2.1 Sequence Diagram: Login Administrator
-Admin masuk ke sistem melalui form login. Backend akan mencocokkan kredensial dengan pangkalan data, dan jika sesuai, sesi aktif akan dibuat untuk memberikan akses ke dashboard utama.
+Siklus autentikasi Administrator merupakan gerbang keamanan utama untuk mengakses panel kendali sistem. Admin memasukkan kredensial berupa nama pengguna dan kata sandi melalui formulir login yang disediakan oleh Frontend. Backend kemudian melakukan verifikasi kecocokan data tersebut dengan rekaman yang tersimpan di Database. Jika kredensial dinyatakan valid, sistem akan menginisiasi sesi aktif dan mengarahkan Admin ke dashboard utama, namun jika terjadi ketidaksesuaian, sistem akan menolak akses dan menerbitkan pesan peringatan kesalahan.
 
 ```mermaid
 sequenceDiagram
@@ -602,7 +602,7 @@ sequenceDiagram
 ---
 
 ### 2.2.2 Sequence Diagram: Kelola Slider Beranda
-Mengatur konten visual di halaman depan. Admin dapat menambah, mengubah, atau menghapus gambar slider. Sistem secara otomatis mengelola penyimpanan fisik file di server dan pembaruan datanya di database.
+Manajemen Slider Beranda memfasilitasi Administrator dalam mengatur konten visual utama pada halaman depan website. Alur ini mencakup proses pengambilan riwayat arsip data slider untuk ditampilkan dalam tabel manajerial. Admin dapat menambahkan gambar baru dengan ketentuan format dan ukuran tertentu, di mana Backend secara otomatis mengelola penyimpanan fisik file pada server serta memperbarui tautan lokasinya di Database. Dalam kasus pengeditan atau penghapusan, sistem memastikan aset gambar lama dibersihkan secara permanen untuk mengoptimalkan efisiensi ruang penyimpanan.
 
 ```mermaid
 sequenceDiagram
@@ -658,7 +658,7 @@ sequenceDiagram
 ---
 
 ### 2.2.3 Sequence Diagram: Kelola Berita
-Fasilitas manajemen berita fakultas. Admin dapat mempublikasikan informasi terbaru dengan lampiran foto sampul. Sistem memastikan setiap pembaruan atau penghapusan berita turut menyinkronkan aset gambar terkait.
+Modul Kelola Berita dirancang untuk mempermudah Administrator dalam menyebarluaskan rilis informasi dan agenda terkini fakultas. Proses ini melibatkan pengisian formulir rincian berita beserta lampiran foto sampul yang representatif. Backend bertanggung jawab untuk memvalidasi setiap unggahan sebelum menyimpan rekaman narasi ke Database dan menaruh file gambar ke direktori penyimpanan khusus. Sistem juga menjamin sinkronisasi data yang ketat, di mana penghapusan satu item berita akan diikuti dengan penghapusan aset gambar terkait secara otomatis dari sistem peladen.
 
 ```mermaid
 sequenceDiagram
@@ -714,7 +714,7 @@ sequenceDiagram
 ---
 
 ### 2.2.4 Sequence Diagram: Kelola Dosen
-Pengelolaan data direktori pengajar. Admin bertugas memperbarui profil, jabatan, dan foto dosen. Proses penghapusan data akan membersihkan file foto profil dari penyimpanan server agar tidak membebani memori.
+Pengelolaan direktori tenaga pendidik memungkinkan Administrator untuk memperbarui profil akademik dan jabatan fungsional dosen secara berkala. Saat Admin melakukan penambahan atau perubahan data, Backend akan memproses input teks beserta atribut foto profil dosen ke dalam pangkalan data. Sistem keamanan pada backend akan memastikan hanya file gambar dengan spesifikasi yang diizinkan yang dapat tersimpan. Alur pembersihan data juga diintegrasikan untuk memastikan bahwa setiap rekaman dosen yang dihapus tidak meninggalkan jejak file gambar yang usang di server penyimpanan.
 
 ```mermaid
 sequenceDiagram
@@ -770,7 +770,7 @@ sequenceDiagram
 ---
 
 ### 2.2.5 Sequence Diagram: Kelola Fasilitas Ruangan
-Manajemen inventaris ruang kelas. Admin mendaftarkan kapasitas dan fasilitas sarana fisik. Unggahan foto ruangan divalidasi oleh sistem sebelum disimpan untuk memastikan estetika tampilan publik terjaga.
+Manajemen inventaris sarana fisik melalui modul Kelola Fasilitas Ruangan bertujuan untuk menjaga akurasi profil prasarana kampus. Administrator bertugas mendaftarkan detail fasilitas, kapasitas, serta dokumentasi visual setiap ruang kelas atau auditorium. Backend memproses permintaan simpan data dengan melakukan sinkronisasi antara isian formulir dan file gambar yang diunggah ke storage ruangan. Mekanisme ini memastikan bahwa setiap perubahan data prasarana segera terverifikasi dan siap disajikan secara estetis kepada pengunjung melalui antarmuka publik.
 
 ```mermaid
 sequenceDiagram
@@ -826,7 +826,7 @@ sequenceDiagram
 ---
 
 ### 2.2.6 Sequence Diagram: Kelola Fasilitas Laboratorium
-Modul khusus untuk mengelola profil laboratorium komputer. Admin dapat memperbarui rincian alat dan foto lab, di mana sistem menangani penggantian aset gambar lama dengan yang baru secara otomatis.
+Modul khusus manajemen Laboratorium Komputer memberikan wewenang kepada Administrator untuk mengatur profil teknis dan inventaris perangkat laboratorium. Alur kerjanya meliputi pengambilan data eksisting untuk disunting kembali, termasuk pembaruan foto fasilitas lab yang lebih aktual. Backend mengelola transmisi data biner gambar ke folder penyimpanan khusus lab di server dan memperbarui referensi path gambarnya di Database. Proses penghapusan record juga dirancang secara aman untuk membasmi file lampiran fisis dari server pangkalan demi menjaga kerapian struktur direktori.
 
 ```mermaid
 sequenceDiagram
@@ -882,7 +882,7 @@ sequenceDiagram
 ---
 
 ### 2.2.7 Sequence Diagram: Kelola Kalender Akademik
-Pembaruan jadwal rutin fakultas. Admin mengunggah gambar kalender akademik terbaru, dan sistem akan menggantikan file kalender periode sebelumnya dengan versi yang paling mutakhir di server.
+Pembaruan Kalender Akademik Resmi oleh Administrator memastikan seluruh sivitas mendapatkan informasi jadwal yang mutakhir. Admin mengunggah berkas grafis kalender semester terbaru melalui panel kontrol, yang kemudian divalidasi oleh sistem backend. Jika file dinyatakan valid, Backend akan mengganti aset gambar kalender periode sebelumnya dengan file yang baru di server dan memperbarui catatan kronologisnya di Database. Alur delegasi data ini menjamin bahwa pengunjung selalu mendapatkan rujukan waktu akademik yang sesuai dengan kebijakan terbaru fakultas.
 
 ```mermaid
 sequenceDiagram
@@ -938,7 +938,7 @@ sequenceDiagram
 ---
 
 ### 2.2.8 Sequence Diagram: Kelola Dokumen Kurikulum
-Manajemen dokumen akademik. Admin mengelola berkas silabus dalam format PDF/DOC. Sistem memastikan setiap file yang diunggah memiliki format yang aman sebelum disimpan dalam direktori dokumen khusus.
+Pusat pengelolaan dokumen akademik melalui modul Kelola Dokumen Kurikulum memfasilitasi distribusi silabus dan pedoman studi dalam format digital. Administrator mengelola unggahan berkas (seperti PDF atau DOC) yang dikomunikasikan secara aman ke Backend untuk disimpan dalam direktori dokumen khusus. Sistem secara otomatis mencatat tajuk dokumen dan tautan unduhannya ke dalam Database. Dalam setiap operasi modifikasi, sistem akan menimpa berkas lama dengan versi revisi terbaru, memastikan integritas materi referensi kurikulum bagi mahasiswa tetap terjaga.
 
 ```mermaid
 sequenceDiagram
@@ -994,7 +994,7 @@ sequenceDiagram
 ---
 
 ### 2.2.9 Sequence Diagram: Kelola Mitra Kerjasama
-Dokumentasi relasi institusi. Admin mengelola daftar logo dan detail kerjasama dengan pihak eksternal. Sistem memfasilitasi pembaruan profil mitra serta pembersihan aset logo jika kerjasama telah berakhir.
+Manajemen kemitraan institusi memungkinkan Administrator untuk mendokumentasikan kerjasama strategis dengan pihak eksternal. Admin mengelola profil instansi mitra beserta logo perusahaan melalui panel administrasi. Backend menangani proses penyimpanan logis data mitra ke Database dan penyimpanan fisis logo ke folder kemitraan di server. Alur ini juga mencakup mekanisme penghapusan record yang komprehensif, di mana sistem akan membersihkan logo mitra dari penyimpanan jika durasi kerjasama telah berakhir, guna menjaga relevansi data publikasi fakultas.
 
 ```mermaid
 sequenceDiagram
@@ -1050,7 +1050,7 @@ sequenceDiagram
 ---
 
 ### 2.2.10 Sequence Diagram: Kelola Data Penelitian
-Mengelola repositori karya ilmiah. Admin menginput abstrak dan berkas laporan hasil riset. Sistem akan menata riwayat penelitian agar dapat diakses oleh publik secara terstruktur melalui link unduhan.
+Modul repositori hasil riset dirancang agar Administrator dapat mengelola pangkalan data karya ilmiah sivitas akademika secara terstruktur. Admin menginput rincian abstrak, judul jurnal, serta mengunggah berkas laporan penelitian yang valid. Backend memproses data tersebut ke dalam tabel penelitian di Database dan menaruh file dokumen ke direktori publikasi di server. Sistem memastikan setiap entri riset memiliki tautan unduhan yang dapat diakses oleh khalayak, sehingga mempermudah diseminasi pengetahuan dan pemetaan rekam jejak akademik institusi.
 
 ```mermaid
 sequenceDiagram
@@ -1106,7 +1106,7 @@ sequenceDiagram
 ---
 
 ### 2.2.11 Sequence Diagram: Kelola Data Pengabdian
-Dokumentasi kegiatan sosial fakultas. Admin mengunggah laporan pengabdian masyarakat. Sistem memastikan naskah naratif dan dokumentasi foto kegiatan tersimpan dengan benar dalam pangkalan data.
+Dokumentasi aktivitas pengabdian masyarakat oleh Administrator menggambarkan peran aktif institusi dalam pemberdayaan sosial. Proses administrasi ini mencakup pengelolaan narasi kegiatan dan unggahan laporan dokumentasi ke direktori penyimpanan fisis di server. Backend memastikan setiap rekaman pengabdian tersinkronisasi dengan Database untuk kebutuhan pelaporan kinerja fakultas. Mekanisme ini dirancang secara modular agar setiap item pengabdian dapat diperbarui atau dihapus dengan penanganan aset visual yang tetap terjaga keutuhannya di sistem peladen.
 
 ```mermaid
 sequenceDiagram
@@ -1162,7 +1162,7 @@ sequenceDiagram
 ---
 
 ### 2.2.12 Sequence Diagram: Kelola Dokumen Fakultas
-Manajemen arsip dokumen kompetensi fakultas. Admin mengelola dokumen resmi dalam bentuk digital. Setiap perubahan data dokumen akan diikuti dengan sinkronisasi file fisik di server penyimpanan.
+Manajemen dokumen administratif fakultas memungkinkan Administrator untuk mengarsip dan mempublikasikan surat keputusan atau kebijakan resmi secara digital. Admin mengelola metadata dokumen dan mengunggah berkas asli melalui saluran komunikasi aman ke Backend. Sistem secara otomatis melakukan pemetaan lokasi file pada folder dokumen fakultas dan memperbarui referensi indeksnya di Database. Alur ini mempermudah pencarian dan pengunduhan arsip hukum bagi civitas akademika, sekaligus menjamin keteraturan tata kelola dokumen di lingkungan kantor dekanat.
 
 ```mermaid
 sequenceDiagram
@@ -1218,7 +1218,7 @@ sequenceDiagram
 ---
 
 ### 2.2.13 Sequence Diagram: Kelola Rencana Strategis
-Pengelolaan rencana strategis lembaga. Admin memperbarui naskah target jangka panjang fakultas. Sistem menyediakan antarmuka untuk mengganti dokumen Renstra lama dengan versi revisi terbaru secara instan.
+Pembaruan Rencana Strategis (Renstra) oleh Administrator merupakan langkah krusial dalam menyampaikan peta jalan institusi kepada pihak internal dan eksternal. Admin mengunggah naskah dokumen renstra terbaru yang menggantikan versi sebelumnya di server penyimpanan. Backend melakukan sinkronisasi data deskriptif dengan berkas fisik dokumen agar informasi yang disajikan di website selalu selaras dengan kebijakan pimpinan saat ini. Proses penggantian data dirancang untuk meminimalisir redundansi file fisis, memastikan efisiensi memori server tetap optimal.
 
 ```mermaid
 sequenceDiagram
@@ -1274,7 +1274,7 @@ sequenceDiagram
 ---
 
 ### 2.2.14 Sequence Diagram: Kelola Standar Operasional Prosedur (SOP)
-Modul standarisasi layanan. Admin mengelola dokumen instruksi prosedur (SOP). Sistem mengamankan setiap file pedoman yang diunggah agar tetap integritasnya saat diunduh oleh pengunjung.
+Modul pengelolaan Standar Operasional Prosedur (SOP) memberikan kendali penuh kepada Administrator dalam mempublikasikan panduan teknis layanan fakultas. Admin mengelola direktori berkas SOP dengan mengunggah pedoman operasional terbaru ke pangkalan data digital. Backend memvalidasi ekstensi berkas sebelum menempatkannya pada folder instruksi di server. Siklus manajerial ini memastikan bahwa setiap civitas akademika yang mengakses bagian SOP akan selalu menerima prosedur kerja yang paling mutakhir dan tervalidasi oleh sistem.
 
 ```mermaid
 sequenceDiagram
@@ -1330,7 +1330,7 @@ sequenceDiagram
 ---
 
 ### 2.2.15 Sequence Diagram: Kelola Data Organisasi BEM
-Pengelolaan profil organisasi mahasiswa. Admin mengatur deskripsi departemen dan program kerja BEM. Proses pengeditan memungkinkan admin mengganti logo kabinet secara dinamis melalui panel admin.
+Pengelolaan data organisasi Badan Eksekutif Mahasiswa (BEM) mendukung Administrator dalam memelihara profil kemahasiswaan yang representatif. Admin dapat menyunting narasi departemen dan mengunggah logo kabinet terbaru untuk menjaga citra visual organisasi mahasiswa tetap aktual. Backend mengelola pertukaran data antara form administrasi dengan tabel organisasi di Database, serta menangani proses penghapusan aset logo lama yang sudah tidak relevan. Alur ini menjamin bahwa informasi mengenai wadah aspirasi mahasiswa selalu tersaji secara profesional di antarmuka publik.
 
 ```mermaid
 sequenceDiagram
@@ -1385,7 +1385,7 @@ sequenceDiagram
 ---
 
 ### 2.2.16 Sequence Diagram: Verifikasi Pendaftaran
-Proses validasi akun pendaftar baru. Admin meninjau berkas calon mahasiswa dan memutuskan status kelulusan. Sistem memfasilitasi pembersihan data pendaftar fiktif beserta lampiran dokumennya secara massal.
+Siklus verifikasi pendaftaran mahasiswa baru merupakan proses manajerial kritis bagi Administrator dalam menyeleksi calon pendaftar. Admin melakukan peninjauan terhadap berkas persyaratan yang masuk dan memutuskan status validasi sesuai kriteria institusi. Backend memproses putusan tersebut dengan memperbarui status record pada Database. Selain itu, sistem juga menyediakan fungsi pembersihan data untuk memusnahkan pendaftaran fiktif beserta lampiran dokumennya dari sistem peladen, guna menjaga integritas pangkalan data pendaftar mahasiswa baru.
 
 ```mermaid
 sequenceDiagram
@@ -1426,7 +1426,7 @@ sequenceDiagram
 ---
 
 ### 2.2.17 Sequence Diagram: Pengaturan Sistem
-Pengaturan parameter inti website. Admin mengelola konfigurasi seperti judul situs, logo, dan favicon. Sistem memastikan setiap perubahan identitas visual segera diterapkan pada seluruh halaman aplikasi.
+Modul Pengaturan Sistem memberikan wewenang kepada Administrator untuk mengonfigurasi identitas visual dan parameter operasional website. Admin dapat memperbarui judul situs, logo, hingga favicon melalui panel pengaturan terpadu. Backend memvalidasi spesifikasi teknis gambar sebelum melakukan sinkronisasi dengan kueri Database pada tabel pengaturan tunggal. Alur ini memastikan bahwa setiap perubahan konfigurasi sistem dapat diterapkan secara instan ke seluruh komponen aplikasi, menjaga konsistensi identitas merek fakultas di mata publik.
 
 ```mermaid
 sequenceDiagram
@@ -1496,7 +1496,7 @@ sequenceDiagram
     Backend-->>Frontend: Refresh halaman dengan rilis Notifikasi Sukses
 ```
 
-Manajemen konten penyambutan pimpinan. Admin memperbarui naskah sambutan dan foto resmi Dekan. Sistem menangani proses penggantian narasi dan aset gambar agar informasi pimpinan selalu mutakhir.
+Manajemen Informasi Fakultas dan Sambutan pimpinan memungkinkan Administrator untuk mengelola konten naratif pengantar lembaga. Admin bertugas memperbarui tajuk informasi dan naskah sambutan resmi, serta mengganti foto profil pendukung jika diperlukan. Backend melakukan sinkronisasi data narasi pada tabel terkait dan mengelola pembaruan aset visual di direktori penyimpanan fakultas. Proses ini memastikan bahwa setiap pengunjung yang mengakses halaman profil mendapatkan sapaan dan informasi latar belakang institusi yang hangat serta relevan.
 
 ---
 
@@ -1545,7 +1545,7 @@ sequenceDiagram
     end
 ```
 
-Proses manajemen nilai-nilai strategis Fakultas yang mencakup pengelolaan visi, misi, tujuan, dan sasaran. Saat Administrator mengakses menu ini, sistem akan menarik seluruh himpunan teks dari tabel visi_misi berdasarkan kategori masing-masing untuk disajikan dalam bentuk daftar atau formulir isian. Administrator memiliki wewenang untuk memperbarui narasi visi utama secara langsung, atau melakukan operasi penambahan dan penghapusan item pada kategori misi, tujuan, dan sasaran dengan pengaturan nomor urut tertentu. Setiap perubahan yang diajukan akan divalidasi oleh Backend sebelum disimpan ke pangkalan data, memastikan integritas dokumen landasan filosofis fakultas tetap terjaga dan mutakhir.
+Pengelolaan Visi dan Misi secara administratif memfasilitasi penyesuaian arah kebijakan strategis fakultas dalam ranah digital. Administrator memiliki kendali penuh untuk menyunting narasi visi utama serta melakukan operasi penambahan atau penghapusan item pada kategori misi, tujuan, dan sasaran. Sistem backend mengatur agar urutan penyajian data tetap konsisten sesuai dengan prioritas yang ditetapkan. Alur ini memastikan bahwa landasan filosofis lembaga yang dipublikasikan secara online selalu selaras dengan dokumen cetak resmi dan visi jangka panjang fakultas.
 
 ---
 
@@ -1585,7 +1585,7 @@ sequenceDiagram
     end
 ```
 
-Alur pembaruan bagan hierarki fakultas yang menitikberatkan pada sinkronisasi aset visual dan rekaman data di server. Ketika Administrator mengunggah berkas gambar bagan organisasi yang baru, Backend akan melakukan pemeriksaan mandiri terhadap format file (seperti JPG, PNG, atau SVG) serta skalabilitas ukuran dokumen. Jika berkas dinyatakan valid, sistem akan secara otomatis menghapus file bagan lama yang tersimpan di server untuk mengoptimalkan ruang penyimpanan, sementara Basis Data akan mencatat path lokasi file yang baru pada tabel halaman_statis. Proses ini menjamin bahwa setiap pengunjung yang mengakses halaman struktur organisasi akan melihat visualisasi kepemimpinan fakultas yang paling aktual.
+Modul pembaruan Struktur Organisasi dirancang khusus bagi Administrator untuk mengelola representasi visual kepemimpinan fakultas. Admin mengunggah berkas gambar bagan organisasi terbaru yang secara otomatis menimpa aset lama di direktori profil server. Backend memverifikasi otentikasi berkas sebelum mencatatkan path lokasi gambar baru ke dalam Database. Mekanisme ini menjamin bahwa diagram hierarki jabatan yang ditampilkan kepada pengunjung selalu akurat dan mencerminkan susunan pengelola fakultas yang paling terkini.
 
 ---
 
@@ -1622,7 +1622,7 @@ sequenceDiagram
     end
 ```
 
-Mekanisme pengelolaan indikator statistik fakultas yang bertujuan untuk menyajikan profil numerik yang dinamis kepada publik. Administrator dapat menambah, mengubah, atau mengatur urutan fakta-fakta penting—seperti jumlah civitas akademika atau fasilitas unggulan—melalui panel kontrol khusus. Setiap input yang dimasukkan akan dikirimkan ke Backend untuk diproses ke dalam tabel tb_fakta. Data numerik ini kemudian akan menjadi parameter utama yang ditarik oleh sistem di halaman beranda untuk menggerakkan elemen animasi penghitung statistik (counter animation), memberikan kesan visual yang profesional dan transparan mengenai pencapaian lembaga.
+Manajemen Data Fakta Fakultas memberikan fleksibilitas bagi Administrator dalam memperbarui indikator pencapaian numerik lembaga. Admin dapat mengatur judul fakta, nilai angka statistik, serta urutan penayangannya melalui panel kontrol dinamis. Backend memproses input tersebut ke dalam tabel fakta di Database, yang nantinya akan ditarik oleh sistem di halaman beranda untuk menggerakkan elemen animasi penghitung statistik. Alur manajerial ini memastikan bahwa profil numerik fakultas yang disajikan kepada publik selalu mencerminkan pertumbuhan nyata institusi.
 
 ---
 
@@ -1658,4 +1658,4 @@ sequenceDiagram
     Backend-->>Frontend: Redirect ke halaman & Notifikasi Sukses
 ```
 
-Proses penyuntingan narasi pengenalan dan profil umum fakultas yang melibatkan pembaruan teks deskriptif dan elemen gambar pendukung. Saat Administrator melakukan modifikasi pada deskripsi atau judul 'Tentang Fakultas', sistem juga memberikan opsi untuk mengganti gambar profil pendamping yang disimpan pada direktori penyimpanan khusus. Backend bertanggung jawab untuk melakukan sinkronisasi antara konten teks yang diperbarui dengan aset fisik gambar di storage server sebelum akhirnya memperbarui catatan tunggal pada tabel tentang_fikom. Alur ini memastikan seluruh informasi latar belakang lembaga yang disajikan di halaman utama tetap konsisten, akurat, dan representatif terhadap citra fakultas.
+Pusat penyuntingan naratif Profil Tentang Fakultas memungkinkan Administrator untuk meredaksi sejarah dan deskripsi umum lembaga secara berkala. Admin dapat memperbarui teks narasi serta mengganti elemen citra visual pendukung profil melalui form aspiratif. Backend menangani integrasi antara deskripsi teks with file gambar yang disimpan pada direktori profil fakultas. Proses ini bertujuan untuk menjaga agar informasi latar belakang institusi yang disajikan kepada pengunjung tetap inspiratif, faktual, and selaras dengan perkembangan terkini fakultas.

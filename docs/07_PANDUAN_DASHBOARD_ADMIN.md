@@ -1,51 +1,87 @@
-# Penjelasan Detail Menu Dashboard Administrator
+# Penjelasan Detail Modul Dashboard Administrator
 
-Dokumentasi ini memberikan panduan mengenai fungsionalitas panel kontrol bagi Administrator dalam mengelola seluruh konten dan operasional Website FIKOM. Setiap modul dilengkapi dengan fitur manajemen data (Simpan, Edit, Hapus) dan manajemen berkas fisis.
+Dokumentasi ini memberikan panduan teknis operasional untuk setiap modul manajemen yang tersedia pada panel kontrol Administrator Website FIKOM.
 
-### 1. Autentikasi dan Dashboard Utama
-Siklus autentikasi merupakan gerbang keamanan utama untuk mengakses panel kendali. Administrator harus memasukkan kredensial yang valid sebelum diarahkan ke Dashboard Utama. Dashboard menyajikan ringkasan data statistik terkini, memberikan gambaran cepat kepada Administrator mengenai beban kerja dan status data terbaru pada sistem.
+### 1. Autentikasi Admin (Login)
+Gerbang keamanan utama untuk mengakses sistem. Administrator wajib memverifikasi identitas menggunakan kredensial terdaftar sebelum diperkenankan mengelola konten. Sistem menolak akses ilegal dan melindungi integritas pangkalan data melalui enkripsi sesi.
 
-### 2. Manajemen Slider Beranda
-Modul ini digunakan untuk mengatur konten visual utama (banner) yang muncul pada halaman depan publik. Administrator dapat menambah aset gambar pemandangan kampus atau pengumuman penting. Sistem pada backend secara otomatis mengelola penyimpanan fisik file di server dan memastikan aset lama dibersihkan secara permanen saat dilakukan perubahan atau penghapusan data.
+### 2. Dashboard Ringkasan
+Menampilkan gambaran statistik data secara keseluruhan. Modul ini memberikan informasi cepat kepada Admin mengenai jumlah total berita, dosen, fasilitas, dan pendaftar maba yang masuk, memudahkan pemantauan aktivitas sistem secara *real-time*.
 
-### 3. Manajemen Berita dan Informasi
-Modul Kelola Berita memfasilitasi publikasi rilis informasi dan agenda terkini fakultas. Administrator mengelola teks berita dan mengunggah foto sampul yang relevan. Setiap entri berita tersinkronisasi dengan Database, di mana penghapusan data akan menjamin penghapusan berkas gambar terkait untuk menjaga efisiensi ruang penyimpanan peladen.
+### 3. Kelola Slider
+Fasilitas untuk mengatur banner visual utama pada halaman depan. Administrator dapat menambah, menyunting naskah, atau mengganti gambar slider. Backend memastikan setiap gambar yang dihapus akan dimusnahkan fisis dari server untuk efisiensi ruang.
 
-### 4. Manajemen Fakta (Statistik Fakultas)
-Administrator dapat memperbarui indikator pencapaian numerik lembaga melalui menu ini. Pengelolaan mencakup penentuan judul fakta dan nilai angka (misalnya jumlah hibah penelitian atau akreditasi). Data ini nantinya akan divisualisasikan menjadi animasi penghitung statistik yang menarik pada antarmuka publik.
+### 4. Kelola Berita
+Modul manajemen artikel dan pengumuman. Administrator mengelola konten naratif berita beserta foto sampulnya. Fitur ini dirancang untuk memastikan penyampaian informasi terkini fakultas kepada publik berjalan secara dinamis.
 
-### 5. Manajemen Sambutan dan Profil Fakultas
-Modul ini memungkinkan Administrator untuk meredaksi sejarah fakultas dan naskah sambutan resmi pimpinan. Admin dapat mengunggah foto profil pendukung yang akan ditampilkan di samping teks naratif. Fitur ini krusial dalam menjaga relevansi informasi latar belakang institusi agar tetap inspiratif bagi pengunjung.
+### 5. Kelola Fakta Statistik
+Digunakan untuk memperbarui angka pencapaian institusi (misal: jumlah penghargaan). Admin dapat mengatur judul fakta dan nilai numeriknya yang kemudian akan ditarik oleh sistem beranda untuk ditampilkan dalam bentuk animasi penghitung.
 
-### 6. Manajemen Visi, Misi, dan Struktur
-Administrator memiliki kendali penuh untuk menyunting narasi visi utama serta melakukan operasi penambahan atau penghapusan pada poin-poin misi dan sasaran. Selain itu, Admin dapat mengunggah berkas bagan organisasi terbaru melalui menu Struktur Organisasi guna memastikan diagram hierarki pimpinan yang tampil kepada publik selalu akurat.
+### 6. Kelola Sambutan Dekan
+Pusat penyuntingan pesan resmi pimpinan. Administrator dapat memperbarui teks sambutan dan mengganti foto profil Dekan. Perubahan pada modul ini secara instan merefleksikan sapaan pimpinan di halaman publik.
 
-### 7. Manajemen Dosen dan Civitas
-Modul ini digunakan untuk memperbarui direktori tenaga pendidik dan kependidikan secara berkala. Administrator mengelola data identitas dosen, jabatan fungsional, hingga pas foto terbaru. Sistem keamanan backend akan memastikan hanya file gambar dengan spesifikasi legal yang dapat tersimpan dalam pangkalan data.
+### 7. Kelola Info Profil Fakultas
+Modul yang menangani narasi "Tentang FIKOM". Administrator bertugas meredaksi sejarah dan deskripsi umum lembaga serta mengelola elemen visual pendukung profil agar tetap relevan dengan branding institusi.
 
-### 8. Manajemen Sarana (Ruangan dan Laboratorium)
-Pengelolaan inventaris prasarana fisik dilakukan melalui modul ini. Administrator bertugas mendaftarkan detail fasilitas, kapasitas, serta dokumentasi visual setiap ruang kelas dan laboratorium. Sinkronisasi data yang ketat menjamin akurasi profil sarana pendukung perkuliahan yang disajikan kepada calon mahasiswa.
+### 8. Kelola Visi Utama
+Fasilitas penyuntingan deklarasi visi tunggal fakultas. Administrator memastikan narasi visi yang ditayangkan selaras dengan cita-cita besar lembaga yang telah ditetapkan dalam rapat pimpinan.
 
-### 9. Manajemen Akademik (Kalender dan Kurikulum)
-Administrator memastikan seluruh sivitas mendapatkan rujukan jadwal mutakhir dengan mengunggah grafis kalender akademik tahunan. Selain itu, Admin mengelola distribusi berkas silabus di menu Dokumen Kurikulum. Setiap modifikasi dokumen akan menimpa berkas lama untuk menjamin integritas materi referensi kurikulum.
+### 9. Kelola Misi, Tujuan, dan Sasaran
+Modul manajemen poin-poin strategis. Administrator dapat menambah, menghapus, atau mengurutkan item misi, tujuan, dan sasaran strategis. Sistem menjamin penomoran otomatis yang rapi di sisi tampilan pengunjung.
 
-### 10. Manajemen Mitra Kerjasama
-Modul ini digunakan untuk mendokumentasikan kerjasama institusi dengan pihak luar. Admin mengelola profil instansi mitra beserta logo pndukungnya. Jika kemitraan berakhir, Admin dapat menghapus record beserta logo mitra secara bersih dari sistem penyimpanan peladen guna menjaga relevansi data publikasi.
+### 10. Kelola Struktur Organisasi
+Manajemen visual bagan organisasi. Administrator mengunggah berkas gambar terbaru (diagram) yang menggambarkan struktur pengelola fakultas, secara otomatis menimpa versi usang di direktori penyimpanan.
 
-### 11. Manajemen Tridharma (Penelitian dan Pengabdian)
-Pusat pengelolaan hasil riset dan kontribusi sosial fakultas. Administrator menginput tajuk penelitian, abstrak, serta mengunggah berkas laporan PDF yang valid. Modul ini memudahkan pemetaan rekam jejak akademik institusi dan penyebarluasan hasil keilmuan kepada khalayak luas.
+### 11. Kelola Data Dosen
+Direktori utama data tenaga pendidik. Administrator mengelola biodata, NIDN, jabatan fungsional, dan pas foto dosen. Backend melakukan validasi ketat terhadap integritas data profil pengajar.
 
-### 12. Manajemen Dokumen (Regulasi, Renstra, dan SOP)
-Modul ini memfasilitasi pengarsipan dokumen kebijakan resmi secara digital. Administrator mengelola direktori berkas SOP, Rencana Strategis, dan regulasi fakultas lainnya. Ketersediaan fitur unduhan mandiri pada sisi publik didukung oleh manajemen berkas yang teratur di sisi administrator ini.
+### 12. Kelola Staff & Civitas
+Modul administrasi data staf kependidikan. Memungkinkan pendaftaran identitas personil administrasi yang mendukung operasional kantor, memastikan direktori SDM fakultas tetap akurat.
 
-### 13. Manajemen Organisasi (BEM, HIMA, dan UKM)
-Administrator bertugas memfasilitasi profil lembaga kemahasiswaan dengan menyunting narasi departemen dan mengunggah logo organisasi. Hal ini memastikan setiap unit kegiatan atau himpunan mahasiswa memiliki representasi profil yang profesional dan terintegrasi di website fakultas.
+### 13. Kelola Ruangan Kelas
+Manajemen inventaris sarana fisik kelas teori. Administrator mendaftarkan spesifikasi ruangan, kapasitas, dan dokumentasi foto setiap ruang guna memberikan transparansi prasarana kepada publik.
 
-### 14. Manajemen Alumni (Tracer Study)
-Modul ini digunakan untuk mengelola pangkalan data lulusan dan hasil statistik survei *tracer study*. Administrator dapat memantau perkembangan karir alumni dan mengolah data statistik kebekerjaan yang nantinya akan dipublikasikan secara ringkas pada halaman publik website.
+### 14. Kelola Laboratorium
+Khusus untuk manajemen fasilitas lab komputer. Administrator mengelola profil lab dan spesifikasi teknologi perangkat di dalamnya, memfasilitasi promosi sarana riset dan praktikum unggulan.
 
-### 15. Verifikasi Pendaftaran Mahasiswa Baru
-Modul operasional ini digunakan untuk menyeleksi calon mahasiswa yang mendaftar secara *online*. Administrator meninjau data pendaftar dan file lampiran administratif sebelum memberikan putusan "Diterima" atau "Ditolak". Sistem juga menyediakan fitur pembersihan data fiktif untuk menjaga keberhasilan integritas database pendaftar.
+### 15. Kelola Kalender Akademik
+Memperbarui rilis jadwal tahunan. Administrator mengunggah berkas kalender dalam format gambar atau dokumen yang menjadi acuan kronologis seluruh aktivitas akademik di FIKOM.
 
-### 16. Pengaturan Sistem (Identitas Website)
-Administrator berwenang mengonfigurasi parameter sistem secara global, meliputi Logo Website, Judul Situs, dan Favicon. Setiap perubahan pada modul pengaturan akan berdampak langsung pada seluruh halaman website, memastikan konsistensi *branding* identitas fakultas tetap terjaga.
+### 16. Kelola Dokumen Kurikulum
+Manajemen distribusi silabus digital. Administrator mengelola muatan berkas kurikulum per prodi, memastikan mahasiswa selalu memiliki akses terhadap daftar mata kuliah versi terbaru.
+
+### 17. Kelola Mitra Kerjasama
+Mendokumentasikan relasi institusional dengan pihak eksternal. Admin mengelola logo dan profil perusahaan mitra, menjaga publikasi hubungan kemitraan tetap profesional dan aktual.
+
+### 18. Kelola Data Penelitian
+Modul repositori riset sivitas. Administrator menginput metadata penelitian dan mengunggah laporan publikasi, memfasilitasi diseminasi karya ilmiah dosen di lingkungan fakultas.
+
+### 19. Kelola Data Pengabdian
+Manajemen dokumentasi aksi sosial institusi. Administrator mengelola naratif kegiatan dan laporan pengabdian masyarakat sebagai bukti kontribusi nyata fakultas terhadap publik.
+
+### 20. Kelola Dokumen Fakultas
+Manajemen arsip regulasi dan kebijakan resmi. Modul ini digunakan untuk mengunggah dokumen digital yang bersifat instruktif atau ketetapan formal dari pimpinan dekanat.
+
+### 21. Kelola Rencana Strategis (Renstra)
+Kontrol terhadap dokumen perencanaan jangka panjang. Admin memastikan berkas Renstra yang tersedia untuk diunduh adalah versi paling mutakhir yang telah disahkan.
+
+### 22. Kelola SOP
+Pusat manajemen panduan operasional layanan. Administrator memiliki kendali untuk menambah atau memperbarui naskah SOP guna menjaga standar mutu layanan administrasi tetap terjaga.
+
+### 23. Kelola Organisasi BEM
+Manajemen profil Badan Eksekutif Mahasiswa. Administrator bertugas mengawasi dan memperbarui susunan kabinet mahasiswa serta aset visual (logo) organisasi BEM FIKOM.
+
+### 24. Kelola Organisasi HIMA
+Khusus untuk manajemen Himpunan Mahasiswa Jurusan. Administrator mengelola profil independen HMTI dan HMPTI, mendukung eksistensi wadah kegiatan kemahasiswaan tingkat prodi.
+
+### 25. Kelola Unit UKM
+Manajemen galeri kegiatan ekstrakurikuler. Administrator mengelola berita kegiatan dan dokumentasi foto seluruh Unit Kegiatan Mahasiswa sebagai bukti dinamika keaktifan kampus.
+
+### 26. Kelola Data Alumni
+Direktori pelacakan lulusan. Administrator mengelola data purna kampus dan statistik karir alumni, mendukung program *tracer study* dalam memantau sebaran lulusan di dunia kerja.
+
+### 27. Verifikasi Pendaftar Maba
+Modul operasional pendaftaran mahasiswa baru. Administrator melakukan peninjauan berkas pendaftar dan menerbitkan putusan validasi (status diterima/ditolak) secara sistematis.
+
+### 28. Pengaturan Identitas Sistem
+Modul konfigurasi global website. Administrator berwenang mengubah Logo, Judul Situs, dan Favicon. Perubahan pada modul ini berlaku secara instan di seluruh bagian aplikasi (Universal).

@@ -1,45 +1,75 @@
-# Penjelasan Detail Menu Halaman Publik (Pengunjung)
+# Penjelasan Detail Fitur/Menu Halaman Publik
 
-Dokumentasi ini memberikan penjelasan fungsional untuk setiap menu yang tersedia pada antarmuka publik Website FIKOM. Setiap bagian didesain untuk memberikan informasi transparan dan akurat bagi seluruh pemangku kepentingan.
+Dokumentasi ini memberikan penjabaran spesifik untuk setiap menu dan sub-menu yang tersedia pada antarmuka pengunjung Website FIKOM.
 
 ### 1. Halaman Beranda (Home)
-Halaman Beranda berfungsi sebagai pusat informasi dinamis yang menyajikan ringkasan seluruh aktivitas fakultas. Bagian ini mencakup *slider* banner visual, fakta statistik fakultas (jumlah dosen, mahasiswa, dan alumni), serta daftar berita terbaru. Alur sistem pada halaman ini memastikan pengunjung mendapatkan impresi pertama yang komprehensif mengenai profil dan dinamika institusi dalam satu tampilan terpadu.
+Halaman Beranda dirancang sebagai agregator informasi utama yang menyajikan ringkasan visual berupa *slider* banner, berita terkini, dan statistik fakta fakultas. Alur ini memastikan pengunjung mendapatkan pemahaman cepat mengenai ekosistem FIKOM dalam satu kali siklus pemuatan data.
 
-### 2. Tentang FIKOM (Profil Fakultas)
-Menu ini menyajikan narasi sejarah dan latar belakang pendirian fakultas. Penjelasan mencakup peran strategis lembaga dalam dunia pendidikan teknologi informasi serta komitmen fakultas dalam mencetak lulusan yang kompeten. Informasi ini bertujuan untuk membangun kepercayaan publik terhadap identitas dan integritas institusi.
+### 2. Tentang FIKOM (Profil)
+Bagian ini menyajikan narasi historis dan identitas lembaga. Penjelasan difokuskan pada peran institusi dalam pengembangan ilmu komputer dan visi pengabdian institusi terhadap masyarakat.
 
-### 3. Visi, Misi, dan Sasaran
-Bagian ini menjabarkan landasan filosofis fakultas yang terdiri dari visi jangka panjang, langkah strategis dalam bentuk misi, serta target capaian (sasaran). Penyajian data dilakukan secara poin per poin untuk memudahkan pengunjung dalam memahami orientasi pengembangan dan standar kualitas yang dijunjung tinggi oleh FIKOM.
+### 3. Visi dan Misi
+Menjabarkan secara terpisah naskah Visi sebagai cita-cita luhur fakultas dan Poin Misi sebagai langkah-langkah strategis untuk mewujudkan visi tersebut. Informasi ini menjadi acuan kualitas bagi seluruh civitas akademika.
 
-### 4. Sambutan Dekan
-Halaman ini berisi pesan resmi dari pimpinan fakultas yang menyapa seluruh pengunjung website. Sambutan ini merefleksikan kebijakan pimpinan, motivasi bagi civitas akademika, serta harapan fakultas terhadap pengembangan ilmu pengetahuan di masa depan. Atribut visual foto pimpinan disertakan untuk membangun kedekatan komunikasi secara formal.
+### 4. Sasaran Strategis
+Bagian ini merinci indikator kinerja dan target jangka pendek hingga menengah yang ingin dicapai oleh fakultas. Sasaran disusun untuk memberikan transparansi terhadap parameter keberhasilan pengembangan institusi.
 
-### 5. Struktur Organisasi
-Menu ini memvisualisasikan hierarki jabatan dan tata kelola di lingkungan fakultas melalui bagan organisasi. Pengunjung dapat melihat koordinasi antar unit mulai dari pimpinan dekanat hingga ketua program studi dan kepala laboratorium. Informasi ini menjamin transparansi operasional dan kejelasan garis koordinasi institusi.
+### 5. Sambutan Dekan
+Menyajikan pesan otoritatif dari pimpinan tertinggi fakultas. Narasi sambutan bertujuan untuk menyampaikan orientasi strategis kebijakan dekanat dan memberikan sapaan hangat kepada seluruh pengunjung website.
 
-### 6. Civitas Akademika (Dosen & Staff)
-Halaman ini menampilkan direktori lengkap tenaga pendidik dan kependidikan di FIKOM. Informasi yang tersaji mencakup profil profesional, jabatan fungsional, dan kualifikasi akademik dosen. Fitur ini memudahkan publik atau peneliti eksternal untuk mengenali pakar dan bidang keahlian yang ada di lingkungan fakultas.
+### 6. Struktur Organisasi
+Menampilkan visualisasi bagan hierarki kepemimpinan di tingkat fakultas. Melalui menu ini, pengunjung dapat memahami alur koordinasi mulai dari Dekan, Wakil Dekan, hingga jajaran fungsional di bawahnya.
 
-### 7. Program Studi (TI dan PTI)
-Terdapat halaman khusus untuk Program Studi Teknik Informatika (TI) dan Pendidikan Teknologi Informasi (PTI). Setiap halaman menjabarkan profil lulusan, kompetensi utama yang ditawarkan, serta keunggulan kurikulum masing-masing prodi. Penjelasan ini sangat krusial bagi calon mahasiswa dalam menentukan arah studi mereka.
+### 7. Profil Dosen
+Direktori yang menyajikan daftar tenaga pendidik profesional. Profil mencakup nama lengkap, NIDN, bidang keahlian, dan kualifikasi akademik dosen guna memfasilitasi kebutuhan riset atau pengenalan akademik bagi mahasiswa.
 
-### 8. Fasilitas Ruangan dan Laboratorium
-Menu fasilitas mendokumentasikan sarana prasarana fisik kampus, termasuk ruang kelas teori dan laboratorium komputer terpadu. Galeri foto resolusi tinggi disertakan untuk memberikan gambaran nyata mengenai lingkungan belajar yang representatif dan kualitas perangkat teknologi pendukung praktikum yang tersedia bagi mahasiswa.
+### 8. Data Staff & Civitas
+Halaman ini mendata jajaran tenaga kependidikan dan pengurus administratif fakultas. Fitur ini dirancang untuk memperkenalkan sumber daya manusia yang mendukung operasional birokrasi dan layanan kemahasiswaan.
 
-### 9. Akademik (Kurikulum dan Kalender)
-Bagian akademik menyediakan akses terhadap jadwal aktivitas fakultas melalui kalender akademik tahunan serta susunan mata kuliah pada menu kurikulum. Dokumen kurikulum tersedia dalam format yang dapat dipelajari guna memberikan wawasan mengenai beban studi dan distribusi materi pembelajaran di setiap semester.
+### 9. Program Studi Teknik Informatika
+Memberikan penjelasan komprehensif mengenai profil Prodi Teknik Informatika, yang mencakup visi keilmuan, kurikulum inti, serta profil lulusan yang diarahkan menjadi ahli di bidang rekayasa perangkat lunak dan teknologi digital.
 
-### 10. Layanan Dokumen (SOP, Renstra, Dokumen Fakultas)
-Menu ini berfungsi sebagai repositori dokumen legal dan operasional fakultas. Pihak yang berkepentingan dapat mengakses dan mengunduh berkas Standar Operasional Prosedur (SOP), Rencana Strategis (Renstra), serta dokumen regulasi lainnya. Ketersediaan dokumen ini merupakan bentuk akuntabilitas publik dan profesionalitas birokrasi institusi.
+### 10. Program Studi Pendidikan TI
+Menjabarkan profil Prodi Pendidikan Teknologi Informasi yang berfokus pada pencetakan tenaga pendidik profesional di bidang TI. Penjelasan mencakup kurikulum kependidikan dan spesialisasi pedagogik teknologi.
 
-### 11. Tridharma (Penelitian dan Pengabdian)
-Halaman ini mendokumentasikan karya nyata civitas akademika dalam bidang riset dan kontribusi sosial. Daftar judul penelitian yang telah dipublikasikan serta laporan kegiatan pengabdian masyarakat disajikan untuk memperlihatkan rekam jejak keilmuan fakultas dan dampaknya terhadap permasalahan di masyarakat.
+### 11. Fasilitas Ruangan Kelas
+Menampilkan galeri visual dan informasi inventaris ruang kelas teori. Penjelasan mencakup kapasitas ruangan serta kelengkapan sarana pendukung kenyamanan perkuliahan seperti perangkat multimedia dan pendingin ruangan.
 
-### 12. Organisasi Mahasiswa (BEM, HIMA, UKM)
-Website ini memberikan ruang bagi publikasi aktivitas kemahasiswaan melalui profil Badan Eksekutif Mahasiswa (BEM), Himpunan Mahasiswa Jurusan (HIMA), dan Unit Kegiatan Mahasiswa (UKM). Penjelasan mencakup struktur organisasi mahasiswa dan portofolio kegiatan ekstrakurikuler yang mendukung pengembangan *soft skills* mahasiswa.
+### 12. Fasilitas Laboratorium
+Menu ini menyoroti ketersediaan laboratorium komputer terpadu sebagai pusat praktikum dan riset. Galeri mencakup spesifikasi perangkat keras dan perangkat lunak yang tersedia untuk mendukung kegiatan pemrograman, jaringan, dan kecerdasan buatan.
 
-### 13. Alumni dan Tracer Study
-Bagian alumni menyajikan data statistik riwayat lulusan sebagai bukti kualitas luaran pendidikan fakultas. Tersedia pula fitur *Tracer Study* yang memungkinkan alumni untuk mengisi rekam jejak karier mereka, yang nantinya akan digunakan oleh institusi sebagai bahan evaluasi pengembangan kurikulum dan peningkatan mutu layanan.
+### 13. Kalender Akademik
+Menyediakan jadwal aktivitas resmi fakultas dalam satu tahun akademik. Informasi dalam kalender ini menjadi rujukan utama bagi mahasiswa dan dosen dalam merencanakan masa perkuliahan, praktikum, hingga pelaksanaan ujian.
 
-### 14. Pendaftaran Mahasiswa Baru
-Halaman pendaftaran merupakan fitur layanan mandiri bagi calon mahasiswa. Menu ini menyediakan formulir isian data diri serta fasilitas unggah berkas persyaratan administratif. Alur pendaftaran didesain secara sistematis untuk memudahkan calon mahasiswa mendaftarkan diri secara *online* sebelum divalidasi oleh tim panitia pendaftaran.
+### 14. Dokumen Kurikulum
+Menyajikan daftar rujukan silabus dan dokumen kerangka mata kuliah untuk setiap prodi. Pengunjung dapat meninjau distribusi beban studi per semester guna memahami standar kompetensi lulusan yang ditetapkan.
+
+### 15. Dokumen Fakultas
+Berfungsi sebagai repositori regulasi dan kebijakan resmi tingkat fakultas. Bagian ini menyediakan akses bagi publik untuk memahami aturan administratif, keputusan dekanat, serta panduan tata kelola lainnya.
+
+### 16. Rencana Strategis (Renstra)
+Menampilkan dokumen jangka panjang fakultas mengenai arah pengembangan institusi. Renstra menyajikan peta jalan pencapaian target-target besar fakultas dalam periode tertentu secara eksplisit.
+
+### 17. Standar Operasional Prosedur (SOP)
+Menyajikan deretan panduan teknis operasional layanan administratif dan akademik. SOP bertujuan untuk memberikan kepastian hukum dan efisiensi alur kerja bagi seluruh civitas akademika yang memerlukan layanan resmi.
+
+### 18. Data Penelitian Dosen
+Direktori hasil riset ilmiah yang dilakukan oleh para dosen. Informasi mencakup tajuk abstrak, judul jurnal, dan tautan publikasi eksternal sebagai bentuk kontribusi aktif institusi pada perkembangan ilmu pengetahuan.
+
+### 19. Data Pengabdian Masyarakat
+Mendokumentasikan kegiatan sosial dan aplikasi ilmu pengetahuan oleh dosen FIKOM kepada komunitas luas. Laporan pengabdian menyajikan bukti nyata peran fakultas dalam memberikan solusi atas permasalahan masyarakat.
+
+### 20. Profil Organisasi (BEM)
+Menampilkan identitas kepengurusan Badan Eksekutif Mahasiswa tingkat fakultas. Penjelasan mencakup struktur kabinet dan peran BEM sebagai wadah aspirasi serta pelaksana kegiatan kemahasiswaan utama.
+
+### 21. Himpunan Mahasiswa (HIMA)
+Menjajakan profil organisasi mahasiswa tingkat jurusan (HMTI dan HMPTI). Halaman ini merinci peran himpunan dalam memfasilitasi minat bakat profesional mahasiswa di bidang keilmuan masing-masing prodi.
+
+### 22. Unit Kegiatan Mahasiswa (UKM)
+Galeri kreativitas mahasiswa melalui berbagai unit ekstrakurikuler. Menu ini menampilkan dokumentasi keaktifan pemuda FIKOM dalam bidang seni, olahraga, maupun kelompok minat khusus lainnya.
+
+### 23. Alumni & Tracer Study
+Menyediakan data statistik lulusan dan fasilitas pelacakan alumni (*Tracer Study*). Fitur ini bertujuan untuk mengukur masa tunggu kerja lulusan dan mengumpulkan umpan balik dari alumni demi peningkatan kualitas institusi.
+
+### 24. Pendaftaran Mahasiswa Baru
+Layanan mandiri bagi calon mahasiswa untuk melakukan registrasi awal. Menu ini menyediakan formulir elektronik dan fasilitas unggah dokumen sebagai langkah awal proses penerimaan mahasiswa baru di lingkungan FIKOM.

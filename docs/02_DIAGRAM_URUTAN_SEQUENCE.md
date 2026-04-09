@@ -1381,6 +1381,7 @@ sequenceDiagram
         DB-->>Backend: Penarikan silsilah daftar terhapuskan mutakhir dipastikan tersingkir
         Backend-->>Frontend: Melemparkan pengawal administrasi memuat rupa jernih diiringi Papan Pemberitahuan Lapor Sukses 
     end
+```
 
 ---
 
@@ -1647,11 +1648,11 @@ sequenceDiagram
     Admin->>Frontend: Klik "Simpan Perubahan"
     Frontend->>Backend: Kirim data formulir lengkap
     
-    opt Jika ada Unggahan Gambar Baru
+    alt Jika ada Unggahan Gambar Baru
         Backend->>Server: Simpan fisik gambar baru ke /uploads/tentang/
-        Backend->>Database: Update judul, deskripsi, & path gambar baru
+        Backend->>Database: Update judul, deskripsi, dan path gambar baru
     else Tanpa Perubahan Gambar
-        Backend->>Database: Update judul & deskripsi saja
+        Backend->>Database: Update judul dan deskripsi saja
     end
     
     Database-->>Backend: Konfirmasi pembaruan record berhasil

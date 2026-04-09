@@ -1545,7 +1545,7 @@ sequenceDiagram
     end
 ```
 
-Pusat kendali deklarasi cita-cita lembaga. Admin dapat mengelola narasi visi utama serta menambah atau menghapus poin-poin misi, tujuan, dan sasaran strategis secara dinamis dalam satu antarmuka terintegrasi.
+Proses manajemen nilai-nilai strategis Fakultas yang mencakup pengelolaan visi, misi, tujuan, dan sasaran. Saat Administrator mengakses menu ini, sistem akan menarik seluruh himpunan teks dari tabel visi_misi berdasarkan kategori masing-masing untuk disajikan dalam bentuk daftar atau formulir isian. Administrator memiliki wewenang untuk memperbarui narasi visi utama secara langsung, atau melakukan operasi penambahan dan penghapusan item pada kategori misi, tujuan, dan sasaran dengan pengaturan nomor urut tertentu. Setiap perubahan yang diajukan akan divalidasi oleh Backend sebelum disimpan ke pangkalan data, memastikan integritas dokumen landasan filosofis fakultas tetap terjaga dan mutakhir.
 
 ---
 
@@ -1585,7 +1585,7 @@ sequenceDiagram
     end
 ```
 
-Manajemen representasi visual hierarki fakultas. Admin mengelola bagan organisasi dengan mengunggah berkas gambar terbaru, di mana sistem secara otomatis menggantikan aset lama untuk menjaga akurasi informasi kepemimpinan.
+Alur pembaruan bagan hierarki fakultas yang menitikberatkan pada sinkronisasi aset visual dan rekaman data di server. Ketika Administrator mengunggah berkas gambar bagan organisasi yang baru, Backend akan melakukan pemeriksaan mandiri terhadap format file (seperti JPG, PNG, atau SVG) serta skalabilitas ukuran dokumen. Jika berkas dinyatakan valid, sistem akan secara otomatis menghapus file bagan lama yang tersimpan di server untuk mengoptimalkan ruang penyimpanan, sementara Basis Data akan mencatat path lokasi file yang baru pada tabel halaman_statis. Proses ini menjamin bahwa setiap pengunjung yang mengakses halaman struktur organisasi akan melihat visualisasi kepemimpinan fakultas yang paling aktual.
 
 ---
 
@@ -1622,7 +1622,7 @@ sequenceDiagram
     end
 ```
 
-Pengelolaan indikator numerik ketercapaian fakultas. Admin mengatur angka-angka fakta (seperti jumlah mahasiswa atau dosen) yang akan ditampilkan dengan efek animasi pada halaman utama untuk menarik perhatian pengunjung.
+Mekanisme pengelolaan indikator statistik fakultas yang bertujuan untuk menyajikan profil numerik yang dinamis kepada publik. Administrator dapat menambah, mengubah, atau mengatur urutan fakta-fakta penting—seperti jumlah civitas akademika atau fasilitas unggulan—melalui panel kontrol khusus. Setiap input yang dimasukkan akan dikirimkan ke Backend untuk diproses ke dalam tabel tb_fakta. Data numerik ini kemudian akan menjadi parameter utama yang ditarik oleh sistem di halaman beranda untuk menggerakkan elemen animasi penghitung statistik (counter animation), memberikan kesan visual yang profesional dan transparan mengenai pencapaian lembaga.
 
 ---
 
@@ -1658,4 +1658,4 @@ sequenceDiagram
     Backend-->>Frontend: Redirect ke halaman & Notifikasi Sukses
 ```
 
-Manajemen konten naratif profil lembaga. Admin bertugas meredaksi sejarah atau deskripsi umum fakultas serta memperbarui citra visual pendukung agar selaras dengan perkembangan terkini institusi.
+Proses penyuntingan narasi pengenalan dan profil umum fakultas yang melibatkan pembaruan teks deskriptif dan elemen gambar pendukung. Saat Administrator melakukan modifikasi pada deskripsi atau judul 'Tentang Fakultas', sistem juga memberikan opsi untuk mengganti gambar profil pendamping yang disimpan pada direktori penyimpanan khusus. Backend bertanggung jawab untuk melakukan sinkronisasi antara konten teks yang diperbarui dengan aset fisik gambar di storage server sebelum akhirnya memperbarui catatan tunggal pada tabel tentang_fikom. Alur ini memastikan seluruh informasi latar belakang lembaga yang disajikan di halaman utama tetap konsisten, akurat, dan representatif terhadap citra fakultas.

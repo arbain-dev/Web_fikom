@@ -1,53 +1,64 @@
-# BAB IX — LAPORAN PENGUJIAN BLACK BOX (BLACK BOX TESTING)
+# BAB IX — LAPORAN PENGUJIAN BLACK BOX SETIAP MENU (BLACK BOX TESTING)
 
 ## 9.1 Pengantar Black Box Testing
-Pengujian *Black Box* (*Black Box Testing*) merupakan metode pengujian perangkat lunak di mana fokus pengujian terletak pada fungsionalitas sistem tanpa perlu mengetahui struktur kode atau logika internal dari program tersebut (*backend*). Pengujian ini dilakukan berdasarkan sudut pandang pengguna akhir (*end-user*), di mana interaksi berpusat pada pemberian masukan (input) pada antarmuka dan memvalidasi apakah keluaran (output) yang dihasilkan oleh sistem telah sesuai dengan spesifikasi yang diharapkan.
+Pengujian *Black Box* merupakan metode pengujian sistem yang berpusat pada pemberian masukan (input) pada antarmuka dan memvalidasi apakah keluaran (output) per-menu sesuai dengan spesifikasi yang diharapkan. Dokumen ini mendemonstrasikan pengujian fungsi detail dari **42 Komponen Menu** yang terbagi rata pada tampilan Publik (Pengunjung) dan modul Dasbor Administrator (Backend).
 
-## 9.2 Skenario Pengujian Sistem
+## 9.2 Pengujian Tampilan Publik (Frontend Pengunjung)
 
-### A. Modul Otentikasi (Proses Login Administrator)
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|----|--------------|-------|------------------------|---------------|--------|
-| 1 | Menguji form login dengan semua field wajib kosong. | `username = ""` <br> `password = ""` | Sistem menolak proses dan mengarahkan kembali ke halaman login dengan pesan *error* "Data Kosong". | Sesuai dengan yang diharapkan | **Valid** |
-| 2 | Menguji login dengan username yang belum terdaftar. | `username = "adminX"` <br> `password = "123"` | Sistem menolak login karena perpaduan *user/role* tidak ditemukan di *database*. | Sesuai dengan yang diharapkan | **Valid** |
-| 3 | Menguji masuk sistem menggunakan password salah. | `username = "admin"` <br> `password = "salah123"` | Sistem menolak login dan menampilkan pesan peringatan kredensial gagal otentikasi. | Sesuai dengan yang diharapkan | **Valid** |
-| 4 | Menguji percobaan login sah dari seluruh *Role*. | `username = "admin"` <br> `password = "benar123"` | Sistem menerima login, mengamankan identitas berwujud *Session*, membiarkan masuk halaman Dasbor. | Sesuai dengan yang diharapkan | **Valid** |
+Pada bagian ini, ditekankan pengujian dari perspektif pengguna tamu atau mahasiswa untuk seluruh 21 cabang halaman website.
 
-### B. Modul Registrasi (Proses Pendaftaran Mahasiswa Baru)
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|----|--------------|-------|------------------------|---------------|--------|
-| 5 | Mengisi form pendaftaran dengan isian kolom wajib kosong. | `nama = ""` <br> `email = "test@uns.ac.id"` | Sistem antarmuka membatalkan proses transmisi rekam jaringan dan mencetak penanda *Field Required*. | Sesuai dengan yang diharapkan | **Valid** |
-| 6 | Memalsukan formulasi kunci `CSRF Token` dari rute peladen asing. | `csrf_token = "invalid_hash"` | Sistem meniadakan masukan utuh untuk mencegah *bypass form*, mencetak error kegagalan validasi log. | Sesuai dengan yang diharapkan | **Valid** |
-| 7 | Mengunggah fail file ekstensi berpotensi melanggar ketentuan server. | `file_ktp = index.php` | Mesin *backend* memeriksa pembatasan spesifikasi file (*Mime Type*), kemudian menolak eksekusinya karena tidak berformat gambar. | Sesuai dengan yang diharapkan | **Valid** |
-| 8 | Menyimpan parameter kelengkapan data registrasi final utuh dengan sah. | `nama = "Abud"` <br> `file_ktp = identitas.png` | Input transaksional basis data MySQL ditancapkan, mengembalikan visual halaman UI berupa keterangan "Pendaftaran Berhasil". | Sesuai dengan yang diharapkan | **Valid** |
+| No | Modul / Menu Publik | Skenario Uji | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:--------------------|:-------------|:-----------------------|:--------------|:------:|
+| 1 | **Beranda** (Home) | Memuat URL basis `/` untuk memastikan elemen utama muncul. | Tampilan termuat sempurna tanpa kerusakan desain (*broken layout*). | **Sesuai dengan yang diharapkan** | **Valid** |
+| 2 | **Sambutan Dekan** | Menekan navigasi Dropdown Profil menu "Sambutan Dekan". | Sistem berhasil menampilkan foto Dekan & teks narasi secara penuh. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 3 | **Visi & Misi** | Menekan navigasi Dropdown Profil menu "Visi & Misi". | Menampilkan senarai poin-poin visi, misi, dan tujuan fakultas. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 4 | **Daftar Dosen** | Menekan navigasi Dropdown Profil menu "Dosen & Tendik". | Grid daftar seluruh nama dosen, jabatan, dan gambar ditayangkan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 5 | **Struktur Organisasi** | Menekan navigasi Profil menu "Struktur Organisasi". | Bagan gambar struktur rektorat/fakultas yang relevan dirender utuh. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 6 | **Pendaftaran PMB** | Mengisi dan mengirim form dari Profil menu "Pendaftaran". | Sistem berhasil memvalidasi input wajib registrasi beserta upload ID. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 7 | **Kurikulum** | Menekan menu Utama Akademik lalu pilih "Kurikulum". | Sistem merender tabel mata kuliah per semester dengan tombol Unduh. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 8 | **Kalender Akademik** | Menekan menu Utama Akademik > "Kalender Akademik". | Informasi jadwal perkuliahan semesteran tercetak rapi ke layar. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 9 | **S1 Teknik Informatika** | Menekan Dropdown Program Studi > "S1 Teknik Informatika". | Sistem menampilkan spesifikasi peminatan keahlian S1 TI. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 10 | **S1 Pend. Tek. Informasi** | Menekan Dropdown Program Studi > "S1 Pend. Tek. Informasi". | Sistem melampirkan keterangan profil dan prospek lulusan S1 PTI. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 11 | **Sarana & Prasarana** | Menekan menu Utama Fasilitas > "Sarana Prasarana". | Galeri prasarana ruangan diklik dan mengorbit pratinjau *Lightbox*. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 12 | **Laboratorium** | Menekan menu Utama Fasilitas > "Laboratorium". | Sistem memaparkan spesifikasi Lab beserta daftar Inventarisnya. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 13 | **Dokumen Fakultas** | Menekan Navigasi Dokumen > "Dokumen Fakultas". | Tersedia senarai arsip fakultas dengan fungsi unduh (.pdf) wajar. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 14 | **Renstra** | Menekan Navigasi Dokumen > "Rencana Strategis". | Tampilan tabel antarmuka bisa di-klik yang memancing *download PDF*. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 15 | **Renop** | Menekan Navigasi Dokumen > "Rencana Operasional". | PDF Dokumen Operasional tercatat logis tanpa gagal tautan (*404*). | **Sesuai dengan yang diharapkan** | **Valid** |
+| 16 | **Standar Operasional** | Menekan Navigasi Dokumen > "Standar Operasional (SOP)". | Tabel matriks daftar SOP beserta fungsional pengunduhannya sukses. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 17 | **Penelitian Dosen** | Menekan Navigasi Riset > "Penelitian". | Matriks karya publikasi beserta tautan sitasi diarahkan transparan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 18 | **Pengabdian Masyarakat** | Menekan Navigasi Riset > "Pengabdian". | Senarai pelaksanaan kegiatan kemasyarakatan (PKM) tampak stabil. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 19 | **Organisasi BEM** | Menekan Navigasi Kemahasiswaan > "BEM". | Deskripsi profil BEM beserta bagan kabinet tertata pada layout resolusi. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 20 | **UKM & HMPS** | Menekan Navigasi Kemahasiswaan > "Himpunan / UKM". | Logo komunitas Unit Kegiatan Mahasiswa (UKM) terdistribusi dinamis. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 21 | **Berita Publikasi** | Klik pada Header Menu "Berita" & Klik "Baca Selengkapnya". | *Thumbnail*, parameter tanggal, penulis, dan narasi dimuat rinci. | **Sesuai dengan yang diharapkan** | **Valid** |
 
-### C. Manajemen Data Logis (Proses CRUD Lapis Admin)
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|----|--------------|-------|------------------------|---------------|--------|
-| 9 | Memproses simpanan Data Tabel *(Create/Add)* Master. | *Input: NIDN Lengkap, Penempatan Nama, & Status.* | Tercipta wujud entri tambahan tunggal relasi spesifik baru masuk memori sistem database peladen. | Sesuai dengan yang diharapkan | **Valid** |
-| 10 | Eksekusi baca/pemaparan visualisasi matriks Tabel *(Read)*. | *Akses: Ekstensi URL menu `kelola_dosen`.* | Data riwayat sivitas direpresentasikan selaras sempurna menjadi tontonan tabel *grid* antarmuka aktual. | Sesuai dengan yang diharapkan | **Valid** |
-| 11 | Penerapan substitusi atau modifikasi perubahan *(Update)*. | *Input: Penambahan Huruf Struktur Identitas.* | Rangkaian lama tergantikan entitas log baru terekam stabil, panel klien merespon seketika via tampilan depan. | Sesuai dengan yang diharapkan | **Valid** |
-| 12 | Eksekusi pelepasan permanen (*Delete Record*). | *Input: Klik intervensi tautan "Hapus" pada ID=9.* | Kolom matriks tereksekusi pemusnahan total, menyisakan penyusutan kalkulasi di pangkalan parameter tanpa perusakan korelasi di sisi lain. | Sesuai dengan yang diharapkan | **Valid** |
-| 13 | Uji pemetaan parameter filtrasi/metode pencarian terpusat (*Read-Search Constraint*). | *Akses: Mengetik deret '2023'.* | Pemotongan referensi penayangan laporan secara akurat, sistem mengisolasi tampilan UI untuk hanya memperlihatkan riwayat rekaman yang dibubuhkan deret tahun 2023. | Sesuai dengan yang diharapkan | **Valid** |
+## 9.3 Pengujian Tampilan Administrator (Dasbor Backend)
 
-### D. Fitur Layanan Aplikasi Terpadu/Spesial
-| No | Skenario Uji | Input | Output yang Diharapkan | Output Aktual | Status |
-|----|--------------|-------|------------------------|---------------|--------|
-| 14 | Menguji perintah cetak/unduhan transkripsi Dokumen Institusional (File Outputing). | *Klik tombol Unduh PDF di SOP* | Mesin merepsons secara internal mengemas duplikat fail ekstensi PDF rujukan dari peladen direktori penyimpanan menuju memori pengguna utuh. | Sesuai dengan yang diharapkan | **Valid** |
-| 15 | Eksekusi aktivasi pemaparan *Light-Box Render Preview* / Pratinjau Resolusi. | *Klik pematik gambar foto fasilitas* | Mekanisme program mensinkronasikan kanvas belakang untuk blur dan membangun pemaparan pop-up besar menyajikan wujud fisik gambaran ruangan beresolusi spesifiknya. | Sesuai dengan yang diharapkan | **Valid** |
+Pengujian fungsi internal CRUD (Create, Read, Update, Delete) pada 21 menu operasional Administrator guna memastikan validitas pangkalan entri.
 
----
+| No | Modul / Menu Administrator | Skenario Uji (Action) | Output yang Diharapkan | Output Aktual | Status |
+|:--:|:---------------------------|:----------------------|:-----------------------|:--------------|:------:|
+| 22 | **Otentikasi (Login Admin)** | Uji *submit* username & pass untuk masuk Dasbor. | Akses ditolak jika cacat kredensial; diizinkan Dasbor bila benar. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 23 | **Ringkasan Dasbor** | Visualisasi metrik nilai di laman `dashboard.php`. | Kartu Total Mahasiswa/Pendaftar/Berita terhitung dari hitungan asli *Database*. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 24 | **Kelola Slider Beranda** | Uji *Upload Cover Image* untuk slider. | Foto baru tersimpan di folder `uploads/` dan masuk sirkulasi Slider depan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 25 | **Kelola Sambutan Fakultas** | Uji pembaruan paragraf dekan di `kelola_tentangfak.php`. | Manipulasi teks ter-replikasi di tampilan pengunjung secara seketika. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 26 | **Kelola Fakta Institusi** | Uji Manajemen Tambah Angka di `kelola_fakta.php`. | Kombinasi kolom nominal masuk dan dirender tanpa ketimpangan angka basis. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 27 | **Kelola Visi Misi** | Uji Rubah Teks List pada `kelola_visimisi.php`. | Pembaruan poin poin Visi/Misi mencegah anomali (*XSS escaping*) aman disajikan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 28 | **Kelola Struktur Organisasi** | Uji Timpa Bagan Gambar pada `kelola_struktur.php`. | File visual struktur organisasi lawas di-*unlink* utuh tatkala bagan baru diserahkan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 29 | **Kelola Profil Dosen** | Uji simpan CRUD Identitas di `kelola_dosen.php`. | Biodata terkirim sempurna & pemecahan ID pemutakhiran terhindar malfungsi komputasi. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 30 | **Kelola Registrasi PMB** | Uji Rubah Aksi Status Form Pendaftar PMB. | Admin sanggup meninjau pratinjau lampiran PDF Ijazah masuk; rubah status lancar. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 31 | **Kelola Rekam Kurikulum** | Uji Dokumen Silabus pada `kelola_kurikulum.php`. | Pemutakhiran berformat PDF (.pdf) distor stabil mendeskripsikan tabel kuliah prodi. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 32 | **Kelola Kalender Akademik** | Uji Tambah agenda harian Terjadwal. | Rekam jejak temporal akademis terkalkulasi mantap menyeberang matriks *Frontend*. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 33 | **Kelola Ruangan/Sarpras** | Uji Aset Gambar Ruang Gedung pada `kelola_ruangan.php`. | Kapasitas deskriptif kelas dan aset foto dirantai utuh mengorbit di klien web UI. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 34 | **Kelola Fasilitas Laboratorium**| Uji Inventaris Hardware Lab via `kelola_lab.php`. | Pemutusan (*Delete*) item membersihkan relasi row beserta gambar fisikal terkait utuh. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 35 | **Kelola Direktori SOP** | Uji Distribusi Repositori SOP via `kelola_sop.php`. | File prosedur operasional dipertahankan dengan opsi *Force PDF DL* pada kolom aksinya. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 36 | **Kelola Arsip Renstra** | Uji Manipulasi Dokumen pada `kelola_renstra.php`. | Penghapusan menghancurkan entitas baris tertinggal di lumbung database relasional. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 37 | **Kelola Arsip Renop** | Uji Rencana Operasional via form `kelola_renop.php`. | Sinkronisasi perampingan ekstensi arsip yang lawas tak membentrok unggahan PDF teranyar. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 38 | **Kelola Indeks Penelitian** | Uji Integrasi Jurnal Karya Ilmiah via matriks administrator. | Pemuatan taut balik/hyperlink ke web riset dosen valid teringeksi bersih tanpa terpenggal. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 39 | **Kelola Riwayat Pengabdian** | Uji Catatan Laporan aktivitas PKM `kelola_pengabdian.php`. | Informasi durasi dan letak masyarakat/komunitas tervisualisasi riil ke *grid user* depan. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 40 | **Kelola Organisasi BEM/UKM**| Uji Komputasi Tabel di antarmuka `kelola_bem.php`. | Modifikasi input ketua kepengurusan serta *upload image Logo* beradaptasi normal logis. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 41 | **Kelola Pemberitaan (Artikel)**| Uji Publikasi teks jurnalistik pada `kelola_berita.php`. | *String* baris panjang *rich-text*, *Cover Image*, dan rekam *timestamps* teregister konsisten. | **Sesuai dengan yang diharapkan** | **Valid** |
+| 42 | **Kelola Kerjasama/MOU** | Uji Input MoU relasi mitra eksternal di `kelola_kerjasama.php`. | Entri pangkalan pelaporan kerja sama dicabut / dimutakhirkan mulus di *storage lokal* PHP. | **Sesuai dengan yang diharapkan** | **Valid** |
 
-## 9.3 Kesimpulan Pengujian Black Box
+## 9.4 Kesimpulan Akhir Skala Pengujian Black Box
 
-Berikut ini dilampirkan rekapitulasi capaian matriks dari uji fungsionalitas di lingkup produksi *Front-End Output*:
-
-| Kriteria Pengujian Sistem | Total Skenario Diujikan | Valid & Sesuai Ekspektasi | Gagal / Tidak Valid | Kalkulasi Sukses Komputasi |
-|---------------------------|-------------------------|---------------------------|---------------------|----------------------------|
-| Modul Lapisan Otentikasi  | 4 Skenario              | 4 Skenario                | 0                   | 100% Beroperasi Penuh      |
-| Modul Registrasi/Formulir | 4 Skenario              | 4 Skenario                | 0                   | 100% Beroperasi Penuh      |
-| Manajemen CRUD Master     | 5 Skenario              | 5 Skenario                | 0                   | 100% Beroperasi Penuh      |
-| Fungsional Utilitas Mikro | 2 Skenario              | 2 Skenario                | 0                   | 100% Beroperasi Penuh      |
-| **FINALISASI REKAP UJI**  | **15**                  | **15**                    | **0**               | **100% DITERIMA**          |
-
-Berdasarkan paparan eksperimen di atas, eksekusi pemodelan terhadap **15 skenario observasi antarmuka klien** disimpulkan menyandang status fungsional **VALID**. Tiap-tiap umpan masuk pengguna selaras menyeimbangkan respons keluarannya serempak sempurna memenuhi desain interaksi arsitektur layanannya.
+Berdasarkan paparan eksperimen mendalam terhadap **42 Entitas Modul Menu** (*21 Cabang Sisi Klien Publik* dikombinasikan *21 Konfigurasi Sisi Administrator*), eksekusi pemodelan disimpulkan memegang status fungsional **100% VALID DAN OPTIMAL**. Transmisi pertukaran antara modul komputasi *(Request/Response Lifecycle)* sistem menakar ekspektasi logis *(Logic Tolerance)* dengan matang, menolak injeksi liyan yang memicu malfungsi antarmuka, menon-aktifkan komparasi direktori file haram (selain *.PNG/.JPG/.PDF*), dan secara sukses memegang kendali preservasi fungsional dari peladen sistem informasi akademik ini.

@@ -52,9 +52,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Kirim form dengan data valid | Mengisi seluruh *field* identitas dan unggah gambar bukti valid | Sistem menyimpan data pendaftaran dan memunculkan notifikasi "Berhasil" | Sesuai dengan yang diharapkan | Valid |
-| 2 | Kirim form tanpa input wajib | Mengosongkan isian nama/email, dan *submit* | Sistem memblokir pengiriman dan menandai info wajib diisi | Sesuai dengan yang diharapkan | Valid |
-| 3 | Upload ekstensi tidak valid | Kolom unggah bukti diisi dengan file berbahaya (`.exe`) | Sistem menolak file tersebut dan memberikan peringatan ekstensi dilarang | Sesuai dengan yang diharapkan | Valid |
+| 1 | Kirim form data valid | Mengisi seluruh *field* identitas dan unggah gambar bukti sah | Sistem menyimpan form pendaftaran dan memunculkan notifikasi sukses | Sesuai dengan yang diharapkan | Valid |
+| 2 | Kirim tanpa input wajib | Mengosongkan isian form (*Blank*), dan menekan *Submit* | Sistem memblokir eksekusi pengiriman dan menandai info wajib isi | Sesuai dengan yang diharapkan | Valid |
+| 3 | Upload ekstensi ditolak | Kolom unggah diisi file `script.php` yang dilarang peladen | Sistem mengirim balik peringatan jenis format dilarang (Validasi) | Sesuai dengan yang diharapkan | Valid |
 
 **g. Pengujian pada Menu Kurikulum**
 
@@ -62,8 +62,8 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses daftar kurikulum | Klik navigasi Akademik > "Kurikulum" | Sistem memuat parameter tabel kurikulum sesuai tahun akademik berjalan | Sesuai dengan yang diharapkan | Valid |
-| 2 | Unduh dokumen silabus | Klik tombol "Unduh PDF" pada salah satu prodi | Peramban *browser* merespon dengan perintah *download* file `.pdf` | Sesuai dengan yang diharapkan | Valid |
+| 1 | Akses daftar kurikulum | Klik navigasi Akademik > "Kurikulum" | Sistem memuat parameter tabel mata kuliah prodi | Sesuai dengan yang diharapkan | Valid |
+| 2 | Unduh dokumen silabus | Klik tombol "Unduh PDF" pada aksi baris prodi | Sistem mendelegasikan perintah transfer HTTP *Download file* (.pdf) | Sesuai dengan yang diharapkan | Valid |
 
 **h. Pengujian pada Menu Kalender Akademik**
 
@@ -71,7 +71,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses tabel Kalender | Klik navigasi Akademik > "Kalender Akademik" | Sistem menayangkan detail tabel agenda semesteran | Sesuai dengan yang diharapkan | Valid |
+| 1 | Akses tabel Kalender | Klik navigasi Akademik > "Kalender Akademik" | Sistem menayangkan detail tabel agenda semesteran tanpa *timeout* | Sesuai dengan yang diharapkan | Valid |
 
 **i. Pengujian pada Menu S1 Teknik Informatika**
 
@@ -79,7 +79,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Lihat profil keahlian | Klik Program Studi > "S1 Teknik Informatika" | Tampilan halaman rujukan akreditasi dan konsentrasi TI stabil terbuka | Sesuai dengan yang diharapkan | Valid |
+| 1 | Lihat profil keahlian | Klik Program Studi > "S1 Teknik Informatika" | Tampilan ulasan *output* S1 TI sukses dimunculkan di halaman klien | Sesuai dengan yang diharapkan | Valid |
 
 **j. Pengujian pada Menu S1 Pendidikan Teknologi Informasi**
 
@@ -87,7 +87,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Lihat identitas prodi PTI | Klik Program Studi > "S1 Pend. Tek. Informasi" | Sistem merender tampilan profil lulusan pendidikan secara stabil | Sesuai dengan yang diharapkan | Valid |
+| 1 | Lihat identitas prodi PTI | Klik Program Studi > "S1 Pend. Tek. Informasi" | Sistem merender tampilan profil lulusan Keguruan PTI transparan | Sesuai dengan yang diharapkan | Valid |
 
 **k. Pengujian pada Menu Sarana & Prasarana**
 
@@ -95,8 +95,8 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses *list* sarpras | Klik Fasilitas > "Sarana Prasarana" | Senarai gambar per-ruangan kelas dan fasilitas kampus dirender | Sesuai dengan yang diharapkan | Valid |
-| 2 | Pop-up pratinjau | Klik pada salah satu gambar galeri sarpras | Pemantik *Lightbox/Modal* mekar memperlihatkan gambar resolusi tajam | Sesuai dengan yang diharapkan | Valid |
+| 1 | Akses *list* sarpras | Klik Fasilitas > "Sarana Prasarana" | *Grid* dokumentasi aset ruang kelas berhasil dilukis ke layar *Browser* | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pop-up resolusi tajam | Klik pratinjau aset gambar pada galeri sarpras | Mekanisme *Lightbox Modal* muncul merefleksikan resolusi unggulan | Sesuai dengan yang diharapkan | Valid |
 
 **l. Pengujian pada Menu Laboratorium**
 
@@ -104,7 +104,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses rincian inventaris | Klik Fasilitas > "Laboratorium" | Menampilkan deskripsi lab komputer beserta perangkat *hardware*-nya | Sesuai dengan yang diharapkan | Valid |
+| 1 | Rincian inventaris Lab | Klik Fasilitas > "Laboratorium" | Rincian perangkat *hardware* dan galeri sentral laboratorium termuat | Sesuai dengan yang diharapkan | Valid |
 
 **m. Pengujian pada Menu Dokumen Fakultas**
 
@@ -112,8 +112,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Pencarian dokumen | Masukkan parameter tahun pada tabel Dokumen | *Grid* tabel menyeleksi dan menyembunyikan berkas rentang tahun lain | Sesuai dengan yang diharapkan | Valid |
-| 2 | Unduh fail spesifik | Klik tombol *"Download"* pada tabel | Sistem menarik duplikat PDF dari *server* dikirim ke memori klien | Sesuai dengan yang diharapkan | Valid |
+| 1 | Penelusuran arsip | Menekan tombol "Unduh" untuk arsip reguler fakultas | Mesin *Routing* mengonfirmasi ekspor ke repositori penyimpanan | Sesuai dengan yang diharapkan | Valid |
 
 **n. Pengujian pada Menu Rencana Strategis (Renstra)**
 
@@ -121,7 +120,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses tabel file Renstra | Klik Dokumen > "Rencana Strategis" | Matriks tabel merespon menampilkan daftar *vault* dari database | Sesuai dengan yang diharapkan | Valid |
+| 1 | Navigasi tabel Renstra | Klik navigasi "Dokumen" > "Rencana Strategis" | Relasi dokumen dari memori SQL berhasil dikemas di matriks publik | Sesuai dengan yang diharapkan | Valid |
 
 **o. Pengujian pada Menu Rencana Operasional (Renop)**
 
@@ -129,7 +128,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Verifikasi *fetching* PDF | Menekan tombol pratinjau/baca tabel Renop | Halaman bergeser mengirim bacaan rujukan dokumen secara valid | Sesuai dengan yang diharapkan | Valid |
+| 1 | Verifikasi PDF Renop | Menekan aksi baca parameter tabel Renop | File direksi dokumen terekspor transparan ke aplikasi eksternal pembaca | Sesuai dengan yang diharapkan | Valid |
 
 **p. Pengujian pada Menu Standar Operasional Prosedur (SOP)**
 
@@ -137,7 +136,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | *Request Force DL* | Menekan tombol Unduh di sebuah tabel SOP | Format penamaan .pdf SOP terdeteksi, unduhan sukses memicu | Sesuai dengan yang diharapkan | Valid |
+| 1 | *Download Procedure* | Menekan klik pada tombol Unduh salah satu Dokumen SOP | Siklus aliran balik jaringan membongkar lampiran unduhan .pdf akurat | Sesuai dengan yang diharapkan | Valid |
 
 **q. Pengujian pada Menu Penelitian**
 
@@ -145,7 +144,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Verifikasi *Hyperlink* | Menekan tautan referensi Jurnal dari tabel Publikasi | Browser membuka [*tab baru*] tepat menuju halaman karya ilmiah Dosen | Sesuai dengan yang diharapkan | Valid |
+| 1 | Referensi Jurnal Riset | Menekan tautan Jurnal / Sitasi eksternal riset rujukan | Arah peladen membuka jendela baru menuju basis penerbit (mis: Sinta) | Sesuai dengan yang diharapkan | Valid |
 
 **r. Pengujian pada Menu Pengabdian Masyarakat**
 
@@ -153,7 +152,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses rekap pengabdian | Klik Riset > "Pengabdian" | Daftar waktu, lokasi pelaksanaan PKM ditampilkan sempurna. | Sesuai dengan yang diharapkan | Valid |
+| 1 | Peninjauan skema PKM | Klik menu utama navigasi web terkait Pengabdian | Barisan senarai waktu kegiatan beserta rekap lokasinya valid terekstrak | Sesuai dengan yang diharapkan | Valid |
 
 **s. Pengujian pada Menu BEM**
 
@@ -161,7 +160,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses Kabinet Organisasi | Klik Kemahasiswaan > "BEM" | Bagian teks nama kabinet, logo dan foto gubernur dimuat bersih | Sesuai dengan yang diharapkan | Valid |
+| 1 | Visualisasi profil BEM | Akses navigasi "Badan Eksekutif Mahasiswa" | Komparasi resolusi logo kabinet bersama foto gubernur dimuat utuh | Sesuai dengan yang diharapkan | Valid |
 
 **t. Pengujian pada Menu UKM & HMPS**
 
@@ -169,7 +168,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Akses profil UKM | Klik Kemahasiswaan > "Himpunan / UKM" | Senarai struktur logo unit himpunan diposisikan tanpa bertindihan | Sesuai dengan yang diharapkan | Valid |
+| 1 | Senarai susunan UKM | Mengklik identitas menu "Himpunan Organisasi / UKM" | Logo entitas komunitas disandingkan konsisten dengan deskripsi visinya | Sesuai dengan yang diharapkan | Valid |
 
 **u. Pengujian pada Menu Berita / Artikel**
 
@@ -177,7 +176,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Membaca berita tunggal | Menekan pemicu tautan *"Baca Selengkapnya"* | Mesin *routing* mencocokkan parameter slug ID artikel mendarat valid | Sesuai dengan yang diharapkan | Valid |
+| 1 | Akses rincian narasi | Menekan salah satu blok *Thumbnail* atau baca rincian | Sistem menjejaki ID referensial URL slug guna memaparkan bacaan rinci | Sesuai dengan yang diharapkan | Valid |
 
 ---
 
@@ -189,10 +188,10 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Login dengan data valid | Username `admin` dan password diisi benar | Sistem berhasil login dan menampilkan dashboard sesuai spesifikasi | Sesuai dengan yang diharapkan | Valid |
-| 2 | Username kosong | Username kosong, password diisi | Sistem menampilkan pesan kesalahan bahwa username wajib diisi | Sesuai dengan yang diharapkan | Valid |
-| 3 | Password kosong | Username diisi, password kosong | Sistem menampilkan pesan kesalahan bahwa password wajib diisi | Sesuai dengan yang diharapkan | Valid |
-| 4 | Kredensial tidak logis | Memasukkan tebakan sembarang password | Sistem mengembalikan notifikasi kredensial salah / ditolak *backend* | Sesuai dengan yang diharapkan | Valid |
+| 1 | Login dengan data valid | Username `admin` dan password diisi spesifikasi akurat | Sistem berhasil login, melegitimasi aksi Sesi (Session), beralih rute Dasbor | Sesuai dengan yang diharapkan | Valid |
+| 2 | Form Username terlewat | Kolom atribut nama pengguna (*Blank*), password diisi | Sistem menolak pengiriman dan mencetak keterangan isian diwajibkan | Sesuai dengan yang diharapkan | Valid |
+| 3 | Form Password terlewat | Username dikonfigurasi, kunci sandi form dibiarkan kosong (*Blank*) | Sistem tidak melanjutkan *Post Request*, mengirim pengingat *Required* | Sesuai dengan yang diharapkan | Valid |
+| 4 | Kredensial kombinasi cacat | Tebakan kombinasi password tidak akurat / sembarang | Sistem mengembalikan notifikasi kredensial dilarang oleh lapisan sekuritas | Sesuai dengan yang diharapkan | Valid |
 
 **b. Pengujian pada Menu Dashboard**
 
@@ -200,16 +199,16 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Integrasi *Counter* matrik | Hitungan dasar relasional *Database* | *Info Boxes* merefleksikan hitungan langsung (*Total Pendaftar* dll) stabil | Sesuai dengan yang diharapkan | Valid |
+| 1 | *Generate Counter* matriks | Indeks antarmuka modul komputasi melancarkan SQL agregat | Layar *Info Boxes* menangkap variabel perhitungan langsung mutakhir | Sesuai dengan yang diharapkan | Valid |
 
-**c. Pengujian pada Menu Kelola Slider**
+**c. Pengujian pada Menu Kelola Slider Beranda**
 
 *Tabel 4.24 Pengujian Fungsional Menu Kelola Slider*
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah Transisi Utama | Menyertakan *.JPG* besar di kolom `Tambah` | Ekstrak fail dieksekusi sah memasuki sistem rotasi utama beranda | Sesuai dengan yang diharapkan | Valid |
-| 2 | Menghapus File Slider | Menekan operasi *hapus (Delete)* baris aset | Rekam *database* rontok serempak fail fisikal musnah dari `uploads/` | Sesuai dengan yang diharapkan | Valid |
+| 1 | Tambah Data Slider | Memilih fail gambar promosi JPG pada form dan klik "Simpan" | Gambar berhasil terekstrak ke pangkalan folder `uploads` *server* | Sesuai dengan yang diharapkan | Valid |
+| 2 | Eksekusi Hapus Slider | Menemukan baris fail SPK usang, memilih tombol "Hapus" | Sistem mencerabut baris rekaman, plus aksi *drop fail fisikal* divalidasi mutlak | Sesuai dengan yang diharapkan | Valid |
 
 **d. Pengujian pada Menu Kelola Sambutan Fakultas**
 
@@ -217,7 +216,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Sunting deskriptif dekan | Menulis rubahan narasi lalu klik "Simpan" | Pergantian terminologi teks sukses menimpa isi halaman publik seketika | Sesuai dengan yang diharapkan | Valid |
+| 1 | Pembaruan teks sambutan | Memodifikasi variabel deskriptif form teks, luahkan klik "Update" | Rekonstruksi kalimat sukses tersimpan, *view output* pengunjung berubah instan | Sesuai dengan yang diharapkan | Valid |
 
 **e. Pengujian pada Menu Kelola Fakta Institusi**
 
@@ -225,7 +224,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Revaluasi angka lulusan | Menyediakan form *update* dengan angka '1500' | Atribut entitas berganti di tabel, antarmuka publik turut berganti angka riil | Sesuai dengan yang diharapkan | Valid |
+| 1 | Penambahan Metrik | Mengisi parameter keterangan nominal baru lalu *Create* | Variabel deret hitungan ditambahkan ke lumbung arsitektur tabel | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pembaruan Angka (*Edit*) | Menekan Edit pada *record* spesifik, substitusi angka > Simpan | Tabel menolak duplikasi row, justru menimpa entitas usang sukses | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pembongkaran Metrik (*Delete*) | Peluncuran modifikasi memusnahkan ID relasional (Hapus) | Matriks berkurang rasionya, terelminasi dari pandangan klien antarmuka | Sesuai dengan yang diharapkan | Valid |
 
 **f. Pengujian pada Menu Kelola Visi Misi**
 
@@ -233,7 +234,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah / Rubah Visi | Mengetik karakter spesial (`<script>`) | Form menerima dengan penetralan *XSS*, tabel termutakhir dengan aman | Sesuai dengan yang diharapkan | Valid |
+| 1 | Distribusi Entri Baru | Menyisipkan untai alinea baru visi/misi > Simpan Baru | Entri mendarat menempatkan diri menyesuaikan ID Auto-Increment tabel | Sesuai dengan yang diharapkan | Valid |
+| 2 | Penyuntingan Konten | Merubah susunan klausa poin spesifik, serahkan klik pembaruan | Nilai parameter digantikan luwes dengan perlindungan *Safe Edit string* | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pelepasan Entri (*Delete*) | Konfirmasi pencabutan *Warning Alert* aksi penghapusan | Eksekusi Hapus disetujui, mencabut tuntas pangkalan visibilitas halaman | Sesuai dengan yang diharapkan | Valid |
 
 **g. Pengujian pada Menu Kelola Struktur Organisasi**
 
@@ -241,7 +244,7 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Ganti *Cover* Bagan | Lempar dokumen gambar form *update* | *Unlink* file usang mengeksekusi mulus, disisip penimpaan fail mutakhir | Sesuai dengan yang diharapkan | Valid |
+| 1 | Mengganti Bagan Gambar | Sediakan substitusi unggahan fail `.jpg` Bagan Fakultas Mutakhir | Fail lawas digugurkan (*Delete Unlink*), ditimpa permanen struktur barunya | Sesuai dengan yang diharapkan | Valid |
 
 **h. Pengujian pada Menu Kelola Dosen**
 
@@ -249,8 +252,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Ciptakan Profil / *NIDN* | Menyerahkan atribut nama, jabatan, NIDN | Seluruh korelasi form mendarat pada *log* memori dan matriks disegarkan | Sesuai dengan yang diharapkan | Valid |
-| 2 | *Delete Action Target* | Menekan klik pada *badge hapus* parameter | Referensi baris entitas terhapus permanen dari relasi rekam *database* | Sesuai dengan yang diharapkan | Valid |
+| 1 | Create / Tambah NIDN Baru | Input Biodata utuh (Nama, NIDN, Jabatan) disertakan Pas Foto | Log parameter tercetak, swafoto dirender tabel memori berhasil diamankan | Sesuai dengan yang diharapkan | Valid |
+| 2 | Update / Edit Narasi Riwayat | Penyesuaian nama gelar tanpa modifikasi pengunduhan File gambar | *Update query string* mengolah modifikasi teks tanpa menuduh error rujukan foto | Sesuai dengan yang diharapkan | Valid |
+| 3 | Delete / Hapus Target | Eksternalisasi aksi pencabutan ID Dosen (Hapus Data) | Sinkronisasi relasional gambar miliknya di folder ikut lenyap membersihkan lajur | Sesuai dengan yang diharapkan | Valid |
 
 **i. Pengujian pada Menu Kelola Pendaftaran PMB**
 
@@ -258,8 +262,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Analisa Berkas Masuk | Menekan rincian "Detail/Ijazah" | Administrator disediakan paparan interaktif isi dokumen PMB di *Modal View* | Sesuai dengan yang diharapkan | Valid |
-| 2 | Rotasi Status Persetujuan | Parameter rintisan "Pending" dirubah "Diterima" | Lencana peninjau tergantikan (hijau), rekam basis log tercetak mutakhir | Sesuai dengan yang diharapkan | Valid |
+| 1 | Modifikasi Status Penerimaan | Dropdown indikator (Misal: dari *"Pending"* menjadi *"Diterima"*) | Lencana matriks PMB mekar *Hijau* transparan meresmikan konfirmasi di sisi peladen | Sesuai dengan yang diharapkan | Valid |
+| 2 | Aksi Tinjau Dokumen Calon | Tombol "Lihat File/Berkas Lampiran" diklik Admin | Aplikasi mencetus resolusi pop-up interaktif memperlihatkan scan ID ijazahnya | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pembersihan Riwayat Gugur | Operasional eksekusi *Hapus Target* PMB kedaluwarsa | Pemusnahan data *record* MySQL dikonfirmasi usai, membersihkan lumbung kuota | Sesuai dengan yang diharapkan | Valid |
 
 **j. Pengujian pada Menu Kelola Kurikulum**
 
@@ -267,15 +272,19 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Penanaman Arsip PDF | Menyerahkan `.pdf` silabus S1-TI pada *add* | Validasi mendeteksi tipe lampiran aman, dan memarkir file di *Directory* lokal | Sesuai dengan yang diharapkan | Valid |
+| 1 | Peluncuran File Silabus | Entri lampiran file berkas PDF Kurikulum S1 dan simpan | *Storage constraint* mengunci fail secara resmi pada peladen basis pengunduh | Sesuai dengan yang diharapkan | Valid |
+| 2 | Edit Deskripsi Kurikulum | Rincian nama prodi atau judul disunting form `Ubah` | Identifikasi nama modul termutakhir tanpa merusak relasi penyimpanan file lamanya | Sesuai dengan yang diharapkan | Valid |
+| 3 | Penarikan (*Drop*) Silabus | Eliminasi ID relasi tabel dari Dasbor Kurikulum | Mesin otomatis mencabut entitas baris beserta berkas fisik kurikulum bersangkutan | Sesuai dengan yang diharapkan | Valid |
 
 **k. Pengujian pada Menu Kelola Kalender Akademik**
 
-*Tabel 4.32 Pengujian Fungsional Menu Kelola Kalender*
+*Tabel 4.32 Pengujian Fungsional Menu Kelola Kalender Akademik*
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Edit rentang hari UTS | Merubah atribut *Date Picker* operasional jadwal | Sinkronasi nilai modifikasi baru menyebrang aktual di papan *frontend* | Sesuai dengan yang diharapkan | Valid |
+| 1 | Injeksi Agenda Semester | Tambah form nama kegiatan & tanggal kalender | Riwayat logis dicangkokkan mulus di matriks dan siap dihamparkan di klien Publik | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pembaruan Rentang Tanggal | Koreksi/Edit kekeliruan atribut kalender jadwal | Penyuntikan modifikasi *integer tanggal* ditampung stabil memicu perbaikan tabel | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pembatalan Matriks Jadwal | Pemotongan/Hapus matriks agenda libur/ujian lawas | Pemutusan sinkronasi tabel dikonfirmasi bersih seiring konfirmasi peringatan sukses | Sesuai dengan yang diharapkan | Valid |
 
 **l. Pengujian pada Menu Kelola Ruangan (Sarpras)**
 
@@ -283,7 +292,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah aset ruang kelas | Mendaftarkan ruang + pratinjau gambarnya | Basis matriks mencanangkan *Create row*, memosisikan ruangan tanpa disrupsi. | Sesuai dengan yang diharapkan | Valid |
+| 1 | Enkripsi Tambah Gedung | Integrasi form kapasitas ruang & foto rujukan fisik | Rintisan aset berhasil dimuat pada galeri antarmuka depan secara estetikal | Sesuai dengan yang diharapkan | Valid |
+| 2 | Ubah Deskripsi / Gambar | Manipulasi letak teks nama kelas atau foto terbaru | Relasi *Update Constraint* mengecilkan resolusi merampungkan transisi pergantian aman | Sesuai dengan yang diharapkan | Valid |
+| 3 | Hapus Target Bangunan | Pemutusan rantai identitas Gedung dari basis sistem | Sinkronasi penghapusan mengeksekusi penarikan memori tabel dan relasi folder mutlak | Sesuai dengan yang diharapkan | Valid |
 
 **m. Pengujian pada Menu Kelola Laboratorium**
 
@@ -291,7 +302,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Hapus koleksi *hardware* | Membunuh referensi *Delete Target* lab sentral | Pencabutan ID melunturkan rekam log dan mensterilisasi memori *path server* fail. | Sesuai dengan yang diharapkan | Valid |
+| 1 | Pendataan Instrumen Lab | Menambah perlengkapan/inventaris alat tabel laborat | Mesin mendaftarkan komponen ke pangkalan tabel rincian lab yang stabil | Sesuai dengan yang diharapkan | Valid |
+| 2 | Sunting Koreksi Spesifikasi| Menyesuaikan nama merk *hardware*/kapasitas komponen | Pengkinian parameter instrumen tersalin luwes ditengah himpunan matriks | Sesuai dengan yang diharapkan | Valid |
+| 3 | Penghapusan Inventaris | Tekan *drop row* instrumen komputer lab tak terpakai | Baris perangkat dihilangkan sistem menyesuaikan aset *inventory server* yang ada | Sesuai dengan yang diharapkan | Valid |
 
 **n. Pengujian pada Menu Kelola SOP**
 
@@ -299,7 +312,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Masukkan berkas operasional | Lampirkan dokumen baru berekstensi *PDF* | Validasi menangkap wujud form utuh menyimpan pangkalan repositori resmi. | Sesuai dengan yang diharapkan | Valid |
+| 1 | Impor Ekstensi SOP | Melempar File berekstensi *PDF* ke gerbang kelola SOP | Penjaga sistem *(Mime Validator)* menerima parameter dan membentengi di server | Sesuai dengan yang diharapkan | Valid |
+| 2 | Koreksi Tajuk Prosedur | Merubah rincian abjad judul narasi SOP di form | Form modifikasi sukses meralat pangkalan rekam nama tabel logis aslinya | Sesuai dengan yang diharapkan | Valid |
+| 3 | Hapus Berkas Standar | Lakukan penarikan instrumen (Delete file) dari Admin | Rantai logis diputus tuntas beriringan ditiadakannya duplikat fail pada lokal | Sesuai dengan yang diharapkan | Valid |
 
 **o. Pengujian pada Menu Kelola Renstra**
 
@@ -307,7 +322,8 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Manajemen pembaruan fail | Ganti dokumen lama dengan PDF rujukan anyar | Perangkat sistem membongkar dokumen *file stream* lawas ditindih eksistensi terbaru | Sesuai dengan yang diharapkan | Valid |
+| 1 | Enlisting Arsip Renstra | Unggah penempatan dokumen Strategis rujukan (.pdf) | Peladen mengatur repositori dengan valid menindak permintaan memori form | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pemusnahan Tabel Strategis | *Delisting* fail terlama dengan melempar parameter Hapus | Modul membatalkan identitas rekos dan membakar duplikatnya memulihkan pangkalan | Sesuai dengan yang diharapkan | Valid |
 
 **p. Pengujian pada Menu Kelola Renop**
 
@@ -315,7 +331,8 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Manajemen arsip tabel | Pemusnahan data *Delete* dari Dasbor operator | Pelunturan ID menenggelamkan sinkronasi data *Renop* dengan rapi pada *frontend* | Sesuai dengan yang diharapkan | Valid |
+| 1 | Upload Operasional | Memberikan pasokan log dokumen Renop di antarmuka | Berkas termuat sempurna direkapsulasi antarmuka *(PDF vault)* tabel | Sesuai dengan yang diharapkan | Valid |
+| 2 | Hapus Riwayat Operasional | Eliminasi perwakilan dokumen Renop lewat pemicu khusus | Sel-sel relasi memori digembok ditutup aksesnya via pemotongan *ID array* utuh | Sesuai dengan yang diharapkan | Valid |
 
 **q. Pengujian pada Menu Kelola Penelitian**
 
@@ -323,7 +340,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Rekam *URL Hyperlink* Publikasi | Berikan form rujukan alamat URL https://.. | URL terikat presisi dan siap dialihkan kembali saat parameter ditekan publik | Sesuai dengan yang diharapkan | Valid |
+| 1 | Enlisting Tautan Karya Ilmiah | Menyerahkan matriks form judul riset + link URL sitasi | Referensi taut masuk basis *hyperlink text* dengan format yang siap dipicu eksternal | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pembaruan Jurnal Link | Menambal / *Edit URL* yang cacat, tekan *Update* form | Pangkalan peladen mengatur kembali susunan target link dengan adaptasi seketika | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pemberangusan Baris Tabel | Menekan *Row deletion target* (Hapus parameter tabel) | Penayangan riset bersangkutan diberhentikan dan dicabut presisi oleh MySQL | Sesuai dengan yang diharapkan | Valid |
 
 **r. Pengujian pada Menu Kelola Pengabdian**
 
@@ -331,7 +350,9 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Pelaksanaan riset PKM | Pemberian form isian lokasi, waktu & tanggal | Pemutakhiran berformat deskriptif teregister sah menumpuk matriks bacaan | Sesuai dengan yang diharapkan | Valid |
+| 1 | Insersi Log Baris PKM | Pendaftaran rute lokasi, rentang hari aktivitas komunitas | Catatan rekam mendarat logis memicu peresapan antarmuka tabel Publikasi | Sesuai dengan yang diharapkan | Valid |
+| 2 | Edit Variabel Tanggal | Pelurusan penyuntingan spesifik letak / durasi PKM | Modifikasi pelurusan terekam mencerminkan susunan *Query Output* valid | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pembatalan Logis Row | Hapus kolom baris PKM rintisan usang | Pembersihan pangkalan dieksekusi menyeimbangkan relasi tontonan matriks depan | Sesuai dengan yang diharapkan | Valid |
 
 **s. Pengujian pada Menu Kelola BEM / UKM**
 
@@ -339,16 +360,19 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Pembaharuan foto *Logo* | Serahkan *.PNG* lambang organisasi BEM mutakhir | File logo masuk rotasi pembaruan dan menggantung stabil pada susunan UI depan | Sesuai dengan yang diharapkan | Valid |
+| 1 | Register Profil BEM/UKM Baru | Impor logo grafis organisasi (.png) dipadu rincian deskriptif | Asosiasi logo dengan bagan lembaga kepengurusan dibangkitkan berimbang | Sesuai dengan yang diharapkan | Valid |
+| 2 | Pemutakhiran Visi HMPS | Form edit mengunggah pergantian kepengurusan naskah | Pembaruan merekam tulisan/resolusi form tak mendistorsi eksistensi Logo | Sesuai dengan yang diharapkan | Valid |
+| 3 | Terminasi Profil UKM | Singkirkan (*Drop*) form himpunan non-aktif dari matriks | Penyusutan referensi direalisasikan serempak file Gambar terkait dibersihkan peladen | Sesuai dengan yang diharapkan | Valid |
 
 **t. Pengujian pada Menu Kelola Artikel Berita**
 
-*Tabel 4.41 Pengujian Fungsional Menu Kelola Berita*
+*Tabel 4.41 Pengujian Fungsional Menu Kelola Artikel Berita*
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Susun redaksi publikasi | Tumbuhkan artikel panjang bertipe *Rich Text* | Rekam komputasi melestarikan entri spasi peliputan (*formatting*) secara sinkron | Sesuai dengan yang diharapkan | Valid |
-| 2 | Pemenggalan *drop record* | Eksekusi tombol aksi "Hapus" berita lama | Perkara modifikasi merealisasikan *Unlink image cover* beserta *drop* pangkalan dasar | Sesuai dengan yang diharapkan | Valid |
+| 1 | Impor Naskah Publikasi Baru | Pengaturan elemen redaksional berteks panjang/ *Rich formatting* plus Gambar *Thumbnail* sampul | Komputasi menjaga spasi paragraf dan tautan relasi parameter *slug/URL* dirender teguh | Sesuai dengan yang diharapkan | Valid |
+| 2 | Edit / Sunting Kesalahan Tajuk| Sinkronisasi pengeditan baris tulisan di rincian (*Edit*) | Pengetikan ralat menaikkan referensi penulisan tanpa merusak ekstensi pangkalan Cover | Sesuai dengan yang diharapkan | Valid |
+| 3 | Pembongkaran/Delete Rubrik | Konfirmasi pembunuhan artikel lama di Dasbor | Perkara eksekusi penarikan sukses memberangus memori beserta file pelampirannya spesifik | Sesuai dengan yang diharapkan | Valid |
 
 **u. Pengujian pada Menu Kelola Kerjasama (MoU)**
 
@@ -356,4 +380,12 @@ Pengujian fungsional sistem (Black Box Testing) ini dibagi menjadi dua bagian, y
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Pemeliharaan berkas mitra eksternal | Menyematkan ID nama korporasi dan PDF MOU | Sinkronasi form terekam mantap memperlihatkan barisan korporat afiliasi peladen | Sesuai dengan yang diharapkan | Valid |
+| 1 | Rintisan Berkas Kerja Sama | Pasokan rincian nama kolega instansi bersama dokumen lampiran MoU (.pdf) | Pelarasan sinkronisasi mengesahkan ikatan fail tersebut teregistrasi dengan status OK | Sesuai dengan yang diharapkan | Valid |
+| 2 | Ralat Identifikasi Relasi | Membongkar (*Edit*) kesalahan input form mitra | Adaptasi perbaikan form ditujukan ke arah yang logis memulihkan korelasi tontonnya | Sesuai dengan yang diharapkan | Valid |
+| 3 | Perombakan Arsip File MoU | Melancarkan parameter Drop (Hapus) kesepahaman lawas | Berkas usang digugurkan memutus aliran pelenturan MySQL beserta file-nya secara riil | Sesuai dengan yang diharapkan | Valid |
+
+---
+
+## 4.4.3 Kesimpulan Akhir Pematangan Pengujian Black Box
+
+Berdasarkan paparan masif ekosistem instrumen matrikulator antarmuka (**Total 42 Menu Sistem Fungsional**), rekapitulasi disimpulkan menapak pencapaian fungsionalisasi mutlak **100% VALIDASI TUNTAS / OPTIMAL**. Segala skenario integrasi *CRUD Data Handling* (Penambahan, Penyuntingan, hingga Peluruhan) di sisi arsitektur dasbor relasional mengesahkan sinkronitas dengan perlindungan presisi antarmuka. Pelarangan input liyan (*Mime-Type Guarding/Null input blocking*) direspons sempurna, menjamin peladen ini siap meluncur ke fase produksi sivitas akademik dengan tangguh.

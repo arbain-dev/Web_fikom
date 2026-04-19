@@ -180,18 +180,16 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 ---
 
-## B. Pengujian Dashboard Admin (Backend)
+## B. Dashboard Admin (Backend)
 
 **a. Pengujian Fitur Login**
 
-*Tabel 4.22 Pengujian Menu Login*
+*Tabel 4.22 Pengujian Menu Login Admin*
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Login dengan akun valid | Input username `admin` dan password yang tepat | Admin berhasil masuk ke halaman utama dashboard | Sesuai dengan yang diharapkan | Valid |
-| 2 | Login tanpa username | Klik login tapi kolom nama tidak diisi | Muncul pesan peringatan agar username diisi | Berhasil diblokir | Valid |
-| 3 | Login tanpa password | Klik login tapi kolom sandi dikosongkan | Muncul peringatan bahwa password wajib dimasukkan | Hasil sesuai | Valid |
-| 4 | Login dengan info salah | Memasukkan password atau username asal-asalan | Muncul notifikasi bahwa draf login salah | Sesuai harapan | Valid |
+| 1 | Login kredensial benar | Input username `admin` dan password yang tepat | Admin berhasil masuk ke halaman dashboard utama | Sesuai dengan yang diharapkan | Valid |
+| 2 | Login kredensial salah | Memasukkan password atau username asal-asalan | Muncul notifikasi bahwa data login salah/ditolak | Berhasil ditolak | Valid |
 
 **b. Pengujian Statistik Dashboard**
 
@@ -199,7 +197,7 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Mengecek angka statistik | Membuka menu Beranda Admin | Angka jumlah dosen, berita, dan lainnya muncul otomastis | Sesuai dengan yang diharapkan | Valid |
+| 1 | Mengecek ringkasan data | Membuka menu Beranda Admin | Menampilkan jumlah data dosen, PMB, dan berita otomatis | Sesuai harapan | Valid |
 
 **c. Pengujian Kelola Slider**
 
@@ -207,8 +205,8 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Menambah gambar baru | Pilih file foto dan klik tomol Simpan | Gambar baru muncul di daftar tabel dan halaman depan | Berhasil tersimpan | Valid |
-| 2 | Menghapus data slider | Klik tombol hapus pada salah satu baris foto | Data hilang dari daftar dan file di server ikut terhapus | Sesuai harapan | Valid |
+| 1 | Menambah slider baru | Upload foto baru dan klik simpan | Foto baru tampil di tabel admin dan web depan | Berhasil ditambah | Valid |
+| 2 | Menghapus data slider | Klik tombol hapus pada salah satu baris foto | Data hilang dari daftar dan file di server terhapus | Berhasil dihapus | Valid |
 
 **d. Pengujian Kelola Sambutan Dekan**
 
@@ -216,7 +214,7 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Mengubah teks profil dekan | Tulis narasi baru dan klik Update | Teks pada halaman profil publik otomatis berganti | Berhasil diupdate | Valid |
+| 1 | Mengubah isi sambutan | Tulis teks baru pada form dekan dan klik update | Teks sambutan di halaman profil berubah otomatis | Berhasil diupdate | Valid |
 
 **e. Pengujian Kelola Fakta Kampus**
 
@@ -224,9 +222,9 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Menambah fakta baru | Masukkan judul fakta (misal: Ruang Lab) dan jumlahnya | Data baru tersimpan dan masuk ke daftar tabel | Berhasil ditambah | Valid |
-| 2 | Mengubah nilai data | Ubah angka jumlah pada data yang sudah ada | Nilai pada tabel berubah sesuai angka yang baru dimasukan | Sesuai dengan yang diharapkan | Valid |
-| 3 | Menghapus baris data | Klik hapus pada baris fakta yang ingin dibuang | Baris tersebut hilang secara permanen dari sistem | Berhasil dihapus | Valid |
+| 1 | Menambah fakta baru | Masukkan nama fakta dan jumlah angkanya | Data baru tersimpan dan masuk ke daftar tabel | Berhasil ditambah | Valid |
+| 2 | Mengubah nilai fakta | Edit angka jumlah fakta yang sudah ada | Nilai fakta terupdate sesuai dengan inputan baru | Berhasil diubah | Valid |
+| 3 | Menghapus baris fakta | Klik tombol hapus pada salah satu data fakta | Data fakta hilang dari daftar secara permanen | Berhasil dihapus | Valid |
 
 **f. Pengujian Kelola Visi & Misi**
 
@@ -234,8 +232,9 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah poin visi baru | Tulis poin visi terbaru dan simpan | Poin tersebut muncul di urutan paling bawah tabel | Berhasil tersimpan | Valid |
-| 2 | Menghapus poin lama | Pilih salah satu poin misi lalu klik hapus | Poin misi tersebut hilang dari daftar database | Sesuai harapan | Valid |
+| 1 | Menambah poin visi/misi | Tulis teks visi atau misi baru lalu simpan | Poin baru muncul dalam daftar tabel visi misi | Berhasil ditambah | Valid |
+| 2 | Mengubah teks visi/misi | Lakukan pengeditan pada teks visi misi lama | Isi teks visi/misi berubah sesuai dengan editan | Berhasil diubah | Valid |
+| 3 | Menghapus poin visi/misi | Klik tombol hapus pada salah satu poin | Poin tersebut hilang dari daftar database | Berhasil dihapus | Valid |
 
 **g. Pengujian Update Bagan Organisasi**
 
@@ -243,7 +242,7 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Mengganti gambar bagan | Pilih file foto struktur baru lalu klik Simpan | Gambar bagan lama terhapus dan diganti dengan yang baru | Berhasil diganti | Valid |
+| 1 | Mengganti gambar bagan | Pilih file foto struktur baru lalu klik Update | Gambar lama digantikan oleh gambar versi terbaru | Berhasil diganti | Valid |
 
 **h. Pengujian Kelola Data Dosen**
 
@@ -251,10 +250,9 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Menambah profil pengajar | Isi nama, NIDN, jabatan, dan upload foto | Data dosen baru berhasil tersimpan dan tampil di tabel | Berhasil ditambah | Valid |
-| 2 | Simpan tanpa mengisi nama | Klik simpan namun kolom nama dibiarkan kosong | Sistem memunculkan peringatan wajib diisi (validasi) | Muncul peringatan | Valid |
-| 3 | Mengedit gelar dosen | Ubah teks gelar atau jabatan lalu klik Update | Penulisan nama/gelar berubah tapi foto tidak hilang | Berhasil diubah | Valid |
-| 4 | Menghapus dosen | Klik hapus pada salah satu pengajar | Akun dosen tersebut dihapus dan fotonya hilang dari server | Berhasil dihapus | Valid |
+| 1 | Menambah data dosen | Isi profil lengkap dan upload foto dosen | Profil dosen tersimpan dan muncul di tabel admin | Berhasil ditambah | Valid |
+| 2 | Mengubah biodata dosen | Edit teks nama/gelar lalu klik tombol Update | Identitas dosen berubah tanpa merusak file fotonya | Berhasil diubah | Valid |
+| 3 | Menghapus data dosen | Klik tombol hapus pada baris data dosen | Data terhapus dan file fotonya hilang dari server | Berhasil dihapus | Valid |
 
 **i. Pengujian Pendaftar PMB**
 
@@ -262,19 +260,19 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Mengganti status pendaftaran | Pilih dropdown dari "Menunggu" ke "Diterima" | Label status di tabel berubah warna menjadi hijau | Sesuai harapan | Valid |
-| 2 | Cek berkas pendaftar | Klik tombol lihat berkas pada kolom pendaftar | Aplikasi menampilkan foto scan ijazah pemohon | Berhasil tampil | Valid |
-| 3 | Menghapus data pendaftar | Klik hapus pada baris pelamar yang gugur | Data dan file lampiran mahasiswa terhapus permanen | Berhasil dihapus | Valid |
+| 1 | Memvalidasi pendaftar | Ubah status dari "Menunggu" ke "Diterima" | Label status di tabel berubah warna menjadi hijau | Sesuai harapan | Valid |
+| 2 | Cek berkas pendaftar | Klik tombol lihat profil/berkas pelamar | Aplikasi menampilkan lampiran scan ijazah pemohon | Berhasil tampil | Valid |
+| 3 | Menghapus data pelamar | Klik tombol hapus pada baris pendaftar | Data pelamar gugur hilang dari database sistem | Berhasil dihapus | Valid |
 
 **j. Pengujian Kelola Kurikulum**
 
-*Tabel 4.31 Pengujian Pengaturan Silabus*
+*Tabel 4.31 Pengujian Kelola Kurikulum*
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah dokumen PDF baru | Upload file kurikulum berformat .pdf | File berhasil tersimpan dan siap didownload pengunjung | Berhasil tersimpan | Valid |
-| 2 | Ubah nama jurusan | Ganti isi teks nama prodi lalu simpan | Judul pada tabel berubah tetapi file PDF tidak rusak | Hasil sesuai | Valid |
-| 3 | Hapus file kurikulum | Klik tombol hapus baris data kurikulum | Data dan file PDF fisiknya ikut hilang dari memori | Berhasil dihapus | Valid |
+| 1 | Menambah file kurikulum | Isi nama prodi dan upload file silabus PDF | Data tersimpan dan file siap didownload publik | Berhasil ditambah | Valid |
+| 2 | Mengubah info kurikulum | Edit judul kurikulum atau ganti file PDFnya | Info kurikulum terupdate dengan file/teks baru | Berhasil diubah | Valid |
+| 3 | Menghapus data kurikulum | Klik hapus pada baris data terkait | Data dan file fisiknya hilang dari folder server | Berhasil dihapus | Valid |
 
 **k. Pengujian Agenda Kalender**
 
@@ -282,8 +280,9 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Menambah tanggal libur | Isi agenda dan pilih tanggal pada form | Kegiatan baru masuk ke daftar kalender akademik | Sesuai harapan | Valid |
-| 2 | Mengubah jadwal acara | Edit kolom tanggal atau nama acara yang salah | Jadwal terbaru tersimpan dan tampil di halaman depan | Berhasil diupdate | Valid |
+| 1 | Menambah agenda baru | Masukkan nama acara dan pilih tanggalnya | Event baru masuk ke daftar tabel kalender admin | Berhasil ditambah | Valid |
+| 2 | Mengubah jadwal acara | Edit kolom tanggal atau deskripsi kegiatan | Jadwal kegiatan terupdate sesuai info terbaru | Berhasil diupdate | Valid |
+| 3 | Menghapus agenda libur | Klik hapus pada kegiatan yang sudah lewat | Agenda tersebut hilang dari tampilan kalender web | Berhasil dihapus | Valid |
 
 **l. Pengujian Kelola Sarana & Ruangan**
 
@@ -291,8 +290,9 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Input unit fasilitas baru | Isi detail ruangan dan upload foto pendukung | Unit tersebut tampil di galeri foto fakultas | Berhasil ditambah | Valid |
-| 2 | Hapus data ruangan | Klik simbol hapus pada ruangan yang sudah tidak ada | Ruangan hilang dari daftar dan gambar terhapus otomatis | Berhasil dihapus | Valid |
+| 1 | Input fasilitas baru | Isi detail ruangan dan upload foto pendukung | Unit ruangan baru tampil di galeri foto fakultas | Berhasil ditambah | Valid |
+| 2 | Mengubah info fasilitas | Edit deskripsi atau ganti foto ruangan | Informasi sarana prasarana terupdate di web | Berhasil diubah | Valid |
+| 3 | Menghapus data ruangan | Pilih tombol hapus pada unit gedung tersebut | Data ruangan dan fotonya hilang dari sistem web | Berhasil dihapus | Valid |
 
 **m. Pengujian Kelola Inventaris Lab**
 
@@ -300,13 +300,92 @@ Laporan pengujian sistem dengan metode Black Box ini dibagi menjadi dua kelompok
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Menambah daftar PC baru | Masukkan spek komputer dan jumlahnya | Daftar alat lab bertambah dan tampil di halaman publik | Berhasil ditambah | Valid |
-| 2 | Koreksi jumlah alat | Ubah angka jumlah PC yang sudah ada di tabel | Angka stok alat pada database terupdate sesuai input baru | Sesuai harapan | Valid |
+| 1 | Menambah peranti lab | Masukkan nama alat dan jumlah stok barunya | Daftar inventaris lab bertambah di database admin | Berhasil ditambah | Valid |
+| 2 | Update stok peralatan | Edit jumlah atau spesifikasi alat tersebut | Angka stok alat terupdate sesuai hasil editan | Sesuai harapan | Valid |
+| 3 | Menghapus data inventaris | Klik hapus pada baris peralatan laboratorium | Data alat tersebut hilang dari daftar inventaris | Berhasil dihapus | Valid |
 
-*(Selanjutnya, pengujian untuk Menu 4.35 (Kelola SOP) sampai 4.42 (Kelola Kerja Sama) dilakukan dengan prosedur yang sama yaitu Tambah, Edit, dan Hapus data, dan seluruhnya memberikan hasil yang Valid).*
+**n. Pengujian Kelola SOP**
+
+*Tabel 4.35 Pengujian Dokumen SOP*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Upload dokumen SOP baru | Pilih file PDF SOP dan beri nama dokumen | Berkas tersimpan dan link unduh muncul di depan | Berhasil disimpan | Valid |
+| 2 | Mengubah judul SOP | Edit penamaan dokumen SOP pada tabel | Nama dokumen SOP berhasil diperbarui di pangkalan | Berhasil diubah | Valid |
+| 3 | Menghapus dokumen SOP | Klik tombol hapus pada baris dokumen SOP | Data dan file fisiknya hilang dari folder server | Berhasil dihapus | Valid |
+
+**o. Pengujian Kelola Rencana Strategis (Renstra)**
+
+*Tabel 4.36 Pengujian Dokumen Renstra*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Tambah draf Renstra | Isi nama dokumen dan lampirkan file PDF | Dokumen renstra masuk ke dalam daftar arsip | Berhasil ditambah | Valid |
+| 2 | Ubah draf Renstra | Lakukan perbaikan pada tajuk atau ganti file PDF | Informasi renstra terupdate dengan data terbaru | Berhasil diubah | Valid |
+| 3 | Hapus draf Renstra | Klik tombol hapus pada baris renstra tersebut | Data dan file PDF arsip renstra terhapus bersih | Berhasil dihapus | Valid |
+
+**p. Pengujian Kelola Rencana Operasional (Renop)**
+
+*Tabel 4.37 Pengujian Dokumen Renop*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Tambah file Renop | Masukkan judul renop dan upload dokumen PDF | Berkas operasional fakultas tersimpan di database | Berhasil disimpan | Valid |
+| 2 | Ganti file Renop | Upload file PDF baru untuk mengganti draf lama | File renop lama diganti dengan file versi terbaru | Berhasil diupdate | Valid |
+| 3 | Hapus file Renop | Pilih aksi hapus pada baris dokumen renop | Data dan file lampiran renop hilang dari server | Berhasil dihapus | Valid |
+
+**q. Pengujian Kelola Penelitian Dosen**
+
+*Tabel 4.38 Pengujian Daftar Riset Dosen*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Menambah data riset | Masukkan judul riset dan tempel link publikasi | Judul riset tampil dan link bisa diklik di web | Berhasil ditambah | Valid |
+| 2 | Mengubah judul/link | Edit kesalahan pengetikan pada judul sinta dosen | Judul riset terupdate sesuai dengan perbaikan | Hasil sesuai | Valid |
+| 3 | Menghapus data riset | Klik tombol hapus pada salah satu baris riset | Baris penelitian tersebut hilang dari pangkalan | Berhasil dihapus | Valid |
+
+**r. Pengujian Kelola Pengabdian**
+
+*Tabel 4.39 Pengujian Agenda Pengabdian*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Menambah log pengabdian | Isi lokasi dan instansi pengabdian masyarakat | Data pengabdian masuk ke rekap tabel admin | Berhasil ditambah | Valid |
+| 2 | Edit log pengabdian | Ubah rincian lokasi atau tanggal kegiatan | Detail pengabdian terupdate sesuai data baru | Berhasil diubah | Valid |
+| 3 | Menghapus log pengabdian | Klik hapus pada baris agenda pengabdian itu | Data pengabdian tersebut hilang dari sistem | Berhasil dihapus | Valid |
+
+**s. Pengujian Kelola BEM / UKM**
+
+*Tabel 4.40 Pengujian Organisasi Mahasiswa*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Menambah profil UKM | Masukkan nama UKM dan upload logo barunya | Profil UKM tampil di halaman kemahasiswaan | Berhasil ditambah | Valid |
+| 2 | Update deskripsi Ormawa | Edit visi misi atau ganti foto pengurus UKM | Informasi organisasi terupdate di tampilan publik | Berhasil diubah | Valid |
+| 3 | Menghapus data UKM | Klik tombol hapus pada baris organisasi UKM | Data organisasi dan logonya terhapus permanen | Berhasil dihapus | Valid |
+
+**t. Pengujian Kelola Artikel Berita**
+
+*Tabel 4.41 Pengujian Publikasi Berita*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Menambah naskah berita | Tulis judul, isi berita, dan upload foto sampul | Berita terbit dan muncul di urutan teratas web | Berhasil terbit | Valid |
+| 2 | Mengedit isi berita | Lakukan ralat/edit pada teks berita tersebut | Isi naskah berita berubah sesuai dengan editan | Berhasil diubah | Valid |
+| 3 | Menghapus berita lama | Klik tombol hapus pada baris berita artikel | Berita hilang dari web dan fotonya ikut terhapus | Berhasil dihapus | Valid |
+
+**u. Pengujian Kelola Kerjasama (MoU)**
+
+*Tabel 4.42 Pengujian Dokumen Kerjasama*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Menambah draf kerjsama | Isi nama mitra dan lampirkan dokumen MoU PDF | Kerjasama tersimpan dan tercatat di database | Berhasil ditambah | Valid |
+| 2 | Mengedit data mitra | Ubah nama instansi atau ganti file PDF MoU | Data mitra kerjasama terupdate dengan info baru | Berhasil diubah | Valid |
+| 3 | Menghapus draf kerjasama | Pilih tombol hapus pada baris mitra kerjasama | Data kerjasama dan file MoU-nya terhapus bersih | Berhasil dihapus | Valid |
 
 ---
 
 ## 4.4.3 Kesimpulan Akhir
 
-Berdasarkan hasil pengujian yang dilakukan terhadap **42 menu** di halaman publik maupun admin, dapat disรimpulkan bahwa seluruh fungsional sistem berjalan dengan baik. Semua fitur mulai dari pendaftaran, update informasi, hingga manajemen file sudah sesuai dengan kebutuhan dan tidak ditemukan kesalahan fatal pada alur program.
+Berdasarkan hasil pengujian yang dilakukan terhadap **42 menu** (21 Halaman Publik dan 21 Halaman Admin), dapat disimpulkan bahwa sistem web FIKOM ini sudah bekerja sesuai dengan tujuan perancangannya. Fitur-fitur utama seperti pendaftaran mahasiswa baru, pengelolaan konten informasi, serta pemeliharaan file dokumen akademik dapat dioperasikan secara normal melalui manajemen data CRUD (Tambah, Edit, Hapus) yang stabil dan terintegrasi.

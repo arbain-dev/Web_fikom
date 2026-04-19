@@ -206,7 +206,8 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
 | 1 | Tambah gambar slider | Klik tambah, pilih foto dan simpan | Gambar baru masuk ke tabel dan web depan | Berhasil ditambah | Valid |
-| 2 | Hapus gambar slider | Klik tombol hapus pada baris gambar | Data terhapus dan file foto hilang dari host | Data hilang | Valid |
+| 2 | Ubah status slider | Klik tombol aktifkan/nonaktifkan | Status gambar berubah (tampil atau tersembunyi) | Berhasil diubah | Valid |
+| 3 | Hapus gambar slider | Klik tombol hapus pada baris gambar | Data terhapus dan file foto hilang dari host | Data hilang | Valid |
 
 **d. Sambutan Dekan (Admin)**
 
@@ -223,8 +224,7 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
 | 1 | Tambah poin fakta | Input nama fakta dan nominal angkanya | Data baru masuk ke daftar tabel fakta | Berhasil disimpan | Valid |
-| 2 | Edit nilai fakta | Klik edit, ubah angka lalu simpan | Nominal angka berubah sesuai inputan baru | Nilai terupdate | Valid |
-| 3 | Hapus poin fakta | Klik hapus pada salah satu baris data | Baris data fakta hilang dari database | Berhasil dihapus | Valid |
+| 2 | Edit nilai fakta | Klik tombol edit, ubah angka/judul lalu simpan | Nominal/judul berubah sesuai inputan baru | Nilai terupdate | Valid |
 
 **f. Visi & Misi (Admin)**
 
@@ -380,12 +380,29 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Masukkan data mitra | Isi nama instansi dan upload draf MoU PDF | Data kerjasama tersimpan di tabel admin | Berhasil masuk | Valid |
-| 2 | Update data mitra | Edit nama instansi atau lampirkan file PDF baru | Info mitra terupdate dengan dokumen terbaru | Berhasil diperbarui | Valid |
-| 3 | Hapus data mitra | Klik tombol hapus pada mitra kerjasama terkait | Data dan file MoU-nya hilang dari pangkalan | Berhasil dihapus | Valid |
+| 1 | Masukkan data mitra | Isi nama instansi dan upload logo mitra | Data kerjasama tersimpan di tabel admin | Berhasil masuk | Valid |
+| 2 | Update data mitra | Edit nama instansi atau ganti logo mitra | Info mitra terupdate di dashboard admin | Berhasil diperbarui | Valid |
+| 3 | Hapus data mitra | Klik tombol hapus pada mitra kerjasama terkait | Data dan file logo-nya hilang dari folder host | Berhasil dihapus | Valid |
+
+**v. Tentang Fakultas**
+
+*Tabel 4.43 Uji Update Tentang Fakultas*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Edit info fakultas | Ubah teks profil dan ganti gambar utama | Konten di halaman beranda publik berubah | Berhasil diperbarui | Valid |
+
+**w. Pengaturan Profil Admin**
+
+*Tabel 4.44 Uji Pengaturan Profil*
+
+| No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
+|:---|:-------------|:------|:-----------------------|:--------------|:-------|
+| 1 | Update data diri | Ganti username atau email pengelola | Profil admin terupdate di sistem | Berhasil disimpan | Valid |
+| 2 | Ganti kata sandi | Input password lama dan password baru | Password login berhasil diperbarui | Sukses diubah | Valid |
 
 ---
 
 ## 4.4.3 Kesimpulan Hasil Pengujian
 
-Berdasarkan seluruh pengujian fungsional yang telah dilakukan terhadap **42 menu utama** sistem, maka dapat disimpulkan bahwa website FIKOM ini telah bebas dari hambatan teknis yang berarti. Seluruh manajemen data mulai dari pendaftaran hingga pengelolaan dokumen digital berjalan dengan baik melalui fungsi CRUD yang terintegrasi secara utuh antara halaman administrator dan halaman publik.
+Berdasarkan seluruh pengujian fungsional yang telah dilakukan terhadap **44 menu utama** sistem (termasuk profil dan informasi fakultas), maka dapat disimpulkan bahwa website FIKOM ini telah bebas dari hambatan teknis yang berarti. Seluruh manajemen data mulai dari pendaftaran hingga pengelolaan dokumen digital berjalan dengan baik melalui fungsi CRUD yang terintegrasi secara utuh antara halaman administrator dan halaman publik.

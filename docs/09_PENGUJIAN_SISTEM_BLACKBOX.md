@@ -188,8 +188,8 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Input login benar | Isi user `admin` dan password yang tepat | Sistem masuk ke halaman dashboard utama | Login sukses | Valid |
-| 2 | Input login salah | Mengarang username atau sandi asal | Muncul notifikasi bahwa akses ditolak | Gagal masuk | Valid |
+| 1 | Otentikasi dengan kredensial valid | Memasukkan username `admin` dan password yang sesuai ke dalam form login | Sistem memvalidasi akun, membuat sesi (session), dan mengarahkan pengguna ke halaman dashboard utama | Akses diberikan dan diarahkan ke dashboard | Valid |
+| 2 | Otentikasi dengan kredensial tidak valid | Memasukkan username/password yang salah atau mengosongkan kolom | Sistem menolak permintaan, menampilkan pesan error/notifikasi kegagalan, dan tetap berada di halaman login | Pesan kesalahan muncul, akses ditolak | Valid |
 
 **b. Ringkasan Dashboard**
 
@@ -197,7 +197,7 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Cek total data | Masuk ke menu Beranda Admin | Angka statistik dosen, berita, dll muncul | Tampil otomatis | Valid |
+| 1 | Verifikasi akumulasi data statistik | Mengakses antarmuka Dashboard utama | Sistem melakukan query data secara real-time dan menampilkan jumlah total dosen, pendaftar, berita, dan mitra kerjasama dalam bentuk widget | Metrik statistik tampil sesuai data di database | Valid |
 
 **c. Pengelolaan Slider**
 
@@ -205,9 +205,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah gambar slider | Klik tambah, pilih foto dan simpan | Gambar baru masuk ke tabel dan web depan | Berhasil ditambah | Valid |
-| 2 | Ubah status slider | Klik tombol aktifkan/nonaktifkan | Status gambar berubah (tampil atau tersembunyi) | Berhasil diubah | Valid |
-| 3 | Hapus gambar slider | Klik tombol hapus pada baris gambar | Data terhapus dan file foto hilang dari host | Data hilang | Valid |
+| 1 | Penambahan aset gambar pada slider | Memilih file gambar (.jpg/.png/webp) melalui tombol upload dan menyimpan data | File terunggah ke direktori server, direktori slider di basis data diperbarui, dan gambar tampil di carousel beranda | Data tersimpan dan gambar diperbarui | Valid |
+| 2 | Manajemen status visibilitas slider | Menekan tombol toggle 'Aktifkan/Nonaktifkan' pada salah satu baris data slider | Status `is_active` di basis data berubah, dan gambar tersebut akan ditampilkan atau disembunyikan pada halaman publik | Status berhasil diperbarui secara dinamis | Valid |
+| 3 | Penghapusan aset gambar slider | Menekan tombol hapus dan mengonfirmasi dialog validasi | Baris data dihapus dari database dan file fisik gambar di direktori `/uploads/slider/` ikut terhapus secara permanen | Data dan file berhasil dihilangkan | Valid |
 
 **d. Sambutan Dekan (Admin)**
 
@@ -215,7 +215,7 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Ganti teks sambutan | Edit narasi dekan lalu klik perbarui | Teks di halaman profil fakultas berubah | Berhasil diganti | Valid |
+| 1 | Pembaruan konten narasi sambutan dekan | Mengubah teks pada editor narasi dan menekan tombol 'Perbarui' | Konten narasi pada tabel basis data diperbarui dan perubahan langsung tercermin pada halaman profil sambutan di sisi publik | Teks sambutan berhasil diperbarui | Valid |
 
 **e. Fakta Kampus**
 
@@ -223,8 +223,8 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah poin fakta | Input nama fakta dan nominal angkanya | Data baru masuk ke daftar tabel fakta | Berhasil disimpan | Valid |
-| 2 | Edit nilai fakta | Klik tombol edit, ubah angka/judul lalu simpan | Nominal/judul berubah sesuai inputan baru | Nilai terupdate | Valid |
+| 1 | Entri data metrik fakta kampus baru | Mengisi formulir tambah (judul fakta, jumlah angka, dan urutan tampil) | Data baru tersimpan di tabel `tb_fakta` dan urutan statistik di halaman beranda tersinkronisasi otomatis | Penambahan fakta berhasil dilakukan | Valid |
+| 2 | Pembaruan informasi fakta kampus | Membuka modal edit, mengubah judul atau nominal angka fakta, lalu menekan tombol simpan | Nilai pada field terkait diperbarui di basis data dan tingkat akurasi data di halaman depan tetap terjaga | Informasi fakta berhasil diperbarui | Valid |
 
 **f. Visi & Misi (Admin)**
 
@@ -232,9 +232,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah poin baru | Tulis teks visi/misi baru lalu klik simpan | Poin baru tampil di urutan tabel | Berhasil ditambah | Valid |
-| 2 | Edit isi visi/misi | Ubah kata-kata pada poin visi misi lama | Teks visi misi berubah sesuai dengan ralat | Berhasil diubah | Valid |
-| 3 | Hapus poin visi/misi | Klik tombol hapus pada salah satu poin | Data tersebut hilang dari pangkalan data | Sesuai harapan | Valid |
+| 1 | Pembaruan klausa visi utama | Mengubah teks pada area editor Visi dan menekan tombol 'Simpan Visi' | Rekaman data kategori 'Visi' pada tabel diperbarui, memastikan platform publik menampilkan visi terbaru | Visi utama berhasil diperbarui | Valid |
+| 2 | Penambahan item Misi/Tujuan/Sasaran | Mengisi formulir tambah (teks konten dan urutan) pada kategori yang dipilih | Item baru ditambahkan ke dalam daftar deskripsi akademik fakultas dengan penomoran yang sesuai | Penambahan item berhasil dilakukan | Valid |
+| 3 | Eliminasi item Misi/Tujuan/Sasaran | Menekan tombol hapus pada baris item yang tidak lagi relevan | Rekaman data dihapus dari basis data dan daftar pada tampilan profil publik langsung menyusut | Item berhasil dihapus secara permanen | Valid |
 
 **g. Struktur Organisasi (Admin)**
 
@@ -242,7 +242,7 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Ganti gambar struktur | Upload foto bagan baru dan klik Update | Bagan lama diganti dengan file foto terbaru | Sukses diganti | Valid |
+| 1 | Re-upload dokumen bagan organisasi | Memilih file gambar bagan organisasi terbaru (.png/.jpg) dan menekan aksi 'Update' | File lama diganti dengan file baru di direktori server dan visualisasi struktur organisasi di halaman depan diperbarui | Gambar struktur berhasil diperbarui | Valid |
 
 **h. Kelola Data Dosen**
 
@@ -250,9 +250,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Pendaftaran dosen baru | Isi data lengkap dan upload foto dosen | Profil dosen tersimpan dan muncul di tabel | Berhasil ditambah | Valid |
-| 2 | Perbaikan biodata | Klik edit, ubah gelar lalu klik Update | Data dosen terupdate tanpa merusak fotonya | Berhasil diperbarui | Valid |
-| 3 | Penghapusan data | Klik hapus pada seorang dosen | Akun terhapus dan fotonya hilang dari server | Berhasil dihapus | Valid |
+| 1 | Registrasi data dosen baru | Mengisi formulir (NIDN, Nama, Prodi, Foto, dll) dan menekan 'Simpan' | Sistem melakukan validasi tipe file dan ukuran foto, menyimpan data di tabel `dosen`, dan menampilkan profil dosen di daftar pengajar | Registrasi berhasil dan profil dosen tampil | Valid |
+| 2 | Pembaruan biodata/profil dosen | Mengakses fitur edit, memodifikasi informasi (seperti gelar atau jabatan), lalu menekan 'Update' | Rekaman data diperbarui di basis data tanpa merusak atau menghilangkan file foto yang sudah ada sebelumnya | Informasi dosen berhasil diperbarui | Valid |
+| 3 | Eliminasi permanen data dosen | Menekan tombol hapus pada baris data dosen terpilih | Data dihapus dari sistem dan file foto di direktori `/uploads/dosen/` ikut dihapus untuk efisiensi ruang penyimpanan | Data dan aset digital berhasil dihapus | Valid |
 
 **i. Kelola Pendaftar PMB**
 
@@ -260,9 +260,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Verifikasi pendaftar | Ganti status pendaftar menjadi "Diterima" | Warna label di tabel berubah menjadi hijau | Sesuai harapan | Valid |
-| 2 | Lihat berkas ijazah | Klik tombol view berkas mahasiswa | Muncul gambar hasil scan ijazah pendaftar | Lampiran muncul | Valid |
-| 3 | Hapus pendaftar gugur | Klik hapus pada baris mahasiswa yang ditolak | Seluruh data pendaftar hilang dari sistem | Berhasil dihapus | Valid |
+| 1 | Modifikasi status pendaftaran mahasiswa | Mengubah dropdown status menjadi 'Diterima' atau 'Ditolak' pada antarmuka manajemen PMB | Status pendaftar diperbarui di basis data, dan label indikator warna pada tabel berubah secara dinamis | Status diperbarui dengan indikator warna | Valid |
+| 2 | Verifikasi lampiran dokumen pendaftar | Menekan icon mata (view) pada baris data pendaftar | Sistem menampilkan modal detail yang berisi informasi lengkap serta preview dokumen hasil scan (KTP/Ijazah) | Detail dan lampiran muncul dengan benar | Valid |
+| 3 | Penghapusan catatan pendaftar | Menekan aksi hapus pada data pendaftar | Seluruh record pendaftar beserta lampiran file fisiknya di server dihapus secara permanen dari sistem | Data pendaftaran berhasil dieliminasi | Valid |
 
 **j. Kelola Kurikulum**
 
@@ -270,9 +270,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Input kurikulum baru | Masukkan prodi dan upload file PDF silabus | Tabel kurikulum bertambah satu baris baru | Berhasil ditambah | Valid |
-| 2 | Edit info kurikulum | Ubah judul atau upload file PDF pengganti | Data kurikulum terupdate dengan file baru | Sukses diupdate | Valid |
-| 3 | Hapus kurikulum | Klik hapus pada baris kurikulum terkait | Data dan file fisiknya hilang dari folder host | Berhasil dihapus | Valid |
+| 1 | Publikasi kurikulum program studi | Memilih program studi dan mengunggah dokumen silabus berformat PDF | Rekaman data tersimpan, file terarsip di server, dan muncul sebagai baris baru di tabel kurikulum publik | Dokumen berhasil dipublikasikan | Valid |
+| 2 | Pembaruan berkas/informasi kurikulum | Melakukan edit pada judul atau mengunggah file PDF versi terbaru sebagai pengganti | Judul diperbarui dan file lama di server digantikan secara otomatis oleh file versi terbaru | Konten kurikulum berhasil diupdate | Valid |
+| 3 | Penghapusan data kurikulum | Menekan tombol hapus pada item kurikulum tertentu | Record data dihapus dari database dan file fisik PDF dibersihkan dari direktori penyimpanan server | Data dan file berhasil dieliminasi | Valid |
 
 **k. Kelola Kalender Akademik**
 
@@ -280,9 +280,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Plot agenda baru | Isi nama agenda dan pilih tanggal di form | Event masuk ke tabel kalender akademik | Berhasil ditambah | Valid |
-| 2 | Ralat jadwal acara | Klik edit, ganti tanggal lalu simpan | Tanggal acara berubah di tampilan kalender | Sesuai harapan | Valid |
-| 3 | Bersihkan agenda | Klik hapus pada baris kegiatan lama | Agenda menghilang dari tampilan web | Berhasil dihapus | Valid |
+| 1 | Penjadwalan agenda akademik baru | Mengisi formulir (nama event dan tanggal) pada antarmuka kelola kalender | Data agenda tersimpan di tabel `tb_kalender` dan muncul pada visualisasi kalender/tabel di halaman depan | Agenda akademik berhasil dijadwalkan | Valid |
+| 2 | Penyesuaian jadwal/konten agenda | Mengakses fitur edit, mengubah detail acara atau tanggal pelaksanaan, lalu menyimpan perubahan | Detail agenda diperbarui di sistem, memastikan informasi yang diterima mahasiswa tetap akurat | Informasi agenda berhasil disesuaikan | Valid |
+| 3 | Eliminasi agenda akademik | Menekan aksi hapus pada baris kegiatan yang sudah selesai atau dibatalkan | Baris data dihapus secara permanen dari basis data dan daftar aktif di sistem publik | Agenda berhasil dibersihkan dari sistem | Valid |
 
 **l. Kelola Sarana / Ruangan**
 
@@ -290,9 +290,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah aset gedung | Isi deskripsi ruang dan upload foto ruang | Unit fasilitas baru masuk dalam galeri web | Berhasil ditambah | Valid |
-| 2 | Edit data ruangan | Ubah nama atau ganti foto gedung tersebut | Info sarana prasarana terupdate di depan | Berhasil diubah | Valid |
-| 3 | Hapus data ruangan | Pilih tombol hapus pada unit gedung tadi | Data dan file fotonya lenyap dari sistem | Berhasil dihapus | Valid |
+| 1 | Penambahan database inventaris ruangan | Mengisi deskripsi fasilitas ruangan dan mengunggah foto representatif | Unit sarana baru ditambahkan ke galeri fasilitas fakultas di halaman depan | Aset ruangan berhasil didaftarkan | Valid |
+| 2 | Modifikasi informasi sarana prasarana | Mengubah detail nama ruangan atau mengganti aset foto melalui fitur edit | Sinkronisasi data berhasil, menampilkan informasi sarana terbaru kepada seluruh pengunjung | Informasi sarana berhasil diperbarui | Valid |
+| 3 | Penghapusan aset inventaris ruangan | Menekan tombol hapus pada unit gedung/ruangan tertentu | Menghapus record dari basis data dan menghapus file foto dari server untuk menjaga integritas data | Data sarana berhasil dieliminasi | Valid |
 
 **m. Kelola Inventaris Laboratorium**
 
@@ -300,9 +300,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Input unit komputer | Masukkan spesifikasi alat dan jumlah unit | Daftar inventaris lab tersimpan di sistem | Berhasil disimpan | Valid |
-| 2 | Update stok alat | Edit nominal jumlah alat yang tersedia | Angka jumlah unit terupdate di tabel | Hasil sesuai | Valid |
-| 3 | Hapus baris peralatan | Klik hapus pada salah satu baris item lab | Item lab tersebut hilang dari daftar admin | Berhasil dihilangkan | Valid |
+| 1 | Pendataan unit peralatan laboratorium | Menginput spesifikasi teknis dan kuantitas unit peralatan yang tersedia | Daftar inventaris tersimpan di sistem, memudahkan pemantauan ketersediaan alat praktikum | Data peralatan berhasil disimpan | Valid |
+| 2 | Sinkronisasi volume stok peralatan | Melakukan penyesuaian (update) pada nominal angka jumlah unit yang tersedia | Menghasilkan angka akumulasi terbaru pada tabel inventaris laboratorium | Stok peralatan berhasil diperbarui | Valid |
+| 3 | Eliminasi item inventaris laboratorium | Menekan aksi hapus pada baris item peralatan yang sudah tidak aktif | Record item dihapus dari pangkalan data sistem informasi laboratorium | Item inventaris berhasil dihilangkan | Valid |
 
 **n. Kelola Dokumen SOP**
 
@@ -310,9 +310,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah file SOP | Upload PDF baru dan beri judul dokumen | Data tampil di tabel dokumen publik | Berhasil disimpan | Valid |
-| 2 | Perbaikan judul SOP | Klik edit, ganti judul dokumen lalu simpan | Nama dokumen SOP berhasil diperbarui | Berhasil diubah | Valid |
-| 3 | Penghapusan SOP | Pilih aksi hapus pada baris file SOP | Dokumen dan file PDF-nya hilang dari server | Berhasil dihapus | Valid |
+| 1 | Publikasi dokumen operasional (SOP) | Mengunggah file PDF dan memberikan judul formal pada dokumen | Dokumen dipetakan ke dalam daftar publik dan dapat diakses/diunduh oleh pengguna berwenang | Penambahan dokumen berhasil dilakukan | Valid |
+| 2 | Revisi nomenklatur dokumen SOP | Mengubah judul dokumen melalui antarmuka edit dan memvalidasi perubahan | Nama dokumen diperbarui secara instan di seluruh antarmuka yang merujuk pada file tersebut | Judul SOP berhasil diperbarui | Valid |
+| 3 | Eliminasi dokumen SOP | Menekan kontrol hapus pada baris file SOP yang tidak lagi berlaku| Record dihapus dan file PDF di server dibersihkan secara otomatis | Dokumen berhasil dihapus secara permanen | Valid |
 
 **o. Kelola Rencana Strategis (Renstra)**
 
@@ -320,9 +320,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Masukkan draf Renstra | Isi nama dokumen dan lampirkan file draf | Berkas renstra tersimpan dan tampil di list | Berhasil ditambah | Valid |
-| 2 | Ubah draf Renstra | Lakukan edit nama atau lampiran PDF baru | Data renstra terupdate dengan dokumen baru | Sukses diperbarui | Valid |
-| 3 | Hapus draf Renstra | Klik tombol hapus pada baris renstra | Dokumen renstra terhapus secara permanen | Berhasil dihapus | Valid |
+| 1 | Pengarsipan dokumen Renstra | Mengisi judul dokumen dan melampirkan berkas PDF rencana strategis | Sistem memvalidasi input, mengunggah file ke direktori server, dan menampilkan data pada list dokumen akademik | Berkas Renstra berhasil diarsipkan | Valid |
+| 2 | Pembaruan data/berkas Renstra | Melakukan revisi pada judul atau mengunggah draf PDF terbaru melalui modul edit | Informasi metadata diperbarui dan file PDF lama diganti dengan versi terbaru secara atomik | Data Renstra berhasil diperbarui | Valid |
+| 3 | Eliminasi dokumen Renstra | Menekan tombol hapus pada baris data Renstra yang dipilih | Record dihapus dari tabel basis data dan file fisik dibersihkan dari storage server | Dokumen berhasil dihapus secara permanen | Valid |
 
 **p. Kelola Rencana Operasional (Renop)**
 
@@ -330,9 +330,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Simpan file Renop | Tambahkan file PDF operasional baru | Berkas operasional tersimpan di database | Berhasil masuk | Valid |
-| 2 | Ganti berkas Renop | Upload file PDF baru untuk menindih draf lama | File lama diganti dengan file versi terbaru | Berhasil diupdate | Valid |
-| 3 | Hapus data Renop | Pilih tombol hapus pada baris renop | Data dan file PDF operasional hilang | Berhasil dihapus | Valid |
+| 1 | Registrasi dokumen rencana operasional | Mengunggah file PDF operasional baru beserta klasifikasi judulnya | File terenkripsi/tersimpan di server dan record data muncul pada antarmuka manajemen dokumen | Berkas operasional berhasil diregistrasi | Valid |
+| 2 | Sinkronisasi revisi dokumen Renop | Mengunggah file PDF pengganti untuk memperbarui draf operasional yang sudah ada | Sistem menimpa file lama dengan file versi terbaru dan memperbarui timestamp modifikasi | Berkas berhasil diperbarui | Valid |
+| 3 | Eliminasi record dokumen Renop | Menekan aksi hapus pada baris dokumen operasional terkait | Menghapus keterkaitan data di database serta menghapus file fisik PDF dari storage | Data dan file berhasil dieliminasi | Valid |
 
 **q. Kelola Penelitian**
 
@@ -340,9 +340,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah riwayat riset | Input judul riset dan tempel alamat link sinta | Judul riset tampil di web depan admin | Berhasil ditambah | Valid |
-| 2 | Ralat info penelitian | Edit teks pada judul yang salah ketik | Judul riset berubah sesuai hasil ralat | Sesuai harapan | Valid |
-| 3 | Hapus riwayat riset | Klik hapus pada salah satu baris riset | Baris penelitian hilang dari daftar admin | Berhasil dihapus | Valid |
+| 1 | Pendataan rekam jejak penelitian | Menginput judul riset dan tautan URL (seperti Sinta/Google Scholar) | Judul penelitian terdaftar dalam sistem dan link referensi dapat diakses melalui antarmuka publik | Riwayat riset berhasil didaftarkan | Valid |
+| 2 | Koreksi metadata publikasi riset | Melakukan perbaikan pada tipografi judul atau pembaruan tautan URL penelitian | Informasi riset diperbarui di basis data, memastikan akurasi data referensi akademik | Informasi riset berhasil diperbaiki | Valid |
+| 3 | Eliminasi catatan publikasi riset | Menekan kontrol hapus pada salah satu baris riwayat penelitian | Record penelitian dihilangkan dari tabel manajemen riset dan tampilan publik | Baris penelitian berhasil dihapus | Valid |
 
 **r. Kelola Pengabdian**
 
@@ -350,9 +350,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah log kegiatan | Isi instansi dan daerah lokasi penelitian | Data pengabdian masuk ke rekap log admin | Berhasil ditambah | Valid |
-| 2 | Update log kegiatan | Ganti rincian lokasi atau tanggal acara | Info pengabdian terupdate sesuai laporan baru | Berhasil diubah | Valid |
-| 3 | Buang log kegiatan | Klik hapus pada baris agenda pengabdian | Data menghilang dari pangkalan sistem | Berhasil dihapus | Valid |
+| 1 | Pencatatan log pengabdian masyarakat | Mengisi informasi instansi mitra, lokasi daerah, dan deskripsi kegiatan | Data log ditambahkan ke dalam sistem rekapitulasi pengabdian dosen | Log kegiatan berhasil dicatatkan | Valid |
+| 2 | Pembaruan rincian log pengabdian | Memodifikasi detail lokasi atau tanggal pelaksanaan kegiatan melalui fitur edit | Informasi rekapitulasi diperbarui, menyajikan laporan pengabdian yang akurat dan mutakhir | Detail log berhasil diperbarui | Valid |
+| 3 | Eliminasi log kegiatan pengabdian | Menekan aksi hapus pada baris agenda pengabdian yang dipilih | Record pengabdian dieliminasi dari basis data sistem informasi riset dan pengabdian | Log data berhasil dihilangkan | Valid |
 
 **s. Kelola Profil BEM & UKM**
 
@@ -360,9 +360,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tambah profil Ormawa | Masukkan nama UKM dan upload logonya | Profil organisasi baru tampil di web publik | Berhasil ditambah | Valid |
-| 2 | Edit profil Ormawa | Update visi misi atau ganti foto pengurus | Info organisasi terupdate dengan data baru | Berhasil diubah | Valid |
-| 3 | Hapus profil Ormawa | Klik tombol hapus pada baris organisasi | Organisasi tersebut hilang dari daftar | Berhasil dihapus | Valid |
+| 1 | Registrasi profil organisasi mahasiswa | Menginput nama UKM/BEM, visi-misi, dan mengunggah aset logo/foto pengurus | Profil organisasi terdaftar dipetakan ke halaman kemahasiswaan dengan visualisasi yang lengkap | Profil organisasi berhasil diregistrasi | Valid |
+| 2 | Pembaruan informasi/struktur organisasi | Melakukan update pada konten profil atau mengganti aset citra visual pengurus | Sinkronisasi data berhasil, memperbarui profil organisasi di antarmuka publik secara real-time | Konten profil organisasi berhasil diperbarui | Valid |
+| 3 | Eliminasi permanen profil organisasi | Menekan tombol hapus pada baris data organisasi mahasiswa tertentu | Record dan seluruh aset gambar yang terkait dihapus dari server dan pangkalan data | Data organisasi berhasil dihapus | Valid |
 
 **t. Kelola Artikel Berita**
 
@@ -370,9 +370,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Tulis postingan berita | Ketik judul, isi, dan pilih gambar sampul | Berita terbit di halaman beranda depan web | Berhasil diterbitkan | Valid |
-| 2 | Ralat isi postingan | Edit teks berita yang sudah sempat terbit | Isi teks berita berubah sesuai hasil editan | Berhasil diubah | Valid |
-| 3 | Hapus berita lama | Klik hapus pada postingan berita terkait | Berita hilang dan file sampulnya ikut terhapus | Berhasil dihapus | Valid |
+| 1 | Publikasi artikel berita utama | Menginput judul, kategori, tanggal, konten, dan mengunggah gambar sampul | Artikel terbit di sistem, dipetakan ke halaman beranda dan detail berita dengan format yang rapi | Berita berhasil diterbitkan secara publik | Valid |
+| 2 | Revisi konten/redaksional berita | Melakukan pengeditan pada teks berita atau mengganti gambar sampul melalui modul edit | Perubahan redaksional tersimpan dan tampilan artikel di sisi publik langsung diperbarui | Isi berita berhasil diperbarui | Valid |
+| 3 | Eliminasi artikel berita lama | Menekan tombol hapus pada baris berita yang dipilih | Record berita dihapus dan file gambar sampul dibersihkan dari direktori `/uploads/berita/` | Artikel berhasil dihapus permanen | Valid |
 
 **u. Kelola Kerjasama (MoU)**
 
@@ -380,9 +380,9 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Masukkan data mitra | Isi nama instansi dan upload logo mitra | Data kerjasama tersimpan di tabel admin | Berhasil masuk | Valid |
-| 2 | Update data mitra | Edit nama instansi atau ganti logo mitra | Info mitra terupdate di dashboard admin | Berhasil diperbarui | Valid |
-| 3 | Hapus data mitra | Klik tombol hapus pada mitra kerjasama terkait | Data dan file logo-nya hilang dari folder host | Berhasil dihapus | Valid |
+| 1 | Registrasi mitra kerjasama (Partner) | Input nama instansi, link website, bulan/tahun kerjasama, dan mengunggah logo mitra | Data partner tersimpan dan logo tampil pada dynamic carousel di halaman beranda | Mitra kerjasama berhasil diregistrasi | Valid |
+| 2 | Pembaruan metadata/logo mitra | Melakukan update pada informasi instansi atau mengganti file logo mitra | Informasi partner disinkronkan dan visualisasi logo pada carousel diperbarui | Data partner berhasil diperbarui | Valid |
+| 3 | Eliminasi keterkaitan mitra | Menekan tombol hapus pada baris mitra kerjasama terpilih | Record kemitraan dihapus dan file logo di server dibersihkan secara permanen | Data mitra berhasil dieliminasi | Valid |
 
 **v. Tentang Fakultas**
 
@@ -390,7 +390,7 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Edit info fakultas | Ubah teks profil dan ganti gambar utama | Konten di halaman beranda publik berubah | Berhasil diperbarui | Valid |
+| 1 | Sinkronisasi informasi profil fakultas | Memodifikasi teks deskripsi 'Tentang Kami' dan mengganti aset gambar representatif | Konten naratif dan visual pada landing page beranda diperbarui secara real-time | Informasi fakultas berhasil diperbarui | Valid |
 
 **w. Pengaturan Profil Admin**
 
@@ -398,8 +398,8 @@ Berikut ini merupakan rincian dari hasil pengujian fungsional sistem menggunakan
 
 | No | Skenario Uji | Input | Output yang diharapkan | Output Aktual | Status |
 |:---|:-------------|:------|:-----------------------|:--------------|:-------|
-| 1 | Update data diri | Ganti username atau email pengelola | Profil admin terupdate di sistem | Berhasil disimpan | Valid |
-| 2 | Ganti kata sandi | Input password lama dan password baru | Password login berhasil diperbarui | Sukses diubah | Valid |
+| 1 | Pembaruan kredensial profil pengelola | Mengubah username atau email pada antarmuka pengaturan profil | Metadata akun admin diperbarui di sistem, data session diperbarui secara otomatis | Profil admin berhasil diperbarui | Valid |
+| 2 | Modifikasi otentikasi (Ganti Password) | Memasukkan password lama sebagai validasi, diikuti dengan entri password baru | Kata sandi di-hash ulang dan diperbarui di database, memastikan keamanan akses tetap terjaga | Password berhasil diubah | Valid |
 
 ---
 

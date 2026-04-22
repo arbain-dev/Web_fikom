@@ -16,6 +16,14 @@ Selain sebagai alat pemantauan, Dashboard juga berperan sebagai gerbang selamat 
 
 ---
 
+### Kelola Profil
+
+Kategori Kelola Profil merupakan pusat administrasi yang ditujukan untuk mengelola representasi identitas institusional Fakultas Ilmu Komputer UNISAN di dunia digital. Melalui sekumpulan fitur di bawah menu ini, administrator memiliki kendali penuh untuk memperbarui landasan filosofis, struktur kekuasaan, hingga narasi historis yang membentuk wajah fakultas bagi publik. Pengelolaan secara terpusat ini memastikan bahwa setiap informasi fundamental yang disajikan kepada pengunjung website tetap selaras dengan kebijakan aktual dan standar profesionalisme lembaga.
+
+Efisiensi dalam memperbarui profil fakultas sangat krusial dalam menjaga kepercayaan pemangku kepentingan dan mitra eksternal. Dengan antarmuka manajemen yang dinamis, administrator dapat merespons perubahan organisasi atau pembaruan visi institusi secara seketika tanpa gangguan teknis berarti. Hal ini menjadikan website tidak hanya sebagai media informasi statis, melainkan sebagai aset digital yang hidup dan senantiasa mencerminkan dinamika kemajuan akademik serta operasional di lingkungan fakultas.
+
+---
+
 ### Kelola Visi & Misi
 
 Menu Kelola Visi & Misi merupakan fitur krusial yang digunakan untuk mengelola landasan filosofis dan strategis institusi yang akan ditampilkan pada halaman publik. Administrator memiliki wewenang penuh untuk menambah, memperbarui, atau menghapus pernyataan visi, misi, tujuan, dan sasaran fakultas agar senantiasa selaras dengan Rencana Strategis (Renstra) universitas yang berlaku. Setiap perubahan yang dilakukan melalui panel ini akan secara otomatis memperbarui konten pada halaman profil depan, sehingga transparansi mengenai arah kebijakan fakultas tetap terjaga.

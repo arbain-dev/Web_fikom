@@ -173,7 +173,7 @@ include 'includes/admin_header.php';
             <img id="modalImage" src="" style="max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close-btn" onclick="window.modalHide('imageModal')">Tutup</button>
+            <button type="button" class="btn btn-secondary" onclick="window.modalHide('imageModal')">Tutup</button>
         </div>
     </div>
 </div>

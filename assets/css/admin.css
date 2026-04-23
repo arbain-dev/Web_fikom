@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import 'core.css';
 
 /* =========================================
@@ -1016,8 +1016,7 @@ body.auth-body::after {
     width: 100%;
 }
 
-.modal-close,
-.close-btn {
+.modal-header .close-btn {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -1038,8 +1037,7 @@ body.auth-body::after {
     z-index: 10;
 }
 
-.modal-close:hover,
-.close-btn:hover {
+.modal-header .close-btn:hover {
     background: var(--error-50);
     color: var(--error-600);
 }

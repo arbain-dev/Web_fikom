@@ -240,7 +240,7 @@ include 'includes/admin_header.php';
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="modalHide('tambahModal')">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>
@@ -285,8 +285,8 @@ include 'includes/admin_header.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-tutup" onclick="modalHide('editModal')">Batal</button>
-                <button type="submit" class="btn-simpan">Simpan Perubahan</button>
+                <button type="button" class="btn btn-secondary" onclick="modalHide('editModal')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </form>
     </div>

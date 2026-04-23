@@ -168,37 +168,37 @@ include 'includes/admin_header.php';
                 </thead>
                 <tbody>
                     <?php if (!empty($list)): $i=1; foreach($list as $row): ?>
-                    <tr>
+                    <tr data-id="<?= $row['id'] ?>" 
+                        data-judul="<?= htmlspecialchars($row['judul']) ?>" 
+                        data-pelaksana="<?= htmlspecialchars($row['pelaksana']) ?>" 
+                        data-deskripsi="<?= htmlspecialchars($row['deskripsi']) ?>" 
+                        data-tanggal="<?= $row['tanggal_kegiatan'] ?>" 
+                        data-file="<?= $row['file_pdf'] ?>">
                         <td><?= $i++ ?></td>
-                        <td><?= htmlspecialchars($row['judul']) ?></td>
-                        <td><?= htmlspecialchars($row['pelaksana']) ?></td>
-                        <td><?= $row['tanggal_kegiatan'] ? date('d-m-Y',strtotime($row['tanggal_kegiatan'])) : '-' ?></td>
+                        <td>
+                            <strong><?= htmlspecialchars($row['judul']) ?></strong><br>
+                            <small class="text-muted"><i class="fas fa-user-tie"></i> <?= htmlspecialchars($row['pelaksana']) ?></small>
+                        </td>
+                        <td><?= htmlspecialchars(substr($row['deskripsi'], 0, 80)) ?><?= strlen($row['deskripsi']) > 80 ? '...' : '' ?></td>
+                        <td><?= $row['tanggal_kegiatan'] ? date('d M Y', strtotime($row['tanggal_kegiatan'])) : '-' ?></td>
                         <td>
                             <?php if ($row['file_pdf']): ?>
                                 <a href="../uploads/pengabdian_file/<?= $row['file_pdf'] ?>" target="_blank" class="text-primary hover:underline">
-                                    <i class="fas fa-file-pdf"></i> Lihat
+                                    <i class="fas fa-file-pdf"></i> Lihat PDF
                                 </a>
                             <?php else: ?>
-                                -
+                                <span class="text-muted">-</span>
                             <?php endif; ?>
                         </td>
                         <td class="action-links">
-                            <a href="#" class="btn-icon edit btn-edit-pengabdian" title="Edit"><i class="fas fa-edit"></i></a>
-                            <form method="POST" style="display:inline;">
+                            <button type="button" class="btn-icon edit btn-edit-pengabdian" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                 <input type="hidden" name="action" value="hapus_pengabdian">
                                 <input type="hidden" name="pengabdian_id" value="<?= $row['id'] ?>">
-                                <button type="submit" class="btn-icon delete" onclick="return confirm('Hapus data ini?')" title="Hapus"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn-icon delete" title="Hapus"><i class="fas fa-trash"></i></button>
                             </form>
-                            
-                            <!-- Hidden Data for Edit -->
-                            <div class="hidden-data" style="display:none;" 
-                                data-id="<?= $row['id'] ?>"
-                                data-judul="<?= htmlspecialchars($row['judul']) ?>"
-                                data-pelaksana="<?= htmlspecialchars($row['pelaksana']) ?>"
-                                data-deskripsi="<?= htmlspecialchars($row['deskripsi']) ?>"
-                                data-file="<?= htmlspecialchars($row['file_pdf']) ?>"
-                                data-tanggal="<?= htmlspecialchars($row['tanggal_kegiatan']) ?>">
-                            </div>
                         </td>
                     </tr>
                     <?php endforeach; else: ?>
@@ -282,7 +282,7 @@ include 'includes/admin_header.php';
             </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close-btn" onclick="modalHide('modalEdit')">Batal</button>
+                <button type="button" class="btn btn-secondary" onclick="modalHide('modalEdit')">Batal</button>
                 <button type="submit" class="btn btn-primary">Update Data</button>
             </div>
         </form>

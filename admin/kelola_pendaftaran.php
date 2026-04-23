@@ -151,7 +151,7 @@ if ($result && $result->num_rows > 0) {
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="detailNama">DETAIL PENDAFTAR</h2>
-            <span class="close-btn" onclick="tutupDetail()">&times;</span>
+            <span class="close-btn" onclick="modalHide('modalDetail')">&times;</span>
         </div>
         
         <div class="modal-body">
@@ -161,7 +161,7 @@ if ($result && $result->num_rows > 0) {
         </div>
         
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="tutupDetail()">Tutup</button>
+            <button type="button" class="btn btn-secondary" onclick="modalHide('modalDetail')">Tutup</button>
         </div>
     </div>
 </div>

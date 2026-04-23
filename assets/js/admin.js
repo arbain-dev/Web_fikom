@@ -139,6 +139,10 @@ window.modalHide = function (id) {
     }
 };
 
+window.tutupDetail = function() {
+    window.modalHide('modalDetail');
+};
+
 document.addEventListener('DOMContentLoaded', function () {
     // ... existing event listeners ...
 
@@ -734,26 +738,24 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.btn-edit-pengabdian').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
+                
+                // Get data from button dataset or closest tr dataset
                 const tr = this.closest('tr');
-                if (!tr) return;
+                const dataset = this.dataset.id ? this.dataset : (tr ? tr.dataset : {});
 
-                const id = tr.dataset.id;
-                const judul = tr.dataset.judul;
-                const pelaksana = tr.dataset.pelaksana;
-                const deskripsi = tr.dataset.deskripsi;
-                const file = tr.dataset.file;
-                const tanggal = tr.dataset.tanggal;
-
-                document.getElementById('edit_id').value = id;
-                document.getElementById('edit_judul').value = judul;
-                document.getElementById('edit_pelaksana').value = pelaksana;
-                document.getElementById('edit_deskripsi').value = deskripsi;
-                document.getElementById('edit_tanggal').value = tanggal;
-                document.getElementById('old_file_pdf').value = file;
+                document.getElementById('edit_id').value = dataset.id || '';
+                document.getElementById('edit_judul').value = dataset.judul || '';
+                document.getElementById('edit_pelaksana').value = dataset.pelaksana || '';
+                document.getElementById('edit_deskripsi').value = dataset.deskripsi || '';
+                document.getElementById('edit_tanggal').value = dataset.tanggal || '';
+                document.getElementById('old_file_pdf').value = dataset.file || '';
 
                 const info = document.getElementById('info_file');
-                if (file) info.innerHTML = `File saat ini: <a href="../uploads/pengabdian_file/${file}" target="_blank">${file}</a>`;
-                else info.innerHTML = 'Belum ada file.';
+                if (dataset.file) {
+                    info.innerHTML = `File saat ini: <a href="../uploads/pengabdian_file/${dataset.file}" target="_blank">${dataset.file}</a>`;
+                } else {
+                    info.innerHTML = 'Belum ada file.';
+                }
 
                 window.modalShow('modalEdit');
             });

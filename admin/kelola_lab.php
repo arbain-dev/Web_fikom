@@ -182,7 +182,7 @@ include 'includes/admin_header.php';
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary close">Tutup</button>
+                <button type="button" class="btn btn-secondary" onclick="modalHide('labModal')">Tutup</button>
                 <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
         </form>

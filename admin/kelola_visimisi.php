@@ -29,6 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->close();
     }
     
+    // TAMBAH MISI
+    if (isset($_POST['tambah_misi'])) {
+        $konten = $_POST['misi_konten'];
+        $urutan = $_POST['urutan'];
+        $stmt = $conn->prepare("INSERT INTO visi_misi (kategori, konten, urutan) VALUES ('Misi', ?, ?)");
+        $stmt->bind_param("si", $konten, $urutan);
+        if ($stmt->execute()) { $message = "Misi berhasil ditambahkan!"; $message_type = "success"; }
+        $stmt->close();
+    }
+    
     // TAMBAH TUJUAN
     if (isset($_POST['tambah_tujuan'])) {
         $konten = $_POST['tujuan_konten'];

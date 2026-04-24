@@ -110,14 +110,14 @@ $recent_news = $stmt_recent->get_result();
     .article-image {
         position: relative;
         width: 100%;
-        height: 400px;
+        height: auto;
         overflow: hidden;
     }
 
     .article-image img {
         width: 100%;
-        height: 100%;
-        object-fit: contain;
+        height: auto;
+        display: block;
         background-color: #f1f5f9;
     }
 

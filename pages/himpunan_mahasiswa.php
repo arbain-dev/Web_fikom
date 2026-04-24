@@ -1,5 +1,4 @@
 <?php
-$bodyClass = "bem-struktur-page";
 require_once 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
@@ -48,7 +47,6 @@ include 'includes/header.php';
     </div>
 </section>
 
-</main>
 
 <?php
 include 'includes/footer.php';

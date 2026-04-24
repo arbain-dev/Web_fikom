@@ -52,7 +52,12 @@ $recent_news = $stmt_recent->get_result();
         padding: 40px 20px;
         display: grid;
         grid-template-columns: 1fr 350px;
-        gap: 40px;
+        gap: 0 40px; /* Vertical gap 0, horizontal 40px */
+    }
+
+    .back-link-container {
+        grid-column: 1 / -1;
+        margin-bottom: 20px;
     }
 
     /* Konten Utama */
@@ -67,7 +72,6 @@ $recent_news = $stmt_recent->get_result();
         color: var(--primary-color);
         font-weight: 600;
         text-decoration: none;
-        margin-bottom: 20px;
         transition: transform 0.2s;
     }
 
@@ -270,11 +274,14 @@ $recent_news = $stmt_recent->get_result();
 
 <body class="detail-berita-page">
 <div class="container">
-    <div class="main-content">
+    <div class="back-link-container">
         <a href="berita_semua" class="back-link">
             <i class="fas fa-arrow-left"></i>
             Kembali ke Berita
         </a>
+    </div>
+
+    <div class="main-content">
         <article class="article-glass-card">
             <?php if (!empty($berita['foto'])): ?>
             <div class="article-image">

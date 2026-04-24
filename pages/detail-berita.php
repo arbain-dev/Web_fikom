@@ -176,9 +176,9 @@ $recent_news = $stmt_recent->get_result();
 
     /* Bagian Share */
     .share-section {
-        background: #f1f5f9;
-        padding: 24px;
-        border-radius: 12px;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #e2e8f0;
     }
 
     .share-section h4 {

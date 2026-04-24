@@ -2514,8 +2514,9 @@ img {
 /* ===== DOSEN PAGE STYLES (Semantic) ===== */
 .dosen-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: var(--space-6);
+    align-items: stretch;
 }
 
 .pimpinan-grid {
@@ -2523,6 +2524,7 @@ img {
     /* Centered flex for leaders */
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
     gap: var(--space-6);
 }
 

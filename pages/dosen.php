@@ -32,7 +32,7 @@ if ($result && $result->num_rows > 0) {
 </header>
 
 <!-- Bagian Pimpinan -->
-<section class="section-content bg-white">
+<section class="section-content bg-white" style="padding-bottom: 40px;">
     <div class="container">
         <h2 class="section-title text-center">Pimpinan Fakultas</h2>
         <div class="dosen-grid pimpinan-grid stagger-container">
@@ -44,7 +44,7 @@ if ($result && $result->num_rows > 0) {
 </section>
 
 <!-- Bagian Dosen -->
-<section class="section-content bg-gray-50">
+<section class="section-content bg-gray-50" style="padding-top: 40px;">
     <div class="container">
         <h2 class="section-title text-center">Dosen Tetap Program Studi</h2>
         <div class="dosen-grid stagger-container">

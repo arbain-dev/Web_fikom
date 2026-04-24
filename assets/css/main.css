@@ -3225,17 +3225,6 @@ img {
     max-width: 720px;
 }
 
-.registration-hero-title {
-    font-size: 2.1rem;
-    margin: 0 0 8px;
-    font-weight: 800;
-    letter-spacing: .2px;
-    text-shadow: none !important;
-    color: #1d4ed8 !important;
-    /* Hardcoded Primary-700 for safety */
-    opacity: 1 !important;
-    visibility: visible !important;
-}
 
 /* ... existing styles ... */
 
@@ -5079,38 +5068,6 @@ body.page-prodi {
 }
 
 /* ===== NEW REGISTRATION PAGE REDESIGN ===== */
-
-/* 1. Hero Section Centered */
-.hero-registration {
-    text-align: center;
-    padding: 80px 20px 40px;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.registration-hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #cbd5e1;
-    /* Default light text base */
-    margin-bottom: 24px;
-}
-
-.text-gradient {
-    background: linear-gradient(135deg, #a5b4fc 0%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-sub {
-    font-size: var(--text-lg);
-    color: #94a3b8;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-}
 
 /* 2. Badges / Chips */
 .hero-badges {

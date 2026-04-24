@@ -96,14 +96,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Custom Styles -->
 
 
-<div class="color-bg">
-    <div class="color"></div>
-    <div class="color"></div>
-    <div class="color"></div>
-</div>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Pendaftaran Mahasiswa Baru</h1>
+        <p class="page-subtitle">Silakan isi formulir pendaftaran di bawah ini. Admin kami akan segera memverifikasi data dan menghubungi Anda.</p>
+        
+        <div class="hero-badges flex justify-center gap-4 mt-8">
+            <div class="badge-pill" style="color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">
+                <i class="fa-solid fa-shield-halved text-warning-400"></i> 
+                <span>Data aman & terenkripsi</span>
+            </div>
+            <div class="badge-pill" style="color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">
+                <i class="fa-solid fa-bolt text-warning-400"></i>
+                <span>Proses cepat & mudah</span>
+            </div>
+        </div>
+    </div>
+</header>
 
 <div class="wrap">
-    
     <!-- HEADER ALERT -->
     <?php if ($message): ?>
         <div class="toast-msg <?= $msg_type ?>">
@@ -111,28 +123,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?= $message ?>
         </div>
     <?php endif; ?>
-
-    <div class="hero-registration centered">
-        <h1 class="registration-hero-title">
-            Pendaftaran<br>
-            <span class="text-gradient">Mahasiswa Baru —</span><br>
-            <span class="text-gradient">UNISAN Sidrap</span>
-        </h1>
-        <p class="hero-sub text-center max-w-2xl mx-auto mt-4 mb-8 text-gray-600">
-            Isi data pendaftaran dengan benar. Setelah klik <b>Kirim Pendaftaran</b>, admin akan memverifikasi data dan menghubungi kamu.
-        </p>
-        
-        <div class="hero-badges flex justify-center gap-4 mb-12">
-            <div class="badge-pill">
-                <i class="fa-solid fa-shield-halved text-warning-500"></i> 
-                <span>Data aman & terenkripsi</span>
-            </div>
-            <div class="badge-pill">
-                <i class="fa-solid fa-bolt text-warning-500"></i>
-                <span>Proses cepat & mudah</span>
-            </div>
-        </div>
-    </div>
 
     <div class="grid-registration">
         <!-- FORM -->

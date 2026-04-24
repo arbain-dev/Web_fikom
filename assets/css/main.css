@@ -2596,8 +2596,8 @@ img {
 
 .close-btn-custom {
     position: absolute;
-    top: -15px;
-    right: -15px;
+    top: 15px;
+    right: 15px;
     width: 44px;
     height: 44px;
     background-color: var(--error-500);

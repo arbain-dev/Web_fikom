@@ -4074,14 +4074,6 @@ body.page-prodi {
     }
 }
 
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 30px;
-    background: linear-gradient(to top, rgba(96, 165, 250, 0.4), rgba(96, 165, 250, 0));
-}
 
 /* Glassmorphism Card Design */
 .person-card {

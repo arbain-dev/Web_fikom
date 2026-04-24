@@ -5,24 +5,15 @@ require_once 'config/constants.php';
 include 'includes/header.php';
 ?>
 
-<main class="bem-page-wrapper">
-    <div class="color-bg">
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-    </div>
+<div class="page-header">
+    <h1>Himpunan Mahasiswa FIKOM</h1>
+    <p>Organisasi kemahasiswaan yang menaungi mahasiswa berdasarkan program studi</p>
+</div>
 
-<section class="hero">
-    <div class="container hero-content">
-        <h1 class="fade-in-up">Himpunan Mahasiswa FIKOM</h1>
-        <p class="fade-in-up delay-1">Organisasi kemahasiswaan yang menaungi mahasiswa berdasarkan program studi</p>
-    </div>
-</section>
-
-<section class="section">
+<section class="section-content bg-white">
     <div class="container">
-        <div class="section-title fade-in-up" style="color: #fff;">
-            <p style="color: rgba(255,255,255,0.8);">Himpunan mahasiswa di lingkungan Fakultas Ilmu Komputer</p>
+        <div class="section-title text-center">
+            <p>Himpunan mahasiswa di lingkungan Fakultas Ilmu Komputer</p>
         </div>
 
         <div class="himpunan-grid">

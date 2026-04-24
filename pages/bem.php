@@ -33,26 +33,12 @@ function getInitials($string = '') {
 }
 ?>
 <!-- Background Blur is handled by CSS on page-wrapper or body if global -->
-<main class="bem-page-wrapper">
-    <!-- Background Elements -->
-    <div class="color-bg">
-        <div class="color"></div>
-        <div class="color"></div>
-        <div class="color"></div>
-    </div>
+<div class="page-header">
+    <h1>Struktur Organisasi BEM FIKOM</h1>
+    <p>Kepengurusan Badan Eksekutif Mahasiswa Periode 2024/2025</p>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="container hero-content">
-        <h1 class="fade-in-up">Struktur Organisasi BEM FIKOM</h1>
-        <p class="fade-in-up delay-1">
-            Kepengurusan Badan Eksekutif Mahasiswa Periode 2024/2025
-        </p>
-    </div>
-</section>
-
-<!-- CONTENT -->
-<section class="section">
+<section class="section-content bg-white">
     <div class="container">
         <div class="struktur-container">
 
@@ -139,6 +125,5 @@ function getInitials($string = '') {
     </div>
 </section>
 
-</main>
 
 <?php include 'includes/footer.php'; ?>

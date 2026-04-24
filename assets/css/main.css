@@ -1861,19 +1861,22 @@ img {
 }
 
 /* ===== PAGE HEADER REFINEMENTS ===== */
-.page-header {
+.page-header,
+.page-header-section {
     padding: clamp(3rem, 8vw, 5rem) 0;
     text-align: center;
     background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 50%, var(--primary-800) 100%);
 }
 
-.page-header h1 {
+.page-header h1,
+.page-header-section h1 {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
     margin-bottom: var(--space-3);
     letter-spacing: -0.02em;
 }
 
-.page-header p {
+.page-header p,
+.page-header-section p {
     font-size: clamp(0.95rem, 2vw, 1.125rem);
     opacity: 0.9;
     max-width: 600px;
@@ -2131,7 +2134,7 @@ img {
 
 /* ===== BEM / STRUKTUR REFINEMENTS ===== */
 .struktur-container {
-    padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
+    padding: 0 clamp(1rem, 4vw, 2rem);
 }
 
 .section-label {

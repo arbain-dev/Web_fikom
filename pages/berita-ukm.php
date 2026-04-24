@@ -12,10 +12,13 @@ $result = mysqli_query($conn, $sql);
 
 
 
-<div class="page-header">
-    <h1>Berita UKM</h1>
-    <p>Informasi dan Kegiatan UKM Terkini FIKOM</p>
-</div>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Berita UKM</h1>
+        <p class="page-subtitle">Informasi dan Kegiatan UKM Terkini FIKOM</p>
+    </div>
+</header>
 
 <div class="container">
     <div class="main-content">

@@ -4,10 +4,13 @@ require_once 'config/constants.php';
 include 'includes/header.php';
 ?>
 
-<div class="page-header">
-    <h1>Himpunan Mahasiswa FIKOM</h1>
-    <p>Organisasi kemahasiswaan yang menaungi mahasiswa berdasarkan program studi</p>
-</div>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Himpunan Mahasiswa FIKOM</h1>
+        <p class="page-subtitle">Organisasi kemahasiswaan yang menaungi mahasiswa berdasarkan program studi</p>
+    </div>
+</header>
 
 <section class="section-content bg-white">
     <div class="container">

@@ -32,10 +32,13 @@ function getInitials($string = '') {
 }
 ?>
 <!-- Background Blur is handled by CSS on page-wrapper or body if global -->
-<div class="page-header">
-    <h1>Struktur Organisasi BEM FIKOM</h1>
-    <p>Kepengurusan Badan Eksekutif Mahasiswa Periode 2024/2025</p>
-</div>
+<!-- Page Header -->
+<header class="page-header-section">
+    <div class="container reveal-on-scroll">
+        <h1 class="page-title">Struktur Organisasi BEM FIKOM</h1>
+        <p class="page-subtitle">Kepengurusan Badan Eksekutif Mahasiswa Periode 2024/2025</p>
+    </div>
+</header>
 
 <section class="section-content bg-white">
     <div class="container">

@@ -1150,13 +1150,14 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: var(--space-6);
+    gap: var(--space-12);
 }
 
 .departemen-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: var(--space-5);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-10);
+    justify-items: center;
 }
 
 .person-card {

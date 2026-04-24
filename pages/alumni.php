@@ -4,16 +4,24 @@ require_once 'config/constants.php';
 include 'includes/header.php';
 
 // Prepare stats data
-$sql_stats = "
-  SELECT 
-    COUNT(*) as total_alumni,
-    COALESCE(AVG(NULLIF(masa_tunggu,0)),0) as avg_tunggu,
-    COALESCE(AVG(NULLIF(gaji_pertama,0)),0) as avg_gaji,
-    SUM(CASE WHEN status_pekerjaan = 'Bekerja' THEN 1 ELSE 0 END) as jumlah_bekerja
-  FROM tracer_study
-";
-$stats_row = $conn->query($sql_stats);
-$stats = $stats_row ? $stats_row->fetch_assoc() : ['total_alumni'=>0,'avg_tunggu'=>0,'avg_gaji'=>0,'jumlah_bekerja'=>0];
+$stats = ['total_alumni'=>0,'avg_tunggu'=>0,'avg_gaji'=>0,'jumlah_bekerja'=>0];
+
+// Check if table exists
+$table_check = $conn->query("SHOW TABLES LIKE 'tracer_study'");
+if ($table_check && $table_check->num_rows > 0) {
+    $sql_stats = "
+      SELECT 
+        COUNT(*) as total_alumni,
+        COALESCE(AVG(NULLIF(masa_tunggu,0)),0) as avg_tunggu,
+        COALESCE(AVG(NULLIF(gaji_pertama,0)),0) as avg_gaji,
+        SUM(CASE WHEN status_pekerjaan = 'Bekerja' THEN 1 ELSE 0 END) as jumlah_bekerja
+      FROM tracer_study
+    ";
+    $stats_result = $conn->query($sql_stats);
+    if ($stats_result) {
+        $stats = $stats_result->fetch_assoc();
+    }
+}
 ?>
 
 <!-- Header/Hero Section -->

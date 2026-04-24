@@ -2544,9 +2544,9 @@ img {
 }
 
 .dosen-popup-content {
-    max-width: 800px;
-    padding: var(--space-6);
-    width: 90%;
+    max-width: 900px;
+    padding: var(--space-8);
+    width: 95%;
 }
 
 .dosen-popup-layout {
@@ -2560,12 +2560,11 @@ img {
 .dosen-popup-image img {
     width: 100%;
     border-radius: var(--radius-lg) !important;
-    /* Enforce rounded rectangle, NOT circle */
     box-shadow: var(--shadow-md);
     height: auto;
     max-height: 500px;
-    /* Limit height to prevent huge images */
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #f8fafc;
 }
 
 .dosen-popup-info {
@@ -2591,26 +2590,28 @@ img {
 }
 
 .dosen-popup-action {
-    margin-top: var(--space-6);
+    margin-top: var(--space-8);
+    padding-bottom: var(--space-4);
 }
 
 .close-btn-custom {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
+    top: -15px;
+    right: -15px;
+    width: 44px;
+    height: 44px;
     background-color: var(--error-500);
     color: #fff;
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--text-xl);
+    font-size: var(--text-2xl);
     cursor: pointer;
-    transition: background-color var(--transition-fast);
-    z-index: 10;
-    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+    border: 3px solid #fff;
 }
 
 .close-btn-custom:hover {
@@ -2619,8 +2620,7 @@ img {
 
 .dosen-popup-info {
     position: relative;
-    /* Ensure relative positioning context */
-    padding-top: var(--space-2);
+    padding: var(--space-2) var(--space-4) 0 var(--space-6);
 }
 
 /* Add frame to image as seen in screenshot */

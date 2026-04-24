@@ -4902,8 +4902,9 @@ body.page-prodi {
 
 .profile-image {
     width: 100%;
-    height: auto;
-    /* Flexible height to show full image */
+    height: 340px; /* Fixed height is REQUIRED for names to be aligned */
+    object-fit: cover;
+    object-position: top center;
     display: block;
     background-color: #f8fafc;
     transition: transform 0.5s ease;
@@ -4930,6 +4931,10 @@ body.page-prodi {
     color: var(--gray-900);
     margin-bottom: var(--space-2);
     line-height: var(--leading-tight);
+    min-height: 2.8rem; /* Ensure 1-line and 2-line names align badges */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-role {

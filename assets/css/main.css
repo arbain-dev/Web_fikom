@@ -1695,13 +1695,21 @@ body {
     font-size: var(--text-sm);
 }
 
-.profile-meta {
+.profile-footer {
     margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-meta {
     font-size: var(--text-sm);
     color: var(--gray-500);
     border-top: 1px solid var(--gray-100);
     width: 100%;
     padding-top: var(--space-3);
+    margin-top: var(--space-4);
 }
 
 /* ===== ANIMATIONS ===== */

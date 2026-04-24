@@ -23,9 +23,11 @@
     <img src="<?= $foto_url ?>" alt="<?= $nama ?>" class="profile-image" onerror="this.src='assets/img/pp.png'">
     <div class="profile-body">
         <h4 class="profile-name"><?= $nama ?></h4>
-        <p class="profile-role"><?= htmlspecialchars($d['jabatan']) ?></p>
-        <div class="profile-meta">
-            <span><?= htmlspecialchars($d['nidn']) ?></span>
+        <div class="profile-footer">
+            <p class="profile-role"><?= htmlspecialchars($d['jabatan']) ?></p>
+            <div class="profile-meta">
+                <span><?= htmlspecialchars($d['nidn']) ?></span>
+            </div>
         </div>
     </div>
 </div>

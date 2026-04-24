@@ -714,7 +714,8 @@ body {
 .news-card-image {
     width: 100%;
     height: 220px;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #f8fafc;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2523,7 +2524,7 @@ img {
 .dosen-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-10); /* Increased gap */
     align-items: stretch;
 }
 
@@ -4903,9 +4904,9 @@ body.page-prodi {
     width: 100%;
     height: 320px;
     /* Fixed height for consistency */
-    object-fit: cover;
-    object-position: top center;
-    background-color: var(--gray-100);
+    object-fit: contain;
+    object-position: center;
+    background-color: #f8fafc;
     transition: transform 0.5s ease;
 }
 

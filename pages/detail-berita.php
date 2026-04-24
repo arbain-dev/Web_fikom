@@ -46,14 +46,14 @@ $recent_news = $stmt_recent->get_result();
         font-family: 'Poppins', sans-serif;
     }
 
-    .container {
+    .detail-news-grid {
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 20px;
         display: grid;
         grid-template-columns: 1fr 350px;
         gap: 0 40px;
-        align-items: start; /* Force alignment to top */
+        align-items: start;
     }
 
     .back-link-container {
@@ -79,7 +79,7 @@ $recent_news = $stmt_recent->get_result();
     }
     
     .sidebar-widget {
-        padding: 24px; /* Restore internal padding */
+        padding: 24px; 
     }
 
     .back-link {
@@ -117,7 +117,8 @@ $recent_news = $stmt_recent->get_result();
     .article-image img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        background-color: #f1f5f9;
     }
 
     .category-badge {
@@ -275,7 +276,7 @@ $recent_news = $stmt_recent->get_result();
     }
 
     @media (max-width: 900px) {
-        .container {
+        .detail-news-grid {
             grid-template-columns: 1fr;
         }
 
@@ -294,7 +295,7 @@ $recent_news = $stmt_recent->get_result();
 </style>
 
 <body class="detail-berita-page">
-<div class="container">
+<div class="detail-news-grid">
     <div class="back-link-container">
         <a href="berita_semua" class="back-link">
             <i class="fas fa-arrow-left"></i>

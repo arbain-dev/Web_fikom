@@ -32,13 +32,13 @@ $result = $conn->query($sql);
                         <div class="news-card-body">
                             <span class="news-card-category"><?= htmlspecialchars($row['kategori'] ?? 'Berita') ?></span>
                             <h3 class="news-card-title">
-                                <a href="detail-berita.php?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['judul']) ?></a>
+                                <a href="detail-berita?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['judul']) ?></a>
                             </h3>
                             <div class="news-card-meta">
                                 <span><i class="far fa-calendar"></i> <?= $tanggal ?></span>
                             </div>
                             <p class="news-card-excerpt"><?= substr(strip_tags($row['konten']), 0, 100) ?>...</p>
-                            <a href="detail-berita.php?id=<?= $row['id'] ?>" class="news-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                            <a href="detail-berita?id=<?= $row['id'] ?>" class="news-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
                 <?php endwhile; ?>

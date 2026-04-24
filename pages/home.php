@@ -39,8 +39,8 @@ $about = $q_about->fetch_assoc();
             <h1>Fakultas Ilmu Komputer</h1>
             <p>UNISAN Sidenreng Rappang - Mencetak Generasi Digital yang Kompetitif</p>
             <div class="hero-actions">
-                <a href="index_ti.php" class="btn btn-primary btn-lg">Program Studi</a>
-                <a href="berita_semua.php" class="btn btn-outline-white btn-lg">Berita Terbaru</a>
+                <a href="informatika" class="btn btn-primary btn-lg">Program Studi</a>
+                <a href="berita_semua" class="btn btn-outline-white btn-lg">Berita Terbaru</a>
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@ $about = $q_about->fetch_assoc();
                 <h2 class="section-title mb-2">Berita Terbaru</h2>
                 <p class="section-subtitle m-0">Update terkini dari Fakultas Ilmu Komputer</p>
             </div>
-            <a href="berita_semua.php" class="btn btn-outline">Lihat Semua</a>
+            <a href="berita_semua" class="btn btn-outline">Lihat Semua</a>
         </div>
         
         <div class="grid grid-auto-fit gap-6 stagger-container">
@@ -110,7 +110,7 @@ $about = $q_about->fetch_assoc();
                         <div class="news-card-body">
                             <span class="news-card-category"><?= htmlspecialchars($berita['kategori'] ?? 'Berita') ?></span>
                             <h3 class="news-card-title">
-                                <a href="detail-berita.php?id=<?= $berita['id'] ?>"><?= htmlspecialchars($berita['judul']) ?></a>
+                                <a href="detail-berita?id=<?= $berita['id'] ?>"><?= htmlspecialchars($berita['judul']) ?></a>
                             </h3>
                             <div class="news-card-date">
                                 <i class="far fa-calendar"></i>
@@ -140,7 +140,7 @@ $about = $q_about->fetch_assoc();
             <div class="about-content reveal-left">
                 <h2><?= $about ? htmlspecialchars($about['judul']) : "Tentang Fakultas" ?></h2>
                 <p><?= $about ? nl2br(htmlspecialchars($about['deskripsi'])) : "Belum ada deskripsi fakultas." ?></p>
-                <a href="visi-misi.php" class="btn btn-primary">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                <a href="visi-misi" class="btn btn-primary">Selengkapnya <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="about-image reveal-right">
                 <?php
@@ -174,7 +174,7 @@ $about = $q_about->fetch_assoc();
                 <div class="program-card-body">
                     <h3>S1 Informatika</h3>
                     <p>Program studi yang mempelajari ilmu komputer, pemrograman, dan pengembangan perangkat lunak modern.</p>
-                    <a href="informatika.php" class="program-card-link">
+                    <a href="informatika" class="program-card-link">
                         Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -188,7 +188,7 @@ $about = $q_about->fetch_assoc();
                 <div class="program-card-body">
                     <h3>S1 Pendidikan Teknologi Informasi</h3>
                     <p>Program studi yang mempersiapkan tenaga pendidik profesional di bidang teknologi informasi.</p>
-                    <a href="pendidikan_teknologi_informasi.php" class="program-card-link">
+                    <a href="pendidikan_teknologi_informasi" class="program-card-link">
                         Pelajari lebih lanjut <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -209,7 +209,7 @@ $about = $q_about->fetch_assoc();
         </div>
         
         <div class="feature-grid stagger-container">
-            <a href="kalender.php" class="feature-card stagger-item">
+            <a href="kalender" class="feature-card stagger-item">
                 <div class="feature-icon">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
@@ -217,7 +217,7 @@ $about = $q_about->fetch_assoc();
                 <p>Jadwal kegiatan akademik semester ini</p>
             </a>
             
-            <a href="kurikulum.php" class="feature-card stagger-item">
+            <a href="kurikulum" class="feature-card stagger-item">
                 <div class="feature-icon icon-success">
                     <i class="fas fa-book-open"></i>
                 </div>
@@ -225,7 +225,7 @@ $about = $q_about->fetch_assoc();
                 <p>Struktur mata kuliah program studi</p>
             </a>
             
-            <a href="dosen.php" class="feature-card stagger-item">
+            <a href="dosen" class="feature-card stagger-item">
                 <div class="feature-icon icon-warning">
                     <i class="fas fa-users"></i>
                 </div>
@@ -233,7 +233,7 @@ $about = $q_about->fetch_assoc();
                 <p>Profil dosen pengajar fakultas</p>
             </a>
             
-            <a href="laboratorium.php" class="feature-card stagger-item">
+            <a href="laboratorium" class="feature-card stagger-item">
                 <div class="feature-icon icon-error">
                     <i class="fas fa-flask"></i>
                 </div>

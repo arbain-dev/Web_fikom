@@ -10,7 +10,7 @@ $sql = "SELECT id, judul, kategori, meta, konten, foto, tanggal_publish
 $result = mysqli_query($conn, $sql);
 ?>
 
-<body class="berita-ukm-page">
+
 
 <div class="page-header">
     <h1>Berita UKM</h1>
@@ -47,12 +47,12 @@ $result = mysqli_query($conn, $sql);
                             </div>
 
                             <h2 class="news-title">
-                                <a href="detail-berita.php?id=<?php echo $row['id']; ?>">
+                                <a href="detail-berita?id=<?php echo $row['id']; ?>">
                                     <?php echo htmlspecialchars($row['judul']); ?>
                                 </a>
                             </h2>
 
-                            <a href="detail-berita.php?id=<?php echo $row['id']; ?>" class="read-more">
+                            <a href="detail-berita?id=<?php echo $row['id']; ?>" class="read-more">
                                 Baca Selengkapnya <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -69,5 +69,3 @@ $result = mysqli_query($conn, $sql);
 </div>
 
 <?php include 'includes/footer.php'; ?>
-</body>
-</html>

@@ -22,7 +22,7 @@ $result_dosen = $conn->query($query_dosen);
         <!-- About Section -->
         <div class="prodi-about-grid stagger-container">
             <div class="prodi-about-text stagger-item">
-                <h2>Tentang Pendidikan Teknologi Informasi</h2>
+                <h2>Tentang Informatika</h2>
                 <p>
                     Program Studi Pendidikan Teknologi Informasi (PTI) merupakan wadah akademis yang secara unik menyinergikan keahlian teknis di bidang
                     informatika dengan kompetensi pedagogik kependidikan. Di sini, mahasiswa tidak hanya dibentuk menjadi ahli dalam pemrograman,

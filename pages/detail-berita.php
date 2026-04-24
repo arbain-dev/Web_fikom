@@ -14,7 +14,7 @@ $result = $stmt->get_result();
 $berita = $result->fetch_assoc();
 
 if (!$berita) {
-    header("Location: berita_semua.php");
+    header("Location: berita_semua");
     exit();
 }
 $sql_recent = "SELECT id, judul, tanggal_publish 
@@ -114,7 +114,7 @@ $recent_news = $stmt_recent->get_result();
     }
 
     .article-title {
-        font-size: 2.5rem;
+        font-size: var(--text-4xl);
         font-weight: 700;
         line-height: 1.3;
         margin-bottom: 20px;
@@ -126,7 +126,7 @@ $recent_news = $stmt_recent->get_result();
         align-items: center;
         gap: 20px;
         color: var(--secondary-color);
-        font-size: 0.95rem;
+        font-size: var(--text-sm);
         margin-bottom: 30px;
         padding-bottom: 30px;
         border-bottom: 1px solid #e2e8f0;
@@ -177,7 +177,7 @@ $recent_news = $stmt_recent->get_result();
         color: #fff;
         text-decoration: none;
         font-weight: 500;
-        font-size: 0.9rem;
+        font-size: var(--text-sm);
         transition: transform 0.2s, opacity 0.2s;
     }
 
@@ -201,7 +201,7 @@ $recent_news = $stmt_recent->get_result();
     }
 
     .sidebar-widget h3 {
-        font-size: 1.25rem;
+        font-size: var(--text-xl);
         font-weight: 700;
         margin-bottom: 20px;
         padding-bottom: 15px;
@@ -259,7 +259,7 @@ $recent_news = $stmt_recent->get_result();
         }
 
         .article-title {
-            font-size: 2rem;
+            font-size: var(--text-4xl);
         }
         
         .sidebar-widget {
@@ -271,7 +271,7 @@ $recent_news = $stmt_recent->get_result();
 <body class="detail-berita-page">
 <div class="container">
     <div class="main-content">
-        <a href="berita_semua.php" class="back-link">
+        <a href="berita_semua" class="back-link">
             <i class="fas fa-arrow-left"></i>
             Kembali ke Berita
         </a>
@@ -340,7 +340,7 @@ $recent_news = $stmt_recent->get_result();
                 <?php if ($recent_news && $recent_news->num_rows > 0): ?>
                     <?php while($recent = $recent_news->fetch_assoc()): ?>
                         <li class="recent-news-item">
-                            <a href="detail-berita.php?id=<?php echo $recent['id']; ?>">
+                            <a href="detail-berita?id=<?php echo $recent['id']; ?>">
                                 <?php echo htmlspecialchars($recent['judul']); ?>
                             </a>
                             <div class="recent-news-date">
@@ -363,5 +363,4 @@ $recent_news = $stmt_recent->get_result();
     </aside>
 </div>
 
-</body>
-</html>
+<?php include 'includes/footer.php'; ?>

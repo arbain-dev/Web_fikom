@@ -83,7 +83,7 @@ if ($result && $result->num_rows > 0) {
     }
 
     .popup-title {
-        font-size: 1.25rem;
+        font-size: var(--text-xl);
         font-weight: 700;
         color: #1e293b;
         margin: 0;
@@ -99,7 +99,7 @@ if ($result && $result->num_rows > 0) {
         display: flex;
         padding: 12px 0;
         border-bottom: 1px solid #e2e8f0;
-        font-size: 0.95rem;
+        font-size: var(--text-sm);
     }
 
     .popup-row:last-child {
@@ -134,7 +134,7 @@ if ($result && $result->num_rows > 0) {
         padding: 14px;
         border-radius: 8px;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: var(--text-base);
         transition: background-color 0.2s;
         box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
     }
@@ -146,7 +146,7 @@ if ($result && $result->num_rows > 0) {
     .close-popup-icon {
         background: none;
         border: none;
-        font-size: 1.5rem;
+        font-size: var(--text-2xl);
         color: #94a3b8;
         cursor: pointer;
         padding: 0;

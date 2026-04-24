@@ -17,17 +17,13 @@ if (!defined('DB_SERVER')) {
 
 // Buat koneksi
 $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
 // Atur charset ke UTF-8 untuk dukungan karakter Indonesia yang benar
 $conn->set_charset("utf8mb4");
-
 // Cek koneksi
 if ($conn->connect_error) {
-    // Catat error (di produksi, tulis ke file, bukan ditampilkan)
     error_log("Database Connection Failed: " . $conn->connect_error);
     die("Maaf, terjadi kesalahan pada sistem. Silakan coba lagi nanti.");
 }
-
 // Opsional: Atur zona waktu
 date_default_timezone_set('Asia/Makassar');
 

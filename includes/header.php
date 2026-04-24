@@ -39,6 +39,7 @@ $pageTitles = [
     'rencana_strategis.php' => 'Rencana Strategis',
     'sop.php' => 'SOP',
     'pendaftaran.php' => 'Pendaftaran Mahasiswa Baru',
+    'galeri_video.php' => 'Galeri Video',
 ];
 
 $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
@@ -171,6 +172,11 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
             </li>
 
 
+
+            <!-- Galeri (No Dropdown) -->
+            <li class="nav-item <?= isActive('galeri_video.php', $currentPage) ?>">
+                <a href="galeri_video" class="nav-link">Galeri</a>
+            </li>
 
             <!-- Alumni (No Dropdown) -->
             <li class="nav-item <?= isActive('alumni.php', $currentPage) ?>">

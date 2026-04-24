@@ -91,14 +91,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
 
-            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_berita.php', 'kelola_berita.php'])) echo 'open active'; ?>">
+            <li class="sidebar-item has-submenu <?php if(in_array($currentPage, ['admin_kelola_berita.php', 'kelola_berita.php', 'kelola_galeri_video.php'])) echo 'open active'; ?>">
                 <a href="javascript:void(0);" class="sidebar-link">
                     <div style="display:flex; align-items:center; gap:12px;">
-                        <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
+                        <i class="fas fa-newspaper"></i> <span>Berita & Galeri</span>
                     </div>
                 </a>
                 <ul class="sidebar-submenu">
                     <li><a href="kelola_berita" class="sidebar-link <?php if(strpos($currentPage, 'berita') !== false) echo 'active'; ?>">Semua Berita</a></li>
+                    <li><a href="kelola_galeri_video" class="sidebar-link <?php if(strpos($currentPage, 'galeri_video') !== false) echo 'active'; ?>">Galeri Video</a></li>
                 </ul>
             </li>
 

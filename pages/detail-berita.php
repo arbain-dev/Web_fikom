@@ -52,17 +52,34 @@ $recent_news = $stmt_recent->get_result();
         padding: 40px 20px;
         display: grid;
         grid-template-columns: 1fr 350px;
-        gap: 0 40px; /* Vertical gap 0, horizontal 40px */
+        gap: 0 40px;
+        align-items: start; /* Force alignment to top */
     }
 
     .back-link-container {
         grid-column: 1 / -1;
+        grid-row: 1;
         margin-bottom: 20px;
     }
 
-    /* Konten Utama */
     .main-content {
-        min-width: 0; /* Mencegah overflow */
+        grid-column: 1;
+        grid-row: 2;
+        min-width: 0;
+    }
+
+    .sidebar {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .main-content, .sidebar, .sidebar-widget {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    .sidebar-widget {
+        padding: 24px; /* Restore internal padding */
     }
 
     .back-link {
@@ -77,6 +94,10 @@ $recent_news = $stmt_recent->get_result();
 
     .back-link:hover {
         transform: translateX(-5px);
+    }
+
+    .article-glass-card, .sidebar-widget {
+        margin-top: 0 !important;
     }
 
     .article-glass-card {

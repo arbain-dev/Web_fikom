@@ -11,24 +11,24 @@
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Login]
+    Start(( )) --> A[/Akses halaman Login/]
     A --> B{Sudah login?}
     
-    B -- YA --> C[Buka halaman Dashboard]
+    B -- YA --> C[/Buka halaman Dashboard/]
     C --> End((( )))
     
-    B -- TIDAK --> D[Tampilkan form Login]
-    D --> E[/Masukkan username dan\npassword/]
-    E --> F[submit]
+    B -- TIDAK --> D[/Tampilkan form Login/]
+    D --> E[/Masukkan username dan<br>password/]
+    E --> F[/submit/]
     F --> G{Input Valid?}
     
-    G -- TIDAK --> H[Error]
+    G -- TIDAK --> H[/Error/]
     H --> D
     
     G -- YA --> I[Cek Akun di Sistem]
     I --> J{Akun Valid?}
     
-    J -- TIDAK --> K[Error]
+    J -- TIDAK --> K[/Error/]
     K --> D
     
     J -- YA --> L[Set session]
@@ -49,18 +49,18 @@ Ketika admin mengakses halaman login, sistem memeriksa apakah sesi masih aktif. 
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Visi Misi]
+    Start(( )) --> A[/Akses halaman Kelola Visi Misi/]
     
     A --> B{Pilih Tambah\natau Edit?}
     
-    B -- YA --> C[Tampilkan form Visi Misi]
+    B -- YA --> C[/Tampilkan form Visi Misi/]
     B -- TIDAK --> End((( )))
     
     C --> D[/Masukkan teks Visi Misi/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     E --> F{Input Valid?}
     
-    F -- TIDAK --> G[Error]
+    F -- TIDAK --> G[/Error/]
     G --> C
     
     F -- YA --> H[Simpan Data]
@@ -81,7 +81,7 @@ Admin membuka halaman, lalu memilih **Tambah** atau **Edit** untuk menampilkan f
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Struktur]
+    Start(( )) --> A[/Akses halaman Kelola Struktur/]
     
     A --> B{Aksi: Tambah/Edit\nPejabat?}
     
@@ -90,12 +90,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Data]
     
-    B -- YA --> C[Tampilkan form Tambah]
+    B -- YA --> C[/Tampilkan form Tambah/]
     C --> D[/Pilih Foto & ketik Nama/Jabatan/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     E --> F{Gambar Valid?}
     
-    F -- TIDAK --> G[Pesan Error]
+    F -- TIDAK --> G[/Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Data & Foto]
@@ -116,17 +116,17 @@ Admin mengisi formulir dengan Nama, Jabatan, dan Foto Pejabat, lalu menekan Subm
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Fakta Fakultas]
+    Start(( )) --> A[/Akses halaman Fakta Fakultas/]
     
     A --> B{Pilih Tambah\natau Edit?}
     B -- TIDAK --> End((( )))
     
-    B -- YA --> C[Tampilkan Form Fakta]
+    B -- YA --> C[/Tampilkan Form Fakta/]
     C --> D[/Ketik Judul dan Input Angka/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Format\nAngka Valid?}
-    F -- TIDAK --> G[Error]
+    F -- TIDAK --> G[/Error/]
     G --> C
     
     F -- YA --> H[Simpan Data]
@@ -147,17 +147,17 @@ Admin mengisi Judul dan nilai angka statistik fakultas, lalu menekan Submit. Sis
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses menu Tentang Fakultas]
+    Start(( )) --> A[/Akses menu Tentang Fakultas/]
     
     A --> B{Pilih Edit Profil\nSejarah?}
     B -- TIDAK --> End((( )))
     
-    B -- YA --> C[Tampilkan Text Editor Profil]
+    B -- YA --> C[/Tampilkan Text Editor Profil/]
     C --> D[/Ketik Latar Belakang / Sejarah/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     E --> F{Teks Tidak\nKosong?}
     
-    F -- TIDAK --> G[Error Teks Kosong]
+    F -- TIDAK --> G[/Error Teks Kosong/]
     G --> C
     
     F -- YA --> H[Simpan Teks Baru]
@@ -178,7 +178,7 @@ Admin mengedit narasi sejarah dan latar belakang fakultas melalui *Text Editor*.
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Slider]
+    Start(( )) --> A[/Akses halaman Kelola Slider/]
     
     A --> B{Pilih Tambah\natau Edit?}
     
@@ -187,12 +187,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Slider]
     
-    B -- YA --> C[Tampilkan form Slider]
+    B -- YA --> C[/Tampilkan form Slider/]
     C --> D[/Ketik Judul & Pilih Gambar Banner/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Gambar Valid\n& Lengkap?}
-    F -- TIDAK --> G[Pesan Error]
+    F -- TIDAK --> G[/Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Info & Unggah Gambar]
@@ -213,7 +213,7 @@ Admin mengisi judul dan mengunggah gambar *banner* untuk halaman beranda. Sistem
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Berita]
+    Start(( )) --> A[/Akses halaman Kelola Berita/]
     
     A --> B{Aksi: Tambah/Edit\nBerita?}
     
@@ -222,12 +222,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Berita]
     
-    B -- YA --> C[Tampilkan Editor Berita]
+    B -- YA --> C[/Tampilkan Editor Berita/]
     C --> D[/Ketik Judul, Isi Artikel, & Thumbnail/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Gambar & Teks\nValid?}
-    F -- TIDAK --> G[Tampilkan Pesan Error]
+    F -- TIDAK --> G[/Tampilkan Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Data & Unggah Thumbnail]
@@ -248,7 +248,7 @@ Admin mengisi Judul, Isi Artikel (*Rich Text Editor*), dan Foto Thumbnail, lalu 
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Dosen]
+    Start(( )) --> A[/Akses halaman Kelola Dosen/]
     
     A --> B{Aksi: Tambah/Edit\nProfil Dosen?}
     
@@ -257,12 +257,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Dosen]
     
-    B -- YA --> C[Tampilkan form Profil Dosen]
+    B -- YA --> C[/Tampilkan form Profil Dosen/]
     C --> D[/Input NIDN, Nama, Jabatan, Foto/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Format Foto & NIDN\nValid?}
-    F -- TIDAK --> G[Tampilkan Error Validasi]
+    F -- TIDAK --> G[/Tampilkan Error Validasi/]
     G --> C
     
     F -- YA --> H[Simpan Profil & Unggah Foto]
@@ -283,7 +283,7 @@ Admin mengisi data dosen (NIDN, Nama, Jabatan) dan mengunggah Foto Profil. Siste
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Ruangan]
+    Start(( )) --> A[/Akses halaman Kelola Ruangan/]
     
     A --> B{Pilih Tambah\natau Edit Ruangan?}
     
@@ -292,12 +292,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Daftar Ruangan]
     
-    B -- YA --> C[Tampilkan form Ruangan]
+    B -- YA --> C[/Tampilkan form Ruangan/]
     C --> D[/Input Nama Ruang, Fasilitas, Foto/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Gambar Valid\n& Lengkap?}
-    F -- TIDAK --> G[Pesan Error Ruangan]
+    F -- TIDAK --> G[/Pesan Error Ruangan/]
     G --> C
     
     F -- YA --> H[Simpan Data & Unggah Foto]
@@ -318,7 +318,7 @@ Admin mengisi Nama Ruang, keterangan Fasilitas, dan mengunggah Foto Ruangan. Sis
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Laboratorium]
+    Start(( )) --> A[/Akses halaman Kelola Laboratorium/]
     
     A --> B{Pilih Tambah\n/Edit Laboratorium?}
     
@@ -327,12 +327,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Laboratorium]
     
-    B -- YA --> C[Tampilkan form Laboratorium]
+    B -- YA --> C[/Tampilkan form Laboratorium/]
     C --> D[/Input Nama Lab, Inventaris, Foto/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Gambar Valid\n& Terisi?}
-    F -- TIDAK --> G[Pesan Error Validasi]
+    F -- TIDAK --> G[/Pesan Error Validasi/]
     G --> C
     
     F -- YA --> H[Simpan Inventaris & Unggah Foto]
@@ -353,7 +353,7 @@ Admin mengisi Nama Lab, daftar Inventaris, dan mengunggah Foto Laboratorium. Sis
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Kalender]
+    Start(( )) --> A[/Akses halaman Kelola Kalender/]
     
     A --> B{Pilih Tambah\n/Edit Agenda?}
     
@@ -362,12 +362,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Kalender]
     
-    B -- YA --> C[Tampilkan form Kalender]
+    B -- YA --> C[/Tampilkan form Kalender/]
     C --> D[/Input Kegiatan, Tanggal, & SMT/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Tanggal &\nTeks Valid?}
-    F -- TIDAK --> G[Pesan Error Validasi]
+    F -- TIDAK --> G[/Pesan Error Validasi/]
     G --> C
     
     F -- YA --> H[Simpan Data]
@@ -388,7 +388,7 @@ Admin mengisi Nama Kegiatan, Tanggal, dan Semester, lalu menekan Submit. Sistem 
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Kurikulum]
+    Start(( )) --> A[/Akses halaman Kelola Kurikulum/]
     
     A --> B{Aksi: Tambah/Edit\nMata Kuliah?}
     
@@ -397,12 +397,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Kurikulum]
     
-    B -- YA --> C[Tampilkan form Kurikulum]
+    B -- YA --> C[/Tampilkan form Kurikulum/]
     C --> D[/Ketik Mata Kuliah, SKS, Semester/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Input\nSKS Valid?}
-    F -- TIDAK --> G[Tampilkan Pesan Error]
+    F -- TIDAK --> G[/Tampilkan Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Data Kurikulum]
@@ -423,7 +423,7 @@ Admin mengisi Nama Mata Kuliah, jumlah SKS, dan Semester, lalu menekan Submit. S
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Kerjasama]
+    Start(( )) --> A[/Akses halaman Kelola Kerjasama/]
     
     A --> B{Pilih Tambah\n/Edit Partner?}
     
@@ -432,12 +432,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Kerjasama]
     
-    B -- YA --> C[Tampilkan form Kerjasama]
+    B -- YA --> C[/Tampilkan form Kerjasama/]
     C --> D[/Input Instansi, Keterangan, Logo/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Logo & Teks\nValid?}
-    F -- TIDAK --> G[Pesan Error Validasi]
+    F -- TIDAK --> G[/Pesan Error Validasi/]
     G --> C
     
     F -- YA --> H[Simpan Data & Foto]
@@ -458,7 +458,7 @@ Admin mengisi Nama Instansi, Keterangan MoU, dan mengunggah Logo mitra. Sistem m
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Pengabdian]
+    Start(( )) --> A[/Akses halaman Kelola Pengabdian/]
     
     A --> B{Pilih Tambah\n/Edit Pengabdian?}
     
@@ -467,12 +467,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Pengabdian]
     
-    B -- YA --> C[Tampilkan form Pengabdian]
+    B -- YA --> C[/Tampilkan form Pengabdian/]
     C --> D[/Input Judul, Pelaksana, Tanggal/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Input Teks\n& File Valid?}
-    F -- TIDAK --> G[Pesan Error Kelengkapan]
+    F -- TIDAK --> G[/Pesan Error Kelengkapan/]
     G --> C
     
     F -- YA --> H[Simpan Data]
@@ -493,7 +493,7 @@ Admin mengisi Judul Kegiatan, Nama Pelaksana, dan Tanggal, lalu menekan Submit. 
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Penelitian]
+    Start(( )) --> A[/Akses halaman Kelola Penelitian/]
     
     A --> B{Pilih Tambah\n/Edit Penelitian?}
     
@@ -502,12 +502,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Penelitian]
     
-    B -- YA --> C[Tampilkan form Penelitian]
+    B -- YA --> C[/Tampilkan form Penelitian/]
     C --> D[/Input Judul, Peneliti, & Abstrak/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Input Tulisan\nValid?}
-    F -- TIDAK --> G[Tampilkan Pesan Error]
+    F -- TIDAK --> G[/Tampilkan Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Data]
@@ -528,7 +528,7 @@ Admin mengisi Judul Penelitian, Nama Peneliti, dan Abstrak, lalu menekan Submit.
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Dokumen]
+    Start(( )) --> A[/Akses halaman Kelola Dokumen/]
     
     A --> B{Pilih Tambah\n/Edit Dokumen?}
     
@@ -537,12 +537,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Dokumen]
     
-    B -- YA --> C[Tampilkan form Dokumen]
+    B -- YA --> C[/Tampilkan form Dokumen/]
     C --> D[/Input Judul Info & Unggah File PDF/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{File PDF\n& Input Valid?}
-    F -- TIDAK --> G[Pesan Error Validasi]
+    F -- TIDAK --> G[/Pesan Error Validasi/]
     G --> C
     
     F -- YA --> H[Simpan Data & File]
@@ -563,7 +563,7 @@ Admin mengisi Judul Dokumen dan mengunggah file PDF. Sistem memvalidasi bahwa fi
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola Renstra]
+    Start(( )) --> A[/Akses halaman Kelola Renstra/]
     
     A --> B{Pilih Tambah\n/Edit Renstra?}
     
@@ -572,12 +572,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel Renstra]
     
-    B -- YA --> C[Tampilkan form Renstra]
+    B -- YA --> C[/Tampilkan form Renstra/]
     C --> D[/Input Judul Renstra & PDF/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Dokumen PDF\nValid?}
-    F -- TIDAK --> G[Tampilkan Pesan Error]
+    F -- TIDAK --> G[/Tampilkan Pesan Error/]
     G --> C
     
     F -- YA --> H[Simpan Data & File]
@@ -598,7 +598,7 @@ Admin mengisi Judul dan mengunggah file PDF Rencana Strategis. Sistem memvalidas
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola SOP]
+    Start(( )) --> A[/Akses halaman Kelola SOP/]
     
     A --> B{Pilih Tambah\n/Edit SOP?}
     
@@ -607,12 +607,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Tabel SOP]
     
-    B -- YA --> C[Tampilkan form SOP]
+    B -- YA --> C[/Tampilkan form SOP/]
     C --> D[/Input Nama SOP & Berkas PDF/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Format File\nValid?}
-    F -- TIDAK --> G[Pesan Kesalahan Format]
+    F -- TIDAK --> G[/Pesan Kesalahan Format/]
     G --> C
     
     F -- YA --> H[Simpan Data & Berkas]
@@ -633,7 +633,7 @@ Admin mengisi Nama SOP dan mengunggah file PDF pedoman. Sistem memvalidasi forma
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Kelola BEM]
+    Start(( )) --> A[/Akses halaman Kelola BEM/]
     
     A --> B{Aksi: Tambah/Edit\nAnggota BEM?}
     
@@ -642,12 +642,12 @@ flowchart TD
     Hapus -- TIDAK --> End((( )))
     HC --> I[Kembali ke Info BEM]
     
-    B -- YA --> C[Tampilkan form Anggota BEM]
+    B -- YA --> C[/Tampilkan form Anggota BEM/]
     C --> D[/Input Nama, Jabatan, & Foto/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Foto & Input\nValid?}
-    F -- TIDAK --> G[Tampilkan Error Form]
+    F -- TIDAK --> G[/Tampilkan Error Form/]
     G --> C
     
     F -- YA --> H[Simpan Data & Foto]
@@ -668,12 +668,12 @@ Admin mengisi Nama, Jabatan, dan mengunggah Foto anggota BEM. Sistem memvalidasi
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Pendaftaran]
+    Start(( )) --> A[/Akses halaman Pendaftaran/]
     
     A --> B{Pilih Cek\nData Pendaftar?}
     B -- TIDAK --> End((( )))
     
-    B -- YA --> C[Tampilkan Rincian Calon Mahasiswa]
+    B -- YA --> C[/Tampilkan Rincian Calon Mahasiswa/]
     C --> D{Apakah Data\nMemenuhi Syarat?}
     
     D -- TIDAK --> E[Terbitkan Status DITOLAK]
@@ -700,17 +700,17 @@ Admin membuka halaman dan memeriksa rincian data setiap pendaftar. Berdasarkan k
 
 ```mermaid
 flowchart TD
-    Start(( )) --> A[Akses halaman Pengaturan Sistem]
+    Start(( )) --> A[/Akses halaman Pengaturan Sistem/]
     
     A --> B{Aksi: Ubah\nNama/Logo?}
     B -- TIDAK --> End((( )))
     
-    B -- YA --> C[Tampilkan form Pengaturan Utama]
+    B -- YA --> C[/Tampilkan form Pengaturan Utama/]
     C --> D[/Ketik Nama Situs, Kontak, Logo/]
-    D --> E[Klik Submit]
+    D --> E[/Klik Submit/]
     
     E --> F{Gambar Logo\nValid?}
-    F -- TIDAK --> G[Tampilkan Kesalahan Logo]
+    F -- TIDAK --> G[/Tampilkan Kesalahan Logo/]
     G --> C
     
     F -- YA --> H[Simpan Pengaturan & Ganti Logo]

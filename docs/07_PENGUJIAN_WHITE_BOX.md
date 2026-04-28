@@ -28,16 +28,16 @@ Dalam laporan ini, tingkat kompleksitas logika diukur menggunakan metode **Cyclo
 ```mermaid
 flowchart TD
     1{Akses POST?} -->|Ya| 2{Input Kosong?}
-    1 -->|Tidak| 9[Redirect: Ilegal]
+    1 -->|Tidak| 9[/Redirect: Ilegal/]
     
-    2 -->|Ya| 3[Redirect: Kosong]
+    2 -->|Ya| 3[/Redirect: Kosong/]
     2 -->|Tidak| 4{User Ditemukan?}
     
     4 -->|Ya| 5{Password Cocok?}
-    4 -->|Tidak| 8[Redirect: Gagal]
+    4 -->|Tidak| 8[/Redirect: Gagal/]
     
-    5 -->|Ya| 6[Akses Dashboard]
-    5 -->|Tidak| 7[Redirect: Gagal]
+    5 -->|Ya| 6[/Akses Dashboard/]
+    5 -->|Tidak| 7[/Redirect: Gagal/]
     
     3 --> 10(((Stop)))
     6 --> 10
@@ -139,16 +139,16 @@ Berdasarkan hasil perhitungan Cyclomatic Complexity dan pengujian terhadap lima 
 ```mermaid
 flowchart TD
     1{Akses POST?} -->|Ya| 2{Token Valid?}
-    1 -->|Tidak| 9[Tampil Form]
+    1 -->|Tidak| 9[/Tampil Form/]
     
-    2 -->|Tidak| 3[Sistem Die]
+    2 -->|Tidak| 3[/Sistem Die/]
     2 -->|Ya| 4{Input Kosong?}
     
-    4 -->|Ya| 5[Pesan: Error]
+    4 -->|Ya| 5[/Pesan: Error/]
     4 -->|Tidak| 6{Simpan DB?}
     
-    6 -->|Ya| 7[Pesan: Sukses]
-    6 -->|Tidak| 8[Pesan: Gagal]
+    6 -->|Ya| 7[/Pesan: Sukses/]
+    6 -->|Tidak| 8[/Pesan: Gagal/]
     
     3 --> 10(((Stop)))
     5 --> 10
@@ -251,9 +251,9 @@ Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan 
 ```mermaid
 flowchart TD
     1{Simpan?} -->|Ya| 2{Kosong?}
-    1 -->|Tidak| 10[Tetap Tampil]
+    1 -->|Tidak| 10[/Tetap Tampil/]
     
-    2 -->|Ya| 3[Pesan: Error]
+    2 -->|Ya| 3[/Pesan: Error/]
     2 -->|Tidak| 4{Ada Foto?}
     
     4 -->|Ya| 5[Proses Foto]
@@ -262,8 +262,8 @@ flowchart TD
     5 --> 7{Eksekusi?}
     6 --> 7
     
-    7 -->|Ya| 8[Notif: Sukses]
-    7 -->|Tidak| 9[Notif: Gagal]
+    7 -->|Ya| 8[/Notif: Sukses/]
+    7 -->|Tidak| 9[/Notif: Gagal/]
     
     3 --> 11(((Stop)))
     8 --> 11

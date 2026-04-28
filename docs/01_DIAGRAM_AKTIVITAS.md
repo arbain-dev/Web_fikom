@@ -18,7 +18,7 @@ flowchart TD
     C --> End((( )))
     
     B -- TIDAK --> D[Tampilkan form Login]
-    D --> E[Masukkan username dan\npassword]
+    D --> E[/Masukkan username dan\npassword/]
     E --> F[submit]
     F --> G{Input Valid?}
     
@@ -56,7 +56,7 @@ flowchart TD
     B -- YA --> C[Tampilkan form Visi Misi]
     B -- TIDAK --> End((( )))
     
-    C --> D[Masukkan teks Visi Misi]
+    C --> D[/Masukkan teks Visi Misi/]
     D --> E[Klik Submit]
     E --> F{Input Valid?}
     
@@ -91,7 +91,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Data]
     
     B -- YA --> C[Tampilkan form Tambah]
-    C --> D[Pilih Foto & ketik Nama/Jabatan]
+    C --> D[/Pilih Foto & ketik Nama/Jabatan/]
     D --> E[Klik Submit]
     E --> F{Gambar Valid?}
     
@@ -122,7 +122,7 @@ flowchart TD
     B -- TIDAK --> End((( )))
     
     B -- YA --> C[Tampilkan Form Fakta]
-    C --> D[Ketik Judul dan Input Angka]
+    C --> D[/Ketik Judul dan Input Angka/]
     D --> E[Klik Submit]
     
     E --> F{Format\nAngka Valid?}
@@ -153,7 +153,7 @@ flowchart TD
     B -- TIDAK --> End((( )))
     
     B -- YA --> C[Tampilkan Text Editor Profil]
-    C --> D[Ketik Latar Belakang / Sejarah]
+    C --> D[/Ketik Latar Belakang / Sejarah/]
     D --> E[Klik Submit]
     E --> F{Teks Tidak\nKosong?}
     
@@ -188,7 +188,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Slider]
     
     B -- YA --> C[Tampilkan form Slider]
-    C --> D[Ketik Judul & Pilih Gambar Banner]
+    C --> D[/Ketik Judul & Pilih Gambar Banner/]
     D --> E[Klik Submit]
     
     E --> F{Gambar Valid\n& Lengkap?}
@@ -223,7 +223,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Berita]
     
     B -- YA --> C[Tampilkan Editor Berita]
-    C --> D[Ketik Judul, Isi Artikel, & Thumbnail]
+    C --> D[/Ketik Judul, Isi Artikel, & Thumbnail/]
     D --> E[Klik Submit]
     
     E --> F{Gambar & Teks\nValid?}
@@ -258,7 +258,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Dosen]
     
     B -- YA --> C[Tampilkan form Profil Dosen]
-    C --> D[Input NIDN, Nama, Jabatan, Foto]
+    C --> D[/Input NIDN, Nama, Jabatan, Foto/]
     D --> E[Klik Submit]
     
     E --> F{Format Foto & NIDN\nValid?}
@@ -293,7 +293,7 @@ flowchart TD
     HC --> I[Kembali ke Daftar Ruangan]
     
     B -- YA --> C[Tampilkan form Ruangan]
-    C --> D[Input Nama Ruang, Fasilitas, Foto]
+    C --> D[/Input Nama Ruang, Fasilitas, Foto/]
     D --> E[Klik Submit]
     
     E --> F{Gambar Valid\n& Lengkap?}
@@ -328,7 +328,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Laboratorium]
     
     B -- YA --> C[Tampilkan form Laboratorium]
-    C --> D[Input Nama Lab, Inventaris, Foto]
+    C --> D[/Input Nama Lab, Inventaris, Foto/]
     D --> E[Klik Submit]
     
     E --> F{Gambar Valid\n& Terisi?}
@@ -363,7 +363,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Kalender]
     
     B -- YA --> C[Tampilkan form Kalender]
-    C --> D[Input Kegiatan, Tanggal, & SMT]
+    C --> D[/Input Kegiatan, Tanggal, & SMT/]
     D --> E[Klik Submit]
     
     E --> F{Tanggal &\nTeks Valid?}
@@ -398,7 +398,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Kurikulum]
     
     B -- YA --> C[Tampilkan form Kurikulum]
-    C --> D[Ketik Mata Kuliah, SKS, Semester]
+    C --> D[/Ketik Mata Kuliah, SKS, Semester/]
     D --> E[Klik Submit]
     
     E --> F{Input\nSKS Valid?}
@@ -433,7 +433,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Kerjasama]
     
     B -- YA --> C[Tampilkan form Kerjasama]
-    C --> D[Input Instansi, Keterangan, Logo]
+    C --> D[/Input Instansi, Keterangan, Logo/]
     D --> E[Klik Submit]
     
     E --> F{Logo & Teks\nValid?}
@@ -468,7 +468,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Pengabdian]
     
     B -- YA --> C[Tampilkan form Pengabdian]
-    C --> D[Input Judul, Pelaksana, Tanggal]
+    C --> D[/Input Judul, Pelaksana, Tanggal/]
     D --> E[Klik Submit]
     
     E --> F{Input Teks\n& File Valid?}
@@ -503,7 +503,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Penelitian]
     
     B -- YA --> C[Tampilkan form Penelitian]
-    C --> D[Input Judul, Peneliti, & Abstrak]
+    C --> D[/Input Judul, Peneliti, & Abstrak/]
     D --> E[Klik Submit]
     
     E --> F{Input Tulisan\nValid?}
@@ -538,7 +538,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Dokumen]
     
     B -- YA --> C[Tampilkan form Dokumen]
-    C --> D[Input Judul Info & Unggah File PDF]
+    C --> D[/Input Judul Info & Unggah File PDF/]
     D --> E[Klik Submit]
     
     E --> F{File PDF\n& Input Valid?}
@@ -573,7 +573,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel Renstra]
     
     B -- YA --> C[Tampilkan form Renstra]
-    C --> D[Input Judul Renstra & PDF]
+    C --> D[/Input Judul Renstra & PDF/]
     D --> E[Klik Submit]
     
     E --> F{Dokumen PDF\nValid?}
@@ -608,7 +608,7 @@ flowchart TD
     HC --> I[Kembali ke Tabel SOP]
     
     B -- YA --> C[Tampilkan form SOP]
-    C --> D[Input Nama SOP & Berkas PDF]
+    C --> D[/Input Nama SOP & Berkas PDF/]
     D --> E[Klik Submit]
     
     E --> F{Format File\nValid?}
@@ -643,7 +643,7 @@ flowchart TD
     HC --> I[Kembali ke Info BEM]
     
     B -- YA --> C[Tampilkan form Anggota BEM]
-    C --> D[Input Nama, Jabatan, & Foto]
+    C --> D[/Input Nama, Jabatan, & Foto/]
     D --> E[Klik Submit]
     
     E --> F{Foto & Input\nValid?}
@@ -706,7 +706,7 @@ flowchart TD
     B -- TIDAK --> End((( )))
     
     B -- YA --> C[Tampilkan form Pengaturan Utama]
-    C --> D[Ketik Nama Situs, Kontak, Logo]
+    C --> D[/Ketik Nama Situs, Kontak, Logo/]
     D --> E[Klik Submit]
     
     E --> F{Gambar Logo\nValid?}

@@ -13,7 +13,7 @@ Aktivitas pertama kali selalu diawali dengan pengelola masuk ke halaman **Login*
 ```mermaid
 flowchart TD
     A([Mulai]) --> B[Buka Halaman Login Admin]
-    B --> C[Isi Username dan Password]
+    B --> C[/Isi Username dan Password/]
     C --> D{Sistem cek kecocokan sandi?}
     
     D -- Sandi Benar --> E[Buat Sesi Login & Arahkan ke Dasbor]
@@ -39,7 +39,7 @@ flowchart TD
     A([Mulai]) --> B[Buka Laman Manajemen (Contoh: Kelola Dosen)]
     B --> C{Pilih Tindakan Aksi?}
     
-    C -- Tambah / Edit --> D[Isi Formulir Data dan File Spesifik]
+    C -- Tambah / Edit --> D[/Isi Formulir Data dan File Spesifik/]
     D --> E{Sistem periksa keabsahan format?}
     E -- Format Valid --> F[Simpan masuk ke Database & Server]
     E -- Format Ilegal --> G[Tolak dan Berikan Pesan Peringatan]
@@ -89,7 +89,7 @@ Apabila tiba waktu di mana profil inti kampus bergeser dan memerlukan pergantian
 flowchart TD
     A([Mulai]) --> B[Tekan Menu Setelan Pengaturan Sistem]
     B --> C[Sistem tarik kelengkapan borang dari konfigurasi relasional]
-    C --> D[Ubah isian label naratif atau Unggah Logo Foto Baru]
+    C --> D[/Ubah isian label naratif atau Unggah Logo Foto Baru/]
     D --> E{Proses eksekusi validasi File?}
     
     E -- Jika File Aman --> F[Ganti rekaman Foto Server & Perbarui Database]

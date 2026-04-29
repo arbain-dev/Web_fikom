@@ -29,17 +29,17 @@ Dalam laporan ini, tingkat kompleksitas logika diukur menggunakan metode **Cyclo
 ```mermaid
 flowchart TD
     1{Akses POST?} -->|Ya| 2[/Input Username & Password/]
-    1 -->|Tidak| 10[/Redirect: Ilegal/]
+    1 -->|Tidak| 10[Redirect: Ilegal]
     
     2 --> 3{Input Kosong?}
-    3 -->|Ya| 4[/Redirect: Kosong/]
+    3 -->|Ya| 4[Redirect: Kosong]
     3 -->|Tidak| 5{User Ditemukan?}
     
     5 -->|Ya| 6{Password Cocok?}
-    5 -->|Tidak| 9[/Redirect: Gagal/]
+    5 -->|Tidak| 9[Redirect: Gagal]
     
-    6 -->|Ya| 7[/Akses Dashboard/]
-    6 -->|Tidak| 8[/Redirect: Gagal/]
+    6 -->|Ya| 7[Akses Dashboard]
+    6 -->|Tidak| 8[Redirect: Gagal]
     
     4 --> 11(((Stop)))
     7 --> 11
@@ -143,17 +143,17 @@ Berdasarkan hasil perhitungan Cyclomatic Complexity dan pengujian terhadap lima 
 ```mermaid
 flowchart TD
     1{Akses POST?} -->|Ya| 2{Token Valid?}
-    1 -->|Tidak| 10[/Tampil Form/]
+    1 -->|Tidak| 10[Tampil Form]
     
-    2 -->|Tidak| 3[/Sistem Die/]
+    2 -->|Tidak| 3[Sistem Die]
     2 -->|Ya| 4[/Input Data Pendaftaran/]
     
     4 --> 5{Input Kosong?}
-    5 -->|Ya| 6[/Pesan: Error/]
+    5 -->|Ya| 6[Pesan: Error]
     5 -->|Tidak| 7{Simpan DB?}
     
-    7 -->|Ya| 8[/Pesan: Sukses/]
-    7 -->|Tidak| 9[/Pesan: Gagal/]
+    7 -->|Ya| 8[Pesan: Sukses]
+    7 -->|Tidak| 9[Pesan: Gagal]
     
     3 --> 11(((Stop)))
     6 --> 11
@@ -258,10 +258,10 @@ Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan 
 ```mermaid
 flowchart TD
     1{Simpan?} -->|Ya| 2[/Input Data Dosen/]
-    1 -->|Tidak| 11[/Tetap Tampil/]
+    1 -->|Tidak| 11[Tetap Tampil]
     
     2 --> 3{Kosong?}
-    3 -->|Ya| 4[/Pesan: Error/]
+    3 -->|Ya| 4[Pesan: Error]
     3 -->|Tidak| 5{Ada Foto?}
     
     5 -->|Ya| 6[Proses Foto]
@@ -270,8 +270,8 @@ flowchart TD
     6 --> 8{Eksekusi?}
     7 --> 8
     
-    8 -->|Ya| 9[/Notif: Sukses/]
-    8 -->|Tidak| 10[/Notif: Gagal/]
+    8 -->|Ya| 9[Notif: Sukses]
+    8 -->|Tidak| 10[Notif: Gagal]
     
     4 --> 12(((Stop)))
     9 --> 12

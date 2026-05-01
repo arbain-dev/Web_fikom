@@ -169,10 +169,12 @@ $recent_news = $stmt_recent->get_result();
         line-height: 1.8;
         color: #334155;
         margin-bottom: 40px;
+        text-align: justify;
     }
     
     .article-body p {
         margin-bottom: 1.5rem;
+        text-align: justify;
     }
 
     /* Bagian Share */

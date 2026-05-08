@@ -241,37 +241,37 @@ Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan 
 ### 1. Pemetaan Statement dan Node
 | Potongan Kode PHP (Statement Code) | Simpul (Node) |
 |:---|:---:|
-| `if (isset($_POST['simpan'])) {` | **1** |
-| `$nidn = $_POST['nidn']; $nama = $_POST['nama']; dll` | **2** |
-| `if (empty($nidn) \|\| empty($nama)) {` | **3** |
-| `Error: Input Kosong` | **4** |
-| `if (ADA_FOTO)` | **5** |
-| `Upload Foto + SQL` | **6** |
-| `SQL Tanpa Foto` | **7** |
-| `if ($execute)` | **8** |
-| `Success Message` | **9** |
-| `Error Message` | **10** |
-| `No POST Action` | **11** |
-| **End** | **12** |
+| `if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {` | **1** |
+| `Ambil variabel POST (nama, email, prodi, dll)` | **2** |
+| `if (empty($nama) \|\| empty($email) \|\| empty($prodi) ...)` | **3** |
+| `$pesan_error = "Semua field bertanda * harus diisi.";` | **4** |
+| `if (empty($pesan_error) && isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK)` | **5** |
+| `Upload Foto dan Tetapkan $foto_file` | **6** |
+| `Gunakan $foto_lama (Tanpa Upload)` | **7** |
+| `if (empty($pesan_error)) { ... if ($stmt->execute()) {` | **8** |
+| `header("Location: kelola_dosen?status=..."); exit;` | **9** |
+| `$pesan_error = "Gagal memproses database.";` | **10** |
+| `Akses GET (Tampil Tabel & Form)` | **11** |
+| **Selesai (End)** | **12** |
 
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Simpan?} -->|Ya| 2[/Input Data Dosen/]
-    1 -->|Tidak| 11[Tetap Tampil]
+    1{Akses POST?} -->|Ya| 2[/Input Data Dosen/]
+    1 -->|Tidak| 11[Tampil Form Dosen]
     
-    2 --> 3{Kosong?}
-    3 -->|Ya| 4[Pesan: Error]
-    3 -->|Tidak| 5{Ada Foto?}
+    2 --> 3{Ada Input Kosong?}
+    3 -->|Ya| 4[Pesan: Error Kosong]
+    3 -->|Tidak| 5{Ada Upload Foto?}
     
-    5 -->|Ya| 6[Proses Foto]
-    5 -->|Tidak| 7[Proses Biasa]
+    5 -->|Ya| 6[Proses Upload]
+    5 -->|Tidak| 7[Tanpa Upload]
     
-    6 --> 8{Eksekusi?}
+    6 --> 8{Eksekusi DB Sukses?}
     7 --> 8
     
-    8 -->|Ya| 9[Notif: Sukses]
-    8 -->|Tidak| 10[Notif: Gagal]
+    8 -->|Ya| 9[Redirect: Sukses]
+    8 -->|Tidak| 10[Pesan: Gagal DB]
     
     4 --> 12(((Stop)))
     9 --> 12
@@ -285,13 +285,13 @@ graph TD
     classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
     classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
 
-    1((1)):::predicate -->|Simpan| 2((2))
-    1 -->|Batal / R1| 11((11))
+    1((1)):::predicate -->|Ya| 2((2))
+    1 -->|Tidak / R1| 11((11))
     2 --> 3((3)):::predicate
-    3 -->|Kosong / R2| 4((4))
-    3 -->|Isi| 5((5)):::predicate
-    5 -->|Foto| 6((6))
-    5 -->|No Foto| 7((7))
+    3 -->|Ya / R2| 4((4))
+    3 -->|Tidak| 5((5)):::predicate
+    5 -->|Ya| 6((6))
+    5 -->|Tidak| 7((7))
     6 --> 8((8)):::predicate
     7 --> 8
     8 -->|Ya / R5| 9((9))
@@ -347,7 +347,7 @@ Karena nilai V(G) = 5, maka terdapat 5 Independent Path, yaitu:
 |:---:|:---|
 | **R1** | Start → 1 → 11 → 12 → End |
 | **R2** | Start → 1 → 2 → 3 → 4 → 12 → End |
-| **R3** | Start → 1 → 2 → 3 → 5 → [6/7] → 8 → 10 → 12 → End |
+| **R3** | Start → 1 → 2 → 3 → 5 → 7 → 8 → 10 → 12 → End |
 | **R4** | Start → 1 → 2 → 3 → 5 → 7 → 8 → 9 → 12 → End |
 | **R5** | Start → 1 → 2 → 3 → 5 → 6 → 8 → 9 → 12 → End |
 

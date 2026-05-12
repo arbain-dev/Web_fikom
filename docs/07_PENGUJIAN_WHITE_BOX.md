@@ -28,7 +28,7 @@ Dalam laporan ini, tingkat kompleksitas logika diukur menggunakan metode **Cyclo
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Akses POST?} -->|Ya| 2[/Input Username & Password/]
+    1{Kirim Form Login?} -->|Ya| 2[/Input Username & Password/]
     1 -->|Tidak| 10[Redirect: Ilegal]
     
     2 --> 3{Input Kosong?}
@@ -142,7 +142,7 @@ Berdasarkan hasil perhitungan Cyclomatic Complexity dan pengujian terhadap lima 
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Akses POST?} -->|Ya| 2{Token Valid?}
+    1{Kirim Form Daftar?} -->|Ya| 2{Token Valid?}
     1 -->|Tidak| 10[Tampil Form]
     
     2 -->|Tidak| 3[Sistem Die]
@@ -257,7 +257,7 @@ Berdasarkan hasil pengujian terhadap lima jalur independen di atas, disimpulkan 
 ### 2. Flowchart
 ```mermaid
 flowchart TD
-    1{Akses POST?} -->|Ya| 2[/Input Data Dosen/]
+    1{Klik Simpan Data?} -->|Ya| 2[/Input Data Dosen/]
     1 -->|Tidak| 11[Tampil Form Dosen]
     
     2 --> 3{Ada Input Kosong?}
@@ -355,12 +355,136 @@ Berdasarkan analisis terhadap modul kelola data dosen, seluruh jalur eksekusi kr
 
 ---
 
-## 05. KESIMPULAN AKHIR
+## 05. UNIT PENGUJIAN 4: ALUR TAMBAH/EDIT/HAPUS PROFIL DOSEN
+
+### 1. Pemetaan Statement dan Node
+| Aktivitas / Statement | Simpul (Node) |
+|:---|:---:|
+| **Mulai (Start)** | **1** |
+| Akses halaman Kelola Dosen | **2** |
+| Aksi: Tambah/Edit Profil Dosen? | **3** |
+| Tampilkan form Profil Dosen | **4** |
+| Input NIDN, Nama, Jabatan, Foto | **5** |
+| Klik Submit | **6** |
+| Format Foto & NIDN Valid? | **7** |
+| Simpan Profil & Unggah Foto | **8** |
+| Tampilkan Error Validasi | **9** |
+| Aksi Hapus? | **10** |
+| Hapus Biodata & Foto | **11** |
+| Kembali ke Tabel Dosen | **12** |
+| **Selesai (End)** | **13** |
+
+### 2. Flowchart
+```mermaid
+flowchart TD
+    1(((Start))) --> 2[Akses halaman Kelola Dosen]
+    2 --> 3{Aksi: Tambah/Edit\nProfil Dosen?}
+    
+    3 -->|YA| 4[Tampilkan form Profil Dosen]
+    3 -->|TIDAK| 10{Aksi Hapus?}
+    
+    4 --> 5[Input NIDN, Nama, Jabatan, Foto]
+    5 --> 6[Klik Submit]
+    6 --> 7{Format Foto & NIDN\nValid?}
+    
+    7 -->|YA| 8[Simpan Profil & Unggah Foto]
+    7 -->|TIDAK| 9[Tampilkan Error Validasi]
+    
+    9 --> 4
+    8 --> 12[Kembali ke Tabel Dosen]
+    
+    10 -->|YA| 11[Hapus Biodata & Foto]
+    10 -->|TIDAK| 13(((End)))
+    
+    11 --> 12
+    12 --> 13
+```
+
+### 3. Flowgraph
+```mermaid
+graph TD
+    classDef predicate fill:#f9a8d4,stroke:#be185d,stroke-width:2px;
+    classDef region fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5;
+
+    1((1)) --> 2((2))
+    2 --> 3((3)):::predicate
+    3 -->|YA| 4((4))
+    3 -->|TIDAK| 10((10)):::predicate
+    4 --> 5((5))
+    5 --> 6((6))
+    6 --> 7((7)):::predicate
+    7 -->|YA / R2| 8((8))
+    7 -->|TIDAK / R1| 9((9))
+    9 --> 4
+    8 --> 12((12))
+    10 -->|YA / R3| 11((11))
+    10 -->|TIDAK / R4| 13(((13)))
+    11 --> 12
+    12 --> 13
+
+    subgraph Region_Analisis
+        R1[Region 1]:::region
+        R2[Region 2]:::region
+        R3[Region 3]:::region
+        R4[Region 4]:::region
+    end
+```
+
+Dari flowgraph tersebut didapatkan:
+
+**Diketahui:**
+* Region (R) = 4
+* Node (N) = 13
+* Edge (E) = 15
+* Predicate Node (P) = 3
+
+#### 4. Perhitungan Cyclomatic Complexity dari Edge dan Node
+**Diketahui:**
+* Edge (E) = 15
+* Node (N) = 13
+
+**Rumus:**
+$$V(G) = E - N + 2$$
+
+**Perhitungan:**
+$$V(G) = 15 - 13 + 2 = \mathbf{4}$$
+
+Jadi, nilai Cyclomatic Complexity dari flowgraph tersebut adalah **4**.
+
+#### 5. Perhitungan Cyclomatic Complexity dari Predicate Node (P)
+**Diketahui:**
+* Predicate Node (P) = 3 (yaitu Node 3, Node 7, dan Node 10)
+
+**Rumus:**
+$$V(G) = P + 1$$
+
+**Perhitungan:**
+$$V(G) = 3 + 1 = \mathbf{4}$$
+
+#### 6. Independent Path (4 Jalur Independen)
+Karena nilai V(G) = 4, maka terdapat 4 Independent Path, yaitu:
+
+**Tabel 4.13 Independent Path Kelola Dosen (Tambah/Edit/Hapus)**
+
+| Region | Independent Path |
+|:---:|:---|
+| **R4** | 1 → 2 → 3 → 10 → 13 |
+| **R3** | 1 → 2 → 3 → 10 → 11 → 12 → 13 |
+| **R2** | 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 12 → 13 |
+| **R1** | 1 → 2 → 3 → 4 → 5 → 6 → 7 → 9 → 4 → 5 → 6 → 7 → 8 → 12 → 13 |
+
+Berdasarkan analisis alur proses penambahan, pengeditan, dan penghapusan data dosen, pengujian menunjukkan bahwa semua cabang keputusan berfungsi dengan baik tanpa ada path yang tidak dapat dijangkau (unreachable code). Pengujian white-box dinyatakan **berhasil**.
+
+---
+
+## 06. KESIMPULAN AKHIR
 
 | Modul Pengujian | Skor V(G) | Jalur Independen | Status |
 |:---|:---:|:---:|:---:|
 | **Menu Login Administrator** | 5 | 5 Jalur | **Sukses** |
 | **Menu Pendaftaran Mahasiswa** | 5 | 5 Jalur | **Sukses** |
 | **Menu Kelola Data Dosen** | 5 | 5 Jalur | **Sukses** |
+| **Alur Tambah/Edit/Hapus Dosen** | 4 | 4 Jalur | **Sukses** |
 
 **Kesimpulan:** Seluruh alur logika program dinyatakan **VALID** dan **BERHASIL**. Sistem telah terbebas dari kesalahan struktur kontrol dan sanggup menangani setiap kondisi input pengguna secara akurat.
+

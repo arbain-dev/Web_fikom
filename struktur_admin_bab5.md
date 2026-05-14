@@ -109,12 +109,13 @@ Bagian ini menjelaskan mekanisme teknis bagaimana pengguna berinteraksi dengan s
 ### 1. Alur Autentikasi (Sistem)
 Proses dimulai ketika pengguna mengakses alamat panel admin. Sistem akan secara otomatis memeriksa status otorisasi pengguna. Jika pengguna belum melakukan *login*, sistem akan mengalihkan tampilan ke halaman Login. Pengguna kemudian memasukkan nama pengguna dan kata sandi. Sistem akan memverifikasi kredensial tersebut dengan data di basis data. Jika cocok, sistem membuat sesi keamanan unik dan mengizinkan pengguna masuk ke Dashboard.
 
-### 2. Alur Manajemen Data via Modal
-Untuk efisiensi antarmuka pengguna, modul-modul seperti Berita dan Dosen menggunakan mekanisme *Modal Popup*. Ketika admin menekan tombol "Tambah", sebuah jendela formulir akan muncul di atas halaman aktif tanpa memuat ulang (*reload*) keseluruhan halaman. Setelah admin mengisi data dan menyimpannya, sistem akan memproses data tersebut di latar belakang dan memperbarui tabel data secara otomatis.
+### 2. Alur Operasi Manajemen Data Terpadu (Konsep CRUD)
+Keseluruhan sistem pengelolaan data pada panel administrator dibangun secara dinamis menggunakan prinsip fundamental **CRUD** (Create, Read, Update, Delete). Mekanisme ini memastikan keakuratan dan keteraturan aliran informasi. Berikut adalah penjabaran operasionalisasinya:
 
-
-
----
+*   **Create (Menambah Data Baru):** Ketika administrator menekan tombol "Tambah" (misalnya pada halaman Dosen atau Berita), antarmuka akan memunculkan sebuah jendela formulir dinamis (*Modal Popup*) di atas layar aktif tanpa perlu berpindah halaman (*no page reload*). Setelah admin mengisi semua *field* (termasuk unggahan file jika ada) dan menyimpannya, sistem PHP akan mengeksekusi *query* `INSERT INTO` untuk memasukkan data tersebut sebagai rekam jejak (*record*) baru di dalam basis data (MySQL).
+*   **Read (Menampilkan & Membaca Data):** Setiap kali administrator membuka suatu halaman menu, sistem secara otomatis mengeksekusi perintah `SELECT` ke basis data. Data yang berhasil ditarik (*fetch*) kemudian dirender dan disajikan dalam bentuk tabel yang interaktif dan responsif (sering kali diperkuat oleh *library* seperti DataTables). Hal ini memungkinkan admin untuk mencari, mengurutkan, dan melakukan paginasi data dengan sangat mulus.
+*   **Update (Memperbarui Data):** Untuk memperbaiki kesalahan ketik atau memperbarui status data (seperti kenaikan jabatan dosen), administrator cukup menekan tombol berikon "Edit" pada baris data terkait. Sistem akan menarik data *existing* berdasarkan ID unik dan meletakkannya kembali ke dalam formulir *Modal*. Setelah dilakukan perubahan, perintah `UPDATE` SQL dikirim ke *server* untuk menimpa data lama secara presisi.
+*   **Delete (Menghapus Data Secara Aman):** Setiap baris data dilengkapi dengan tombol "Hapus" (ikon tempat sampah). Sebagai langkah mitigasi risiko kesalahan manusia (human error), sistem akan menampilkan *pop-up* peringatan konfirmasi sebelum data benar-benar dihilangkan. Jika dikonfirmasi, sistem mengirimkan perintah `DELETE` ke *database*. **Keunggulan sistem ini:** Jika data tersebut memiliki *file* media lampiran (contoh: foto profil, dokumen PDF, atau *thumbnail* gambar berita), kode program (melalui fungsi `unlink` di PHP) akan secara pintar menelusuri dan menghapus *file* fisiknya dari dalam folder penyimpanan di *server* (`uploads/`). Mekanisme ini mencegah penumpukan berkas sampah (*junk files*) yang dapat menguras kapasitas penyimpanan *hosting*.---
 
 ## 4. Struktur File & Database
 

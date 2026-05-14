@@ -1,83 +1,51 @@
 # Buku Panduan Penggunaan Website Fakultas Ilmu Komputer (FIKOM)
 
-Buku panduan ini disusun sebagai rujukan komprehensif untuk memahami keseluruhan ekosistem dan alur kerja Website Fakultas Ilmu Komputer. Secara garis besar, arsitektur sistem pada website ini terbagi menjadi dua bagian interaktif, yaitu halaman depan atau antarmuka pengunjung yang bersifat publik, serta halaman dasbor administrator yang digunakan untuk mengatur keseluruhan konten dan data yang ditampilkan. Panduan ini akan menjabarkan dengan rinci setiap menu yang tersedia, baik untuk pengunjung maupun administrator.
+Buku panduan ini disusun sebagai rujukan komprehensif untuk memahami keseluruhan ekosistem dan alur kerja Website Fakultas Ilmu Komputer. Secara garis besar, arsitektur sistem pada website ini terbagi menjadi dua bagian interaktif, yaitu halaman depan atau antarmuka pengunjung yang bersifat publik, serta halaman dasbor administrator yang digunakan untuk mengatur keseluruhan konten dan data yang ditampilkan. Panduan ini akan menjabarkan dengan rinci setiap menu yang tersedia, baik untuk pengunjung maupun administrator, dalam format narasi yang mendalam.
 
 ---
 
 ## 1. Penjelasan Detail Menu Pengunjung (Front-end)
 
-Halaman depan dirancang sebagai portal informasi utama yang menyambut pengunjung. Berikut adalah penjelasan rinci mengenai setiap menu yang dapat diakses oleh publik:
+Halaman depan dirancang sebagai portal informasi utama yang menyambut pengunjung. Berikut adalah penjelasan mengenai setiap menu yang dapat diakses oleh publik dalam format paragraf yang rinci.
 
 ### A. Menu Profil
-Menu ini memberikan gambaran umum mengenai identitas institusi. 
-*   **Sambutan Dekan:** Halaman ini berisi pesan resmi dari pimpinan fakultas yang menjelaskan visi kepemimpinan dan semangat pendidikan di FIKOM.
-*   **Visi, Misi, Tujuan, dan Sasaran:** Merupakan landasan strategis fakultas yang menjabarkan cita-cita jangka panjang dan langkah-langkah terukur untuk mencapainya.
-*   **Dosen:** Direktori lengkap tenaga pengajar yang menampilkan kualifikasi akademik dan bidang keahlian masing-masing dosen.
-*   **Struktur Organisasi:** Menampilkan bagan hierarki kepemimpinan fakultas untuk memberikan kejelasan mengenai tata kelola organisasi.
-*   **Pendaftaran:** Gerbang utama bagi calon mahasiswa baru untuk mendapatkan informasi prosedur pendaftaran dan mengisi formulir secara online.
+Menu Profil merupakan pintu utama bagi pengunjung untuk mengenali identitas dan landasan operasional fakultas. Halaman Sambutan Dekan menyajikan pesan resmi dari pimpinan yang menjabarkan semangat akademik dan visi kepemimpinan di lingkungan fakultas. Selanjutnya, halaman Visi, Misi, Tujuan, dan Sasaran menguraikan filosofi dasar serta target-target strategis yang ingin dicapai institusi dalam jangka panjang. Untuk transparansi sumber daya manusia, menu Dosen menampilkan daftar tenaga pengajar beserta latar belakang pendidikan dan bidang keahliannya. Struktur kepemimpinan fakultas dapat dilihat secara visual melalui halaman Struktur Organisasi yang memaparkan hierarki manajemen. Terakhir, bagi calon mahasiswa, halaman Pendaftaran menyediakan panduan lengkap mengenai tata cara bergabung menjadi bagian dari civitas akademika FIKOM secara online.
 
 ### B. Menu Program Studi
-Menyediakan informasi spesifik mengenai jalur pendidikan yang ditawarkan:
-*   **Informatika:** Menjelaskan fokus keilmuan pada pengembangan perangkat lunak, teknologi jaringan, dan sistem cerdas.
-*   **Pendidikan Teknologi Informasi:** Menjelaskan program yang menggabungkan kompetensi teknik komputer dengan ilmu keguruan.
+Bagian ini didedikasikan untuk memberikan informasi akademis mengenai pilihan program studi yang tersedia. Halaman Informatika menjelaskan secara mendalam mengenai fokus kurikulum yang berorientasi pada pengembangan perangkat lunak, teknologi jaringan, dan kecerdasan buatan. Sementara itu, halaman Pendidikan Teknologi Informasi menguraikan kombinasi unik antara penguasaan teknis komputer dan ilmu pedagogi untuk mencetak tenaga pendidik yang kompeten di era digital. Kedua halaman ini membantu calon mahasiswa dalam menentukan arah karir masa depan mereka.
 
 ### C. Menu Fasilitas
-Menginformasikan sarana pendukung kegiatan belajar mengajar:
-*   **Sarana dan Prasarana:** Daftar fasilitas fisik umum seperti ruang kelas, gedung, dan area kampus.
-*   **Laboratorium:** Rincian mengenai fasilitas praktikum komputer yang dilengkapi dengan teknologi terkini untuk mendukung keterampilan teknis mahasiswa.
+Fakultas menyediakan berbagai sarana untuk menunjang kenyamanan perkuliahan. Halaman Sarana dan Prasarana merinci fasilitas fisik gedung, ruang kelas, dan lingkungan kampus yang kondusif bagi mahasiswa. Untuk mendukung keterampilan praktis, halaman Laboratorium menjelaskan rincian fasilitas komputer dan perangkat keras pendukung yang tersedia untuk kegiatan praktikum, sehingga pengunjung dapat melihat kesiapan infrastruktur teknologi yang dimiliki fakultas.
 
 ### D. Menu Akademik
-Berisi informasi operasional harian bagi mahasiswa dan dosen:
-*   **Kurikulum:** Daftar mata kuliah wajib dan pilihan yang harus ditempuh mahasiswa selama masa studi.
-*   **Kalender Akademik:** Jadwal resmi seluruh kegiatan universitas, mulai dari masa perkuliahan hingga jadwal ujian.
+Menu ini memuat informasi teknis yang sangat krusial bagi mahasiswa aktif. Halaman Kurikulum menyajikan sebaran mata kuliah yang harus diselesaikan untuk mencapai gelar sarjana, lengkap dengan bobot SKS-nya. Sebagai acuan manajemen waktu, halaman Kalender Akademik memberikan jadwal resmi mengenai periode perkuliahan, masa ujian, hingga hari-hari penting lainnya dalam satu semester berjalan, sehingga seluruh kegiatan dapat terencana dengan baik.
 
 ### E. Menu Dokumen
-Pusat unduhan untuk dokumen-dokumen resmi fakultas:
-*   **Rencana Operasional (Renop):** Dokumen rencana kerja tahunan fakultas.
-*   **Rencana Strategis (Renstra):** Panduan pengembangan fakultas untuk jangka waktu lima tahun.
-*   **Standar Operasional Prosedur (SOP):** Kumpulan aturan baku mengenai prosedur layanan akademik dan administrasi.
+Pusat informasi ini menyimpan berbagai dokumen perencanaan yang dapat diunduh oleh publik. Rencana Operasional (Renop) menjabarkan detail rencana kerja tahunan fakultas, sedangkan Rencana Strategis (Renstra) memuat arah pengembangan jangka panjang. Selain itu, Standard Operating Procedure (SOP) menyediakan panduan aturan baku mengenai berbagai prosedur administratif agar mahasiswa dan staf mendapatkan kepastian layanan.
 
 ### F. Menu Riset
-Menampilkan kontribusi ilmiah civitas akademika:
-*   **Penelitian:** Dokumentasi publikasi riset dan karya ilmiah yang dihasilkan oleh dosen dan mahasiswa.
-*   **Pengabdian:** Catatan kegiatan sosial dan kontribusi fakultas secara langsung kepada masyarakat luas.
+Halaman ini menonjolkan produktivitas ilmiah dari para dosen dan mahasiswa. Menu Penelitian menampilkan berbagai judul riset dan publikasi jurnal yang telah dihasilkan sebagai kontribusi terhadap pengembangan ilmu pengetahuan. Di sisi lain, menu Pengabdian Masyarakat mendokumentasikan kegiatan sosial dan implementasi teknologi secara langsung kepada masyarakat sebagai bentuk nyata dari pelaksanaan Tri Dharma Perguruan Tinggi.
 
 ### G. Menu Kemahasiswaan
-Wadah aktivitas non-akademik dan pengembangan diri:
-*   **BEM (Badan Eksekutif Mahasiswa):** Informasi mengenai organisasi eksekutif tertinggi di tingkat mahasiswa fakultas.
-*   **UKM (Unit Kegiatan Mahasiswa):** Daftar komunitas minat dan bakat yang tersedia bagi mahasiswa.
-*   **Himpunan Mahasiswa:** Organisasi di tingkat program studi yang fokus pada pengembangan keprofesian.
+Aktivitas di luar ruang kelas dikelola melalui menu Kemahasiswaan. Halaman BEM menampilkan profil organisasi eksekutif mahasiswa yang menjadi wadah aspirasi dan kepemimpinan. Berbagai Unit Kegiatan Mahasiswa (UKM) juga dijelaskan untuk memberikan pilihan komunitas minat dan bakat bagi mahasiswa. Selain itu, Himpunan Mahasiswa di tingkat program studi dipaparkan sebagai wadah pengembangan profesionalisme yang lebih spesifik di masing-masing bidang ilmu.
 
 ---
 
 ## 2. Penjelasan Detail Menu Administrator (Back-end)
 
-Panel administrator adalah pusat kendali untuk memperbarui konten website. Berikut adalah rincian fungsionalitas setiap menu di panel admin:
+Panel administrator berfungsi sebagai pusat kendali untuk menjaga agar informasi di website tetap mutakhir. Berikut adalah penjelasan mengenai fungsionalitas setiap menu pengelolaan.
 
 ### A. Kelompok Manajemen Konten & Profil
-*   **Visi Misi:** Menu untuk menyunting teks visi dan misi fakultas agar tetap selaras dengan kebijakan universitas terbaru.
-*   **Struktur Organisasi:** Fasilitas untuk mengunggah gambar bagan kepemimpinan terbaru.
-*   **Data Fakta (Civitas):** Mengelola angka statistik (seperti jumlah mahasiswa/dosen) yang muncul di halaman beranda.
-*   **Tentang Fakultas:** Editor untuk mengubah narasi sejarah dan profil fakultas secara mendalam.
-*   **Kelola Slider:** Mengelola gambar-gambar spanduk (*banner*) besar yang berganti otomatis di halaman depan.
-*   **Kelola Berita:** Pusat manajemen artikel di mana admin dapat menambah, mengubah, atau menghapus berita kegiatan fakultas.
+Administrator memiliki kendali penuh terhadap narasi utama fakultas. Menu Visi Misi digunakan untuk memperbarui teks dasar tujuan fakultas, sementara menu Struktur Organisasi memungkinkan pengunggahan gambar hierarki yang baru jika terjadi pergantian jabatan. Data Fakta atau statistik civitas dikelola untuk memastikan angka-angka seperti jumlah dosen dan alumni tetap akurat. Sejarah fakultas dapat disunting melalui menu Tentang Fakultas, dan tampilan visual halaman depan dapat dipercantik melalui menu Kelola Slider. Terakhir, pengelolaan artikel berita harian dilakukan secara terpusat untuk menginformasikan setiap kegiatan fakultas kepada publik.
 
 ### B. Kelompok Manajemen Akademik & Fasilitas
-*   **Kelola Dosen:** Menginput dan memperbarui biodata serta riwayat pendidikan tenaga pengajar.
-*   **Kurikulum:** Mengelola data mata kuliah, kode mata kuliah, dan bobot SKS per semester.
-*   **Ruangan & Laboratorium:** Mendata aset fisik ruangan dan fasilitas praktikum beserta spesifikasinya.
-*   **Kalender:** Mengunggah file jadwal akademik semester berjalan.
+Untuk urusan akademis, administrator mengelola profil tenaga pendidik melalui menu Kelola Dosen dan mengatur sebaran kurikulum melalui menu Kurikulum. Basis data fasilitas juga diperbarui melalui menu Ruangan dan Laboratorium untuk mencatat perubahan spesifikasi ruangan. Jadwal akademik pun dapat diperbarui secara berkala dengan mengunggah file terbaru melalui menu Kalender, sehingga mahasiswa selalu mendapatkan informasi waktu yang benar.
 
 ### C. Kelompok Manajemen Tridharma & Kerjasama
-*   **Penelitian & Pengabdian:** Mengelola basis data publikasi ilmiah dan laporan kegiatan sosial dosen.
-*   **BEM:** Memperbarui profil organisasi mahasiswa, visi misi organisasi, dan struktur kepengurusan.
-*   **Kerjasama:** Mendata instansi mitra dan mengelola tampilan logo mitra di halaman depan.
+Kontribusi ilmiah dikelola melalui menu Penelitian dan Pengabdian, di mana administrator menginput data publikasi dan laporan kegiatan sosial. Aktivitas organisasi mahasiswa juga dipantau melalui menu BEM yang memungkinkan pembaruan struktur kepengurusan. Untuk memperluas jejaring, menu Kerjasama digunakan untuk mendata mitra institusi serta menampilkan logo-logo perusahaan rekanan pada halaman depan website sebagai bukti kolaborasi strategis.
 
-### D. Kelompok Manajemen Dokumen & Arsip
-*   **Dokumen Fakultas, Renstra, & SOP:** Fasilitas unggah dan kelola file dokumen resmi agar dapat diunduh oleh pengunjung website.
-
-### E. Kelola Pendaftaran (Feedback Sistem)
-*   **Data Pendaftaran:** Panel khusus untuk memantau formulir yang masuk dari calon mahasiswa. Admin dapat memverifikasi data, melihat rincian biodata lengkap, dan menghubungi pendaftar melalui integrasi WhatsApp.
+### D. Kelola Dokumen & Feedback Pendaftaran
+Sistem pengarsipan dikelola melalui menu Dokumen, Renstra, dan SOP yang memfasilitasi distribusi file resmi fakultas kepada pengunjung. Salah satu fitur yang sangat vital adalah menu Data Pendaftaran, di mana administrator dapat meninjau setiap formulir pendaftaran calon mahasiswa yang masuk. Panel ini menyediakan rincian biodata lengkap dan memungkinkan administrator untuk melakukan verifikasi serta menghubungi calon mahasiswa secara langsung melalui integrasi pesan WhatsApp untuk mempermudah koordinasi pendaftaran.
 
 ---
-Setiap menu di atas dirancang untuk saling terintegrasi, memastikan bahwa setiap perubahan yang dilakukan oleh administrator akan langsung memperbarui informasi bagi pengunjung secara akurat dan efisien.
+Setiap narasi menu di atas dirancang untuk memberikan pemahaman utuh mengenai bagaimana sistem ini beroperasi, di mana setiap perubahan yang dilakukan pada sisi administrator akan secara otomatis tercermin pada halaman pengunjung demi menjaga integritas informasi.

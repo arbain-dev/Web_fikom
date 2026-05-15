@@ -8,7 +8,7 @@ Berdasarkan arsitektur aplikasi, fitur-fitur pada halaman administrator dikelomp
 
 | **Sistem** | **Content** | **Data** | **Main** |
 | :--- | :--- | :--- | :--- |
-| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Profil Web**<br>• Visi Misi<br>• Struktur Organisasi<br>• Data Civitas<br>• Tentang Fakultas<br>• Kelola Slider<br><br> | **Akademik & SDM**<br>• Kelola Dosen<br>• Kurikulum<br>• Kalender<br>• Ruangan<br>• Laboratorium<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• BEM<br>• Kerjasama<br><br>**Arsip**<br>• Dokumen Fakultas<br>• Rencana Strategis<br>• SOP | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
+| **User Management**<br>• Pengaturan (Profile)<br>• Login / Logout<br><br>**Feedback**<br>• Data Pendaftaran | **Artikel & Berita**<br>• Kelola Berita<br><br>**Media**<br>• Galeri Foto & Video<br><br>**Profil Web**<br>• Visi Misi<br>• Struktur Organisasi<br>• Data Civitas<br>• Tentang Fakultas<br>• Kelola Slider<br><br> | **Akademik & SDM**<br>• Kelola Dosen<br>• Kurikulum<br>• Kalender<br>• Ruangan<br>• Laboratorium<br><br>**Tridharma**<br>• Penelitian & Pengabdian<br>• BEM<br>• Kerjasama<br><br>**Arsip**<br>• Dokumen Fakultas<br>• Rencana Strategis<br>• SOP | **Overview**<br>• Dashboard Statistik<br>• Ringkasan Aktivitas |
 
 ---
 
@@ -18,103 +18,142 @@ Berikut adalah penjelasan mendalam mengenai fungsi dan kegunaan dari setiap hala
 
 ### A. Halaman Login Administrator
 
-Halaman Login merupakan gerbang keamanan utama untuk mengakses sistem backend administrator. Antarmuka halaman ini didesain dengan gaya modern dan minimalis, menggunakan latar belakang gedung fakultas yang diburamkan (*blur*) untuk memberikan fokus visual pada panel login di tengah layar.
+Halaman Login merupakan pintu masuk utama bagi administrator untuk mengelola konten website. Tampilan halaman ini dirancang dengan estetika modern, menampilkan form input yang bersih dengan latar belakang visual gedung fakultas. Keamanan menjadi prioritas utama pada halaman ini untuk mencegah akses yang tidak sah.
 
-Elemen-elemen kunci pada halaman ini meliputi:
-1.  **Identitas Visual**: Menampilkan logo resmi fakultas di bagian atas panel untuk validasi institusi.
-2.  **Formulir Autentikasi**: Menyediakan kolom input untuk *username* dan *password*. Kolom sandi dilengkapi dengan fitur *toggle visibility* (ikon mata) yang memungkinkan pengguna memeriksa input sandi mereka sebelum dikirim, meningkatkan kenyamanan pengguna (User Experience).
-3.  **Link Lupa Kata Sandi**: Fitur bantuan bagi admin yang mengalami kendala akses akun.
-4.  **Navigasi Kembali**: Tautan "Kembali ke Beranda" di bagian bawah memungkinkan pengguna untuk membatalkan proses login dan kembali ke halaman utama pengunjung (Front-end).
+**Langkah-langkah Mengakses Sistem:**
+1.  Buka browser dan akses alamat URL admin (misal: `domain.com/admin/login.php`).
+2.  Masukkan **Username** dan **Password** yang telah terdaftar pada kolom yang tersedia.
+3.  Klik ikon **"Mata"** pada kolom password untuk memastikan kata sandi yang diketik sudah benar.
+4.  Klik tombol **"Login"**. Jika data valid, sistem akan mengarahkan Anda ke Dashboard utama.
 
-### B. Kelompok Menu Profil (Kelola Profil)
+---
+
+### B. Dashboard Utama (Overview)
+
+Setelah berhasil login, administrator akan disambut oleh halaman Dashboard. Halaman ini berfungsi sebagai pusat kontrol yang memberikan ringkasan informasi secara cepat melalui kartu statistik. Administrator dapat melihat jumlah total berita, dosen, penelitian, dan pendaftar mahasiswa baru tanpa harus membuka menu satu per satu.
+
+**Fungsi Utama Dashboard:**
+*   **Statistik Ringkas**: Menampilkan jumlah data penting dalam bentuk box berwarna yang menarik.
+*   **Akses Cepat**: Memudahkan navigasi ke modul-modul yang paling sering digunakan.
+*   **Notifikasi**: Memberikan informasi jika ada data pendaftaran baru yang masuk.
+
+---
+
+### C. Kelompok Menu Profil (Kelola Profil)
 
 **1. Sub-menu: Visi Misi**
-Halaman ini adalah editor konten vital yang menampilkan visi dan misi resmi fakultas.
-*   **Tambah/Edit Data:** Karena visi misi bersifat tetap, operasi utamanya adalah Pembaruan (Update). Administrator menyunting teks visi dan misi menggunakan fitur *Rich Text Editor* layaknya Microsoft Word, lalu menekan tombol "Simpan" untuk langsung mengubah teks di halaman publik.
-*   **Hapus Data:** Penghapusan dilakukan dengan mengosongkan *text editor* dan menyimpannya, meskipun secara praktis data ini selalu dipertahankan.
+Halaman ini digunakan untuk mengelola visi dan misi fakultas agar tetap selaras dengan tujuan institusi. Tampilan halaman ini didominasi oleh *Rich Text Editor* yang memungkinkan pemformatan teks secara dinamis.
+
+*   **Langkah Menginput/Memperbarui Data**: Masukkan atau tempel teks visi dan misi pada kotak editor yang tersedia. Gunakan *toolbar* di atasnya untuk menebalkan teks atau membuat poin-poin (bullet points).
+*   **Langkah Mengedit Data**: Klik pada bagian teks yang ingin diubah di dalam editor, lakukan revisi, lalu klik tombol **"Simpan Perubahan"** di bagian bawah.
+*   **Langkah Menghapus Data**: Untuk mengosongkan data, hapus semua teks di dalam editor dan klik **"Simpan"**. Sistem akan mengosongkan tampilan di halaman depan.
 
 **2. Sub-menu: Struktur Organisasi**
-Sub-menu ini berfungsi sebagai manajemen tampilan hierarki kepemimpinan di fakultas.
-*   **Edit/Update Data:** Admin dapat mengklik tombol form untuk mengunggah (Update) gambar bagan struktur organisasi terbaru (biasanya format JPG atau PNG). Begitu diunggah, gambar lama otomatis tergantikan dengan bagan kepemimpinan yang baru menjabat.
+Halaman ini difokuskan pada manajemen visual bagan kepemimpinan. Admin dapat mengunggah gambar hierarki jabatan dari Dekan hingga unit terkecil.
+
+*   **Langkah Menginput Data**: Klik tombol **"Pilih File"** atau **"Browse"**, cari file gambar struktur (JPG/PNG) di komputer Anda, lalu klik **"Upload"**.
+*   **Langkah Mengedit Data**: Untuk mengganti gambar lama, cukup lakukan proses unggah kembali dengan file gambar yang baru. Sistem secara otomatis akan menimpa (replace) file lama dengan yang baru.
+*   **Langkah Menghapus Data**: Klik tombol **"Hapus"** jika ingin menghilangkan bagan struktur dari halaman publik.
 
 **3. Sub-menu: Data Civitas (Fakta Fakultas)**
-Modul pengelolaan data statistik kuantitatif yang menjadi indikator performa fakultas.
-*   **Edit Data:** Angka seperti Jumlah Mahasiswa atau Dosen sudah disediakan barisnya. Admin cukup menekan tombol **"Edit"**, memasukkan angka kuantitas yang baru, dan menyimpannya untuk meng-*update* *database*.
+Menampilkan data angka yang mencerminkan kekuatan fakultas, seperti jumlah mahasiswa aktif, jumlah dosen, dan jumlah alumni.
+
+*   **Langkah Menginput Data**: Klik tombol **"Tambah Data"**, masukkan nama kategori (misal: "Alumni") dan jumlahnya, lalu simpan.
+*   **Langkah Mengedit Data**: Klik ikon **"Pena/Edit"** pada baris data yang ingin diubah, masukkan angka terbaru pada kolom jumlah, lalu klik **"Update"**.
+*   **Langkah Menghapus Data**: Klik ikon **"Tempat Sampah"** pada baris yang tidak lagi diperlukan, kemudian konfirmasi penghapusan pada pop-up yang muncul.
 
 **4. Sub-menu: Tentang Fakultas**
-Halaman dedikasi untuk narasi sejarah dan latar belakang berdirinya fakultas.
-*   **Edit Data:** Menggunakan mekanisme *Rich Text Editor*. Admin dapat menyunting artikel sejarah, menambah poin baru, atau memperbaiki narasi tanpa perlu membuat entri baru dari nol.
+Halaman ini menyimpan narasi sejarah dan deskripsi umum fakultas. Menggunakan editor teks yang sama dengan menu Visi Misi untuk memudahkan pengelolaan konten panjang.
+
+*   **Langkah Menginput Data**: Tuliskan sejarah lengkap atau profil fakultas pada editor teks, tambahkan gambar jika diperlukan melalui fitur *insert image*.
+*   **Langkah Mengedit Data**: Buka halaman ini, ubah bagian narasi yang memerlukan perbaikan, lalu tekan tombol **"Simpan"**.
+*   **Langkah Menghapus Data**: Hapus seluruh konten di dalam editor jika ingin meniadakan deskripsi profil di halaman depan.
 
 ---
 
-### C. Kelompok Menu Fasilitas (Kelola Fasilitas)
+### D. Kelompok Menu Konten (Media & Publikasi)
 
-**5. Sub-menu: Ruangan**
-Sistem inventaris aset ruangan kelas dan aula.
-*   **Tambah Data:** Admin menekan tombol "Tambah Ruangan", lalu mengisi nama ruangan, kapasitas, letak lantai, dan kelengkapannya, kemudian menyimpannya ke sistem.
-*   **Edit Data:** Menekan ikon "Pena" untuk mengubah spesifikasi, misal menambahkan fasilitas AC yang baru dipasang di ruang tersebut.
-*   **Hapus Data:** Menekan ikon "Tempat Sampah" untuk menghapus data ruangan dari sistem jika ruangan tersebut dialihfungsikan secara permanen.
+**5. Sub-menu: Kelola Berita**
+Modul ini adalah jantung dari publikasi informasi terkini. Admin dapat mengelola artikel berita, pengumuman, dan kegiatan kampus.
 
-**6. Sub-menu: Laboratorium**
-Sistem manajemen profil laboratorium praktikum.
-*   **Tambah Data:** Mengisi form penambahan fasilitas laboratorium beserta jenis peralatan yang dimiliki.
-*   **Edit Data:** Meng-update daftar *software* atau perangkat keras jika laboratorium baru saja mendapatkan komputer baru.
-*   **Hapus Data:** Menghapus entri laboratorium yang sudah tidak dioperasikan.
+*   **Langkah Menginput Data**: Klik **"Tambah Berita"**, isi judul, pilih kategori, unggah foto utama sebagai thumbnail, dan ketik isi berita lengkap di kolom konten. Klik **"Terbitkan"**.
+*   **Langkah Mengedit Data**: Pilih berita dari daftar, klik **"Edit"**, ubah judul atau isi berita, dan ganti foto jika perlu. Klik **"Simpan Perubahan"**.
+*   **Langkah Menghapus Data**: Cari berita yang ingin dihapus, klik tombol **"Hapus"**, dan konfirmasi. Sistem akan menghapus data di database serta file foto di server.
 
----
+**6. Sub-menu: Kelola Slider**
+Digunakan untuk mengelola gambar spanduk (*banner*) yang berputar di halaman utama website.
 
-### D. Kelompok Menu Akademik (Kelola Akademik)
+*   **Langkah Menginput Data**: Klik **"Tambah Slider"**, unggah gambar beresolusi tinggi (disarankan 1920x1080 px), dan tambahkan teks keterangan singkat jika diperlukan.
+*   **Langkah Mengedit Data**: Klik **"Edit"** pada item slider untuk mengganti gambar atau mengubah teks promosinya.
+*   **Langkah Menghapus Data**: Klik ikon **"Hapus"** pada gambar slider yang sudah tidak relevan (misal: promo acara yang sudah lewat).
 
-**7. Sub-menu: Kurikulum**
-Halaman pengelola basis data mata kuliah tiap program studi.
-*   **Tambah Data:** Admin mengisi form "Tambah Mata Kuliah" dengan memasukkan Kode MK, Nama MK, Bobot SKS, dan memetakannya ke Semester yang tepat.
-*   **Edit Data:** Memperbarui bobot SKS atau mengubah nama mata kuliah jika terjadi revisi kurikulum standar nasional.
-*   **Hapus Data:** Menghapus mata kuliah yang sudah tidak relevan atau ditiadakan dari sistem kurikulum.
+**7. Sub-menu: Galeri Foto & Video**
+Manajemen dokumentasi visual dalam bentuk album foto dan tautan video.
 
-**8. Sub-menu: Kalender Akademik**
-Papan pengumuman jadwal kegiatan akademik semester berjalan.
-*   **Tambah/Update Data:** Admin tidak mengetik jadwal, melainkan mengunggah *file* gambar atau PDF Kalender Akademik resmi. File ini akan menimpa file lama dan langsung bisa diunduh/dilihat mahasiswa di halaman depan.
+*   **Langkah Menginput Data**: Untuk foto, unggah satu atau beberapa gambar sekaligus ke dalam satu album/judul kegiatan. Untuk video, masukkan judul dan tempelkan tautan (link) dari YouTube.
+*   **Langkah Mengedit Data**: Klik **"Edit"** untuk menambah/mengurangi foto dalam album atau mengubah tautan video.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** untuk melenyapkan satu album galeri atau satu entri video secara permanen.
 
 ---
 
-### E. Kelompok Menu Tridharma, Organisasi, dan Kemitraan
+### E. Kelompok Menu Akademik & Fasilitas
 
-**9. Sub-menu: Kelola Berita & Slider (Tambahan Manajerial Konten)**
-*   **Tambah Data:** Admin membuat artikel berita dengan menginput Judul, mengunggah satu Foto Utama (*Thumbnail*), mengetik isi berita di editor, lalu menekan Publish. Untuk Slider, admin mengunggah gambar spanduk promosi beresolusi tinggi.
-*   **Edit Data:** Admin merevisi narasi berita (typo) atau mengganti gambar *thumbnail*-nya.
-*   **Hapus Data:** Menghapus berita kadaluwarsa atau gambar slider lama; sistem akan pintar menghapus file fotonya dari *storage* server.
+**8. Sub-menu: Kelola Dosen**
+Manajemen profil tenaga pengajar profesional di lingkungan fakultas.
 
-**10. Sub-menu: Penelitian & Pengabdian Masyarakat**
-*   **Tambah Data:** Admin mencatat aktivitas tridharma dengan memasukkan Judul, Nama Pelaksana (Dosen/Mahasiswa), Tahun, dan mengunggah dokumen luaran riset.
-*   **Edit Data:** Mengubah status proyek (dari *Ongoing* menjadi *Selesai*) atau memperbarui besaran dana.
-*   **Hapus Data:** Menghapus rekam jejak kegiatan beserta *file* laporannya.
+*   **Langkah Menginput Data**: Klik **"Tambah Dosen"**, isi Nama Lengkap, NIDN, Jabatan Fungsional, dan unggah foto profil formal. Klik **"Simpan"**.
+*   **Langkah Mengedit Data**: Cari nama dosen, klik **"Edit"**, perbarui data seperti gelar atau jabatan terbaru, lalu klik **"Update"**.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** jika dosen sudah tidak aktif atau pensiun dari institusi.
 
-**11. Sub-menu: BEM (Badan Eksekutif Mahasiswa)**
-*   **Tambah/Edit Data:** Memperbarui struktur kabinet kepengurusan mahasiswa setiap pergantian tahun akademik, termasuk visi misi dan foto pengurus baru.
+**9. Sub-menu: Kurikulum & Kalender**
+Manajemen daftar mata kuliah dan jadwal kegiatan tahunan.
 
-**12. Sub-menu: Kerjasama**
-*   **Tambah Data:** Memasukkan nama perusahaan mitra baru beserta logo resminya untuk ditampilkan di beranda.
-*   **Edit Data:** Memperbaiki nama institusi mitra atau mengganti logo yang sudah *rebranding*.
-*   **Hapus Data:** Menghapus entri jika masa berlaku MoU kerja sama telah usai.
+*   **Langkah Menginput Data**: Untuk Kurikulum, masukkan kode MK, nama MK, dan SKS ke dalam form semester terkait. Untuk Kalender, unggah file PDF atau gambar kalender akademik terbaru.
+*   **Langkah Mengedit Data**: Klik **"Edit"** pada mata kuliah untuk mengubah bobot SKS. Untuk kalender, unggah file baru untuk menggantikan file yang lama.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** untuk menghilangkan mata kuliah yang sudah tidak masuk dalam kurikulum berjalan.
 
----
+**10. Sub-menu: Ruangan & Laboratorium**
+Inventarisasi fasilitas fisik untuk mendukung kegiatan belajar mengajar.
 
-### F. Kelompok Menu Arsip Dokumen (Kelola Dokumen)
-
-**13. Sub-menu: Dokumen Fakultas, Rencana Strategis (Renstra), & SOP**
-*   **Tambah Data:** Admin menekan "Tambah Dokumen", mengetik judul dokumen (misal: "SOP Skripsi"), lalu mengunggah *file* asli (PDF) ke *server*.
-*   **Edit Data:** Mengganti judul file dokumen atau mengunggah *file* revisi terbaru (misal: "SOP Skripsi Revisi 2024").
-*   **Hapus Data:** Menekan tombol "Hapus". Sistem tidak hanya menghapus nama di *database*, tetapi akan langsung mendelete *file* PDF tersebut dari *folder server* secara permanen untuk membebaskan memori.
+*   **Langkah Menginput Data**: Masukkan nama ruangan/lab, kapasitas, dan daftar fasilitas (AC, Proyektor, dll). Klik **"Simpan"**.
+*   **Langkah Mengedit Data**: Klik **"Edit"** untuk memperbarui daftar fasilitas atau kapasitas ruangan jika ada renovasi.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** pada entri ruangan yang sudah dialihfungsikan.
 
 ---
 
-### G. Kelompok Menu Data Pendaftaran (Feedback)
+### F. Kelompok Menu Tridharma, Organisasi, & Kemitraan
 
-**14. Halaman Data Pendaftaran Mahasiswa**
-Pusat pengelolaan formulir pendaftaran calon mahasiswa baru.
-*   **Read (Lihat Data):** Admin tidak menambahkan pendaftar dari sini; admin sekadar membaca daftar calon mahasiswa yang masuk, dan bisa mengklik tombol "Detail" untuk membaca biodata lengkap (alamat, nama orang tua, dll).
-*   **Aksi (Follow-up WA):** Terdapat tombol konfirmasi berbasis WhatsApp. Admin cukup menekannya untuk membuka ruang *chat* otomatis dengan pendaftar tersebut guna verifikasi berkas.
-*   **Hapus Data:** Jika terdapat data ganda (pendaftar submit dua kali), data fiktif/spam, atau pembatalan, admin dapat menekan tombol Hapus untuk membersihkan daftar antrean penerimaan.
+**11. Sub-menu: Penelitian & Pengabdian**
+Mendata rekam jejak riset dan kontribusi sosial oleh civitas akademika.
+
+*   **Langkah Menginput Data**: Klik **"Tambah Kegiatan"**, isi judul penelitian, nama ketua peneliti, tahun pelaksanaan, dan unggah file laporan/dokumen pendukung.
+*   **Langkah Mengedit Data**: Klik **"Edit"** untuk memperbarui status penelitian atau melengkapi data yang kurang.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** untuk menghapus record kegiatan beserta file lampirannya.
+
+**12. Sub-menu: Kerjasama & BEM**
+Mengelola daftar mitra institusi dan profil organisasi mahasiswa.
+
+*   **Langkah Menginput Data**: Unggah logo mitra kerja sama dan masukkan nama instansinya. Untuk BEM, masukkan struktur kepengurusan periode terbaru.
+*   **Langkah Mengedit Data**: Perbarui logo mitra jika ada perubahan branding atau perbarui nama pengurus BEM.
+*   **Langkah Menghapus Data**: Klik **"Hapus"** jika masa kerjasama berakhir atau untuk menghapus arsip pengurus lama.
+
+---
+
+### G. Kelompok Menu Arsip & Feedback
+
+**13. Sub-menu: Dokumen Fakultas (SOP & Renstra)**
+Penyimpanan digital untuk dokumen resmi, Standar Operasional Prosedur, dan Rencana Strategis dalam format PDF.
+
+*   **Langkah-langkah Menginput Data**: Klik tombol **"Tambah Dokumen"**, beri judul yang jelas (contoh: "SOP Pengajuan Cuti Mahasiswa"), pilih kategori dokumen, lalu unggah file PDF dari penyimpanan lokal Anda.
+*   **Langkah-langkah Mengedit Data**: Jika terdapat kesalahan judul atau ingin mengganti file dengan versi revisi terbaru, klik ikon **"Edit"**. Lakukan perubahan data atau unggah file baru, lalu klik **"Update"**.
+*   **Langkah-langkah Menghapus Data**: Klik tombol **"Hapus"** pada dokumen yang sudah tidak berlaku. Sistem akan secara otomatis menghapus catatan di database dan file fisik PDF dari server.
+
+**14. Halaman Data Pendaftaran (Feedback)**
+Pusat pengelolaan data calon mahasiswa baru yang mendaftar melalui formulir online di website.
+
+*   **Langkah-langkah Membaca Data**: Administrator dapat memantau pendaftar baru melalui tabel daftar pendaftaran. Klik tombol **"Detail"** (ikon mata) untuk melihat informasi profil lengkap pendaftar.
+*   **Langkah-langkah Tindak Lanjut (Follow-up)**: Gunakan tombol **"WhatsApp"** yang terintegrasi untuk menghubungi nomor pendaftar secara langsung guna keperluan verifikasi atau wawancara.
+*   **Langkah-langkah Menghapus Data**: Untuk menjaga kualitas data, hapus entri yang bersifat ganda atau spam dengan menekan tombol **"Hapus"** dan konfirmasi tindakan tersebut.
 
 ---
 
@@ -141,6 +180,6 @@ Secara teknis, kode program disusun sebagai berikut:
 | :--- | :--- | :--- |
 | **Main** | `dashboard.php`, `index.php` | - |
 | **Sistem** | `login.php`, `logout.php`, `profile.php`, `kelola_pendaftaran.php` | `users`, `pendaftaran` |
-| **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_visimisi.php`, `kelola_struktur.php`, `kelola_fakta.php`, `kelola_tentangfak.php` | `berita`, `slider`, `halaman_statis` |
+| **Content** | `kelola_berita.php`, `kelola_slider.php`, `kelola_visimisi.php`, `kelola_struktur.php`, `kelola_fakta.php`, `kelola_tentangfak.php`, `kelola_galeri_foto.php`, `kelola_galeri_video.php` | `berita`, `slider`, `halaman_statis`, `galeri_foto`, `galeri_video` |
 | **Data** | `kelola_dosen.php`, `kelola_kurikulum.php`, `kelola_ruangan.php`, `kelola_lab.php`, `kelola_penelitian.php`, `kelola_bem.php`, `kelola_kerjasama.php` | `dosen`, `matakuliah`, `ruangan`, `penelitian`, `pengabdian`, `dokumen`, `kerjasama` |
 

@@ -62,6 +62,9 @@ Menampilkan data angka yang mencerminkan kekuatan fakultas, seperti jumlah mahas
 *   **Langkah Mengedit Data**: Klik ikon **"Pena/Edit"** pada baris data yang ingin diubah, masukkan angka terbaru pada kolom jumlah, lalu klik **"Update"**.
 *   **Langkah Menghapus Data**: Klik ikon **"Tempat Sampah"** pada baris yang tidak lagi diperlukan, kemudian konfirmasi penghapusan pada pop-up yang muncul.
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Ketika administrator menekan tombol tambah atau edit, akan muncul jendela *pop-up* (modal) di tengah layar. Formulir ini memiliki kolom isian yang bersih dengan label yang jelas, mencakup kolom untuk **Nama Fakta/Kategori** dan **Jumlah/Kuantitas**. Terdapat tombol **"Simpan Data"** berwarna biru untuk memproses data dan tombol **"Batal"** untuk membatalkan aksi.
+
 **4. Sub-menu: Tentang Fakultas**
 Halaman ini menyimpan narasi sejarah dan deskripsi umum fakultas. Menggunakan editor teks yang sama dengan menu Visi Misi untuk memudahkan pengelolaan konten panjang.
 
@@ -80,6 +83,15 @@ Modul ini adalah jantung dari publikasi informasi terkini. Admin dapat mengelola
 *   **Langkah Mengedit Data**: Pilih berita dari daftar, klik **"Edit"**, ubah judul atau isi berita, dan ganti foto jika perlu. Klik **"Simpan Perubahan"**.
 *   **Langkah Menghapus Data**: Cari berita yang ingin dihapus, klik tombol **"Hapus"**, dan konfirmasi. Sistem akan menghapus data di database serta file foto di server.
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Halaman ini menggunakan jendela modal dengan judul **"TAMBAH BERITA"** atau **"EDIT BERITA"**. Formulir mencakup kolom:
+1.  **Judul Berita**: Input teks untuk judul utama artikel.
+2.  **Kategori**: Menu *dropdown* untuk memilih jenis berita (misal: Berita, Pengumuman, atau Kegiatan).
+3.  **Tanggal Publish**: Input penanggalan (*date picker*) untuk menentukan waktu rilis.
+4.  **Link Eksternal (Opsional)**: Kolom untuk menyematkan tautan luar jika berita bersumber dari portal lain.
+5.  **Konten Berita**: Kotak editor teks luas untuk mengetik narasi berita secara lengkap.
+Di bagian bawah tersedia tombol **"Simpan Data"** dengan aksen warna biru dan tombol **"Batal"**.
+
 **6. Sub-menu: Kelola Slider**
 Digunakan untuk mengelola gambar spanduk (*banner*) yang berputar di halaman utama website.
 
@@ -87,12 +99,18 @@ Digunakan untuk mengelola gambar spanduk (*banner*) yang berputar di halaman uta
 *   **Langkah Mengedit Data**: Klik **"Edit"** pada item slider untuk mengganti gambar atau mengubah teks promosinya.
 *   **Langkah Menghapus Data**: Klik ikon **"Hapus"** pada gambar slider yang sudah tidak relevan (misal: promo acara yang sudah lewat).
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Jendela modal pada menu ini dirancang sederhana dengan fokus pada manajemen gambar. Terdapat kolom input untuk mengunggah file gambar (Format JPG/PNG) dan kolom teks opsional untuk menambahkan keterangan yang akan muncul di atas slider.
+
 **7. Sub-menu: Galeri Foto & Video**
 Manajemen dokumentasi visual dalam bentuk album foto dan tautan video.
 
 *   **Langkah Menginput Data**: Untuk foto, unggah satu atau beberapa gambar sekaligus ke dalam satu album/judul kegiatan. Untuk video, masukkan judul dan tempelkan tautan (link) dari YouTube.
 *   **Langkah Mengedit Data**: Klik **"Edit"** untuk menambah/mengurangi foto dalam album atau mengubah tautan video.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** untuk melenyapkan satu album galeri atau satu entri video secara permanen.
+
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Modal pada galeri foto mendukung unggahan multi-file, sehingga admin dapat memilih banyak foto sekaligus. Untuk galeri video, modal menyediakan kolom input **"Judul Video"** dan **"Link Video"** untuk menyematkan kode ID dari YouTube.
 
 ---
 
@@ -105,6 +123,9 @@ Manajemen profil tenaga pengajar profesional di lingkungan fakultas.
 *   **Langkah Mengedit Data**: Cari nama dosen, klik **"Edit"**, perbarui data seperti gelar atau jabatan terbaru, lalu klik **"Update"**.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** jika dosen sudah tidak aktif atau pensiun dari institusi.
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Jendela modal **"KELOLA DOSEN"** menampilkan banyak kolom input untuk kelengkapan profil, meliputi: **Nama Lengkap & Gelar**, **NIDN**, **Bidang Keahlian**, **Jabatan Fungsional**, dan kolom unggah **Foto Profil**. Tata letak form diatur secara vertikal agar mudah diisi.
+
 **9. Sub-menu: Kurikulum & Kalender**
 Manajemen daftar mata kuliah dan jadwal kegiatan tahunan.
 
@@ -112,12 +133,18 @@ Manajemen daftar mata kuliah dan jadwal kegiatan tahunan.
 *   **Langkah Mengedit Data**: Klik **"Edit"** pada mata kuliah untuk mengubah bobot SKS. Untuk kalender, unggah file baru untuk menggantikan file yang lama.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** untuk menghilangkan mata kuliah yang sudah tidak masuk dalam kurikulum berjalan.
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Pada bagian kurikulum, modal pop-up menampilkan kolom **"Kode MK"**, **"Nama Mata Kuliah"**, **"Bobot SKS"**, dan pilihan **"Semester"**. Hal ini memudahkan admin dalam memetakan mata kuliah tanpa harus berpindah halaman.
+
 **10. Sub-menu: Ruangan & Laboratorium**
 Inventarisasi fasilitas fisik untuk mendukung kegiatan belajar mengajar.
 
 *   **Langkah Menginput Data**: Masukkan nama ruangan/lab, kapasitas, dan daftar fasilitas (AC, Proyektor, dll). Klik **"Simpan"**.
 *   **Langkah Mengedit Data**: Klik **"Edit"** untuk memperbarui daftar fasilitas atau kapasitas ruangan jika ada renovasi.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** pada entri ruangan yang sudah dialihfungsikan.
+
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Modal input mencakup kolom **"Nama Ruangan"**, **"Lantai"**, **"Kapasitas"**, dan kotak teks luas untuk merinci **"Fasilitas"**. Desainnya serupa dengan modal Berita, memberikan konsistensi visual di seluruh sistem.
 
 ---
 
@@ -130,12 +157,18 @@ Mendata rekam jejak riset dan kontribusi sosial oleh civitas akademika.
 *   **Langkah Mengedit Data**: Klik **"Edit"** untuk memperbarui status penelitian atau melengkapi data yang kurang.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** untuk menghapus record kegiatan beserta file lampirannya.
 
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Halaman ini menggunakan modal dengan formulir yang cukup kompleks, mencakup kolom **"Judul Riset"**, **"Nama Peneliti"**, **"Tahun"**, **"Sumber Dana"**, dan tombol unggah untuk dokumen laporan akhir.
+
 **12. Sub-menu: Kerjasama & BEM**
 Mengelola daftar mitra institusi dan profil organisasi mahasiswa.
 
 *   **Langkah Menginput Data**: Unggah logo mitra kerja sama dan masukkan nama instansinya. Untuk BEM, masukkan struktur kepengurusan periode terbaru.
 *   **Langkah Mengedit Data**: Perbarui logo mitra jika ada perubahan branding atau perbarui nama pengurus BEM.
 *   **Langkah Menghapus Data**: Klik **"Hapus"** jika masa kerjasama berakhir atau untuk menghapus arsip pengurus lama.
+
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Modal kerjasama menyediakan kolom sederhana untuk **"Nama Institusi/Mitra"** dan kolom unggah file untuk **"Logo Mitra"**. Untuk BEM, modal mencakup kolom untuk **"Nama Pengurus"**, **"Jabatan"**, dan **"Foto Pengurus"**.
 
 ---
 
@@ -147,6 +180,9 @@ Penyimpanan digital untuk dokumen resmi, Standar Operasional Prosedur, dan Renca
 *   **Langkah-langkah Menginput Data**: Klik tombol **"Tambah Dokumen"**, beri judul yang jelas (contoh: "SOP Pengajuan Cuti Mahasiswa"), pilih kategori dokumen, lalu unggah file PDF dari penyimpanan lokal Anda.
 *   **Langkah-langkah Mengedit Data**: Jika terdapat kesalahan judul atau ingin mengganti file dengan versi revisi terbaru, klik ikon **"Edit"**. Lakukan perubahan data atau unggah file baru, lalu klik **"Update"**.
 *   **Langkah-langkah Menghapus Data**: Klik tombol **"Hapus"** pada dokumen yang sudah tidak berlaku. Sistem akan secara otomatis menghapus catatan di database dan file fisik PDF dari server.
+
+**Tampilan Antarmuka Formulir (Modal Popup):**
+Jendela modal menyajikan kolom **"Judul Dokumen"**, menu *dropdown* untuk **"Jenis Dokumen"**, dan kolom unggah file PDF. Tombol **"Simpan Data"** tersedia untuk mengonfirmasi unggahan file ke server.
 
 **14. Halaman Data Pendaftaran (Feedback)**
 Pusat pengelolaan data calon mahasiswa baru yang mendaftar melalui formulir online di website.

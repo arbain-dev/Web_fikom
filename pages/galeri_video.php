@@ -3,9 +3,26 @@ require 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
 
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 12;
+$offset = ($page - 1) * $limit;
+
+$whereClause = "";
+if (!empty($search)) {
+    $whereClause = "WHERE judul LIKE '%$search%' OR deskripsi LIKE '%$search%' OR kategori LIKE '%$search%'";
+}
+
+$countSql = "SELECT COUNT(id) as total FROM galeri_video $whereClause";
+$countResult = mysqli_query($conn, $countSql);
+$totalRows = mysqli_fetch_assoc($countResult)['total'];
+$totalPages = ceil($totalRows / $limit);
+
 $sql = "SELECT id, judul, deskripsi, kategori, link_youtube, tanggal_publish 
         FROM galeri_video 
-        ORDER BY tanggal_publish DESC, id DESC";
+        $whereClause
+        ORDER BY tanggal_publish DESC, id DESC
+        LIMIT $limit OFFSET $offset";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -17,9 +34,23 @@ $result = mysqli_query($conn, $sql);
     </div>
 </header>
 
-<div class="container">
+<div class="container" style="max-width: 1200px; margin: 0 auto;">
     <div class="main-content" style="padding: clamp(2rem, 6vw, 4rem) 0;">
-        <div class="grid grid-auto-fit gap-6 stagger-container">
+        
+        <!-- Search Form -->
+        <div class="search-container" style="margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <form action="" method="GET" style="display: flex; gap: 0.5rem; box-shadow: var(--shadow-sm); border-radius: var(--radius-md); overflow: hidden;">
+                <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Cari video lama atau baru..." style="flex: 1; padding: 0.875rem 1.25rem; border: 1px solid var(--gray-300); border-right: none; outline: none; border-radius: var(--radius-md) 0 0 var(--radius-md);">
+                <button type="submit" class="btn btn-primary" style="padding: 0.875rem 1.5rem; border: none; border-radius: 0 var(--radius-md) var(--radius-md) 0; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-search"></i> Cari</button>
+            </form>
+            <?php if(!empty($search)): ?>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <a href="galeri_video" style="color: var(--gray-600); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-times-circle"></i> Hapus Pencarian</a>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="grid gap-6 stagger-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
             <?php if ($result && mysqli_num_rows($result) > 0): ?>
                 <?php while($row = mysqli_fetch_assoc($result)): ?>
                     <article class="news-card stagger-item">
@@ -69,6 +100,26 @@ $result = mysqli_query($conn, $sql);
                 </div>
             <?php endif; ?>
         </div>
+        
+        <!-- Pagination -->
+        <?php if ($totalPages > 1): ?>
+            <div class="pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 4rem;">
+                <?php if($page > 1): ?>
+                    <a href="?page=<?php echo $page - 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>" style="padding: 0.5rem 1rem; border-radius: var(--radius-md); background: var(--gray-100); color: var(--gray-700); text-decoration: none; border: 1px solid var(--gray-200);"><i class="fas fa-chevron-left"></i></a>
+                <?php endif; ?>
+                
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>" 
+                       style="padding: 0.5rem 1rem; border-radius: var(--radius-md); <?php echo $i === $page ? 'background: var(--primary-600); color: white; border: 1px solid var(--primary-600);' : 'background: white; color: var(--gray-700); text-decoration: none; border: 1px solid var(--gray-200);'; ?> transition: all 0.2s;">
+                        <?php echo $i; ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if($page < $totalPages): ?>
+                    <a href="?page=<?php echo $page + 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>" style="padding: 0.5rem 1rem; border-radius: var(--radius-md); background: var(--gray-100); color: var(--gray-700); text-decoration: none; border: 1px solid var(--gray-200);"><i class="fas fa-chevron-right"></i></a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 

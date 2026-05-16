@@ -8,8 +8,8 @@ $sql = "SELECT * FROM penelitian ORDER BY tahun DESC, judul ASC";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $penelitian_list[] = $row; 
+    while ($row = $result->fetch_assoc()) {
+        $penelitian_list[] = $row;
     }
 }
 ?>
@@ -25,33 +25,40 @@ if ($result && $result->num_rows > 0) {
 <!-- Main Content -->
 <section class="section-content">
     <div class="container">
-        <div class="document-grid stagger-container">
+        <div class="custom-doc-grid stagger-container">
             <?php if (count($penelitian_list) > 0): ?>
                 <?php foreach ($penelitian_list as $p): ?>
                     <?php
-                        $judul = htmlspecialchars($p['judul']);
-                        $peneliti = htmlspecialchars($p['peneliti']);
-                        $tahun = htmlspecialchars($p['tahun']);
-                        $link = $p['link_publikasi'];
-                        $json = htmlspecialchars(json_encode($p), ENT_QUOTES, 'UTF-8');
+                    $judul = htmlspecialchars($p['judul']);
+                    $peneliti = htmlspecialchars($p['peneliti']);
+                    $tahun = htmlspecialchars($p['tahun']);
+                    $link = $p['link_publikasi'];
+                    $json = htmlspecialchars(json_encode($p), ENT_QUOTES, 'UTF-8');
                     ?>
-                    <div class="document-card stagger-item cursor-pointer hover:bg-gray-50 from-card-action" onclick="showDetail(<?= $json ?>)">
-                        <div class="document-icon" style="background: var(--info-50); color: var(--info-600);">
+                    <div class="custom-doc-card stagger-item">
+                        <div class="custom-doc-icon">
                             <i class="fas fa-microscope"></i>
                         </div>
-                        <div class="document-info">
-                            <h3 class="document-title"><?= $judul ?></h3>
-                            <p class="text-xs font-bold text-primary-700 mb-1">Peneliti: <?= $peneliti ?></p>
-                            <p class="text-sm text-gray-500">Tahun: <?= $tahun ?></p>
-                        </div>
-                        <div class="text-gray-400">
-                            <i class="fas fa-chevron-right"></i>
+                        <div class="custom-doc-content">
+                            <h3 class="custom-doc-title"><?= $judul ?></h3>
+                            <div class="custom-doc-desc">
+                                Peneliti: <?= $peneliti ?> | Tahun: <?= $tahun ?>
+                            </div>
+                            <div class="custom-doc-action">
+                                <?php if (!empty($link) && $link !== '#'): ?>
+                                    <a href="<?= htmlspecialchars($link) ?>" target="_blank" class="custom-doc-btn">LIHAT PUBLIKASI
+                                        <i class="fas fa-arrow-right"></i></a>
+                                <?php else: ?>
+                                    <span class="custom-doc-btn" style="opacity:0.5; cursor:not-allowed;">LIHAT PUBLIKASI <i
+                                            class="fas fa-arrow-right"></i></span>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="col-span-2 text-center py-12">
-                     <h3 class="text-xl text-gray-500">Belum ada data penelitian.</h3>
+                    <h3 class="text-xl text-gray-500">Belum ada data penelitian.</h3>
                 </div>
             <?php endif; ?>
         </div>
@@ -70,7 +77,7 @@ if ($result && $result->num_rows > 0) {
         padding: 30px;
         border-radius: 12px;
         background: #fff;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .popup-header {
@@ -128,7 +135,8 @@ if ($result && $result->num_rows > 0) {
         align-items: center;
         justify-content: center;
         width: 100%;
-        background-color: #4f46e5; /* Primary Blue from reference */
+        background-color: #4f46e5;
+        /* Primary Blue from reference */
         color: white;
         text-decoration: none;
         padding: 14px;
@@ -153,7 +161,7 @@ if ($result && $result->num_rows > 0) {
         line-height: 1;
         margin-left: 10px;
     }
-    
+
     .close-popup-icon:hover {
         color: #ef4444;
     }
@@ -166,7 +174,7 @@ if ($result && $result->num_rows > 0) {
             <h3 id="popJudul" class="popup-title"></h3>
             <button class="close-popup-icon" onclick="closePopup()">&times;</button>
         </div>
-        
+
         <div class="popup-list">
             <div class="popup-row">
                 <div class="popup-label">Peneliti :</div>

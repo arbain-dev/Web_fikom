@@ -27,7 +27,7 @@ if ($result && $result->num_rows > 0) {
 <!-- Main Content -->
 <section class="section-content">
     <div class="container">
-        <div class="document-grid stagger-container">
+        <div class="custom-doc-grid stagger-container">
             <?php if (count($renop_list) > 0): ?>
                 <?php foreach ($renop_list as $item): ?>
                     <?php
@@ -37,20 +37,22 @@ if ($result && $result->num_rows > 0) {
                         $path = "uploads/renop/" . $file;
                         $ada_file = (!empty($file) && file_exists($path));
                     ?>
-                    <div class="document-card stagger-item">
-                        <div class="document-icon">
+                    <div class="custom-doc-card stagger-item">
+                        <div class="custom-doc-icon">
                             <i class="fas fa-file-pdf"></i>
                         </div>
-                        <div class="document-info">
-                            <h3 class="document-title"><?= $nama ?></h3>
-                            <p class="text-sm text-muted mb-2"><?= $deskripsi ?></p>
-                            <?php if ($ada_file): ?>
-                                <a href="<?= $path ?>" class="btn btn-sm btn-outline" download>
-                                    <i class="fas fa-download"></i> Download PDF
-                                </a>
-                            <?php else: ?>
-                                <span class="text-xs text-error">File tidak tersedia</span>
-                            <?php endif; ?>
+                        <div class="custom-doc-content">
+                            <h3 class="custom-doc-title"><?= $nama ?></h3>
+                            <div class="custom-doc-desc">
+                                <?= $deskripsi ?>
+                            </div>
+                            <div class="custom-doc-action">
+                                <?php if ($ada_file): ?>
+                                    <a href="<?= $path ?>" class="custom-doc-btn" download>DOWNLOAD PDF <i class="fas fa-arrow-right"></i></a>
+                                <?php else: ?>
+                                    <span class="custom-doc-btn" style="opacity:0.5; cursor:not-allowed;">DOWNLOAD PDF <i class="fas fa-arrow-right"></i></span>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

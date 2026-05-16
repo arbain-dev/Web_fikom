@@ -72,6 +72,14 @@ Manajemen berita yang tertata dengan baik memastikan bahwa website selalu memili
 
 ---
 
+### Kelola Galeri Foto
+
+Halaman Kelola Galeri Foto merupakan fasilitas bagi administrator untuk mengatur dan mempublikasikan dokumentasi visual kegiatan kampus. Modul ini telah diperbarui dengan fungsionalitas unggahan ganda (*multi-photo upload*), yang memungkinkan admin untuk mengunggah dan menyimpan beberapa gambar sekaligus dalam satu entri atau album kegiatan. Data foto disimpan secara efisien dalam basis data menggunakan format JSON array, sehingga mempermudah pengelolaan banyak gambar tanpa harus membuat entri terpisah untuk acara yang sama.
+
+Melalui antarmuka ini, administrator dapat dengan mudah menambah album baru, menghapus foto tertentu di dalam sebuah album, atau menghapus seluruh album kegiatan jika diperlukan. Mekanisme ini memberikan keleluasaan dalam menyusun galeri yang rapi dan terstruktur. Pengelolaan galeri yang modern dan efisien ini memastikan bahwa halaman publik selalu menyajikan dokumentasi yang lengkap dan menarik secara visual bagi pengunjung website, sekaligus menjaga performa server tetap optimal berkat manajemen file yang baik.
+
+---
+
 ### Kelola Dosen
 
 Menu Kelola Dosen digunakan untuk mendata seluruh staf pengajar aktif beserta kualifikasi akademiknya secara terintegrasi. Admin dapat menginput nama lengkap, gelar, program studi, bidang keahlian, hingga mengunggah foto profil dosen dalam format yang standar. Data yang diinputkan di sini akan dipetakan langsung ke direktori dosen di halaman publik, memberikan gambaran yang jelas mengenai kualitas sumber daya manusia yang dimiliki fakultas.

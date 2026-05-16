@@ -39,6 +39,7 @@ $pageTitles = [
     'rencana_strategis.php' => 'Rencana Strategis',
     'sop.php' => 'SOP',
     'pendaftaran.php' => 'Pendaftaran Mahasiswa Baru',
+    'galeri_foto.php' => 'Galeri Foto',
     'galeri_video.php' => 'Galeri Video',
 ];
 
@@ -173,9 +174,16 @@ $pageTitle = $pageTitles[$currentPage] ?? 'FIKOM UNISAN';
 
 
 
-            <!-- Galeri (No Dropdown) -->
-            <li class="nav-item <?= isActive('galeri_video.php', $currentPage) ?>">
-                <a href="galeri_video" class="nav-link">Galeri</a>
+            <!-- Galeri Dropdown -->
+            <li class="nav-item <?= isParentActive(['galeri_foto.php', 'galeri_video.php'], $currentPage) ?>">
+                <a href="#" class="nav-link">
+                    Galeri
+                    <i class="fas fa-chevron-down nav-arrow"></i>
+                </a>
+                <ul class="nav-dropdown">
+                    <li><a href="galeri_foto" class="nav-dropdown-item <?= isActive('galeri_foto.php', $currentPage) ?>">Galeri Foto</a></li>
+                    <li><a href="galeri_video" class="nav-dropdown-item <?= isActive('galeri_video.php', $currentPage) ?>">Galeri Video</a></li>
+                </ul>
             </li>
 
             <!-- Alumni (No Dropdown) -->

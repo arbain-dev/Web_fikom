@@ -3,7 +3,7 @@ include 'config/database.php';
 require_once 'config/constants.php';
 include 'includes/header.php';
 
-$sql = "SELECT id, judul, kategori, meta, konten, foto, tanggal_publish 
+$sql = "SELECT id, judul, kategori, konten, foto, tanggal_publish 
         FROM berita 
         ORDER BY tanggal_publish DESC";
 $result = $conn->query($sql);
@@ -24,7 +24,7 @@ $result = $conn->query($sql);
             <?php if ($result && $result->num_rows > 0): ?>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <?php 
-                        $foto = !empty($row['foto']) ? 'uploads/berita/' . $row['foto'] : 'assets/img/placeholder.jpg';
+                        $foto = !empty($row['foto']) ? BASE_URL . '/uploads/berita/' . $row['foto'] : BASE_URL . '/assets/img/placeholder.jpg';
                         $tanggal = date('d M Y', strtotime($row['tanggal_publish']));
                     ?>
                     <article class="news-card stagger-item">
@@ -32,13 +32,13 @@ $result = $conn->query($sql);
                         <div class="news-card-body">
                             <span class="news-card-category"><?= htmlspecialchars($row['kategori'] ?? 'Berita') ?></span>
                             <h3 class="news-card-title">
-                                <a href="detail-berita?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['judul']) ?></a>
+                                <a href="<?= BASE_URL ?>/detail-berita?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['judul']) ?></a>
                             </h3>
                             <div class="news-card-meta">
                                 <span><i class="far fa-calendar"></i> <?= $tanggal ?></span>
                             </div>
-                            <p class="news-card-excerpt"><?= substr(strip_tags($row['konten']), 0, 100) ?>...</p>
-                            <a href="detail-berita?id=<?= $row['id'] ?>" class="news-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                            <p class="news-card-excerpt"><?= substr(strip_tags($row['konten'] ?? ''), 0, 100) ?>...</p>
+                            <a href="<?= BASE_URL ?>/detail-berita?id=<?= $row['id'] ?>" class="news-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
                 <?php endwhile; ?>

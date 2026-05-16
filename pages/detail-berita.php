@@ -337,7 +337,7 @@ $recent_news = $stmt_recent->get_result();
                 </div>
                 <!-- Konten diproses untuk paragraph formatting jika perlu -->
                 <div class="article-body">
-                    <?php echo $berita['konten']; ?>
+                    <?php echo nl2br($berita['konten']); ?>
                 </div>
                 
                 <div class="share-section">

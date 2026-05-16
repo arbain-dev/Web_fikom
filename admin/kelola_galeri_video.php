@@ -166,7 +166,7 @@ include 'includes/admin_header.php';
                         <td data-label="Deskripsi"><?= htmlspecialchars(substr($r['deskripsi'], 0, 80)) ?><?= strlen($r['deskripsi']) > 80 ? '...' : '' ?></td>
                         <td data-label="Aksi">
                             <div class="action-links">
-                                <button type="button" class="btn-icon edit" onclick='editVideo(<?= json_encode($r) ?>)' title="Edit">
+                                <button type="button" class="btn-icon edit" onclick="editVideo(<?= htmlspecialchars(json_encode($r), ENT_QUOTES, 'UTF-8') ?>)" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 

@@ -101,16 +101,16 @@ $about = $q_about->fetch_assoc();
                     <?php
                     $db_img = $berita['foto'] ?? '';
                     $img_path = "uploads/berita/" . $db_img;
-                    $img_berita = (!empty($db_img) && file_exists(__DIR__ . '/' . $img_path))
-                        ? $img_path
-                        : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400";
+                    $img_berita = (!empty($db_img) && file_exists(BASE_PATH . '/' . $img_path))
+                        ? BASE_URL . '/' . $img_path
+                        : BASE_URL . '/assets/img/placeholder.jpg';
                     ?>
                     <article class="news-card stagger-item">
                         <img src="<?= $img_berita ?>" alt="<?= htmlspecialchars($berita['judul']) ?>" class="news-card-image">
                         <div class="news-card-body">
                             <span class="news-card-category"><?= htmlspecialchars($berita['kategori'] ?? 'Berita') ?></span>
                             <h3 class="news-card-title">
-                                <a href="detail-berita?id=<?= $berita['id'] ?>"><?= htmlspecialchars($berita['judul']) ?></a>
+                                <a href="<?= BASE_URL ?>/detail-berita?id=<?= $berita['id'] ?>"><?= htmlspecialchars($berita['judul']) ?></a>
                             </h3>
                             <div class="news-card-date">
                                 <i class="far fa-calendar"></i>

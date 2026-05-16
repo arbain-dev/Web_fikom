@@ -14,7 +14,7 @@ $result = $conn->query($query);
 
 <!-- Page Header -->
 <header class="page-header-section">
-    <div class="container">
+    <div class="container reveal-on-scroll">
         <h1 class="page-title">Ruangan Kelas & Fasilitas</h1>
         <p class="page-subtitle">Fasilitas pendukung kegiatan belajar mengajar</p>
     </div>
@@ -23,7 +23,7 @@ $result = $conn->query($query);
 <!-- Main Content -->
 <section class="section-content">
     <div class="container">
-        <div class="gallery-grid">
+        <div class="gallery-grid stagger-container">
             <?php
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -36,7 +36,7 @@ $result = $conn->query($query);
                         ? $path_foto 
                         : 'https://via.placeholder.com/600x400?text=Foto+Ruangan';
                     ?>
-                    <div class="card gallery-card">
+                    <div class="card gallery-card stagger-item">
                         <div class="gallery-image-wrapper">
                             <img src="<?= $foto_tampil ?>" alt="<?= $nama ?>" class="gallery-image" onclick="showPopup('<?= $nama ?>', '<?= $foto_tampil ?>')">
                         </div>

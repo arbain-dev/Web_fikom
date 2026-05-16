@@ -94,6 +94,20 @@ Penjelasan yang terperinci mengenai fasilitas laboratorium pada halaman ini dima
 
 ---
 
+Menu Galeri berfungsi sebagai album visual yang mendokumentasikan berbagai momen penting, kegiatan akademik, dan pencapaian sivitas akademika Fakultas Ilmu Komputer. Kehadiran menu ini bertujuan untuk memberikan gambaran visual yang nyata mengenai dinamika kehidupan kampus, memperlihatkan fasilitas, serta merekam jejak sejarah fakultas dalam bentuk kumpulan foto yang menarik. Melalui galeri ini, pengunjung dapat merasakan langsung atmosfer dan semangat kebersamaan yang terbangun di lingkungan fakultas.
+
+Secara teknis, galeri ditampilkan dengan desain yang responsif dan interaktif. Pengunjung dapat melihat berbagai album kegiatan, di mana setiap album didukung oleh fitur multi-foto yang memungkinkan penampilan beberapa gambar sekaligus dalam format *carousel* (slider) atau grid. Hal ini memberikan pengalaman visual yang lebih kaya dan mendetail, memudahkan calon mahasiswa maupun masyarakat umum untuk mengeksplorasi dokumentasi visual fakultas secara menyenangkan.
+
+---
+
+### Galeri Foto
+
+Halaman Galeri Foto menyajikan kompilasi dokumentasi dari berbagai acara, seperti seminar, lokakarya, kunjungan industri, hingga kegiatan kemahasiswaan. Setiap entri pada galeri foto bukan hanya sekadar satu gambar, melainkan sebuah album mini yang berisi kumpulan foto dari suatu kegiatan spesifik. Pengunjung dapat mengklik sebuah album untuk melihat semua foto yang terkait dalam satu tampilan *slider* yang dinamis, dilengkapi dengan judul kegiatan dan keterangan singkat.
+
+Penyajian galeri dalam format *multi-photo* ini mencerminkan komitmen fakultas dalam mendokumentasikan setiap momen berharga secara komprehensif. Fitur ini memungkinkan pengunjung untuk mendapatkan perspektif yang lebih luas mengenai suatu acara, seolah-olah mereka turut hadir di dalamnya. Dengan kualitas gambar yang optimal dan navigasi yang mudah, Galeri Foto menjadi salah satu halaman yang paling menarik untuk dikunjungi guna mengetahui lebih dekat aktivitas riil di Fakultas Ilmu Komputer.
+
+---
+
 Menu Akademik merupakan pusat informasi operasional yang mengatur ritme dan jalannya kegiatan perkuliahan bagi seluruh mahasiswa aktif di Fakultas Ilmu Komputer. Menu ini menyediakan dokumen-dokumen penting yang menjadi panduan dalam menempuh masa studi, memastikan bahwa setiap mahasiswa memiliki rujukan yang jelas mengenai struktur mata kuliah dan jadwal kegiatan tahunan. Pengelolaan informasi akademik yang tertata dalam menu ini mencerminkan sistem manajemen pendidikan yang terstruktur dan disiplin di lingkungan fakultas.
 
 Lebih dari sekadar daftar jadwal, Menu Akademik juga berperan sebagai alat perencanaan bagi mahasiswa dalam mencapai target kelulusan mereka. Dengan adanya kurikulum yang transparan dan kalender akademik yang pasti, mahasiswa dapat mengatur strategi belajar dan administrasi pendidikan mereka secara mandiri sejak awal semester. Ketersediaan informasi ini secara publik juga menunjukkan kesiapan fakultas dalam menyelenggarakan layanan pendidikan yang efisien dan berorientasi pada keberhasilan studi mahasiswa.

@@ -18,7 +18,7 @@ $result = mysqli_query($conn, $sql);
 <!-- Konten Utama -->
 <section class="section-content">
     <div class="container">
-        <div class="document-grid stagger-container">
+        <div class="custom-doc-grid stagger-container">
             <?php if (mysqli_num_rows($result) > 0): ?>
                 <?php while ($row = mysqli_fetch_assoc($result)): ?>
                     <?php
@@ -28,20 +28,22 @@ $result = mysqli_query($conn, $sql);
                         $file_path = "uploads/kurikulum/" . $file;
                         $ada_file = (!empty($file) && file_exists($file_path));
                     ?>
-                    <div class="document-card stagger-item">
-                        <div class="document-icon" style="background: var(--success-50); color: var(--success-600);">
+                    <div class="custom-doc-card stagger-item">
+                        <div class="custom-doc-icon">
                             <i class="fas fa-book"></i>
                         </div>
-                        <div class="document-info">
-                            <h3 class="document-title">Kurikulum <?= $nama ?></h3>
-                            <p class="text-sm text-muted mb-3"><?= $desc ?></p>
-                            <?php if ($ada_file): ?>
-                                <button onclick="showPdf('Kurikulum <?= $nama ?>', '<?= $file_path ?>')" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-eye"></i> Lihat PDF
-                                </button>
-                            <?php else: ?>
-                                <span class="text-xs text-error">File tidak tersedia</span>
-                            <?php endif; ?>
+                        <div class="custom-doc-content">
+                            <h3 class="custom-doc-title">Kurikulum <?= $nama ?></h3>
+                            <div class="custom-doc-desc">
+                                <?= $desc ?>
+                            </div>
+                            <div class="custom-doc-action">
+                                <?php if ($ada_file): ?>
+                                    <button onclick="showPdf('Kurikulum <?= $nama ?>', '<?= $file_path ?>')" class="custom-doc-btn">LIHAT PDF <i class="fas fa-arrow-right"></i></button>
+                                <?php else: ?>
+                                    <span class="custom-doc-btn" style="opacity:0.5; cursor:not-allowed;">LIHAT PDF <i class="fas fa-arrow-right"></i></span>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endwhile; ?>

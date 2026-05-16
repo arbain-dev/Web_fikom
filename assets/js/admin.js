@@ -139,7 +139,7 @@ window.modalHide = function (id) {
     }
 };
 
-window.tutupDetail = function() {
+window.tutupDetail = function () {
     window.modalHide('modalDetail');
 };
 
@@ -238,15 +238,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('kbKonten').value = data.konten;
                     document.getElementById('kbFotoLama').value = data.foto;
 
-                    // Preview existing image
-                    /* 
-                       Note: Since we don't have a direct img source for safe preview without full path, 
-                       we rely on backend or simple text info. 
-                       If you want to show existing image, you need to construct the path.
-                    */
+
+                    // TinyMCE setup moved to after modalShow
                 }
 
                 window.modalShow('kbPopupForm');
+                
+                // CRITICAL FIX: Re-initialize TinyMCE because moving the modal in the DOM breaks the iframe
+                if (typeof tinymce !== 'undefined') {
+                    tinymce.execCommand('mceRemoveEditor', false, 'kbKonten');
+                    tinymce.execCommand('mceAddEditor', false, 'kbKonten');
+                    
+                    setTimeout(() => {
+                        let editor = tinymce.get('kbKonten');
+                        if (editor) {
+                            editor.setContent(mode === 'edit' && data ? data.konten : '');
+                        }
+                    }, 200);
+                }
             },
 
             tutupPopup: function () {
@@ -738,7 +747,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.btn-edit-pengabdian').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 // Get data from button dataset or closest tr dataset
                 const tr = this.closest('tr');
                 const dataset = this.dataset.id ? this.dataset : (tr ? tr.dataset : {});

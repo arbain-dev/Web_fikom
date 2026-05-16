@@ -86,7 +86,7 @@ $data = $conn->query("SELECT * FROM tb_fakta ORDER BY urutan ASC");
                             <td><?= $row['angka'] ?></td>
                             <td class="action-links">
                                 <button class="btn-icon edit" 
-                                       onclick='faktaModule.bukaPopup("edit", <?= json_encode($row) ?>)'
+                                       onclick="faktaModule.bukaPopup('edit', <?= htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8') ?>)"
                                        title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>

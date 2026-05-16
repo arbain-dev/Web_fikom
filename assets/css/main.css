@@ -18,10 +18,10 @@
 }
 
 .navbar-container {
-    max-width: var(--container-xl);
+    max-width: var(--container-2xl);
     height: 100%;
     margin: 0 auto;
-    padding: 0 var(--space-4);
+    padding: 0 var(--space-6);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -713,15 +713,13 @@ body {
 
 .news-card-image {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     display: block;
     background-color: #f8fafc;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.news-card:hover .news-card-image {
-    transform: scale(1.05);
-}
 
 .news-card-body {
     padding: var(--space-6);
@@ -1360,9 +1358,6 @@ body {
     transition: transform var(--transition-slow);
 }
 
-.news-card:hover .news-card-image img {
-    transform: scale(1.05);
-}
 
 .news-meta {
     display: flex;
@@ -2387,11 +2382,11 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .dosen-grid-container {
+    .dosen-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
 
-    .pimpinan-container {
+    .pimpinan-grid {
         flex-direction: column;
         align-items: center;
     }
@@ -2719,9 +2714,6 @@ img {
     cursor: pointer;
 }
 
-.gallery-card:hover .gallery-image {
-    transform: scale(1.1);
-}
 
 .gallery-card .card-body {
     padding: var(--space-6);
@@ -3944,9 +3936,6 @@ body.page-prodi {
     transition: transform .3s ease;
 }
 
-.prodi-about-image:hover img {
-    transform: scale(1.05) rotate(2deg);
-}
 
 /* Visi Misi Section */
 .prodi-visi-misi-section {
@@ -4029,9 +4018,6 @@ body.page-prodi {
     transition: transform .5s ease;
 }
 
-.prodi-dosen-card:hover .prodi-dosen-image img {
-    transform: scale(1.08);
-}
 
 .prodi-dosen-content {
     padding: 18px;
@@ -4127,9 +4113,6 @@ body.page-prodi {
     transition: transform 0.4s ease;
 }
 
-.person-card:hover .person-photo img {
-    transform: scale(1.05);
-}
 
 /* Initials Avatar Fallback */
 .person-photo:has(img:not([src])) {
@@ -4620,9 +4603,6 @@ body.page-prodi {
     transition: transform 0.5s ease;
 }
 
-.profile-card:hover .profile-image {
-    transform: scale(1.05);
-}
 
 .profile-body {
     padding: var(--space-5);
@@ -5103,6 +5083,123 @@ textarea.input {
     transition: transform 0.3s ease;
 }
 
-.prodi-about-image img:hover {
-    transform: scale(1.05);
+
+/* Custom Document Grid */
+.custom-doc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 1024px) {
+    .custom-doc-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Custom Document Card Layout */
+.custom-doc-card {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.custom-doc-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--primary-300);
+}
+
+.custom-doc-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f8fafc;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--primary-600);
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.custom-doc-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-doc-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    word-break: break-word;
+}
+
+.custom-doc-desc {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+    text-align: justify;
+    flex: 1;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.custom-doc-action {
+    align-self: flex-end;
+    margin-top: 12px;
+}
+
+.custom-doc-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background: transparent;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.custom-doc-btn:hover {
+    background: var(--primary-600);
+    color: #fff;
+    border-color: var(--primary-600);
+}
+
+@media (max-width: 640px) {
+    .custom-doc-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .custom-doc-action {
+        align-self: stretch;
+    }
+    .custom-doc-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
 }

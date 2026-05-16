@@ -216,7 +216,7 @@ if ($result && $result->num_rows > 0) {
                             <td><span class="badge badge-category"><?= htmlspecialchars($b['kategori']); ?></span></td>
                             <td><?= date('d M Y', strtotime($b['tanggal_publish'])); ?></td>
                             <td class="action-links">
-                                <button class="btn-icon edit" onclick='beritaModule.bukaPopup("edit", <?= json_encode($b); ?>)' title="Edit">
+                                <button class="btn-icon edit" onclick="beritaModule.bukaPopup('edit', <?= htmlspecialchars(json_encode($b), ENT_QUOTES, 'UTF-8'); ?>)" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <a href="?action=hapus&id=<?= $b['id']; ?>" class="btn-icon delete" onclick="return confirm('Yakin mau hapus berita ini?')" title="Hapus">
@@ -292,7 +292,8 @@ if ($result && $result->num_rows > 0) {
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" onclick="beritaModule.tutupPopup()">Batal</button>
-            <button type="button" class="btn btn-primary" onclick="document.getElementById('kbFormBerita').submit()">Simpan Data</button>
+            <button type="button" class="btn btn-primary" onclick="if(typeof tinymce !== 'undefined'){tinymce.triggerSave();} document.getElementById('kbFormBerita').submit()">Simpan Data</button>
+
         </div>
     </div>
 </div>

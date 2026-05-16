@@ -18,7 +18,7 @@ $result = mysqli_query($conn, $sql);
 <!-- Main Content -->
 <section class="section-content">
     <div class="container">
-        <div class="document-grid stagger-container">
+        <div class="custom-doc-grid stagger-container">
             <?php if ($result && mysqli_num_rows($result) > 0): ?>
                 <?php while ($row = mysqli_fetch_assoc($result)): ?>
                     <?php
@@ -29,21 +29,23 @@ $result = mysqli_query($conn, $sql);
                         $file_path = "uploads/pengabdian_file/" . $file_name;
                         $file_exists = (!empty($file_name) && file_exists($file_path));
                     ?>
-                    <div class="document-card stagger-item">
-                        <div class="document-icon" style="background: var(--warning-50); color: var(--warning-600);">
+                    <div class="custom-doc-card stagger-item">
+                        <div class="custom-doc-icon">
                             <i class="fas fa-hand-holding-heart"></i>
                         </div>
-                        <div class="document-info">
-                            <h3 class="document-title"><?= $judul ?></h3>
-                            <p class="text-xs font-bold text-primary-700 mb-1">Oleh: <?= $pelaksana ?></p>
-                            <p class="text-sm text-gray-600 mb-3"><?= $desc ?></p>
-                            <?php if ($file_exists): ?>
-                                <button onclick="showPdf('<?= $judul ?>', '<?= $file_path ?>')" class="btn btn-sm btn-outline">
-                                    <i class="fas fa-eye"></i> Lihat Laporan
-                                </button>
-                            <?php else: ?>
-                                <span class="text-xs text-muted">Laporan belum tersedia</span>
-                            <?php endif; ?>
+                        <div class="custom-doc-content">
+                            <h3 class="custom-doc-title"><?= $judul ?></h3>
+                            <div class="custom-doc-desc">
+                                <div style="margin-bottom: 8px;"><strong>Oleh:</strong> <?= $pelaksana ?></div>
+                                <div><?= $desc ?></div>
+                            </div>
+                            <div class="custom-doc-action">
+                                <?php if ($file_exists): ?>
+                                    <button onclick="showPdf('<?= $judul ?>', '<?= $file_path ?>')" class="custom-doc-btn">LIHAT FILE <i class="fas fa-arrow-right"></i></button>
+                                <?php else: ?>
+                                    <span class="custom-doc-btn" style="opacity:0.5; cursor:not-allowed;">LIHAT FILE <i class="fas fa-arrow-right"></i></span>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
